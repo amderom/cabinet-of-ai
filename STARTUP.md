@@ -58,6 +58,7 @@ Phase 1.2 is specced and shipped in three parts, in this order (each gets its ow
 - The engraving style chosen here gives the machine its visual language in Part 2
 
 **Part 2 — The machine:**
+- The landing page's **hero image** (picked and declared in Part 1, distinct from the texture) gets its place and size in the landing page design, alongside the machine and the plates
 - Lagado demo as a self-contained React island, inside its parody framing (format chosen for this exhibit: pitch, pricing page, etc.), drawn in the engraving language from Part 1
 - Sound system: "enter with sound / in silence" choice, mute toggle that persists across page changes (`transition:persist`), first sound effects (Howler.js)
 - Demo context as agreed in [docs/ideas/demo-context.md](docs/ideas/demo-context.md): three plates (specimen + museum label, quote, specifications), parody in the scrolling banner, and a fourth part "The original" (adds a route; update docs/project.md → Routes when specifying)

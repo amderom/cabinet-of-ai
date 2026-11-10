@@ -80,6 +80,70 @@
     animation-name: glow-drift-calm;
   }
 
+  /*
+   * Engraving texture (ADR 005): the exhibit's engraving as faint neon lines
+   * in its accent colour. The scan is inverted (white lines on black), tinted
+   * with the accent, then screen-blended onto the page so the black vanishes.
+   * It sits at the top of the page, clipped, and never catches taps.
+   */
+  .texture-frame {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 120svh;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .texture {
+    position: absolute;
+    top: -2svh;
+    right: -22vw;
+    width: min(110vw, 820px);
+    aspect-ratio: 640 / 675;
+    transform: rotate(-8deg);
+    mix-blend-mode: screen;
+    opacity: 0.42;
+    mask-image: radial-gradient(closest-side, #000 45%, transparent 100%);
+  }
+  .texture img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(1) invert(1) contrast(1.6);
+  }
+  .texture-tint {
+    position: absolute;
+    inset: 0;
+    background: var(--color-accent);
+    mix-blend-mode: multiply;
+  }
+  @media (min-width: 768px) {
+    .texture {
+      right: -14vw;
+      width: min(52vw, 760px);
+      opacity: 0.28;
+    }
+  }
+  /*
+   * Desktop, pages with a texture: the glow is centred on the engraving, so
+   * the machine looks lit by it, and drifts only a little around it.
+   */
+  @media (min-width: 768px) {
+    .glow-lit {
+      left: auto;
+      right: -16vw;
+      top: -22vw;
+      width: 72vw;
+      height: 72vw;
+      animation-name: glow-drift-lit;
+    }
+  }
+  /* Reading pages: much fainter, and gone before the text starts. */
+  .texture-calm {
+    top: -14svh;
+    width: min(90vw, 560px);
+    opacity: 0.2;
+  }
+
   /* Fine film grain over everything. */
   .grain {
     position: fixed;
@@ -98,9 +162,70 @@
   }
 }
 
+/*
+ * Soft motion on reading pages. Reveal: Reveal.astro marks elements .is-in as
+ * they reach the screen (hidden only once the script runs). Scroll-linked
+ * extras only where scroll timelines exist; the timeline sits in its own rule
+ * so the CSS minifier can't fold it into the animation shorthand (which
+ * browsers reject: the cause of the invisible motion in the first exploration).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-ready .prose-cabinet :is(h2:not(:first-child), .figure, .pull-quote) {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .motion-ready .prose-cabinet :is(h2, .figure, .pull-quote).is-in {
+    opacity: 1;
+    transform: none;
+  }
+  @supports (animation-timeline: view()) {
+    .prose-cabinet .figure-plate img {
+      animation-name: plate-settle;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+    }
+    :where(.prose-cabinet .figure-plate img) {
+      animation-timeline: view();
+      animation-range: entry 0% cover 60%;
+    }
+    .texture-calm {
+      animation-name: texture-drift;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+    }
+    :where(.texture-calm) {
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes plate-settle {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes texture-drift {
+  to {
+    transform: translateY(-30svh) rotate(-2deg);
+  }
+}
+
 @keyframes glow-drift {
   to {
     transform: translate(10vw, 35vh) scale(1.15);
+  }
+}
+
+@keyframes glow-drift-lit {
+  to {
+    transform: translate(-5vw, 6vh) scale(1.08);
   }
 }
 
@@ -139,6 +264,107 @@
     text-decoration: none;
     padding-inline: 0.15em;
   }
+  /*
+   * Reading pages: "annotated copy" (direction C, chosen 2026-11-10).
+   * Orange marginalia: first letter, section numbers, hanging quotation marks,
+   * credits and plate edges. Engravings and pulled quotes sit beside the text
+   * on a phone and in the right-hand margin on wide screens.
+   */
+  .prose-cabinet {
+    counter-reset: section;
+  }
+  .prose-cabinet > p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-size: 4.2em;
+    line-height: 0.8;
+    padding: 0.06em 0.12em 0 0;
+    color: var(--color-accent);
+  }
+  .prose-cabinet > h2:not(:first-child) {
+    counter-increment: section;
+    margin-top: 2em;
+  }
+  .prose-cabinet > h2:not(:first-child)::before {
+    content: "§ " counter(section, upper-roman);
+    display: block;
+    margin-bottom: 0.6em;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--color-accent);
+  }
+  .pull-quote {
+    position: relative;
+    margin-block: 1.8em;
+    padding: 0.2em 0 0 34px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.18;
+    color: var(--color-cream);
+  }
+  .pull-quote::before {
+    content: "“";
+    position: absolute;
+    left: -2px;
+    top: -0.12em;
+    font-size: 2.6em;
+    line-height: 1;
+    font-style: normal;
+    color: var(--color-accent);
+  }
+  .pull-quote-cite {
+    margin-top: 0.7em;
+    font-style: normal;
+    color: var(--color-accent);
+  }
+
+  /* Engravings in a text: printed on the plate colour, so every scan shares one paper tone. */
+  .prose-cabinet .figure {
+    margin-block: 2.5em;
+  }
+  .figure-plate {
+    background: var(--color-plate);
+    border-radius: 2px;
+    padding: 12px;
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-accent) 45%, transparent);
+  }
+  @media (max-width: 1023px) {
+    /* Phone and tablet: engravings are annotations set to the right of the text. */
+    .prose-cabinet .figure {
+      width: 62%;
+      margin-left: auto;
+    }
+  }
+  @media (min-width: 1024px) {
+    /* Desktop: engravings and pulled quotes sit in the right-hand margin. */
+    .prose-cabinet .figure,
+    .prose-cabinet .pull-quote {
+      float: right;
+      clear: right;
+      width: 280px;
+      margin: 0.4em -340px 1.5em 0;
+    }
+    .prose-cabinet .pull-quote {
+      font-size: 22px;
+    }
+  }
+  .figure-plate img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Lift each scan's paper to white, then print it on the plate colour. */
+    filter: grayscale(1) brightness(1.18) contrast(1.35);
+    mix-blend-mode: multiply;
+  }
+  .prose-cabinet figcaption {
+    margin-top: 0.8em;
+    font-size: 15px;
+    line-height: 1.45;
+    color: color-mix(in oklab, var(--color-cream) 75%, transparent);
+  }
+
   .prose-cabinet .footnotes {
     margin-top: 3em;
     padding-top: 1.5em;

@@ -11,25 +11,43 @@ const folderId = ({ entry }: { entry: string }) => entry.split("/")[0];
 
 const exhibits = defineCollection({
   loader: glob({ base, pattern: "*/exhibit.yaml", generateId: folderId }),
-  schema: z.object({
-    title: z.string(),
-    tagline: z.string(),
-    accent: z.string().regex(/^#[0-9A-Fa-f]{6}$/, "accent must be a #RRGGBB colour"),
-    status: z.enum(["open", "sealed"]),
-    order: z.number().int(),
-    credits: z
-      .array(
-        z.object({
-          asset: z.string(),
-          source: z.string(),
-          author: z.string().optional(),
-          licence: z.string(),
-          url: z.url().optional(),
-        }),
-      )
-      .default([]),
-    research: researchSchema.optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      tagline: z.string(),
+      accent: z.string().regex(/^#[0-9A-Fa-f]{6}$/, "accent must be a #RRGGBB colour"),
+      status: z.enum(["open", "sealed"]),
+      order: z.number().int(),
+      // Every third-party (or author-provided) asset, declared once. Images are
+      // placed elsewhere by their id (figures, texture, hero). See ADR 005.
+      credits: z
+        .array(
+          z
+            .object({
+              id: z.string().regex(/^[a-z0-9-]+$/, "credit id must be kebab-case"),
+              asset: z.string(),
+              source: z.string(),
+              author: z.string().optional(),
+              licence: z.string().trim().min(1, "every credit needs a licence"),
+              url: z.url().optional(),
+              /** Image file, relative to exhibit.yaml (e.g. ./images/the-engine.png). */
+              file: image().optional(),
+              /** Optional tighter crop served on small screens. */
+              phoneFile: image().optional(),
+              alt: z.string().optional(),
+              caption: z.string().optional(),
+            })
+            .refine((c) => !c.file || (c.alt && c.alt.trim().length > 0), {
+              message: "an image credit needs alt text",
+            }),
+        )
+        .default([]),
+      research: researchSchema.optional(),
+      /** Id of the credited image used as the background texture. */
+      texture: z.string().optional(),
+      /** Id of the credited image that greets visitors on the landing page (shown from Part 2). */
+      hero: z.string().optional(),
+    }),
 });
 
 const essays = defineCollection({
