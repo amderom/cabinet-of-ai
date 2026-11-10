@@ -24,7 +24,7 @@ const parts = [
             href={part.href}
             aria-current={part.key === current ? "page" : undefined}
             class:list={[
-              "label block py-3.5 text-center transition-colors",
+              "label flex min-h-11 items-center justify-center py-3 text-center transition-colors",
               part.key === current ? "text-accent" : "text-muted hover:text-cream",
             ]}
           >
