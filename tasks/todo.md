@@ -10,7 +10,7 @@
 **Description:** Search the allowed open collections for 19th-century Gulliver illustrations (Laputa, the Academy of Lagado, the word frame) and images for the essay's sections. Present a shortlist with previews, then record it.
 
 **Acceptance criteria:**
-- [ ] At least 2 texture candidates and 4–6 essay candidates, each with title, artist, date, collection, source URL, licence and suggested use
+- [ ] At least 2 texture candidates, 2–3 hero candidates (landing page image, distinct from the texture) and 4–6 essay candidates, each with title, artist, date, collection, source URL, licence and suggested use
 - [ ] Every candidate's licence checked on its own source page (public domain worldwide or CC0); doubtful ones excluded, with the reason noted
 - [ ] `docs/features/lagado/engravings.md` written; previews shown to the author
 
@@ -26,7 +26,7 @@
 
 ## Checkpoint A — the author picks
 
-- [ ] The author picks the texture engraving and 1–3 essay engravings
+- [ ] The author picks the texture engraving, the hero image and 1–3 essay engravings
 - [ ] Picks recorded in `engravings.md`; only the picked files are downloaded
 
 ---
@@ -36,7 +36,7 @@
 **Description:** Extend `credits` with `id`, `file`, `alt` and `caption`; add `texture` to exhibits; add pure helpers and the build guard. Add the picked images (resized originals) to Lagado.
 
 **Acceptance criteria:**
-- [ ] `credits` entries accept `id`, `file` (checked by Astro's `image()`), `alt` and `caption?`; ids are unique per exhibit
+- [ ] `credits` entries accept `id`, `file` (checked by Astro's `image()`), optional `phoneFile`, `alt` and `caption?`; ids are unique per exhibit; exhibits accept `texture?` and `hero?` (ids of credited images; unknown ids stop the build)
 - [ ] The build fails with a clear message on: an image file without a credit, a credit without a licence, a duplicate id
 - [ ] Lagado's picked images are in `src/content/exhibits/lagado/images/` (longest side ≤ 2400 px), each credited
 
@@ -56,7 +56,7 @@
 **Description:** A `<Figure id>` component that shows an optimised image with its caption and credit, used in the Lagado essay at section breaks.
 
 **Acceptance criteria:**
-- [ ] `<Figure id="…" />` renders a responsive, optimised image with alt text, caption and a short credit line; an unknown id stops the build
+- [ ] `<Figure id="…" />` renders a responsive, optimised image with alt text, caption and a short credit line; serves the `phoneFile` version on small screens when there is one; an unknown id stops the build
 - [ ] 1–3 figures in the essay at section breaks; the essay's words unchanged (automatic comparison, as in Phase 1.1)
 - [ ] Images below the first screen load lazily; no layout shift when they load
 

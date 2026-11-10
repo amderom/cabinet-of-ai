@@ -24,7 +24,7 @@ The agent searches open collections and presents a **shortlist** with, for each 
 
 - **Allowed sources:** collections that state public domain or CC0 per item: Wikimedia Commons (only files marked public domain, checked per file), Rijksmuseum, The Met Open Access, Library of Congress, British Library (public-domain Flickr set), Internet Archive scans of out-of-copyright books, Smithsonian Open Access.
 - **Avoided:** sources with reuse conditions (e.g. Gallica's "non-commercial with attribution" terms), any image whose licence or artist dates are unclear. If in doubt, the image is dropped (AGENTS.md → Assets and credits).
-- **What to look for:** 19th-century illustrated editions of *Gulliver's Travels* (Laputa, Balnibarbi, the Academy of Lagado, the word frame), and images for the essay's sections (dice and frames, Borel's monkey, the spider and the bee). At least 2 candidates for the texture and 4–6 for the essay.
+- **What to look for:** 19th-century illustrated editions of *Gulliver's Travels* (Laputa, Balnibarbi, the Academy of Lagado, the word frame), and images for the essay's sections (dice and frames, Borel's monkey, the spider and the bee). At least 2 candidates for the texture, 2–3 for the **hero** (the image that greets visitors on the exhibit's landing page, distinct from the texture) and 4–6 for the essay.
 - **Output:** `docs/features/lagado/engravings.md` (shortlist + the author's picks), so the choice is recorded for the making-of.
 
 ### Step 2 — One image system, with automatic credits
@@ -49,6 +49,8 @@ credits:
 - Images are optimised by Astro at build (sizes for phone and desktop, modern formats, lazy-loaded below the first screen). No new dependency: Astro already includes its image tool.
 - **The credits block** (built in Phase 1.1) lists every image automatically.
 - **Build guard:** the build fails, with a clear message, if an image file in an exhibit's `images/` folder has no credit entry, or if a credit has no licence. This enforces the "no asset without its licence" rule mechanically.
+- **Phone vs desktop:** every image can have an optional **phone version** (`phoneFile`, e.g. a tighter crop of a wide engraving), served automatically on small screens; layout also differs by screen (full width between paragraphs on a phone; larger or in the margin on desktop, following the reading-page direction chosen in Step 5).
+- **Hero:** `exhibit.yaml` gets an optional `hero` (the id of a credited image, distinct from the texture). It is chosen and declared now; it is **displayed in Part 2**, when the landing page is designed with the machine and the plates, and may seed the LinkedIn preview image in Part 3.
 - The same system will serve the plates in Part 2 (no plates are built now).
 
 ### Step 3 — Lagado essay illustrations
@@ -91,7 +93,7 @@ Check:     npm run check
 Expected changes (follows [docs/project.md → Project Structure](./docs/project.md#project-structure)):
 
 ```
-src/content.config.ts                     credits: id, file (image()), alt, caption?; exhibits: texture?
+src/content.config.ts                     credits: id, file (image()), phoneFile?, alt, caption?; exhibits: texture?, hero?
 src/content/exhibits/lagado/images/       the picked engravings (originals, credited)
 src/content/exhibits/lagado/exhibit.yaml  credits + texture
 src/content/exhibits/lagado/essay.mdx     <Figure> placements (text unchanged)
@@ -151,6 +153,10 @@ export function creditFor<T extends CreditLike>(credits: T[], id: string, exhibi
 5. The author has compared three reading-page directions on her phone, and the chosen one is built into the shared layout.
 6. Essay page on mobile: LCP < 2.5 s, CLS < 0.1; no sideways scroll; no external requests.
 7. ADR 005 written; journal up to date; PR preview approved by the author on her phone.
+
+## Changes after approval
+
+- 2026-11-10, at the operator's request: phone versions of images (Step 2) and a hero image per exhibit (picked now, displayed in Part 2).
 
 ## Open Questions
 

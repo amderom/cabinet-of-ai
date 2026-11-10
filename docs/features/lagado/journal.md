@@ -53,3 +53,5 @@ The operator checked the preview on her phone: "Checked, merge it". PR amderom/c
 ## 2026-11-10 — Phase 1.2 part 1 spec
 
 `/spec phase 1.2 part 1` (images and engravings). The operator chose: the agent shortlists public-domain engravings and she picks; one neon engraving texture per exhibit (not one shared); three reading-page directions built as real pages on a preview link (not screenshots); 1–3 engravings inside the Lagado essay. One spec in five gated steps: shortlist → image system with automatic credits and a build guard against uncredited images → essay illustrations → texture → reading-page ideation, then build. No new dependency (Astro's own image tool).
+
+**Plan amended at the operator's request:** images can have a phone version (different crop) and their layout differs between phone and desktop (built in T2–T3, layout settled with the reading-page direction); each exhibit gets a hero image for its landing page, distinct from the texture: picked in T1, declared in T2, displayed in Part 2 (written into STARTUP.md).
