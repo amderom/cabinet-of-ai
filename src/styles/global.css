@@ -80,6 +80,56 @@
     animation-name: glow-drift-calm;
   }
 
+  /*
+   * Engraving texture (ADR 005): the exhibit's engraving as faint neon lines
+   * in its accent colour. The scan is inverted (white lines on black), tinted
+   * with the accent, then screen-blended onto the page so the black vanishes.
+   * It sits at the top of the page, clipped, and never catches taps.
+   */
+  .texture-frame {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 120svh;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .texture {
+    position: absolute;
+    top: -2svh;
+    right: -22vw;
+    width: min(110vw, 820px);
+    aspect-ratio: 640 / 675;
+    transform: rotate(-8deg);
+    mix-blend-mode: screen;
+    opacity: 0.42;
+    mask-image: radial-gradient(closest-side, #000 45%, transparent 100%);
+  }
+  .texture img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(1) invert(1) contrast(1.6);
+  }
+  .texture-tint {
+    position: absolute;
+    inset: 0;
+    background: var(--color-accent);
+    mix-blend-mode: multiply;
+  }
+  @media (min-width: 768px) {
+    .texture {
+      right: -14vw;
+      width: min(52vw, 760px);
+      opacity: 0.28;
+    }
+  }
+  /* Reading pages: much fainter, and gone before the text starts. */
+  .texture-calm {
+    top: -14svh;
+    width: min(90vw, 560px);
+    opacity: 0.2;
+  }
+
   /* Fine film grain over everything. */
   .grain {
     position: fixed;

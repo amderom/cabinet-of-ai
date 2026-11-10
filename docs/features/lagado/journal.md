@@ -73,3 +73,9 @@ The operator sent the full Grandville scholar scan (1210×1052) and both Gallica
 ## 2026-11-10 — T3: figures in the essay
 
 `<Figure id="…" />` shows an image by its credit id (alt, caption and credit from `exhibit.yaml`); it finds the exhibit from the page's address. Phone versions (`phoneFile`) served below 640px wide, tested with a temporary setting. Placed: Grandville's word machine after the opening paragraph, the professor and his book before "Neurons and Neurotics". Images come in sizes from 360 to 1360px (no upscaling), lazy-loaded, with their space reserved (no jump). First look showed each scan's beige paper as a darker box inside the plate; fixed by lifting the paper to white and printing it on the plate colour (CSS filter + multiply). Essay words checked identical. No external requests, no console errors at 390, 375 and 1280px.
+
+## 2026-11-10 — Checkpoint B and T4: texture
+
+The operator, on her phone: delete the captions, keep only the credit; she asked where her Swift drawing and the texture were (texture not built yet; the drawing is the landing-page hero, shown in Part 2 as agreed). Captions removed from the metadata.
+
+**T4:** the Engine diagram as a neon texture: the scan is inverted (white lines on black), tinted with the accent (multiply), then screen-blended onto the page so the black disappears: orange lines glowing behind the title. Placed at the top right, tilted, faded at its edges, clipped (no sideways scroll), never in the way of taps. Strong on the demo page, faint on the essay and making-of and gone before the text; on desktop it first ran over the "Making-of" tab, so it was made smaller, fainter and pushed further right there.

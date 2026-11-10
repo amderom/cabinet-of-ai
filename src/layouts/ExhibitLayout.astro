@@ -10,6 +10,8 @@ import ExhibitNav from "../components/ExhibitNav.astro";
 import ExhibitCta from "../components/ExhibitCta.astro";
 import Credits from "../components/Credits.astro";
 import type { ExhibitPart } from "../lib/exhibits";
+import { getImage } from "astro:assets";
+import { creditFor } from "../lib/credits";
 import { pageTitle } from "../lib/seo";
 
 interface Props {
@@ -23,6 +25,9 @@ interface Props {
 
 const { exhibit, part, title, description } = Astro.props;
 const isDemo = part === "demo";
+// The exhibit's engraving texture (an id in its credits), drawn behind the page as neon lines.
+const textureCredit = exhibit.data.texture ? creditFor(exhibit.data.credits, exhibit.data.texture, exhibit.id) : undefined;
+const texture = textureCredit?.file ? (await getImage({ src: textureCredit.file, format: "webp" })).src : undefined;
 const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part];
 ---
 
@@ -31,7 +36,8 @@ const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part
   description={description ?? exhibit.data.tagline}
   accent={exhibit.data.accent}
   type={part === "essay" ? "article" : "website"}
-  calm={!isDemo}>
+  calm={!isDemo}
+  texture={texture}>
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
     <a href="/" class="inline-flex min-h-11 items-center text-cream hover:text-accent">← Cabinet of AI</a>
     <span>{partName}</span>

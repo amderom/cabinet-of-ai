@@ -23,7 +23,6 @@ credits:
   - id: grandville-scholar
     file: ./images/grandville-scholar.jpg
     alt: "Engraving of a stern, balding scholar holding open a huge book covered in scribbled words, dated 1838."
-    caption: "A professor of Lagado and his great book."
     asset: "A professor and his book, Voyages de Gulliver (1838)"
     author: "J. J. Grandville"
     source: "Source gallica.bnf.fr / BnF"
@@ -32,7 +31,6 @@ credits:
   - id: grandville-word-machine
     file: ./images/grandville-word-machine.webp
     alt: "Engraving of a machine: word-blocks reading RIEN and GLOIRE turn on rods driven by spiked wheels, gears and a crank."
-    caption: "Grandville's word machine: turn the crank, and RIEN (nothing) sits next to GLOIRE (glory)."
     asset: "The word machine, Voyages de Gulliver (1838)"
     author: "J. J. Grandville"
     source: "Source gallica.bnf.fr / BnF"
