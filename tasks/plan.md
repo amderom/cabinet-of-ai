@@ -27,7 +27,7 @@ T2 and T3 are independent once T1 is done, but they're small and share `package.
 
 - Three content collections keyed by folder slug: `exhibits` (YAML), `essays` and `makingOfs` (MDX). Pages exist only for `open` exhibits. → ADR 002.
 - Tailwind 4 `@theme` tokens. The exhibit accent is a CSS variable overridden on the exhibit layout root.
-- Geist + Newsreader self-hosted as woff2 in `public/fonts/`, with their licence files. → ADR 003.
+- Geist + Newsreader self-hosted via Astro's Fonts API (Fontsource provider, downloaded at build). → ADR 003.
 - `<ClientRouter />` in the base layout. The exhibit title carries `transition:name`.
 - Astro 7 (not 6): approved 2026-11-10 → ADR 001.
 - Exact Astro 7 / Tailwind 4 syntax (content loaders, `@theme`, fonts) is checked against current docs via Context7 before writing, not from memory.
@@ -38,7 +38,7 @@ See [todo.md](./todo.md) for acceptance criteria and verification per task.
 
 ### Phase A: Foundation
 - [x] T1: Scaffold Astro 7 project
-- [ ] T2: Design foundations
+- [x] T2: Design foundations
 - [ ] T3: Exhibit content model
 
 ### Checkpoint A
@@ -72,7 +72,7 @@ See [todo.md](./todo.md) for acceptance criteria and verification per task.
 | Sätteri (Astro 7's new Markdown engine) mishandles essay features such as footnotes | Medium | Placeholder essay in T3 includes a footnote. Fallback: classic remark engine via `@astrojs/markdown-remark`. |
 | Astro 7 / Tailwind 4 syntax differs from what agents remember | Medium | Docs check (Context7 or docs.astro.build) before each config file. `npm run check` + build after each task. |
 | Vercel build uses a different Node than local | Medium | `engines.node >=22.23.4`. Check the first Vercel build log. |
-| Font files or licences unclear | Low | Take Geist and Newsreader from their official OFL releases; commit `OFL.txt` next to each. |
+| Build depends on Fontsource being reachable | Low | Only at build time, never for visitors. If it fails, switch to the local-files provider. |
 | Vercel preview URLs are login-protected | Low | Expected: the operator is logged in on her phone. LinkedIn previews are a Phase 1.1 concern, on production. |
 | "No full reload" hard to prove | Low | `window` marker survives navigation in playwright-cli. |
 

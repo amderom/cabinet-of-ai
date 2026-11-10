@@ -1,14 +1,61 @@
 ---
+// TEMPORARY design sample for the T2 review (fonts, colours).
+// Replaced in T4 by the real home page, which reads the exhibits collection.
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const swatches = [
+  { name: "Lagado", note: "red-hot iron", hex: "#FF5F1F" },
+  { name: "Llull", note: "rubric ink as neon", hex: "#FF2D55" },
+  { name: "Hesse", note: "glass beads, backlit", hex: "#00E0FF" },
+];
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cabinet of AI</title>
-  </head>
-  <body>
-    <h1>Cabinet of AI</h1>
-    <p>Placeholder — Phase 0 scaffold.</p>
-  </body>
-</html>
+<BaseLayout title="Cabinet of AI — design sample">
+  <main class="mx-auto max-w-3xl px-5 py-12 sm:px-8 sm:py-20">
+    <p class="text-xs font-medium tracking-[0.2em] text-muted uppercase">
+      Placeholder · Design sample
+    </p>
+
+    <h1 class="mt-6 text-5xl leading-[0.95] font-bold tracking-tight sm:text-7xl">
+      Cabinet of&nbsp;<span class="text-accent">AI</span>
+    </h1>
+    <p class="mt-5 max-w-xl text-lg text-muted sm:text-xl">
+      The ideas behind artificial intelligence are centuries old. Play with them.
+    </p>
+
+    <section class="mt-14 grid gap-3 sm:grid-cols-3" aria-label="Exhibit accents">
+      {
+        swatches.map((s) => (
+          <div class="rounded-2xl border border-white/10 p-5" style={`--accent: ${s.hex}`}>
+            <div class="h-16 rounded-xl bg-accent" />
+            <p class="mt-4 text-2xl font-semibold text-accent">{s.name}</p>
+            <p class="mt-1 text-sm text-muted">
+              {s.note} · {s.hex}
+            </p>
+          </div>
+        ))
+      }
+    </section>
+
+    <article class="mt-16 font-serif">
+      <p class="font-sans text-xs font-medium tracking-[0.2em] text-muted uppercase">
+        Essay typeface — Newsreader
+      </p>
+      <h2 class="mt-4 text-3xl leading-tight sm:text-4xl">
+        A machine for writing books without <em>learning</em>
+      </h2>
+      <p class="mt-5 text-lg leading-relaxed text-paper/90 sm:text-xl">
+        In 1726, Swift imagined a professor at the Academy of Lagado who had built a frame
+        of words on wooden blocks. Turn the cranks, and the most ignorant person could
+        write books in philosophy, poetry and politics, without the least help from genius
+        or study. <em>Sample text, to judge the typeface only.</em>
+      </p>
+    </article>
+
+    <p class="mt-16 font-sans text-sm text-muted">
+      Interface typeface — Geist. <span class="font-light">Light</span>, regular,{" "}
+      <span class="font-semibold">semibold</span>,{" "}
+      <span class="font-black">black</span>.
+    </p>
+  </main>
+</BaseLayout>

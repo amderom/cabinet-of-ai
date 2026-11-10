@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — Cabinet of AI
+ * Vintage content, unmistakably 2026 presentation: near-black, big type,
+ * one saturated neon accent per exhibit (see docs/project.md → Design references).
+ */
+@theme inline {
+  --color-ink: #0a0a0b; /* near-black background */
+  --color-paper: #f2f0eb; /* main text */
+  --color-muted: #8a8780; /* secondary text */
+  --color-accent: var(--accent, #ff5f1f); /* overridden per exhibit via --accent */
+
+  --font-sans: var(--font-geist);
+  --font-serif: var(--font-newsreader);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-ink text-paper font-sans antialiased;
+  }
+}

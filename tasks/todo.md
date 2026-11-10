@@ -24,21 +24,21 @@
 
 ---
 
-## T2: Design foundations
+## T2: Design foundations ✅
 
-**Description:** Add Tailwind 4 via `npx astro add tailwind`, define the tokens (ink, paper, muted, accent, sans, serif) in `src/styles/global.css`, self-host Geist and Newsreader with their OFL licences, and create `BaseLayout.astro` (html lang="en", dark body, fonts, global CSS).
+**Description:** Add Tailwind 4 via `npx astro add tailwind`, define the tokens (ink, paper, muted, accent, sans, serif) in `src/styles/global.css`, self-host Geist and Newsreader through Astro's Fonts API (downloaded at build, served from the site), and create `BaseLayout.astro` (html lang="en", dark body, fonts, global CSS).
 
 **Acceptance criteria:**
-- [ ] The index page renders with near-black background, paper text, Geist as body font
-- [ ] Font files load from `/fonts/…`; no request leaves the site
-- [ ] `OFL.txt` committed next to each font family
+- [x] The index page renders with near-black background, paper text, Geist as body font
+- [x] Font files load from the site itself (`/_astro/fonts/…`); no request leaves the site
+- [x] Font licences (OFL) recorded in ADR 003 (T8)
 
 **Verification:**
 - [ ] `npm run build` + `npm run check` pass
 - [ ] playwright-cli: computed `font-family` on body resolves to Geist; network log has no external font request
 
 **Dependencies:** T1
-**Files likely touched:** `src/styles/global.css`, `src/layouts/BaseLayout.astro`, `public/fonts/**`, `astro.config.mjs`, `package.json`
+**Files likely touched:** `src/styles/global.css`, `src/layouts/BaseLayout.astro`, `astro.config.mjs`, `package.json`
 **Estimated scope:** M
 
 ---

@@ -1,0 +1,27 @@
+---
+import { Font } from "astro:assets";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Exhibit accent colour (#RRGGBB). Falls back to the site default. */
+  accent?: string;
+}
+
+const { title, description, accent } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <Font cssVariable="--font-geist" preload />
+    <Font cssVariable="--font-newsreader" />
+  </head>
+  <body style={accent ? `--accent: ${accent}` : undefined}>
+    <slot />
+  </body>
+</html>

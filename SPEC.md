@@ -59,7 +59,6 @@ src/
 ├── pages/exhibits/[slug]/essay.astro      Essay page (renders essay.mdx)
 ├── pages/exhibits/[slug]/making-of.astro  Making-of page (renders making-of.mdx)
 └── demos/lagado/                     Empty for now (placeholder component only)
-public/fonts/                         Self-hosted .woff2 files + their OFL licence files
 docs/features/cabinet/journal.md      Build journal, first entry dated
 docs/adr/001-astro-7.md               ADR: start on Astro 7 instead of 6
 docs/adr/002-exhibit-content-model.md ADR for the content model
@@ -118,7 +117,7 @@ Tokens are Tailwind 4 theme variables in `src/styles/global.css`:
 ```
 
 - **Per-exhibit accent:** the exhibit layout sets `style="--color-accent: {exhibit.accent}"` on its root, so `text-accent`, `bg-accent`, etc. follow the exhibit automatically.
-- **Typefaces (two, provisional):** Geist (sans, for titles and interface, used large and bold) and Newsreader (serif, for essay and making-of body text). Both are SIL Open Font License, self-hosted as `.woff2` in `public/fonts/` with their licence files, `font-display: swap`. No request to any font CDN. The vintage inscription typeface is **not** part of Phase 0 (it arrives with the Lagado demo in 1.2, loaded only there).
+- **Typefaces (two, provisional):** Geist (sans, for titles and interface, used large and bold) and Newsreader (serif, for essay and making-of body text). Both are SIL Open Font License. They're self-hosted through Astro's built-in Fonts API (`fonts` in `astro.config.mjs`, Fontsource provider): files are downloaded at build time and served from this site, `font-display: swap`. Visitors never request a font CDN. (Changed from hand-copied woff2 files during T2: same outcome, no files or licences to maintain by hand.) The vintage inscription typeface is **not** part of Phase 0 (it arrives with the Lagado demo in 1.2, loaded only there).
 - **Dark only.** No light theme.
 - **Page transitions:** `<ClientRouter />` in `BaseLayout`; exhibit title carries a `transition:name` so it morphs between the three parts. Respect `prefers-reduced-motion` (Astro's default fallback).
 - **Placeholders are honest stubs:** page title, which part this is, links to the other parts, accent applied, a visible "Placeholder" label. No layout design yet: that is Phase 1.1.

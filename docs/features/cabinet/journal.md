@@ -18,3 +18,11 @@ Short, factual, dated entries. The public making-of is written from this journal
 - A worry about Node 26 compatibility turned out to be unfounded once checked (one command). Lesson: check before raising a risk.
 
 **Decisions:** two typefaces; neon accents; Astro 7 (ADR 001); `@astrojs/check` added; placeholder pages stay bare until Phase 1.1.
+
+## 2026-11-10 — T2: design foundations
+
+**Built:** Tailwind 4 with design tokens (near-black `#0A0A0B`, paper text, muted grey, per-exhibit `--accent`), Geist + Newsreader via Astro's built-in Fonts API (downloaded at build, served from the site; no font CDN for visitors), `BaseLayout`, and a temporary design-sample home page for the operator's review.
+
+**Changed:** fonts are no longer hand-copied woff2 files (as the spec first said) but handled by Astro's Fonts API: same outcome, nothing to maintain by hand.
+
+**Caught:** a missing space between inline words ("semibold,black"), caused by Astro 7's new HTML compression. Fixed with `{" "}`; the risk was already listed in ADR 001.
