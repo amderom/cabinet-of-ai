@@ -41,3 +41,7 @@ The operator asked to stop the old local server left running by an earlier sessi
 ## 2026-11-10 — T7: draft PR
 
 Draft PR amderom/cabinet-of-ai#3 opened; Vercel checks green. On the preview (in the operator's signed-in browser pane): all three Lagado parts return 200 with their own titles and production `og:url`, no image tags, LinkedIn link present, sealed Llull returns 404, no sideways scroll at phone width and no request leaving the site. Waiting for the operator's phone check before merge.
+
+## 2026-11-10 — Preview feedback
+
+The operator, on the preview: the note and the essay's first line felt squashed; cream text on the orange glow felt hard to read; the essay page "a bit bland", she'd like it "more fluid". **Fixed in the PR:** clear space after the note; on reading pages the glow stays behind the title and fades out before the text (in a clipping frame, since a scrolling glow first caused sideways scrolling). **Parked as ideation** at the start of Phase 1.2 part 1, with the engravings: stronger opening, large pulled quotations, gentle scroll motion, engraving vignettes.

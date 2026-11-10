@@ -51,6 +51,7 @@
 Phase 1.2 is specced and shipped in three parts, in this order (each gets its own `/spec`):
 
 **Part 1 — Images and engravings** (images as a whole, done once for the whole site):
+- **Reading pages with more personality** (raised by the author after Phase 1.1: the essay page feels a bit bland, she wants something more fluid). Explore two or three directions on real screens first: e.g. a stronger opening in the display serif, the author's quotations pulled out large, gentle motion as you scroll, engraving vignettes at section breaks. Readability on a phone comes first
 - **Engravings, first pass (common thread of the site, see docs/project.md → Design references):** find the first public-domain engravings and record their licences
 - One way of showing images everywhere: engraving plates, illustrations inside essays and making-ofs (caption, credit, licence), all crisp but light on a phone; credits listed automatically in the credits block
 - The soft neon engraving texture, built once as a background layer for the whole site and tuned on the demo, essay and making-of pages (faint enough to keep the essay readable on a phone)
