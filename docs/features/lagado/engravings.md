@@ -37,7 +37,9 @@
 
 - **Texture:** T-1, the Engine.
 - **Essay:** two illustrations by J. J. Grandville from *Voyages de Gulliver dans des contrées lointaines*, Paris, H. Fournier aîné / Furne et Cie, 1838 (Grandville died in 1847: public domain), supplied by the author:
-  - G-1: a scholar reading a large open book (already prepared as cream lines on a transparent background, 426×470).
+  - G-1: a stern scholar holding open a huge book of scribbled words, signed "JJG", dated 1838 on the page (full scan, 1210×1052).
   - G-2: the Lagado word machine: word-cubes "RIEN" and "GLOIRE" on rods, toothed wheels, gears and a crank (856×742).
 - **Source of the scans: Gallica (BnF), the author's decision** (2026-11-10): "you can download them for non commercial use". Gallica's terms allow free non-commercial reuse with the credit **"Source gallica.bnf.fr / BnF"**; commercial reuse needs a BnF licence. The site is a non-commercial portfolio, so the terms are met. **If the site ever earns money** (sponsorship, sales), these two images must be licensed from the BnF or replaced by the same plates from the Internet Archive copy of the 1838 edition ([vol. 1](https://archive.org/details/voyagesdegullive01swif), [vol. 2](https://archive.org/details/voyagesdegullive02swif); Chapter V of Part III starts around leaf 56 of vol. 2).
-- Files: `images/grandville-scholar.png`, `images/grandville-word-machine.webp`. Gallica page links to be added to the credits.
+- Files and Gallica pages (same digitised copy of the 1838 edition, ark `btv1b86002890`):
+  - `images/grandville-scholar.jpg` (1210×1052): [view 77](https://gallica.bnf.fr/ark:/12148/btv1b86002890/f77.item)
+  - `images/grandville-word-machine.webp` (856×742): [view 78](https://gallica.bnf.fr/ark:/12148/btv1b86002890/f78.item)
