@@ -40,7 +40,12 @@ const exhibits = sortByOrder(await getCollection("exhibits"));
                 <a href={`/exhibits/${exhibit.id}/`} class={`${row} transition-colors hover:text-accent`}>
                   <span class="label">{number}</span>
                   <span class="flex-1">
-                    <span class="block font-display text-[40px] leading-none">{exhibit.data.title}</span>
+                    <span
+                      transition:name={`exhibit-title-${exhibit.id}`}
+                      class="block font-display text-[40px] leading-none"
+                    >
+                      {exhibit.data.title}
+                    </span>
                     <span class="mt-2 block text-sm text-cream/70">{exhibit.data.tagline}</span>
                   </span>
                   <span class="label rounded-full border border-accent bg-accent px-2.5 py-1 text-ink">

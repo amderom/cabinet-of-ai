@@ -26,7 +26,9 @@ const pageTitle =
   </header>
 
   <section class="px-4 pt-[10svh] pb-8">
-    <h1 class="font-display text-[clamp(56px,17vw,180px)] leading-[0.85] tracking-[-0.03em]">
+    <h1
+      transition:name={`exhibit-title-${exhibit.id}`}
+      class="font-display text-[clamp(56px,17vw,180px)] leading-[0.85] tracking-[-0.03em]">
       {exhibit.data.title}
     </h1>
     <p class="mt-4 max-w-[34ch] text-base leading-snug text-cream/85">{exhibit.data.tagline}</p>

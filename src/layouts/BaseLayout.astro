@@ -1,5 +1,6 @@
 ---
 import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
 interface Props {
@@ -22,6 +23,8 @@ const { title, description, accent } = Astro.props;
     <Font cssVariable="--font-instrument-serif" preload />
     <Font cssVariable="--font-inter-tight" preload />
     <Font cssVariable="--font-ibm-plex-mono" />
+    <!-- Smooth page changes without full reloads; no animation for reduced-motion visitors. -->
+    <ClientRouter />
   </head>
   <body style={accent ? `--accent: ${accent}` : undefined}>
     <div class="glow" aria-hidden="true"></div>

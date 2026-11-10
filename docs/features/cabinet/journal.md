@@ -70,3 +70,9 @@ Short, factual, dated entries. The public making-of is written from this journal
 **Built (T6):** essay and making-of pages for every open exhibit, inside the shared exhibit layout, with reading styles (Inter Tight body, Instrument Serif titles, accent links, footnotes set apart). A shared helper builds their paths and stops the build if any open exhibit lacks a part.
 
 **Checked:** removing Lagado's essay stops the build with "lagado is open but has no essay (add …/essay.mdx)"; at phone size the menu moves Demo → Essay → Making-of → Demo, fonts are right, the footnote renders, no sideways scroll, no errors.
+
+## 2026-11-10 — T7: page transitions and 404
+
+**Built:** Astro's `ClientRouter` in the base layout, so pages change without a full reload; the exhibit title carries a shared `transition:name`, so it morphs from the home list into the exhibit page and between its three parts. A dark "Still *sealed*" 404 page with a way back to the cabinet; sealed exhibits like `/exhibits/llull/` land there.
+
+**Checked:** a marker set on the home page survives Home → Demo → Essay → Making-of → Home (no reload); each page keeps its accent; `/exhibits/llull/` returns status 404 with the styled page; with reduced motion requested, Astro's built-in rule turns all transition animations off (0 running).

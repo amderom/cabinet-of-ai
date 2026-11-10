@@ -129,13 +129,13 @@
 **Description:** Add `<ClientRouter />` to `BaseLayout`, give the exhibit title a `transition:name`, and add a `src/pages/404.astro` in the same dark style.
 
 **Acceptance criteria:**
-- [ ] Navigating home → demo → essay → making-of happens without a full page reload
-- [ ] The exhibit title morphs between parts; reduced-motion users get no animation
-- [ ] `/exhibits/llull/` shows the 404 page
+- [x] Navigating home → demo → essay → making-of happens without a full page reload
+- [x] The exhibit title morphs between parts; reduced-motion users get no animation
+- [x] `/exhibits/llull/` shows the 404 page
 
 **Verification:**
-- [ ] playwright-cli: a `window` marker set on the home survives navigation through all three parts
-- [ ] `npm run build` + `npm run preview`: `/exhibits/llull/` returns 404
+- [x] playwright-cli: a `window` marker set on the home survives navigation through all three parts
+- [x] `npm run build` + `npm run preview`: `/exhibits/llull/` returns 404
 
 **Dependencies:** T6
 **Files likely touched:** `src/layouts/BaseLayout.astro`, `src/layouts/ExhibitLayout.astro`, `src/pages/404.astro`

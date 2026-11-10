@@ -49,7 +49,7 @@ See [todo.md](./todo.md) for acceptance criteria and verification per task.
 - [x] T4: Home page from the collection
 - [x] T5: Lagado demo page, exhibit layout and nav
 - [x] T6: Essay and making-of pages
-- [ ] T7: Page transitions and 404
+- [x] T7: Page transitions and 404
 
 ### Checkpoint B
 - [ ] Full playwright-cli run on a phone viewport (spec checks 1–5), then desktop
