@@ -6,7 +6,7 @@ A cabinet of curiosities of the historical prefigurations of artificial intellig
 
 ## Current state
 
-**Current phase:** Phase 0 — Technical foundations (built; awaiting the Vercel preview check)
+**Current phase:** Phase 0 done (live at https://cabinet-of-ai-gx8a.vercel.app); next: Phase 1.1
 **Target MVP:** end of Phase 1.3 (cabinet homepage + complete Lagado exhibit)
 
 What works today: a dark home page listing the exhibits from content (Lagado open; Llull and Hesse sealed), Lagado's demo, essay and making-of placeholder pages with smooth page transitions, and a 404 page for sealed exhibits. Decisions so far: [docs/adr/](./docs/adr/). Build journal: [docs/features/cabinet/journal.md](./docs/features/cabinet/journal.md).
