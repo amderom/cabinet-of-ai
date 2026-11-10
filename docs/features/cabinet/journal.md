@@ -52,3 +52,13 @@ Short, factual, dated entries. The public making-of is written from this journal
 **Built:** the design sample is gone; the home page now lists every exhibit straight from the content folders, in cabinet order, each in its own accent. Lagado links to its page (which arrives in T5); Llull and Hesse show as "Sealed", not clickable. No exhibit name is written in the page. Visible "Placeholder" label; the real cabinet design is Phase 1.1.
 
 **Caught:** the local preview showed an empty list because it had been started before the content folders existed; restarting it fixed it (the built site was fine all along).
+
+## 2026-11-10 — T5: Lagado demo page, exhibit layout and nav
+
+**Built:** a shared exhibit layout (accent colour, title, tagline, "Placeholder · Demo" label, link back to the cabinet) and a three-part menu (Demo / Essay / Making-of, current part in the accent). The demo page is generated only for open exhibits; each exhibit's demo lives in `src/demos/<slug>/Demo.astro` and is picked by its folder name, so the page holds no Lagado-specific code. Lagado's demo is a placeholder box.
+
+**Checked:** only `/exhibits/lagado/` is built (no Llull or Hesse pages); removing Lagado's demo stops the build with a message saying which file to add; at phone size the active menu item is Lagado orange `rgb(255, 95, 31)`, no sideways scroll, no errors.
+
+**Changed:** the plan checked the accent on the title; the title stays cream (Curio look) and the accent shows on the active menu item instead, so that is what the check measures.
+
+**Caught:** the local preview again showed new pages half-styled; the preview server misses styles in files created after it started. The built site was correct. Restarting the preview fixes it; worth knowing when adding exhibits.

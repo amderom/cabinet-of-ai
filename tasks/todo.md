@@ -92,13 +92,13 @@
 **Description:** Create `ExhibitLayout.astro` (sets `--color-accent` from the exhibit, shows the title, renders `ExhibitNav`) and `ExhibitNav.astro` (Demo / Essay / Making-of, current part marked). Create `src/pages/exhibits/[slug]/index.astro` with `getStaticPaths` over open exhibits, rendering a placeholder demo component from `src/demos/lagado/`.
 
 **Acceptance criteria:**
-- [ ] `/exhibits/lagado/` renders with title, nav and accent `#FF5F1F`
-- [ ] No page is generated for `llull` or `hesse`
-- [ ] The layout contains no Lagado-specific code
+- [x] `/exhibits/lagado/` renders with title, nav and accent `#FF5F1F`
+- [x] No page is generated for `llull` or `hesse`
+- [x] The layout contains no Lagado-specific code
 
 **Verification:**
-- [ ] `npm run build`: `dist/exhibits/lagado/index.html` exists, no `llull`/`hesse` folders
-- [ ] playwright-cli: computed accent colour on the title is `rgb(255, 95, 31)`
+- [x] `npm run build`: `dist/exhibits/lagado/index.html` exists, no `llull`/`hesse` folders
+- [x] playwright-cli: computed accent colour on the title is `rgb(255, 95, 31)`
 
 **Dependencies:** T4
 **Files likely touched:** `src/layouts/ExhibitLayout.astro`, `src/components/ExhibitNav.astro`, `src/pages/exhibits/[slug]/index.astro`, `src/demos/lagado/LagadoPlaceholder.astro`

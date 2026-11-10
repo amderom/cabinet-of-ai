@@ -1,0 +1,35 @@
+---
+// Demo page for every open exhibit. Each exhibit's demo lives in
+// src/demos/<slug>/Demo.astro and is picked by slug, so nothing here is
+// specific to one exhibit.
+import { getCollection, type CollectionEntry } from "astro:content";
+import ExhibitLayout from "../../../layouts/ExhibitLayout.astro";
+import { openExhibits } from "../../../lib/exhibits";
+
+const demos = import.meta.glob<{ default: (props: object) => unknown }>(
+  "../../../demos/*/Demo.astro",
+  { eager: true },
+);
+
+export async function getStaticPaths() {
+  return openExhibits(await getCollection("exhibits")).map((exhibit) => ({
+    params: { slug: exhibit.id },
+    props: { exhibit },
+  }));
+}
+
+interface Props {
+  exhibit: CollectionEntry<"exhibits">;
+}
+
+const { exhibit } = Astro.props;
+const demo = demos[`../../../demos/${exhibit.id}/Demo.astro`];
+if (!demo) {
+  throw new Error(`Open exhibit "${exhibit.id}" has no demo: add src/demos/${exhibit.id}/Demo.astro`);
+}
+const Demo = demo.default;
+---
+
+<ExhibitLayout exhibit={exhibit} part="demo">
+  <Demo />
+</ExhibitLayout>

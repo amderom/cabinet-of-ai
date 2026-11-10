@@ -1,0 +1,40 @@
+---
+/**
+ * Shared frame for the three parts of any exhibit: accent colour, title,
+ * part navigation. Holds no exhibit-specific content.
+ */
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import ExhibitNav from "../components/ExhibitNav.astro";
+import type { ExhibitPart } from "../lib/exhibits";
+
+interface Props {
+  exhibit: CollectionEntry<"exhibits">;
+  part: "demo" | ExhibitPart;
+}
+
+const { exhibit, part } = Astro.props;
+const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part];
+const pageTitle =
+  part === "demo" ? `${exhibit.data.title} · Cabinet of AI` : `${partName} · ${exhibit.data.title} · Cabinet of AI`;
+---
+
+<BaseLayout title={pageTitle} description={exhibit.data.tagline} accent={exhibit.data.accent}>
+  <header class="label flex justify-between p-4 text-muted">
+    <a href="/" class="text-cream hover:text-accent">← Cabinet of AI</a>
+    <span>Placeholder · {partName}</span>
+  </header>
+
+  <section class="px-4 pt-[10svh] pb-8">
+    <h1 class="font-display text-[clamp(56px,17vw,180px)] leading-[0.85] tracking-[-0.03em]">
+      {exhibit.data.title}
+    </h1>
+    <p class="mt-4 max-w-[34ch] text-base leading-snug text-cream/85">{exhibit.data.tagline}</p>
+  </section>
+
+  <ExhibitNav slug={exhibit.id} current={part} />
+
+  <main class="px-4 pt-10 pb-24">
+    <slot />
+  </main>
+</BaseLayout>
