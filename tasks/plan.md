@@ -37,8 +37,8 @@ T2, T3 and T4 are independent of each other once T1 is done, but they all touch 
 - [x] T2: Lagado essay page — note, "Read the full article" button, byline, essay text
 
 ### Checkpoint A (author review)
-- [ ] Tests, check and build pass
-- [ ] Phone screenshots of the essay sent to the author: she checks her text and the typography fixes
+- [x] Tests, check and build pass
+- [x] Phone screenshots of the essay sent to the author: she checks her text and the typography fixes
 
 ### Part B: The shared frame
 - [x] T3: Shared exhibit frame — calls to action, credits, play-first link, footer
@@ -46,15 +46,15 @@ T2, T3 and T4 are independent of each other once T1 is done, but they all touch 
 - [x] T5: Lagado demo teaser and making-of note
 
 ### Checkpoint B
-- [ ] All browser checks from the spec pass at 390×844, 375×667 and 1280×800
+- [x] All browser checks from the spec pass at 390×844, 375×667 and 1280×800
 
 ### Part C: Ship
 - [x] T6: ADR 004, README, journal
-- [ ] T7: Draft PR, Vercel preview, author's phone check
+- [x] T7: Draft PR, Vercel preview, author's phone check
 
 ### Checkpoint C (before merge)
-- [ ] Author approves on her phone; merge on her word
-- [ ] T8: after merge, Post Inspector on the production essay URL
+- [x] Author approves on her phone; merge on her word
+- [x] T8: after merge, Post Inspector on the production essay URL
 
 ## Risks and Mitigations
 

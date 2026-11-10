@@ -6,7 +6,7 @@ A cabinet of curiosities of the historical prefigurations of artificial intellig
 
 ## Current state
 
-**Current phase:** Phase 1.1 in progress (the exhibit page, with Lagado's essay); Phase 0 live at https://cabinet-of-ai-gx8a.vercel.app
+**Current phase:** Phase 1.1 done (live at https://cabinet-of-ai-gx8a.vercel.app); next: Phase 1.2 part 1, images and engravings
 **Target MVP:** end of Phase 1.3 (cabinet homepage + complete Lagado exhibit)
 
 What works today: a dark home page listing the exhibits from content (Lagado open; Llull and Hesse sealed). Lagado has three parts with their own links: a demo page (teaser until the machine arrives), the author's essay with a prominent link to the published article, and a making-of note. Every part links to the article and to LinkedIn, lists asset credits when there are any, and carries its own title and description for link previews. Sealed exhibits show a 404 page. Decisions so far: [docs/adr/](./docs/adr/). Build journals: [cabinet](./docs/features/cabinet/journal.md), [Lagado](./docs/features/lagado/journal.md).
