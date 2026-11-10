@@ -61,3 +61,12 @@
 **Estimated effort:** Quick (buy domain, point it to Vercel)
 **Dependencies:** None
 **Date:** 2026-11-09
+
+---
+
+### Fact-check flips on parody claims
+**Context:** Raised in the demo-context session (docs/ideas/demo-context.md) and set aside for the MVP.
+**Value:** Tap a parody line and it flips to the real historical fact with its source: playful proof that the jokes are grounded.
+**Estimated effort:** Medium per exhibit
+**Dependencies:** Lagado demo page with banner and plates (Phase 1.2)
+**Date:** 2026-11-10
