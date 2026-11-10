@@ -101,3 +101,7 @@ Measured with a Chrome performance trace on the local build, essay page, phone v
 ## 2026-11-10 — T9: draft PR
 
 Draft PR amderom/cabinet-of-ai#5 opened; Vercel checks green. On the preview (operator's signed-in browser pane): both figures and the texture load, 8/8 reading-page elements reveal while scrolling, 4 credits listed, production `og:url`, only extra host `vercel.live` (preview toolbar, absent in production). Waiting for the operator's check on her iPhone (blend modes and scroll motion in Safari not yet verified on a real device) and her word to merge.
+
+## 2026-11-10 — Phase 1.2 part 1 done: merged and live
+
+The operator checked the preview on her phone: "Checked, merge it". PR amderom/cabinet-of-ai#5 merged. Production: the three Lagado parts carry the Engine texture (AVIF served), the essay shows both Grandville plates with Gallica credits and the annotated-copy layout; sealed Llull and the old exploration pages return 404. Still unannounced. Next: Part 2, the machine (with the Swift drawing as landing-page hero, and the 36 vs 40 students question to settle against Swift's text).
