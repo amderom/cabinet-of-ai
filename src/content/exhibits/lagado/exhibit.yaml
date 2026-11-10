@@ -3,7 +3,43 @@ tagline: Write any book. No genius. No study. Just turn the cranks.
 accent: "#FF5F1F"
 status: open
 order: 1
-credits: []
+# Every image is declared once here and placed elsewhere by its id (ADR 005).
+# Sources and licences: docs/features/lagado/engravings.md
+credits:
+  - id: swift-portrait
+    file: ./images/swift-portrait.jpg
+    alt: "Ink drawing of Jonathan Swift in a long curled wig and clerical bands, half his face in deep shadow."
+    asset: "Jonathan Swift, ink drawing"
+    author: "Amélie Derome"
+    source: "The author"
+    licence: "All rights reserved"
+  - id: the-engine
+    file: ./images/the-engine.png
+    alt: "Diagram of the Lagado engine: a square frame of word-blocks with crank handles all around its edges."
+    asset: "The Engine, from Gulliver's Travels, Part III"
+    source: "Wikimedia Commons"
+    url: "https://commons.wikimedia.org/wiki/File:The_Engine_(Gulliver).png"
+    licence: "Public domain"
+  - id: grandville-scholar
+    file: ./images/grandville-scholar.jpg
+    alt: "Engraving of a stern, balding scholar holding open a huge book covered in scribbled words, dated 1838."
+    caption: "A professor of Lagado and his great book."
+    asset: "A professor and his book, Voyages de Gulliver (1838)"
+    author: "J. J. Grandville"
+    source: "Source gallica.bnf.fr / BnF"
+    url: "https://gallica.bnf.fr/ark:/12148/btv1b86002890/f77.item"
+    licence: "Public domain, non-commercial reuse (Gallica terms)"
+  - id: grandville-word-machine
+    file: ./images/grandville-word-machine.webp
+    alt: "Engraving of a machine: word-blocks reading RIEN and GLOIRE turn on rods driven by spiked wheels, gears and a crank."
+    caption: "Grandville's word machine: turn the crank, and RIEN (nothing) sits next to GLOIRE (glory)."
+    asset: "The word machine, Voyages de Gulliver (1838)"
+    author: "J. J. Grandville"
+    source: "Source gallica.bnf.fr / BnF"
+    url: "https://gallica.bnf.fr/ark:/12148/btv1b86002890/f78.item"
+    licence: "Public domain, non-commercial reuse (Gallica terms)"
+texture: the-engine
+hero: swift-portrait
 research:
   title: "Totalité et infini de la machine à tout dire de Gulliver's Travels : du programme littéraire au programme informatique"
   journal: "XVII-XVIII"
