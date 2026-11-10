@@ -33,6 +33,10 @@
 - **Texture:** T-1, the Engine.
 - **Essay (3):** E-1 after the opening, E-3 (or E-2 once its source is confirmed) for Llull, E-4 at "Web of Deceit" (once its source is confirmed).
 
-## Author's picks
+## Author's picks (2026-11-10)
 
-*To be filled in at Checkpoint A.*
+- **Texture:** T-1, the Engine.
+- **Essay:** two illustrations by J. J. Grandville from *Voyages de Gulliver dans des contrées lointaines*, Paris, H. Fournier aîné / Furne et Cie, 1838 (Grandville died in 1847: public domain), supplied by the author:
+  - G-1: a scholar reading a large open book (already prepared as cream lines on a transparent background, 426×470).
+  - G-2: the Lagado word machine: word-cubes "RIEN" and "GLOIRE" on rods, toothed wheels, gears and a crank (856×742).
+- **Source of the scans:** the author found them on Gallica (BnF). Gallica's terms ask for "Source gallica.bnf.fr / BnF" and reserve commercial reuse, which the spec avoids. The same 1838 edition is on the Internet Archive with no conditions (Boston Public Library copy: [vol. 1](https://archive.org/details/voyagesdegullive01swif), [vol. 2](https://archive.org/details/voyagesdegullive02swif)). Decision pending with the author.

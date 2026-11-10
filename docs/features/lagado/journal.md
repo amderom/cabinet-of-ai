@@ -61,3 +61,5 @@ The operator checked the preview on her phone: "Checked, merge it". PR amderom/c
 ## 2026-11-10 — T1: engraving shortlist
 
 Searched Wikimedia Commons (incl. Library of Congress and Internet Archive scans) with a paced script, since Commons rate-limited quick requests; The Met's public API turned out to be retired. Found the 1726–27 diagram of "the Engine" (the word frame itself), Gavarni's Academy of Lagado, Llull's figures, and the *Battle of the Books* frontispiece with a spider and a bee in the window. Licence read on each file's page; excluded a commercial archive, a dealer's print, a tiny monkey engraving and an off-topic dice scene. Shortlist in `engravings.md`, previews sent to the operator.
+
+**Checkpoint A picks:** texture = the Engine (T-1). Essay = two Grandville illustrations from the 1838 Fournier/Furne edition, chosen by the operator from Gallica rather than from the shortlist (a scholar reading; the word machine with cubes "RIEN" and "GLOIRE"). Gallica's terms clash with the spec's source rule; the same edition is on the Internet Archive without conditions, so the scans may be taken from there instead (her call).
