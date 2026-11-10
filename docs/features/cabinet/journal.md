@@ -76,3 +76,11 @@ Short, factual, dated entries. The public making-of is written from this journal
 **Built:** Astro's `ClientRouter` in the base layout, so pages change without a full reload; the exhibit title carries a shared `transition:name`, so it morphs from the home list into the exhibit page and between its three parts. A dark "Still *sealed*" 404 page with a way back to the cabinet; sealed exhibits like `/exhibits/llull/` land there.
 
 **Checked:** a marker set on the home page survives Home → Demo → Essay → Making-of → Home (no reload); each page keeps its accent; `/exhibits/llull/` returns status 404 with the styled page; with reduced motion requested, Astro's built-in rule turns all transition animations off (0 running).
+
+## 2026-11-10 — Checkpoint B and T8: docs
+
+**Checkpoint B:** all spec browser checks pass at 390×844 and 1280×800 (fonts, 10px labels, no sideways scroll, no external requests, navigation without reload, 404 for sealed exhibits). Phone screenshots sent to the operator; she approved moving on.
+
+**T8:** ADR 002 (exhibits as content collections, one folder per exhibit, build fails on missing parts) and ADR 003 (Instrument Serif, Inter Tight, IBM Plex Mono via Astro's Fonts API; Geist + Newsreader rejected). README updated with the current state, commands and structure.
+
+**Phase 0 summary for the making-of:** the plan held, but two things changed on the way: Astro 7 instead of 6 (ADR 001) and the whole visual direction (Curio, after the first sample looked "web 2.0"). The demo-context discussion (plates, banner, "The original") shaped Phase 1.2 before it started.

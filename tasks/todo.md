@@ -154,12 +154,12 @@
 **Description:** Write `docs/adr/002-exhibit-content-model.md` and `docs/adr/003-typefaces.md` (with the `documentation-and-adrs` skill; ADR 001 Astro 7 already written in T1). Complete `docs/features/cabinet/journal.md` (created in T1) (what was built, key prompts, what changed, e.g. the move to neon accents). Update README's current state and commands.
 
 **Acceptance criteria:**
-- [ ] Both ADRs state context, decision, alternatives and consequences
-- [ ] Journal entry dated 2026-11-10 (plus any later session), short and factual
-- [ ] README commands match `package.json`
+- [x] Both ADRs state context, decision, alternatives and consequences
+- [x] Journal entry dated 2026-11-10 (plus any later session), short and factual
+- [x] README commands match `package.json`
 
 **Verification:**
-- [ ] Manual read-through; links between docs resolve
+- [x] Manual read-through; links between docs resolve
 
 **Dependencies:** T7
 **Files likely touched:** `docs/adr/002-exhibit-content-model.md`, `docs/adr/003-typefaces.md`, `docs/features/cabinet/journal.md`, `README.md`

@@ -56,7 +56,7 @@ See [todo.md](./todo.md) for acceptance criteria and verification per task.
 - [ ] Operator sees screenshots before deployment
 
 ### Phase C: Ship
-- [ ] T8: ADRs, journal, README
+- [x] T8: ADRs, journal, README
 - [ ] T9: Draft PR, Vercel connection, preview checks
 
 ### Checkpoint C (Phase 0 done)
