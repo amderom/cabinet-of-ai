@@ -255,7 +255,8 @@ All task branches are merged into `main` via PR after review and checks. Every P
 | Environment | URL |
 |---|---|
 | Local | `http://localhost:4321` |
-| Active deployed environment | ASSUMPTION: `https://cabinet-of-ai.vercel.app` — confirm after first deploy |
+| Production | `https://cabinet-of-ai-gx8a.vercel.app` (Vercel project `cabinet-of-ai-gx8a`; an older project holds the `cabinet-of-ai` name. A custom domain is parked in IDEAS.md) |
+| PR previews | One per PR, linked on the PR; protected by Vercel login |
 
 **Never:**
 - Commit or push directly to `main` unless explicitly requested by the user

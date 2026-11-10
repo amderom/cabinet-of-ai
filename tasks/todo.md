@@ -172,13 +172,13 @@
 **Description:** Commit, push the branch and open a draft PR to `main`. Guide the operator through importing `amderom/cabinet-of-ai` in Vercel. Re-run the spec browser checks on the preview URL.
 
 **Acceptance criteria:**
-- [ ] Draft PR open with a passing Vercel preview build
-- [ ] Spec browser checks pass on the preview URL
-- [ ] The operator has opened the preview on her phone
+- [x] Draft PR open with a passing Vercel preview build
+- [x] Spec browser checks pass on the preview URL
+- [x] The operator has opened the preview on her phone
 
 **Verification:**
-- [ ] Vercel build log: Astro detected, static output, no errors
-- [ ] playwright-cli run against the preview URL
+- [x] Vercel build log: Astro detected, static output, no errors
+- [x] playwright-cli run against the preview URL
 
 **Dependencies:** T8
 **Files likely touched:** none (git, GitHub, Vercel)
@@ -187,5 +187,5 @@
 ---
 
 ## Checkpoint C — Phase 0 done
-- [ ] All spec success criteria met
-- [ ] Merge on the operator's go-ahead only, then write the real production URL into `docs/project.md`
+- [x] All spec success criteria met
+- [x] Merge on the operator's go-ahead only, then write the real production URL into `docs/project.md`
