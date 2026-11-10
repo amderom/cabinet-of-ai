@@ -18,7 +18,7 @@ A cabinet of curiosities of the historical prefigurations of artificial intellig
 ## Local setup
 
 ### Prerequisites
-- Node.js 22.12+ (even-numbered versions only — required by Astro 6)
+- Node.js 22.23.4+ (even-numbered versions only — required by Astro 7)
 - A GitHub account (for the repo) and a Vercel account (free Hobby tier, for hosting)
 
 ### Installation
