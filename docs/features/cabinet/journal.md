@@ -46,3 +46,9 @@ Short, factual, dated entries. The public making-of is written from this journal
 **Fixed:** Astro 7 ships a newer Zod, where `z.string().url()` is deprecated; switched to `z.url()`.
 
 **Context:** before this task the operator asked what the design sample page was ("an exhibit as a hero, then a menu, then the essay"). It was a swatch sheet, not a real page; the agent should have said so more clearly. The real pages (home, Lagado demo, essay, making-of) arrive in T4–T6.
+
+## 2026-11-10 — T4: home page from the collection
+
+**Built:** the design sample is gone; the home page now lists every exhibit straight from the content folders, in cabinet order, each in its own accent. Lagado links to its page (which arrives in T5); Llull and Hesse show as "Sealed", not clickable. No exhibit name is written in the page. Visible "Placeholder" label; the real cabinet design is Phase 1.1.
+
+**Caught:** the local preview showed an empty list because it had been started before the content folders existed; restarting it fixed it (the built site was fine all along).

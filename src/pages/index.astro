@@ -1,91 +1,63 @@
 ---
-// TEMPORARY design sample for the T2 review ("Curio" foundations).
-// Replaced in T4 by the real home page, which reads the exhibits collection.
-// The floating engraving plates arrive with the exhibit pages (Phase 1.x).
+// Home placeholder: lists every exhibit from the content collection, in
+// cabinet order. Open exhibits link to their page; sealed ones don't.
+// The real cabinet design comes in Phase 1.1.
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Ticker from "../components/Ticker.astro";
+import { sortByOrder } from "../lib/exhibits";
 
-const sample = [
-  { n: "001", name: "Lagado", hex: "#FF5F1F", open: true },
-  { n: "002", name: "Llull", hex: "#FF2D55", open: false },
-  { n: "003", name: "Hesse", hex: "#00E0FF", open: false },
-];
+const exhibits = sortByOrder(await getCollection("exhibits"));
 ---
 
-<BaseLayout title="Cabinet of AI — design sample">
+<BaseLayout
+  title="Cabinet of AI"
+  description="A cabinet of curiosities of the historical prefigurations of artificial intelligence."
+>
   <header class="label flex justify-between p-4 text-muted">
     <span class="text-cream">Cabinet of AI</span>
-    <span>Placeholder · design sample</span>
+    <span>Placeholder</span>
   </header>
 
   <main>
-    <section class="flex min-h-[78svh] flex-col justify-end px-4 pt-6 pb-8">
-      <span
-        class="label self-start rounded-full bg-accent px-3 py-1.5 text-ink shadow-[0_0_24px_color-mix(in_oklab,var(--color-accent)_60%,transparent)]"
-        style="transform: rotate(-4deg)"
-      >
-        In beta since 1726
-      </span>
-      <h1
-        class="mt-4 font-display text-[clamp(72px,24vw,240px)] leading-[0.82] tracking-[-0.03em]"
-      >
-        The Lagado <em>Engine</em>
+    <section class="px-4 pt-[18svh] pb-10">
+      <h1 class="font-display text-[clamp(64px,20vw,200px)] leading-[0.85] tracking-[-0.03em]">
+        Cabinet of <em>AI</em>
       </h1>
-      <div class="mt-6 flex items-end justify-between gap-4">
-        <p class="max-w-[22ch] text-base leading-snug">
-          Write any book. No genius. No study. Just turn the cranks.
-        </p>
-        <a
-          href="#"
-          class="grid size-24 flex-none place-items-center rounded-full bg-cream p-2.5 text-center text-[13px] leading-tight font-semibold text-ink"
-        >
-          Turn the cranks
-        </a>
-      </div>
+      <p class="mt-5 max-w-[30ch] text-base leading-snug text-cream/85">
+        Old ideas of thinking machines, rebuilt so you can play with them.
+      </p>
     </section>
 
-    <Ticker items={["Built in 1726", "Shipped in 2026", "Zero training data", "One hundred percent wood"]} />
-
-    <ul>
+    <ul class="border-t border-line">
       {
-        sample.map((e) => (
-          <li
-            class:list={["flex items-baseline gap-3.5 border-b border-line px-4 py-4", !e.open && "text-muted opacity-55"]}
-            style={`--accent: ${e.hex}`}
-          >
-            <span class="label">{e.n}</span>
-            <span class="flex-1 font-display text-[46px] leading-none">{e.name}</span>
-            <span
-              class:list={["label rounded-full border px-2.5 py-1", e.open ? "border-accent bg-accent text-ink" : "border-current"]}
-            >
-              {e.open ? "Open" : "Sealed"}
-            </span>
-          </li>
-        ))
+        exhibits.map((exhibit, i) => {
+          const number = String(i + 1).padStart(3, "0");
+          const open = exhibit.data.status === "open";
+          const row = "flex items-baseline gap-3.5 border-b border-line px-4 py-4";
+          return (
+            <li style={`--accent: ${exhibit.data.accent}`}>
+              {open ? (
+                <a href={`/exhibits/${exhibit.id}/`} class={`${row} transition-colors hover:text-accent`}>
+                  <span class="label">{number}</span>
+                  <span class="flex-1">
+                    <span class="block font-display text-[40px] leading-none">{exhibit.data.title}</span>
+                    <span class="mt-2 block text-sm text-cream/70">{exhibit.data.tagline}</span>
+                  </span>
+                  <span class="label rounded-full border border-accent bg-accent px-2.5 py-1 text-ink">
+                    Open
+                  </span>
+                </a>
+              ) : (
+                <div class={`${row} text-muted opacity-55`}>
+                  <span class="label">{number}</span>
+                  <span class="flex-1 font-display text-[40px] leading-none">{exhibit.data.title}</span>
+                  <span class="label rounded-full border border-current px-2.5 py-1">Sealed</span>
+                </div>
+              )}
+            </li>
+          );
+        })
       }
     </ul>
-
-    <article class="px-4 pt-14 pb-24">
-      <p class="label text-muted">Essay · 6 min read</p>
-      <h2 class="mt-3.5 font-display text-[42px] leading-none">
-        A machine for writing books <em class="text-accent">without learning</em>
-      </h2>
-      <p class="mt-5 max-w-[60ch] text-lg leading-relaxed text-cream/85">
-        In 1726, Swift imagined a professor who had built a frame of words on wooden blocks. Turn
-        the cranks, and the most ignorant person could write books without the least help from
-        genius or study. <em>Sample text, to judge the reading only.</em>
-      </p>
-      <p class="label mt-8 text-muted">Exhibit accents</p>
-      <div class="mt-3 flex gap-3">
-        {
-          sample.map((e) => (
-            <span class="flex items-center gap-2 text-sm" style={`--accent: ${e.hex}`}>
-              <span class="size-3 rounded-full bg-accent shadow-[0_0_14px_var(--color-accent)]" />
-              {e.name}
-            </span>
-          ))
-        }
-      </div>
-    </article>
   </main>
 </BaseLayout>

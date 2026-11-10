@@ -46,7 +46,7 @@ See [todo.md](./todo.md) for acceptance criteria and verification per task.
 - [ ] Short report to the operator (what's in place, anything surprising, e.g. Node 26)
 
 ### Phase B: Pages
-- [ ] T4: Home page from the collection
+- [x] T4: Home page from the collection
 - [ ] T5: Lagado demo page, exhibit layout and nav
 - [ ] T6: Essay and making-of pages
 - [ ] T7: Page transitions and 404

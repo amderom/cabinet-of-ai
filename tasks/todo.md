@@ -74,12 +74,12 @@
 **Description:** `src/pages/index.astro` uses `BaseLayout`, reads the collection through the helpers and lists every exhibit in order: open ones link to `/exhibits/<slug>/`, sealed ones are shown as "Sealed" without a link. Each item shows its accent. Visible "Placeholder" label.
 
 **Acceptance criteria:**
-- [ ] Lagado appears as a link; Llull and Hesse appear as sealed, not links
-- [ ] No exhibit name is hard-coded in the page
+- [x] Lagado appears as a link; Llull and Hesse appear as sealed, not links
+- [x] No exhibit name is hard-coded in the page
 
 **Verification:**
-- [ ] `npm run build` passes
-- [ ] playwright-cli at 390×844: the three items are visible and readable, no console errors
+- [x] `npm run build` passes
+- [x] playwright-cli at 390×844: the three items are visible and readable, no console errors
 
 **Dependencies:** T2, T3
 **Files likely touched:** `src/pages/index.astro`
