@@ -36,3 +36,13 @@ Short, factual, dated entries. The public making-of is written from this journal
 **Iterations on the mix ("Curio"):** cards became draggable engraving plates ("specimen cards" of the cabinet). Feedback 1: cards must never go over text and buttons → plates confined to their own area, tested by dragging every plate to every corner on a large and a small phone (a first test script was invalid, synthetic events never moved the plates; redone with real mouse drags; it caught a 4px overflow on the small phone). Feedback 2: harmonise colours → glow made only from the accent (the pink mix clashed), one warm cream family for text, paper and greys. Feedback 3: labels smaller → 10px (a CSS specificity bug had made the essay label 18px in the mockup).
 
 **Built:** Instrument Serif + Inter Tight + IBM Plex Mono via Astro's Fonts API, Curio tokens, glow + grain in the base layout, `label` utility, `Ticker` component, favicon, new design sample. Plates are deferred to the exhibit pages (Phase 1.x).
+
+## 2026-11-10 — T3: exhibits as content
+
+**Built:** three content collections (`exhibits`, `essays`, `makingOfs`) read from one folder per exhibit, keyed by the folder name. Lagado is open, with a placeholder essay and making-of; Llull and Hesse are sealed, with metadata only. Helpers in `src/lib/exhibits.ts` (cabinet order, open only, "which open exhibit is missing a part"), written test-first: the tests were seen failing, then passing.
+
+**Checked:** a bad accent colour or an unknown status stops the build with a clear message. Footnotes in essays render properly with Astro 7's new Markdown engine (Sätteri), which was a known risk: tested with a throwaway page, then removed.
+
+**Fixed:** Astro 7 ships a newer Zod, where `z.string().url()` is deprecated; switched to `z.url()`.
+
+**Context:** before this task the operator asked what the design sample page was ("an exhibit as a hero, then a menu, then the essay"). It was a swatch sheet, not a real page; the agent should have said so more clearly. The real pages (home, Lagado demo, essay, making-of) arrive in T4–T6.

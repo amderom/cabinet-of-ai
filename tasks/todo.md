@@ -48,14 +48,14 @@
 **Description:** Define the `exhibits`, `essays` and `makingOfs` collections in `src/content.config.ts` with the spec's schema. Add Lagado (open, with placeholder essay and making-of), Llull and Hesse (sealed, metadata only). Write `src/lib/exhibits.ts` helpers test-first: sort by order, filter open, find open exhibits missing a part.
 
 **Acceptance criteria:**
-- [ ] Schema rejects a bad accent (not `#RRGGBB`) or an unknown status
-- [ ] Helpers return exhibits in `order`, and only open ones when asked
-- [ ] `missingParts()` (or equivalent) reports an open exhibit without essay or making-of
-- [ ] Lagado's placeholder essay contains a footnote; it renders as a proper footnote (Sätteri check, see plan risks)
+- [x] Schema rejects a bad accent (not `#RRGGBB`) or an unknown status
+- [x] Helpers return exhibits in `order`, and only open ones when asked
+- [x] `missingParts()` (or equivalent) reports an open exhibit without essay or making-of
+- [x] Lagado's placeholder essay contains a footnote; it renders as a proper footnote (Sätteri check, see plan risks)
 
 **Verification:**
-- [ ] `npm run test`: helper tests written first, seen failing, then passing
-- [ ] `npm run build` + `npm run check` pass with the three entries
+- [x] `npm run test`: helper tests written first, seen failing, then passing
+- [x] `npm run build` + `npm run check` pass with the three entries
 
 **Dependencies:** T1
 **Files likely touched:** `src/content.config.ts`, `src/content/exhibits/{lagado,llull,hesse}/*`, `src/lib/exhibits.ts`, `src/lib/exhibits.test.ts`
@@ -64,8 +64,8 @@
 ---
 
 ## Checkpoint A
-- [ ] test, check, build all pass
-- [ ] Short report to the operator
+- [x] test, check, build all pass
+- [x] Short report to the operator
 
 ---
 
