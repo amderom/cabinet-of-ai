@@ -97,3 +97,7 @@ The operator: "I love C", but the fine orange margin line felt off. Agent's call
 Measured with a Chrome performance trace on the local build, essay page, phone viewport, Slow 4G and 4× slower CPU. First run: LCP 3.07 s (target 2.5 s), CLS 0.00. The largest element was the Engine texture (104 KB), downloading alongside five preloaded fonts. Fixes: texture served as a 480px AVIF (37 KB; it is faint and blended, so detail isn't needed), and only the regular font styles preloaded (italics load when first used). Result: **LCP 2.07 s, CLS 0.07** (the small shift is the italic font arriving; within the 0.1 target).
 
 **T8:** ADR 005 (images declared once by id, build-enforced credits, CSS-tinted texture, annotated-copy reading pages, throwaway exploration branches, the Gallica exception) and README updated.
+
+## 2026-11-10 — T9: draft PR
+
+Draft PR amderom/cabinet-of-ai#5 opened; Vercel checks green. On the preview (operator's signed-in browser pane): both figures and the texture load, 8/8 reading-page elements reveal while scrolling, 4 credits listed, production `og:url`, only extra host `vercel.live` (preview toolbar, absent in production). Waiting for the operator's check on her iPhone (blend modes and scroll motion in Safari not yet verified on a real device) and her word to merge.
