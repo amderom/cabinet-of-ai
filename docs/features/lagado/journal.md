@@ -37,3 +37,7 @@ The operator asked to stop the old local server left running by an earlier sessi
 **T5:** demo teaser ("In the workshop · The machine is being assembled", link to the essay) and a two-line making-of note.
 
 **Checkpoint B:** all checks pass at 390×844, 375×667 and 1280×800: no sideways scroll, no request leaving the site, all links correct. **T6:** ADR 004, README.
+
+## 2026-11-10 — T7: draft PR
+
+Draft PR amderom/cabinet-of-ai#3 opened; Vercel checks green. On the preview (in the operator's signed-in browser pane): all three Lagado parts return 200 with their own titles and production `og:url`, no image tags, LinkedIn link present, sealed Llull returns 404, no sideways scroll at phone width and no request leaving the site. Waiting for the operator's phone check before merge.
