@@ -144,8 +144,8 @@
 ---
 
 ## Checkpoint B
-- [ ] Spec browser checks 1–5 pass at 390×844, then on desktop
-- [ ] Screenshots shared with the operator
+- [x] Spec browser checks 1–5 pass at 390×844, then on desktop
+- [x] Screenshots shared with the operator
 
 ---
 
