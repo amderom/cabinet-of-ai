@@ -135,25 +135,25 @@
 
 ---
 
-## T7: Draft PR, Vercel preview, phone check
+## T7: Draft PR, Vercel preview, phone check ✅
 
 **Description:** Push the branch, open a draft PR to `main` listing the typographic fixes and the final wordings, rerun the browser checks on the Vercel preview, and send the preview link to the author.
 
 **Acceptance criteria:**
-- [ ] Draft PR open with the Vercel preview link
-- [ ] Browser checks pass on the preview
-- [ ] The author has read it on her phone
+- [x] Draft PR open with the Vercel preview link
+- [x] Browser checks pass on the preview
+- [x] The author has read it on her phone
 
 **Verification:**
-- [ ] Vercel build green; playwright-cli on the preview (in the author's signed-in browser pane, since previews are protected)
+- [x] Vercel build green; playwright-cli on the preview (in the author's signed-in browser pane, since previews are protected)
 
 **Dependencies:** T6
 **Estimated scope:** S
 
 ---
 
-## Checkpoint C — merge and production
+## Checkpoint C — merge and production ✅
 
-- [ ] Merge only on the author's word
-- [ ] T8: after merge, LinkedIn Post Inspector on `https://cabinet-of-ai-gx8a.vercel.app/exhibits/lagado/essay/` shows the right title and description (no image yet)
-- [ ] Journal updated; remind the author that the preview images are part of Phase 1.2
+- [x] Merge only on the author's word
+- [x] T8: after merge, LinkedIn Post Inspector on `https://cabinet-of-ai-gx8a.vercel.app/exhibits/lagado/essay/` shows the right title and description (no image yet)
+- [x] Journal updated; remind the author that the preview images are part of Phase 1.2

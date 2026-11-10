@@ -45,3 +45,7 @@ Draft PR amderom/cabinet-of-ai#3 opened; Vercel checks green. On the preview (in
 ## 2026-11-10 — Preview feedback
 
 The operator, on the preview: the note and the essay's first line felt squashed; cream text on the orange glow felt hard to read; the essay page "a bit bland", she'd like it "more fluid". **Fixed in the PR:** clear space after the note; on reading pages the glow stays behind the title and fades out before the text (in a clipping frame, since a scrolling glow first caused sideways scrolling). **Parked as ideation** at the start of Phase 1.2 part 1, with the engravings: stronger opening, large pulled quotations, gentle scroll motion, engraving vignettes.
+
+## 2026-11-10 — Phase 1.1 done: merged and live
+
+The operator checked the preview on her phone: "Checked, merge it". PR amderom/cabinet-of-ai#3 merged; production serves the essay, demo teaser and making-of note with their own titles and production URLs; sealed Llull returns 404. LinkedIn Post Inspector on the production essay URL: title, description and type (article) read correctly, canonical URL correct; only warning "no og:image", expected until Phase 1.2. Also noted for 1.2: LinkedIn finds no author or publish date (`article:author` / `article:published_time` could be added with the images). The essay is live but not announced.
