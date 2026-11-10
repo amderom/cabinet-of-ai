@@ -139,6 +139,30 @@
     text-decoration: none;
     padding-inline: 0.15em;
   }
+  /* Engravings in a text: printed on the plate colour, so every scan shares one paper tone. */
+  .prose-cabinet .figure {
+    margin-block: 2.5em;
+  }
+  .figure-plate {
+    background: var(--color-plate);
+    border-radius: 2px;
+    padding: 12px;
+  }
+  .figure-plate img {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Lift each scan's paper to white, then print it on the plate colour. */
+    filter: grayscale(1) brightness(1.18) contrast(1.35);
+    mix-blend-mode: multiply;
+  }
+  .prose-cabinet figcaption {
+    margin-top: 0.8em;
+    font-size: 15px;
+    line-height: 1.45;
+    color: color-mix(in oklab, var(--color-cream) 75%, transparent);
+  }
+
   .prose-cabinet .footnotes {
     margin-top: 3em;
     padding-top: 1.5em;
