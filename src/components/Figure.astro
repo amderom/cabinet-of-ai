@@ -21,9 +21,10 @@ if (!exhibit) throw new Error(`<Figure id="${id}"> is used outside an exhibit pa
 const credit = creditFor(exhibit.data.credits, id, exhibit.id);
 if (!credit.file) throw new Error(`Exhibit "${exhibit.id}": credit "${id}" has no image file`);
 
-// Shown at most at the reading column's width (62ch ≈ 680px), up to 2× for sharp screens.
-const widths = [360, 540, 720, 1080, 1360];
-const sizes = "(min-width: 768px) 680px, calc(100vw - 32px)";
+// Shown as an annotation: 280px in the desktop margin, ~62% of the column below 1024px.
+// Widths cover up to 3× for sharp phone screens.
+const widths = [240, 360, 560, 840];
+const sizes = "(min-width: 1024px) 280px, calc(62vw - 20px)";
 const phone = credit.phoneFile ? await getImage({ src: credit.phoneFile, widths, sizes }) : undefined;
 const creditLine = [credit.author, credit.source].filter(Boolean).join(" · ");
 ---
@@ -37,6 +38,6 @@ const creditLine = [credit.author, credit.source].filter(Boolean).join(" · ");
   </div>
   <figcaption>
     {credit.caption && <span class="block">{credit.caption}</span>}
-    <span class="label mt-1.5 block text-muted">{creditLine}</span>
+    <span class="label mt-1.5 block text-accent">{creditLine}</span>
   </figcaption>
 </figure>

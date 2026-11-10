@@ -162,6 +162,61 @@
   }
 }
 
+/*
+ * Soft motion on reading pages. Reveal: Reveal.astro marks elements .is-in as
+ * they reach the screen (hidden only once the script runs). Scroll-linked
+ * extras only where scroll timelines exist; the timeline sits in its own rule
+ * so the CSS minifier can't fold it into the animation shorthand (which
+ * browsers reject: the cause of the invisible motion in the first exploration).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-ready .prose-cabinet :is(h2:not(:first-child), .figure, .pull-quote) {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .motion-ready .prose-cabinet :is(h2, .figure, .pull-quote).is-in {
+    opacity: 1;
+    transform: none;
+  }
+  @supports (animation-timeline: view()) {
+    .prose-cabinet .figure-plate img {
+      animation-name: plate-settle;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+    }
+    :where(.prose-cabinet .figure-plate img) {
+      animation-timeline: view();
+      animation-range: entry 0% cover 60%;
+    }
+    .texture-calm {
+      animation-name: texture-drift;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+    }
+    :where(.texture-calm) {
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes plate-settle {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes texture-drift {
+  to {
+    transform: translateY(-30svh) rotate(-2deg);
+  }
+}
+
 @keyframes glow-drift {
   to {
     transform: translate(10vw, 35vh) scale(1.15);
@@ -209,6 +264,62 @@
     text-decoration: none;
     padding-inline: 0.15em;
   }
+  /*
+   * Reading pages: "annotated copy" (direction C, chosen 2026-11-10).
+   * Orange marginalia: first letter, section numbers, hanging quotation marks,
+   * credits and plate edges. Engravings and pulled quotes sit beside the text
+   * on a phone and in the right-hand margin on wide screens.
+   */
+  .prose-cabinet {
+    counter-reset: section;
+  }
+  .prose-cabinet > p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-size: 4.2em;
+    line-height: 0.8;
+    padding: 0.06em 0.12em 0 0;
+    color: var(--color-accent);
+  }
+  .prose-cabinet > h2:not(:first-child) {
+    counter-increment: section;
+    margin-top: 2em;
+  }
+  .prose-cabinet > h2:not(:first-child)::before {
+    content: "§ " counter(section, upper-roman);
+    display: block;
+    margin-bottom: 0.6em;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--color-accent);
+  }
+  .pull-quote {
+    position: relative;
+    margin-block: 1.8em;
+    padding: 0.2em 0 0 34px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.18;
+    color: var(--color-cream);
+  }
+  .pull-quote::before {
+    content: "“";
+    position: absolute;
+    left: -2px;
+    top: -0.12em;
+    font-size: 2.6em;
+    line-height: 1;
+    font-style: normal;
+    color: var(--color-accent);
+  }
+  .pull-quote-cite {
+    margin-top: 0.7em;
+    font-style: normal;
+    color: var(--color-accent);
+  }
+
   /* Engravings in a text: printed on the plate colour, so every scan shares one paper tone. */
   .prose-cabinet .figure {
     margin-block: 2.5em;
@@ -217,6 +328,27 @@
     background: var(--color-plate);
     border-radius: 2px;
     padding: 12px;
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-accent) 45%, transparent);
+  }
+  @media (max-width: 1023px) {
+    /* Phone and tablet: engravings are annotations set to the right of the text. */
+    .prose-cabinet .figure {
+      width: 62%;
+      margin-left: auto;
+    }
+  }
+  @media (min-width: 1024px) {
+    /* Desktop: engravings and pulled quotes sit in the right-hand margin. */
+    .prose-cabinet .figure,
+    .prose-cabinet .pull-quote {
+      float: right;
+      clear: right;
+      width: 280px;
+      margin: 0.4em -340px 1.5em 0;
+    }
+    .prose-cabinet .pull-quote {
+      font-size: 22px;
+    }
   }
   .figure-plate img {
     display: block;

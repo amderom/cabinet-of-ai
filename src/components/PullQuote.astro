@@ -1,0 +1,16 @@
+---
+/**
+ * A quotation pulled out of the text, set large with a hanging orange
+ * quotation mark; in the margin on wide screens. It repeats words already in
+ * the text, so screen readers skip it.
+ */
+interface Props {
+  cite?: string;
+}
+const { cite } = Astro.props;
+---
+
+<aside class="pull-quote" aria-hidden="true">
+  <p><slot /></p>
+  {cite && <p class="pull-quote-cite label">{cite}</p>}
+</aside>

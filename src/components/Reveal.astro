@@ -1,0 +1,30 @@
+---
+/**
+ * Soft reveal on reading pages: headings, engravings and pulled quotes fade
+ * and rise in as they reach the screen. Elements are only hidden once this
+ * script has run (html.motion-ready), and never with reduced motion.
+ */
+---
+
+<script>
+  function setUp() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const targets = document.querySelectorAll(".prose-cabinet :is(h2:not(:first-child), .figure, .pull-quote)");
+    if (!targets.length || !("IntersectionObserver" in window)) return;
+    document.documentElement.classList.add("motion-ready");
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -12% 0px" },
+    );
+    targets.forEach((t) => io.observe(t));
+  }
+  // Runs on first load and after every page change (view transitions).
+  document.addEventListener("astro:page-load", setUp);
+</script>

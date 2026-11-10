@@ -42,23 +42,23 @@ Everything is sequential: each step builds on the previous one, and the checkpoi
 ## Task List
 
 ### Part A: Engravings
-- [ ] T1: Engraving shortlist with licences
+- [x] T1: Engraving shortlist with licences
 
 ### Checkpoint A — the author picks the engravings
 
 ### Part B: Image system and essay
-- [ ] T2: Image model, credits helpers, build guard
-- [ ] T3: Figure component and essay illustrations
+- [x] T2: Image model, credits helpers, build guard
+- [x] T3: Figure component and essay illustrations
 
 ### Checkpoint B — the author reviews the illustrated essay
 
 ### Part C: Texture and reading pages
-- [ ] T4: Lagado neon engraving texture
-- [ ] T5: Three reading-page directions on the exploration branch
+- [x] T4: Lagado neon engraving texture
+- [x] T5: Three reading-page directions on the exploration branch
 
 ### Checkpoint C — the author picks a direction
 
-- [ ] T6: Chosen direction in the shared exhibit layout
+- [x] T6: Chosen direction in the shared exhibit layout
 
 ### Part D: Ship
 - [ ] T7: Performance and full browser checks
