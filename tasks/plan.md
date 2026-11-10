@@ -33,23 +33,23 @@ T2, T3 and T4 are independent of each other once T1 is done, but they all touch 
 ## Task List
 
 ### Part A: Content and the essay
-- [ ] T1: Content data — research reference, descriptions, site settings
-- [ ] T2: Lagado essay page — note, "Read the full article" button, byline, essay text
+- [x] T1: Content data — research reference, descriptions, site settings
+- [x] T2: Lagado essay page — note, "Read the full article" button, byline, essay text
 
 ### Checkpoint A (author review)
 - [ ] Tests, check and build pass
 - [ ] Phone screenshots of the essay sent to the author: she checks her text and the typography fixes
 
 ### Part B: The shared frame
-- [ ] T3: Shared exhibit frame — calls to action, credits, play-first link, footer
-- [ ] T4: Page information for LinkedIn — title, description, Open Graph, canonical; mono font preload
-- [ ] T5: Lagado demo teaser and making-of note
+- [x] T3: Shared exhibit frame — calls to action, credits, play-first link, footer
+- [x] T4: Page information for LinkedIn — title, description, Open Graph, canonical; mono font preload
+- [x] T5: Lagado demo teaser and making-of note
 
 ### Checkpoint B
 - [ ] All browser checks from the spec pass at 390×844, 375×667 and 1280×800
 
 ### Part C: Ship
-- [ ] T6: ADR 004, README, journal
+- [x] T6: ADR 004, README, journal
 - [ ] T7: Draft PR, Vercel preview, author's phone check
 
 ### Checkpoint C (before merge)
