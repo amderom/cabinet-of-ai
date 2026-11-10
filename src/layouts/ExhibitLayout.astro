@@ -30,7 +30,8 @@ const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part
   title={isDemo ? pageTitle(exhibit.data.title) : pageTitle(title ?? exhibit.data.title, partName)}
   description={description ?? exhibit.data.tagline}
   accent={exhibit.data.accent}
-  type={part === "essay" ? "article" : "website"}>
+  type={part === "essay" ? "article" : "website"}
+  calm={!isDemo}>
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
     <a href="/" class="inline-flex min-h-11 items-center text-cream hover:text-accent">← Cabinet of AI</a>
     <span>{partName}</span>
