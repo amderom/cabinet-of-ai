@@ -1,0 +1,36 @@
+---
+import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Exhibit accent colour (#RRGGBB). Falls back to the site default. */
+  accent?: string;
+}
+
+const { title, description, accent } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <Font cssVariable="--font-instrument-serif" preload />
+    <Font cssVariable="--font-inter-tight" preload />
+    <Font cssVariable="--font-ibm-plex-mono" />
+    <!-- Smooth page changes without full reloads; no animation for reduced-motion visitors. -->
+    <ClientRouter />
+  </head>
+  <body style={accent ? `--accent: ${accent}` : undefined}>
+    <div class="glow" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="relative z-10">
+      <slot />
+    </div>
+  </body>
+</html>

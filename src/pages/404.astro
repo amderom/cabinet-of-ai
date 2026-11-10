@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Not found · Cabinet of AI">
+  <header class="label flex justify-between p-4 text-muted">
+    <a href="/" class="text-cream hover:text-accent">← Cabinet of AI</a>
+    <span>Error 404</span>
+  </header>
+
+  <main class="px-4 pt-[18svh] pb-24">
+    <p class="label text-accent">Drawer not found</p>
+    <h1 class="mt-4 font-display text-[clamp(64px,20vw,200px)] leading-[0.85] tracking-[-0.03em]">
+      Still <em>sealed</em>
+    </h1>
+    <p class="mt-5 max-w-[30ch] text-base leading-snug text-cream/85">
+      This drawer is empty or not open yet.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-block rounded-full bg-cream px-5 py-3 text-sm font-semibold text-ink"
+    >
+      Back to the cabinet
+    </a>
+  </main>
+</BaseLayout>

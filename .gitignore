@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # test output
 coverage/
+
+# Browser test artefacts (playwright-cli)
+.playwright-cli/

@@ -52,6 +52,7 @@
 - Lagado demo as a self-contained React island, inside its parody framing (format chosen for this exhibit: pitch, pricing page, etc.)
 - Sound system: "enter with sound / in silence" choice, mute toggle that persists across page changes (`transition:persist`), first sound effects (Howler.js)
 - Lagado making-of written from the build journal
+- Demo context as agreed in [docs/ideas/demo-context.md](docs/ideas/demo-context.md): three plates (specimen + museum label, quote, specifications), parody in the scrolling banner, and a fourth part "The original" (adds a route; update docs/project.md → Routes when specifying)
 - Unit tests for the machine's logic
 
 **Done when:** Lagado is complete (demo + parody, essay, making-of) and playable on a mid-range phone, with sound on and off.

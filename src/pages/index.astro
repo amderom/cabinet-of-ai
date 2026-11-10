@@ -1,0 +1,68 @@
+---
+// Home placeholder: lists every exhibit from the content collection, in
+// cabinet order. Open exhibits link to their page; sealed ones don't.
+// The real cabinet design comes in Phase 1.1.
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { sortByOrder } from "../lib/exhibits";
+
+const exhibits = sortByOrder(await getCollection("exhibits"));
+---
+
+<BaseLayout
+  title="Cabinet of AI"
+  description="A cabinet of curiosities of the historical prefigurations of artificial intelligence."
+>
+  <header class="label flex justify-between p-4 text-muted">
+    <span class="text-cream">Cabinet of AI</span>
+    <span>Placeholder</span>
+  </header>
+
+  <main>
+    <section class="px-4 pt-[18svh] pb-10">
+      <h1 class="font-display text-[clamp(64px,20vw,200px)] leading-[0.85] tracking-[-0.03em]">
+        Cabinet of <em>AI</em>
+      </h1>
+      <p class="mt-5 max-w-[30ch] text-base leading-snug text-cream/85">
+        Old ideas of thinking machines, rebuilt so you can play with them.
+      </p>
+    </section>
+
+    <ul class="border-t border-line">
+      {
+        exhibits.map((exhibit, i) => {
+          const number = String(i + 1).padStart(3, "0");
+          const open = exhibit.data.status === "open";
+          const row = "flex items-baseline gap-3.5 border-b border-line px-4 py-4";
+          return (
+            <li style={`--accent: ${exhibit.data.accent}`}>
+              {open ? (
+                <a href={`/exhibits/${exhibit.id}/`} class={`${row} transition-colors hover:text-accent`}>
+                  <span class="label">{number}</span>
+                  <span class="flex-1">
+                    <span
+                      transition:name={`exhibit-title-${exhibit.id}`}
+                      class="block font-display text-[40px] leading-none"
+                    >
+                      {exhibit.data.title}
+                    </span>
+                    <span class="mt-2 block text-sm text-cream/70">{exhibit.data.tagline}</span>
+                  </span>
+                  <span class="label rounded-full border border-accent bg-accent px-2.5 py-1 text-ink">
+                    Open
+                  </span>
+                </a>
+              ) : (
+                <div class={`${row} text-muted opacity-55`}>
+                  <span class="label">{number}</span>
+                  <span class="flex-1 font-display text-[40px] leading-none">{exhibit.data.title}</span>
+                  <span class="label rounded-full border border-current px-2.5 py-1">Sealed</span>
+                </div>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </main>
+</BaseLayout>

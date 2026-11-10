@@ -6,8 +6,10 @@ A cabinet of curiosities of the historical prefigurations of artificial intellig
 
 ## Current state
 
-**Current phase:** Phase 0 — Technical foundations
+**Current phase:** Phase 0 — Technical foundations (built; awaiting the Vercel preview check)
 **Target MVP:** end of Phase 1.3 (cabinet homepage + complete Lagado exhibit)
+
+What works today: a dark home page listing the exhibits from content (Lagado open; Llull and Hesse sealed), Lagado's demo, essay and making-of placeholder pages with smooth page transitions, and a 404 page for sealed exhibits. Decisions so far: [docs/adr/](./docs/adr/). Build journal: [docs/features/cabinet/journal.md](./docs/features/cabinet/journal.md).
 
 > Full startup plan: see [STARTUP.md](./STARTUP.md)
 > Project compass, stack and architecture: see [docs/project.md](./docs/project.md)
@@ -18,7 +20,7 @@ A cabinet of curiosities of the historical prefigurations of artificial intellig
 ## Local setup
 
 ### Prerequisites
-- Node.js 22.12+ (even-numbered versions only — required by Astro 6)
+- Node.js 22.23.4+ (even-numbered versions only — required by Astro 7)
 - A GitHub account (for the repo) and a Vercel account (free Hobby tier, for hosting)
 
 ### Installation
@@ -31,12 +33,16 @@ npm install
 ### Environment variables
 None. The site is fully static and uses no secrets.
 
-### Run
+### Commands
 ```bash
-npm run dev
+npm run dev       # local site at http://localhost:4321
+npm run build     # static build into dist/
+npm run preview   # serve the build locally
+npm run check     # type and template check (astro check)
+npm run test      # unit tests (Vitest)
 ```
 
-Site available at http://localhost:4321.
+When run by an agent (non-interactively), `npm run dev` and `npm run preview` start in the background; stop them with `npx astro dev stop` / `npx astro preview stop`. Restart the dev server after adding new content folders or pages.
 
 ---
 
@@ -73,12 +79,21 @@ cabinet-of-ai/
 ├── IDEAS.md
 ├── AGENTS.md
 ├── CLAUDE.md
+├── SPEC.md             ← Phase 0 spec
+├── tasks/              ← Phase 0 plan and task list
 ├── docs/
 │   ├── project.md
-│   ├── adr/
-│   └── features/
+│   ├── adr/            ← architecture decisions
+│   ├── features/       ← build journals
+│   └── ideas/          ← agreed directions for later phases
 ├── design/
-└── src/                ← created in Phase 0 (see docs/project.md)
+├── public/
+└── src/
+    ├── content/exhibits/<slug>/   ← exhibit.yaml, essay.mdx, making-of.mdx
+    ├── content.config.ts          ← content schema
+    ├── demos/<slug>/              ← one demo per exhibit
+    ├── layouts/, components/, pages/, styles/
+    └── lib/                       ← tested helpers
 ```
 
 ---

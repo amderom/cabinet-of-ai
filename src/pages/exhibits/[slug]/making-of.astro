@@ -1,0 +1,22 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ExhibitLayout from "../../../layouts/ExhibitLayout.astro";
+import { partPaths } from "../../../lib/exhibit-pages";
+
+export const getStaticPaths = () => partPaths("making-of");
+
+interface Props {
+  exhibit: CollectionEntry<"exhibits">;
+  entry: CollectionEntry<"makingOfs">;
+}
+
+const { exhibit, entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<ExhibitLayout exhibit={exhibit} part="making-of">
+  <article class="prose-cabinet">
+    <h2>{entry.data.title}</h2>
+    <Content />
+  </article>
+</ExhibitLayout>

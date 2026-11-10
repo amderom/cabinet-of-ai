@@ -1,0 +1,37 @@
+---
+/** Moves between the three parts of an exhibit; the current part is marked. */
+import type { ExhibitPart } from "../lib/exhibits";
+
+interface Props {
+  slug: string;
+  current: "demo" | ExhibitPart;
+}
+
+const { slug, current } = Astro.props;
+const parts = [
+  { key: "demo", label: "Demo", href: `/exhibits/${slug}/` },
+  { key: "essay", label: "Essay", href: `/exhibits/${slug}/essay/` },
+  { key: "making-of", label: "Making-of", href: `/exhibits/${slug}/making-of/` },
+] as const;
+---
+
+<nav aria-label="Exhibit parts" class="border-y border-line">
+  <ul class="flex">
+    {
+      parts.map((part) => (
+        <li class="flex-1">
+          <a
+            href={part.href}
+            aria-current={part.key === current ? "page" : undefined}
+            class:list={[
+              "label block py-3.5 text-center transition-colors",
+              part.key === current ? "text-accent" : "text-muted hover:text-cream",
+            ]}
+          >
+            {part.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
