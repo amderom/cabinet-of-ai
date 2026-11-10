@@ -62,3 +62,11 @@ Short, factual, dated entries. The public making-of is written from this journal
 **Changed:** the plan checked the accent on the title; the title stays cream (Curio look) and the accent shows on the active menu item instead, so that is what the check measures.
 
 **Caught:** the local preview again showed new pages half-styled; the preview server misses styles in files created after it started. The built site was correct. Restarting the preview fixes it; worth knowing when adding exhibits.
+
+## 2026-11-10 — Demo context (idea-refine) and T6: essay and making-of pages
+
+**Discussion:** the operator worried that visitors landing on the demo would have "no idea what is going on", and wanted both her essay and the author's original text. After an idea-refine session: the scrolling banner carries the start-up parody; the three draggable plates carry the real object (specimen engraving with museum label, the author's quote, a spec sheet built from the original text); a fourth part "The original" holds the key passage when its rights allow (not Hesse). Her own refinements drove it: putting the information on the plates rather than extra cards, then keeping all jokes in the banner. Saved in `docs/ideas/demo-context.md`, linked from Phase 1.2; fact-check flips parked in IDEAS.md.
+
+**Built (T6):** essay and making-of pages for every open exhibit, inside the shared exhibit layout, with reading styles (Inter Tight body, Instrument Serif titles, accent links, footnotes set apart). A shared helper builds their paths and stops the build if any open exhibit lacks a part.
+
+**Checked:** removing Lagado's essay stops the build with "lagado is open but has no essay (add …/essay.mdx)"; at phone size the menu moves Demo → Essay → Making-of → Demo, fonts are right, the footnote renders, no sideways scroll, no errors.

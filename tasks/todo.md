@@ -111,12 +111,12 @@
 **Description:** Create `essay.astro` and `making-of.astro` under `src/pages/exhibits/[slug]/`, rendering the matching MDX entry inside `ExhibitLayout` with Inter Tight for body text and Instrument Serif for titles. `getStaticPaths` throws a clear build error if an open exhibit is missing a part (using the T3 helper).
 
 **Acceptance criteria:**
-- [ ] `/exhibits/lagado/essay/` and `/exhibits/lagado/making-of/` render their placeholder MDX (titles Instrument Serif, body Inter Tight)
-- [ ] Temporarily removing `lagado/essay.mdx` makes the build fail with a message naming the exhibit and the missing part
+- [x] `/exhibits/lagado/essay/` and `/exhibits/lagado/making-of/` render their placeholder MDX (titles Instrument Serif, body Inter Tight)
+- [x] Temporarily removing `lagado/essay.mdx` makes the build fail with a message naming the exhibit and the missing part
 
 **Verification:**
-- [ ] `npm run build` passes (and fails as expected in the removal test, then restored)
-- [ ] playwright-cli: computed font of the essay body is Inter Tight; nav moves between all three parts
+- [x] `npm run build` passes (and fails as expected in the removal test, then restored)
+- [x] playwright-cli: computed font of the essay body is Inter Tight; nav moves between all three parts
 
 **Dependencies:** T5
 **Files likely touched:** `src/pages/exhibits/[slug]/essay.astro`, `src/pages/exhibits/[slug]/making-of.astro`, `src/layouts/ExhibitLayout.astro`
