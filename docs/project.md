@@ -202,7 +202,7 @@ Files created at runtime by agent-skills (not by the vibe-project skill):
 - **Engravings are the common thread of the whole site** (agreed 2026-11-10). They appear everywhere, in three forms: on the exhibit plates (the real object, readable), as a soft neon texture in the background tinted with the exhibit's colour (atmosphere, never competing with text, fainter on reading pages), and in the cabinet on the homepage. All come from free-to-use, public-domain collections, with source and licence recorded.
 - Motion: light CSS animations, page transitions, GSAP sequences. No 3D for now.
 - Sound: optional enhancement, never required to understand anything.
-- The operator's own photos and drawings shared during Vibe Project were for mood only and must **not** be used on the site.
+- The operator's photos and drawings are used **only when she explicitly provides them for a specific use** (first case, agreed 2026-11-10: her ink drawing of Swift as the Lagado hero). They are credited to her by name, all rights reserved. The mood photos and drawings shared during Vibe Project stay excluded.
 
 **Reference websites** (for feel, not to copy):
 - redassociates.com — restrained editorial serif typography (model for the essay layer)

@@ -168,7 +168,7 @@ The making-of is part of the portfolio ("Show the making" in the Project compass
   files before implementing the corresponding screens.
 - **`design/DESIGN.md`** (if present) — design system specification following
   the getdesign.md convention. Read before generating any UI.
-- The agreed visual direction and reference websites are listed in `docs/project.md` → Design references. No visual files were provided at setup: the operator's photos and drawings shared during Vibe Project were for mood only and must not be used on the site.
+- The agreed visual direction and reference websites are listed in `docs/project.md` → Design references. No visual files were provided at setup: the operator's photos and drawings shared during Vibe Project were for mood only and must not be used on the site. Her own artwork may be used only when she explicitly provides it for a specific use (e.g. her drawing of Swift as the Lagado hero), credited to her by name, all rights reserved.
 
 ---
 
@@ -425,4 +425,4 @@ React-specific quality guidance from a different source, not agent-skills entry 
 - Never put operator names in product/technical docs (IDEAS.md,
   docs/project.md). Operator names live in the AGENTS.md "Operators"
   block — nowhere else.
-- Never use the operator's personal photos or drawings on the site, and never use an asset whose licence is unclear.
+- Never use the operator's photos or drawings on the site unless she explicitly provides them for a specific use (the Vibe Project mood material stays excluded), and never use an asset whose licence is unclear.

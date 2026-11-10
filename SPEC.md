@@ -24,7 +24,7 @@ The agent searches open collections and presents a **shortlist** with, for each 
 
 - **Allowed sources:** collections that state public domain or CC0 per item: Wikimedia Commons (only files marked public domain, checked per file), Rijksmuseum, The Met Open Access, Library of Congress, British Library (public-domain Flickr set), Internet Archive scans of out-of-copyright books, Smithsonian Open Access.
 - **Avoided:** sources with reuse conditions (e.g. Gallica's "non-commercial with attribution" terms), any image whose licence or artist dates are unclear. If in doubt, the image is dropped (AGENTS.md → Assets and credits).
-- **What to look for:** 19th-century illustrated editions of *Gulliver's Travels* (Laputa, Balnibarbi, the Academy of Lagado, the word frame), and images for the essay's sections (dice and frames, Borel's monkey, the spider and the bee). At least 2 candidates for the texture, 2–3 for the **hero** (the image that greets visitors on the exhibit's landing page, distinct from the texture) and 4–6 for the essay.
+- **What to look for:** 19th-century illustrated editions of *Gulliver's Travels* (Laputa, Balnibarbi, the Academy of Lagado, the word frame), and images for the essay's sections (dice and frames, Borel's monkey, the spider and the bee). At least 2 candidates for the texture and 4–6 for the essay. (No hero candidates: the hero is the author's own drawing, see below.)
 - **Output:** `docs/features/lagado/engravings.md` (shortlist + the author's picks), so the choice is recorded for the making-of.
 
 ### Step 2 — One image system, with automatic credits
@@ -50,7 +50,7 @@ credits:
 - **The credits block** (built in Phase 1.1) lists every image automatically.
 - **Build guard:** the build fails, with a clear message, if an image file in an exhibit's `images/` folder has no credit entry, or if a credit has no licence. This enforces the "no asset without its licence" rule mechanically.
 - **Phone vs desktop:** every image can have an optional **phone version** (`phoneFile`, e.g. a tighter crop of a wide engraving), served automatically on small screens; layout also differs by screen (full width between paragraphs on a phone; larger or in the margin on desktop, following the reading-page direction chosen in Step 5).
-- **Hero:** `exhibit.yaml` gets an optional `hero` (the id of a credited image, distinct from the texture). It is chosen and declared now; it is **displayed in Part 2**, when the landing page is designed with the machine and the plates, and may seed the LinkedIn preview image in Part 3.
+- **Hero:** `exhibit.yaml` gets an optional `hero` (the id of a credited image, distinct from the texture). For Lagado it is **the author's ink drawing of Swift** (`images/swift-portrait.jpg`, credited "Drawing by" the author, all rights reserved; on the dark site shown as light lines on black, possibly tinted, with the file left untouched). It is declared now; it is **displayed in Part 2**, when the landing page is designed with the machine and the plates, and may seed the LinkedIn preview image in Part 3.
 - The same system will serve the plates in Part 2 (no plates are built now).
 
 ### Step 3 — Lagado essay illustrations
@@ -142,7 +142,7 @@ export function creditFor<T extends CreditLike>(credits: T[], id: string, exhibi
 
 - **Always:** record source, author, licence and URL for every image before it enters the repo; keep the essay's wording unchanged; check every image on a phone; write alt text for every image (author validates); append to `docs/features/lagado/journal.md` after each session; verify Astro image APIs against current Astro 7 docs.
 - **Ask first:** using any image (the author picks from the shortlist); installing GSAP; any change to the essay text; changing accent colours or typefaces; editing `docs/project.md`.
-- **Never:** use an image with an unclear licence or from a source with reuse conditions; use the operator's personal photos or drawings; load images from another site at runtime (all images are served from this site); merge the exploration branch; build the plates, the machine or the preview images (Parts 2 and 3).
+- **Never:** use an image with an unclear licence or from a source with reuse conditions; use the operator's photos or drawings except those she explicitly provides for a specific use (her Swift drawing as the Lagado hero); load images from another site at runtime (all images are served from this site); merge the exploration branch; build the plates, the machine or the preview images (Parts 2 and 3).
 
 ## Success Criteria
 
@@ -156,7 +156,8 @@ export function creditFor<T extends CreditLike>(credits: T[], id: string, exhibi
 
 ## Changes after approval
 
-- 2026-11-10, at the operator's request: phone versions of images (Step 2) and a hero image per exhibit (picked now, displayed in Part 2).
+- 2026-11-10, at the operator's request: phone versions of images (Step 2) and a hero image per exhibit (declared now, displayed in Part 2).
+- 2026-11-10: the Lagado hero is the operator's own drawing of Swift. The rule against using her drawings was reworded with her yes (AGENTS.md, docs/project.md): her artwork is used only when she provides it for a specific use; the Vibe Project mood material stays excluded. The "public domain only" rule still applies to every other image.
 
 ## Open Questions
 
