@@ -14,7 +14,7 @@ const { exhibit, entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<ExhibitLayout exhibit={exhibit} part="making-of">
+<ExhibitLayout exhibit={exhibit} part="making-of" title={entry.data.title} description={entry.data.description}>
   <article class="prose-cabinet">
     <h2>{entry.data.title}</h2>
     <Content />

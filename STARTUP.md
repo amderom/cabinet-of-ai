@@ -34,11 +34,11 @@
 - Calls to action on every part: read the research, follow on LinkedIn
 - Essay and making-of pages link prominently back to the demo (Play first)
 - Credits block in the exhibit layout (source, author, licence of each third-party asset)
-- **LinkedIn link previews:** title, description and preview image for every shareable URL (Open Graph metadata)
+- **LinkedIn link previews, part 1:** title and description for every shareable URL (Open Graph metadata). Preview images come at the end of Phase 1.2
 - Lagado essay summary in MDX, with the journal reference and link
 - The essay goes live on production with an empty demo slot; it is not announced on LinkedIn until Phase 1.2 ships
 
-**Done when:** after merge, the production Lagado essay URL shows a proper preview card in LinkedIn's Post Inspector (Vercel preview URLs are protected, so LinkedIn can't read them), and the page reads well on a phone.
+**Done when:** after merge, the production Lagado essay reads well on a phone and LinkedIn's Post Inspector reads its title and description (Vercel preview URLs are protected, so LinkedIn can't read them).
 
 ---
 
@@ -48,14 +48,26 @@
 
 **What a visitor can do at the end:** arrive on the Lagado demo from a LinkedIn link, choose to enter with sound or in silence, play with the machine, read the parody around it, and open the making-of.
 
-**Technical content:**
-- Lagado demo as a self-contained React island, inside its parody framing (format chosen for this exhibit: pitch, pricing page, etc.)
+Phase 1.2 is specced and shipped in three parts, in this order (each gets its own `/spec`):
+
+**Part 1 — Images and engravings** (images as a whole, done once for the whole site):
+- **Reading pages with more personality** (raised by the author after Phase 1.1: the essay page feels a bit bland, she wants something more fluid). Explore two or three directions on real screens first: e.g. a stronger opening in the display serif, the author's quotations pulled out large, gentle motion as you scroll, engraving vignettes at section breaks. Readability on a phone comes first
+- **Engravings, first pass (common thread of the site, see docs/project.md → Design references):** find the first public-domain engravings and record their licences
+- One way of showing images everywhere: engraving plates, illustrations inside essays and making-ofs (caption, credit, licence), all crisp but light on a phone; credits listed automatically in the credits block
+- The soft neon engraving texture, built once as a background layer for the whole site and tuned on the demo, essay and making-of pages (faint enough to keep the essay readable on a phone)
+- The engraving style chosen here gives the machine its visual language in Part 2
+
+**Part 2 — The machine:**
+- Lagado demo as a self-contained React island, inside its parody framing (format chosen for this exhibit: pitch, pricing page, etc.), drawn in the engraving language from Part 1
 - Sound system: "enter with sound / in silence" choice, mute toggle that persists across page changes (`transition:persist`), first sound effects (Howler.js)
-- Lagado making-of written from the build journal
 - Demo context as agreed in [docs/ideas/demo-context.md](docs/ideas/demo-context.md): three plates (specimen + museum label, quote, specifications), parody in the scrolling banner, and a fourth part "The original" (adds a route; update docs/project.md → Routes when specifying)
 - Unit tests for the machine's logic
+- Lagado making-of written from the build journal
+- Fallback: if the image search in Part 1 drags on, pause it and build the machine with temporary visuals, then restyle
 
-**Done when:** Lagado is complete (demo + parody, essay, making-of) and playable on a mid-range phone, with sound on and off.
+**Part 3 — LinkedIn link previews, part 2:** preview images designed with the author once the machine exists, one per exhibit (plus one for the site); checked in LinkedIn's Post Inspector on production before the first Lagado post
+
+**Done when:** Lagado is complete (demo + parody, essay, making-of) and playable on a mid-range phone, with sound on and off, and its links show a full preview card (with image) in LinkedIn's Post Inspector.
 
 ---
 
@@ -69,7 +81,7 @@
 - An illustrated cabinet (2D, no 3D), animated with GSAP, that works on every phone
 - Drawers driven by the exhibit content entries (open vs sealed)
 - The "enter with sound / in silence" choice appears at the cabinet's first gesture (opening), reusing the sound system from Phase 1.2
-- Cabinet visuals drawn or sourced from free-to-use material (source and licence recorded)
+- Cabinet visuals drawn or sourced from free-to-use material (source and licence recorded), in the same engraving language as the exhibits, so the homepage and the exhibits feel like one place
 - Site-level credits spot for the cabinet's assets
 
 **Done when:** the homepage opens into the cabinet and leads to Lagado, on both a mid-range phone and a desktop.
@@ -115,7 +127,7 @@ The permanent design direction lives in `docs/project.md` (Design references) an
 
 - ASSUMPTION: The author provides the Lagado essay summary, the journal reference, and validates the parody copy. Agents use clearly marked placeholders until then.
 - ASSUMPTION: The Lagado parody format (pitch, pricing page, etc.) is chosen with the author at the start of Phase 1.2.
-- ASSUMPTION: LinkedIn preview images are static images per shareable URL, not generated automatically.
+- ASSUMPTION: LinkedIn preview images are static images, one per exhibit (not per part), not generated automatically. Designed at the end of Phase 1.2.
 - ASSUMPTION: The site uses the free `vercel.app` subdomain for the MVP.
 
 ---

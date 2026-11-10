@@ -1,0 +1,36 @@
+---
+/**
+ * Top of an essay page: byline, a note saying the essay is a light, condensed
+ * take on a published article, and a prominent link to that article.
+ */
+import type { Research } from "../lib/research";
+import { AUTHOR_NAME, LINKEDIN_URL } from "../lib/site";
+
+interface Props {
+  research: Research;
+}
+
+const { research } = Astro.props;
+---
+
+<div class="pb-10">
+  <p class="label text-muted">
+    By <a href={LINKEDIN_URL} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center text-cream no-underline hover:text-accent">{AUTHOR_NAME}</a>
+  </p>
+  <aside aria-label="About this essay" class="mt-5 border-l-2 border-accent pl-4">
+    <p class="label text-accent">About this essay</p>
+    <p class="mt-2 text-[15px] leading-normal text-cream/80">
+      A short, playful take on my peer-reviewed article <em>{research.title}</em>, published in{" "}
+      {research.language} in <em>{research.journal}</em>{research.issue && `, no. ${research.issue}`} ({research.year}).
+      For the full argument, notes and sources, read the original.
+    </p>
+    <a
+      href={research.url}
+      target="_blank"
+      rel="noopener"
+      class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-semibold text-ink no-underline transition-opacity hover:opacity-90"
+    >
+      Read the full article <span class="font-normal">(in {research.language})</span> <span aria-hidden="true">↗</span>
+    </a>
+  </aside>
+</div>

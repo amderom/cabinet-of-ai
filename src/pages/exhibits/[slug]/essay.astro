@@ -1,6 +1,7 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
 import ExhibitLayout from "../../../layouts/ExhibitLayout.astro";
+import ResearchNote from "../../../components/ResearchNote.astro";
 import { partPaths } from "../../../lib/exhibit-pages";
 
 export const getStaticPaths = () => partPaths("essay");
@@ -12,11 +13,13 @@ interface Props {
 
 const { exhibit, entry } = Astro.props;
 const { Content } = await render(entry);
+const { research } = exhibit.data;
 ---
 
-<ExhibitLayout exhibit={exhibit} part="essay">
+<ExhibitLayout exhibit={exhibit} part="essay" title={entry.data.title} description={entry.data.description}>
   <article class="prose-cabinet">
     <h2>{entry.data.title}</h2>
+    {research && <ResearchNote research={research} />}
     <Content />
   </article>
 </ExhibitLayout>

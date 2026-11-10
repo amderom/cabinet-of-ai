@@ -7,6 +7,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://docs.astro.build/en/reference/configuration-reference/
 export default defineConfig({
+  // Production URL: used for absolute links in link previews (canonical, og:url).
+  site: "https://cabinet-of-ai-gx8a.vercel.app",
+
   integrations: [react(), mdx()],
 
   // Fonts are downloaded at build time and served from this site

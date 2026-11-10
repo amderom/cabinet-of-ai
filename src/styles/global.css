@@ -61,6 +61,25 @@
     animation: glow-drift 14s ease-in-out infinite alternate;
   }
 
+  /*
+   * Reading pages (essay, making-of): the glow stays at the top, behind the
+   * title, and fades out before the text, so long reading sits on near-black.
+   */
+  .glow-frame {
+    /* Holds the calm glow at the top of the page and clips it, so it never causes sideways scrolling. */
+    position: absolute;
+    z-index: 0;
+    inset: 0 0 auto 0;
+    height: 160vh;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .glow-calm {
+    position: absolute;
+    mask-image: linear-gradient(to bottom, #000 40%, transparent 72%);
+    animation-name: glow-drift-calm;
+  }
+
   /* Fine film grain over everything. */
   .grain {
     position: fixed;
@@ -82,6 +101,12 @@
 @keyframes glow-drift {
   to {
     transform: translate(10vw, 35vh) scale(1.15);
+  }
+}
+
+@keyframes glow-drift-calm {
+  to {
+    transform: translate(10vw, 2vh) scale(1.1);
   }
 }
 

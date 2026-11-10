@@ -1,7 +1,14 @@
-# Placeholder text: the real copy is written in Phase 1.
 title: The Lagado Engine
 tagline: Write any book. No genius. No study. Just turn the cranks.
 accent: "#FF5F1F"
 status: open
 order: 1
 credits: []
+research:
+  title: "Totalité et infini de la machine à tout dire de Gulliver's Travels : du programme littéraire au programme informatique"
+  journal: "XVII-XVIII"
+  issue: "77"
+  year: 2020
+  url: "https://journals.openedition.org/1718/5936"
+  doi: "10.4000/1718.5936"
+  language: "French"

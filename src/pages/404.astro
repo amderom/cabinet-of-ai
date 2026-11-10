@@ -2,9 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Not found · Cabinet of AI">
-  <header class="label flex justify-between p-4 text-muted">
-    <a href="/" class="text-cream hover:text-accent">← Cabinet of AI</a>
+<BaseLayout
+  title="Not found · Cabinet of AI"
+  description="This drawer of the Cabinet of AI is empty or not open yet."
+  canonical={false}
+>
+  <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
+    <a href="/" class="inline-flex min-h-11 items-center text-cream hover:text-accent">← Cabinet of AI</a>
     <span>Error 404</span>
   </header>
 

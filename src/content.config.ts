@@ -1,6 +1,7 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
+import { researchSchema } from "./lib/research";
 
 // One folder per exhibit under src/content/exhibits/<slug>/. Every collection
 // uses the folder name as the entry id, so the three parts share one slug.
@@ -27,17 +28,18 @@ const exhibits = defineCollection({
         }),
       )
       .default([]),
+    research: researchSchema.optional(),
   }),
 });
 
 const essays = defineCollection({
   loader: glob({ base, pattern: "*/essay.mdx", generateId: folderId }),
-  schema: z.object({ title: z.string() }),
+  schema: z.object({ title: z.string(), description: z.string() }),
 });
 
 const makingOfs = defineCollection({
   loader: glob({ base, pattern: "*/making-of.mdx", generateId: folderId }),
-  schema: z.object({ title: z.string() }),
+  schema: z.object({ title: z.string(), description: z.string() }),
 });
 
 export const collections = { exhibits, essays, makingOfs };

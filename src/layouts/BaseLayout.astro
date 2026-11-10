@@ -2,15 +2,28 @@
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
+import { absoluteUrl } from "../lib/seo";
+import { SITE_NAME } from "../lib/site";
 
 interface Props {
+  /** Full page title, e.g. built with pageTitle(). */
   title: string;
-  description?: string;
+  description: string;
   /** Exhibit accent colour (#RRGGBB). Falls back to the site default. */
   accent?: string;
+  /** "article" for essays, "website" otherwise. */
+  type?: "website" | "article";
+  /** Link-preview image (from Phase 1.2). No image tags are written without one. */
+  image?: { src: string; alt: string; width: number; height: number };
+  /** Reading pages: the glow stays at the top instead of following the text. */
+  calm?: boolean;
+  /** False for pages without a fixed address of their own (the 404 page). */
+  canonical?: boolean;
 }
 
-const { title, description, accent } = Astro.props;
+const { title, description, accent, type = "website", image, canonical = true, calm = false } = Astro.props;
+const site = Astro.site ?? Astro.url;
+const url = absoluteUrl(Astro.url.pathname, site);
 ---
 
 <html lang="en">
@@ -19,15 +32,42 @@ const { title, description, accent } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
-    {description && <meta name="description" content={description} />}
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={url} />}
+
+    <!-- Link previews (LinkedIn, messaging apps): read by their crawlers, never shown on the page. -->
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={url} />}
+    {
+      image && (
+        <>
+          <meta property="og:image" content={absoluteUrl(image.src, site)} />
+          <meta property="og:image:width" content={String(image.width)} />
+          <meta property="og:image:height" content={String(image.height)} />
+          <meta property="og:image:alt" content={image.alt} />
+          <meta name="twitter:card" content="summary_large_image" />
+        </>
+      )
+    }
     <Font cssVariable="--font-instrument-serif" preload />
     <Font cssVariable="--font-inter-tight" preload />
-    <Font cssVariable="--font-ibm-plex-mono" />
+    <Font cssVariable="--font-ibm-plex-mono" preload />
     <!-- Smooth page changes without full reloads; no animation for reduced-motion visitors. -->
     <ClientRouter />
   </head>
   <body style={accent ? `--accent: ${accent}` : undefined}>
-    <div class="glow" aria-hidden="true"></div>
+    {
+      calm ? (
+        <div class="glow-frame" aria-hidden="true">
+          <div class="glow glow-calm" />
+        </div>
+      ) : (
+        <div class="glow" aria-hidden="true" />
+      )
+    }
     <div class="grain" aria-hidden="true"></div>
     <div class="relative z-10">
       <slot />

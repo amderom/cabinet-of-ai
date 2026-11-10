@@ -1,0 +1,39 @@
+---
+/**
+ * Source, author and licence of every third-party asset used by an exhibit.
+ * Renders nothing when the exhibit has no credits.
+ */
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  credits: CollectionEntry<"exhibits">["data"]["credits"];
+}
+
+const { credits } = Astro.props;
+---
+
+{
+  credits.length > 0 && (
+    <section aria-labelledby="credits-title" class="mt-12">
+      <h2 id="credits-title" class="label text-muted">
+        Credits
+      </h2>
+      <ul class="mt-3 space-y-2 text-sm leading-snug text-cream/70">
+        {credits.map((credit) => (
+          <li>
+            <span class="text-cream">{credit.asset}</span>
+            {credit.author && <> · {credit.author}</>} ·{" "}
+            {credit.url ? (
+              <a href={credit.url} target="_blank" rel="noopener" class="underline underline-offset-2 hover:text-accent">
+                {credit.source}
+              </a>
+            ) : (
+              credit.source
+            )}{" "}
+            · {credit.licence}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

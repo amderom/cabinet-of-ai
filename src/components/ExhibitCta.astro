@@ -1,0 +1,33 @@
+---
+/**
+ * Calls to action shown on every part of an exhibit: the published research
+ * (when the exhibit has one) and the author's LinkedIn. Plain links only.
+ */
+import type { Research } from "../lib/research";
+import { LINKEDIN_URL } from "../lib/site";
+
+interface Props {
+  research?: Research;
+}
+
+const { research } = Astro.props;
+const link =
+  "flex min-h-14 items-center justify-between gap-4 border-b border-line py-3 text-lg transition-colors hover:text-accent";
+---
+
+<section aria-label="Go further" class="mt-16 border-t border-line">
+  {
+    research && (
+      <a href={research.url} target="_blank" rel="noopener" class={link}>
+        <span>
+          Read the full article <span class="text-muted">(in {research.language})</span>
+        </span>
+        <span aria-hidden="true" class="text-accent">↗</span>
+      </a>
+    )
+  }
+  <a href={LINKEDIN_URL} target="_blank" rel="noopener" class={link}>
+    <span>Follow the series on LinkedIn</span>
+    <span aria-hidden="true" class="text-accent">↗</span>
+  </a>
+</section>

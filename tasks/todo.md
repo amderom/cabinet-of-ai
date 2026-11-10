@@ -1,191 +1,159 @@
-# Tasks: Phase 0 — Technical foundations
+# Tasks: Phase 1.1 — The exhibit page, with Lagado's text
 
 > Plan: [plan.md](./plan.md). Spec: [SPEC.md](../SPEC.md).
-> Every task: verify syntax against current docs (Context7), run `npm run test` and `npm run build` before committing, and keep `main` untouched.
+> Every task: verify Astro syntax against current Astro 7 docs, run `npm run test`, `npm run check` and `npm run build` before committing, keep `main` untouched, and append to `docs/features/lagado/journal.md` at the end of the session.
 
 ---
 
-## T1: Scaffold Astro 7 project ✅
+## T1: Content data ✅
 
-**Description:** Create the Astro 7.4.x project (ADR 001) in the repo root (keeping the existing docs), add React and MDX integrations, Vitest and `@astrojs/check`, and the npm scripts from the spec. Confirm everything works on Node 26.
+**Description:** Add the research reference to the exhibit model, a description to essays and making-ofs, and a site settings file. Fill them in for Lagado.
 
 **Acceptance criteria:**
-- [x] `npm run dev` serves a page at http://localhost:4321
-- [x] `npm run build` produces a static `dist/`; `npm run test` runs (a trivial test passes); `npm run check` runs clean
-- [x] `package.json` has `engines.node >=22.23.4`; tsconfig uses Astro's `strict` preset
+- [x] `exhibits` accepts an optional `research` object (title, journal, issue?, year, url, doi?, language); Lagado has its reference filled in as in the spec
+- [x] `essays` and `makingOfs` require a `description`; Lagado's essay and making-of have theirs
+- [x] `src/lib/site.ts` exports the site name and the LinkedIn URL
 
 **Verification:**
-- [ ] Commands above, run locally on Node 26
-- [ ] `git status` shows no `node_modules/`, `dist/` or `.astro/` (already in `.gitignore`)
+- [x] Unit tests: the research schema accepts Lagado's entry and rejects a bad URL (`npm run test`)
+- [x] `npm run check` and `npm run build` pass
 
 **Dependencies:** None
-**Files likely touched:** `package.json`, `package-lock.json`, `astro.config.mjs`, `tsconfig.json`, `vitest.config.ts`, `src/pages/index.astro`
+**Files likely touched:** `src/lib/research.ts`, `src/lib/research.test.ts`, `src/content.config.ts`, `src/lib/site.ts`, `src/content/exhibits/lagado/exhibit.yaml`, `src/content/exhibits/lagado/essay.mdx` (frontmatter only), `src/content/exhibits/lagado/making-of.mdx` (frontmatter only)
 **Estimated scope:** M
 
 ---
 
-## T2: Design foundations ✅
+## T2: Lagado essay page ✅
 
-**Description:** Add Tailwind 4 via `npx astro add tailwind`, define the Curio tokens (ink, cream, plate, muted, line, accent, display/sans/mono), glow + grain, `label` utility and `Ticker` component in `src/styles/global.css`, self-host Instrument Serif, Inter Tight and IBM Plex Mono through Astro's Fonts API (downloaded at build, served from the site), and create `BaseLayout.astro` (html lang="en", dark body, fonts, global CSS).
+**Description:** Put the author's essay on the essay page, with the "About this essay" note, the "Read the full article (in French) ↗" button and the byline near the top.
 
 **Acceptance criteria:**
-- [x] The index page renders the Curio sample: near-black, accent glow, grain, Instrument Serif titles, Inter Tight text, 10px mono labels
-- [x] Font files load from the site itself (`/_astro/fonts/…`); no request leaves the site
-- [x] Font licences (OFL) recorded in ADR 003 (T8)
+- [x] The essay text matches the author's wording exactly; only typographic fixes (curly quotes, dashes, italic titles), each listed for the PR
+- [x] Under the title: byline (linked to LinkedIn), the note, then the button to the journal article (new tab, `rel="noopener"`, marked "in French")
+- [x] The note and the button are visible without scrolling at 390×844 and 375×667 (smaller exhibit header on essay and making-of pages if needed)
 
 **Verification:**
-- [ ] `npm run build` + `npm run check` pass
-- [x] playwright-cli (390×844 and 375×667, plus reduced motion): fonts as above, no external request, no console error, motion off when reduced
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] playwright-cli at 390×844 and 375×667: button visible without scrolling, correct link, no sideways scroll, no console errors
+- [x] A word-by-word comparison of the rendered text with the author's original (ignoring typography)
 
 **Dependencies:** T1
-**Files likely touched:** `src/styles/global.css`, `src/layouts/BaseLayout.astro`, `astro.config.mjs`, `package.json`
+**Files likely touched:** `src/content/exhibits/lagado/essay.mdx`, `src/components/ResearchNote.astro`, `src/pages/exhibits/[slug]/essay.astro`, `src/layouts/ExhibitLayout.astro`, `src/styles/global.css`
 **Estimated scope:** M
 
 ---
 
-## T3: Exhibit content model
+## Checkpoint A — author review ✅
 
-**Description:** Define the `exhibits`, `essays` and `makingOfs` collections in `src/content.config.ts` with the spec's schema. Add Lagado (open, with placeholder essay and making-of), Llull and Hesse (sealed, metadata only). Write `src/lib/exhibits.ts` helpers test-first: sort by order, filter open, find open exhibits missing a part.
+- [x] Tests, check and build pass
+- [x] Phone screenshots of the essay page sent to the author, with the list of typographic fixes
+- [x] The author approves her text and the top of the page before moving on
+
+---
+
+## T3: Shared exhibit frame ✅
+
+**Description:** Add what every exhibit part shares: the calls to action block, the credits block, the play-first link on essay and making-of, and a footer. Remove the "Placeholder" label.
 
 **Acceptance criteria:**
-- [x] Schema rejects a bad accent (not `#RRGGBB`) or an unknown status
-- [x] Helpers return exhibits in `order`, and only open ones when asked
-- [x] `missingParts()` (or equivalent) reports an open exhibit without essay or making-of
-- [x] Lagado's placeholder essay contains a footnote; it renders as a proper footnote (Sätteri check, see plan risks)
+- [x] Every part shows "Read the full article ↗" (hidden if the exhibit has no `research`) and "Follow the series on LinkedIn ↗" (plain link, no widget)
+- [x] Essay and making-of show "Play with the machine →" near the top, linking to the demo
+- [x] Credits block lists source, author (if known) and licence for each credit; hidden when `credits` is empty
 
 **Verification:**
-- [x] `npm run test`: helper tests written first, seen failing, then passing
-- [x] `npm run build` + `npm run check` pass with the three entries
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] playwright-cli on all three parts at 390×844: links present and correct, tap targets at least 44px
+- [x] Credits shown correctly with a temporary test credit added locally (not committed), hidden without it
 
 **Dependencies:** T1
-**Files likely touched:** `src/content.config.ts`, `src/content/exhibits/{lagado,llull,hesse}/*`, `src/lib/exhibits.ts`, `src/lib/exhibits.test.ts`
+**Files likely touched:** `src/layouts/ExhibitLayout.astro`, `src/components/ExhibitCta.astro`, `src/components/Credits.astro`, `src/pages/exhibits/[slug]/making-of.astro`
 **Estimated scope:** M
 
 ---
 
-## Checkpoint A
-- [x] test, check, build all pass
-- [x] Short report to the operator
+## T4: Page information for LinkedIn ✅
+
+**Description:** Every page outputs its title, description, canonical URL and Open Graph tags with absolute URLs. `og:image` only when an image is passed (none yet). Preload the mono label font.
+
+**Acceptance criteria:**
+- [x] `site` set to the production URL in `astro.config.mjs`
+- [x] Every page (three Lagado parts, home, 404) has `<title>`, description, canonical, `og:title`, `og:description`, `og:url`, `og:type`, `og:site_name`; no `og:image`
+- [x] Page titles name the part (e.g. "Dice and Device: The Lagado Engine · Essay · Cabinet of AI"); IBM Plex Mono is preloaded
+
+**Verification:**
+- [x] Unit tests for `seo.ts` (absolute URLs, page titles) pass
+- [x] `npm run check`, `npm run build` pass; the built HTML in `dist/` contains the tags with absolute URLs
+- [x] playwright-cli: labels render in IBM Plex Mono from the first paint
+
+**Dependencies:** T1
+**Files likely touched:** `astro.config.mjs`, `src/lib/seo.ts`, `src/lib/seo.test.ts`, `src/layouts/BaseLayout.astro`, `src/layouts/ExhibitLayout.astro`
+**Estimated scope:** M
 
 ---
 
-## T4: Home page from the collection
+## T5: Lagado demo teaser and making-of note ✅
 
-**Description:** `src/pages/index.astro` uses `BaseLayout`, reads the collection through the helpers and lists every exhibit in order: open ones link to `/exhibits/<slug>/`, sealed ones are shown as "Sealed" without a link. Each item shows its accent. Visible "Placeholder" label.
+**Description:** Replace the demo placeholder with the honest "The machine is being assembled" teaser (link to the essay) and the making-of placeholder with the short "being written" note.
 
 **Acceptance criteria:**
-- [x] Lagado appears as a link; Llull and Hesse appear as sealed, not links
-- [x] No exhibit name is hard-coded in the page
+- [x] Demo page shows the teaser in the exhibit's style, with a link to the essay; no "Placeholder" label anywhere on Lagado's pages
+- [x] Making-of page shows the two or three lines from the spec, plus the shared calls to action
 
 **Verification:**
-- [x] `npm run build` passes
-- [x] playwright-cli at 390×844: the three items are visible and readable, no console errors
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] playwright-cli on both pages at 390×844: text present, links correct, no console errors
 
-**Dependencies:** T2, T3
-**Files likely touched:** `src/pages/index.astro`
+**Dependencies:** T3
+**Files likely touched:** `src/demos/lagado/Demo.astro`, `src/content/exhibits/lagado/making-of.mdx`
 **Estimated scope:** S
 
 ---
 
-## T5: Lagado demo page, exhibit layout and nav
+## Checkpoint B ✅
 
-**Description:** Create `ExhibitLayout.astro` (sets `--color-accent` from the exhibit, shows the title, renders `ExhibitNav`) and `ExhibitNav.astro` (Demo / Essay / Making-of, current part marked). Create `src/pages/exhibits/[slug]/index.astro` with `getStaticPaths` over open exhibits, rendering a placeholder demo component from `src/demos/lagado/`.
-
-**Acceptance criteria:**
-- [x] `/exhibits/lagado/` renders with title, nav and accent `#FF5F1F`
-- [x] No page is generated for `llull` or `hesse`
-- [x] The layout contains no Lagado-specific code
-
-**Verification:**
-- [x] `npm run build`: `dist/exhibits/lagado/index.html` exists, no `llull`/`hesse` folders
-- [x] playwright-cli: computed accent colour on the title is `rgb(255, 95, 31)`
-
-**Dependencies:** T4
-**Files likely touched:** `src/layouts/ExhibitLayout.astro`, `src/components/ExhibitNav.astro`, `src/pages/exhibits/[slug]/index.astro`, `src/demos/lagado/LagadoPlaceholder.astro`
-**Estimated scope:** M
+- [x] All seven browser checks from the spec pass at 390×844, 375×667 and 1280×800
+- [x] No request leaves the site except links the visitor taps
 
 ---
 
-## T6: Essay and making-of pages
+## T6: ADR 004, README, journal ✅
 
-**Description:** Create `essay.astro` and `making-of.astro` under `src/pages/exhibits/[slug]/`, rendering the matching MDX entry inside `ExhibitLayout` with Inter Tight for body text and Instrument Serif for titles. `getStaticPaths` throws a clear build error if an open exhibit is missing a part (using the T3 helper).
+**Description:** Record the decisions and update the docs.
 
 **Acceptance criteria:**
-- [x] `/exhibits/lagado/essay/` and `/exhibits/lagado/making-of/` render their placeholder MDX (titles Instrument Serif, body Inter Tight)
-- [x] Temporarily removing `lagado/essay.mdx` makes the build fail with a message naming the exhibit and the missing part
+- [x] `docs/adr/004-research-and-link-previews.md`: research reference in metadata; page information now, images per exhibit at the end of Phase 1.2
+- [x] README reflects the current state (Phase 1.1)
+- [x] Journal entry for the build session(s)
 
 **Verification:**
-- [x] `npm run build` passes (and fails as expected in the removal test, then restored)
-- [x] playwright-cli: computed font of the essay body is Inter Tight; nav moves between all three parts
+- [x] Links in the docs resolve; `npm run build` still passes
 
-**Dependencies:** T5
-**Files likely touched:** `src/pages/exhibits/[slug]/essay.astro`, `src/pages/exhibits/[slug]/making-of.astro`, `src/layouts/ExhibitLayout.astro`
+**Dependencies:** T1–T5
+**Files likely touched:** `docs/adr/004-research-and-link-previews.md`, `README.md`, `docs/features/lagado/journal.md`
 **Estimated scope:** S
 
 ---
 
-## T7: Page transitions and 404
+## T7: Draft PR, Vercel preview, phone check
 
-**Description:** Add `<ClientRouter />` to `BaseLayout`, give the exhibit title a `transition:name`, and add a `src/pages/404.astro` in the same dark style.
+**Description:** Push the branch, open a draft PR to `main` listing the typographic fixes and the final wordings, rerun the browser checks on the Vercel preview, and send the preview link to the author.
 
 **Acceptance criteria:**
-- [x] Navigating home → demo → essay → making-of happens without a full page reload
-- [x] The exhibit title morphs between parts; reduced-motion users get no animation
-- [x] `/exhibits/llull/` shows the 404 page
+- [ ] Draft PR open with the Vercel preview link
+- [ ] Browser checks pass on the preview
+- [ ] The author has read it on her phone
 
 **Verification:**
-- [x] playwright-cli: a `window` marker set on the home survives navigation through all three parts
-- [x] `npm run build` + `npm run preview`: `/exhibits/llull/` returns 404
+- [ ] Vercel build green; playwright-cli on the preview (in the author's signed-in browser pane, since previews are protected)
 
 **Dependencies:** T6
-**Files likely touched:** `src/layouts/BaseLayout.astro`, `src/layouts/ExhibitLayout.astro`, `src/pages/404.astro`
 **Estimated scope:** S
 
 ---
 
-## Checkpoint B
-- [x] Spec browser checks 1–5 pass at 390×844, then on desktop
-- [x] Screenshots shared with the operator
+## Checkpoint C — merge and production
 
----
-
-## T8: ADRs, journal, README
-
-**Description:** Write `docs/adr/002-exhibit-content-model.md` and `docs/adr/003-typefaces.md` (with the `documentation-and-adrs` skill; ADR 001 Astro 7 already written in T1). Complete `docs/features/cabinet/journal.md` (created in T1) (what was built, key prompts, what changed, e.g. the move to neon accents). Update README's current state and commands.
-
-**Acceptance criteria:**
-- [x] Both ADRs state context, decision, alternatives and consequences
-- [x] Journal entry dated 2026-11-10 (plus any later session), short and factual
-- [x] README commands match `package.json`
-
-**Verification:**
-- [x] Manual read-through; links between docs resolve
-
-**Dependencies:** T7
-**Files likely touched:** `docs/adr/002-exhibit-content-model.md`, `docs/adr/003-typefaces.md`, `docs/features/cabinet/journal.md`, `README.md`
-**Estimated scope:** M
-
----
-
-## T9: Draft PR, Vercel connection, preview checks
-
-**Description:** Commit, push the branch and open a draft PR to `main`. Guide the operator through importing `amderom/cabinet-of-ai` in Vercel. Re-run the spec browser checks on the preview URL.
-
-**Acceptance criteria:**
-- [x] Draft PR open with a passing Vercel preview build
-- [x] Spec browser checks pass on the preview URL
-- [x] The operator has opened the preview on her phone
-
-**Verification:**
-- [x] Vercel build log: Astro detected, static output, no errors
-- [x] playwright-cli run against the preview URL
-
-**Dependencies:** T8
-**Files likely touched:** none (git, GitHub, Vercel)
-**Estimated scope:** S
-
----
-
-## Checkpoint C — Phase 0 done
-- [x] All spec success criteria met
-- [x] Merge on the operator's go-ahead only, then write the real production URL into `docs/project.md`
+- [ ] Merge only on the author's word
+- [ ] T8: after merge, LinkedIn Post Inspector on `https://cabinet-of-ai-gx8a.vercel.app/exhibits/lagado/essay/` shows the right title and description (no image yet)
+- [ ] Journal updated; remind the author that the preview images are part of Phase 1.2
