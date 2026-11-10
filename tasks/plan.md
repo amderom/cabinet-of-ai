@@ -1,81 +1,70 @@
-# Implementation Plan: Phase 0 — Technical foundations
+# Implementation Plan: Phase 1.1 — The exhibit page, with Lagado's text
 
-> Spec: [SPEC.md](../SPEC.md) (approved 2026-11-10). Tasks: [todo.md](./todo.md).
-> Branch: `feature/phase-0-foundations`. Plan and tasks can be deleted before merge.
+> Spec: [SPEC.md](../SPEC.md). Tasks: [todo.md](./todo.md).
+> Branch: `feature/phase-1-1-exhibit-page`. Replaces the Phase 0 plan (done and merged, kept in git history).
 
 ## Overview
 
-Scaffold the static Astro site, put the design foundations in place (Curio: tokens, glow + grain, neon accents, Instrument Serif + Inter Tight + IBM Plex Mono, dark only), model exhibits as content, generate the home page and Lagado's three placeholder pages from that content, link them with page transitions, then deploy to Vercel with a preview link per PR.
+Turn the Phase 0 placeholder exhibit pages into the real, shared exhibit frame, and fill the Lagado essay with the author's text. In order: the content data first, then the essay page as the first visible result (so the author can review her text early), then the parts every exhibit shares (calls to action, credits, play-first link), then the hidden page information for LinkedIn, then the demo teaser and making-of note, then docs and the PR.
+
+## Architecture Decisions
+
+- **Research reference lives in the exhibit's metadata** (`research` field), so every part of any exhibit can link to its article without repeating it. Its schema sits in `src/lib/research.ts` so it can be unit-tested, and `content.config.ts` imports it.
+- **One place for site-wide facts** (`src/lib/site.ts`): site name and LinkedIn URL.
+- **Page information is built in `BaseLayout`** from props (title, description, type, optional image). Pages pass their own values; `seo.ts` holds the pure helpers (absolute URL, page title). `og:image` is only written when an image is passed, so the Phase 1.2 images plug in without rework.
+- **No React, no new dependency.** Everything in this phase is static Astro.
+- Recorded in **ADR 004** (research reference + link-preview approach).
 
 ## Dependency graph
 
 ```
-T1 Scaffold (Astro, React, MDX, Vitest, astro check)
- ├── T2 Design foundations (Tailwind 4, tokens, fonts, BaseLayout)
- └── T3 Content model (collections, 3 entries, helpers + tests)
-        └── T4 Home page  ← also needs T2
-               └── T5 Lagado demo page + exhibit layout/nav
-                      └── T6 Essay + making-of pages, missing-part guard
-                             └── T7 Page transitions + 404
-                                    └── T8 Docs (ADRs, journal, README)
-                                           └── T9 PR + Vercel + phone check
+T1 content data (research, descriptions, site settings)
+ ├── T2 essay page (note, button, byline, essay text)
+ ├── T3 shared exhibit frame (calls to action, credits, play-first link)
+ └── T4 page information (title, description, Open Graph, canonical, font preload)
+T5 demo teaser + making-of note   (needs T3 frame)
+T6 docs (ADR 004, README, journal) (after T1–T5)
+T7 PR, Vercel preview, phone check (after everything)
+T8 after merge: Post Inspector on production
 ```
 
-T2 and T3 are independent once T1 is done, but they're small and share `package.json`, so they run one after the other in this session.
+T2, T3 and T4 are independent of each other once T1 is done, but they all touch the exhibit layout or pages, so they run one after another (no parallel sessions).
 
-## Architecture decisions (from the spec)
+## Task List
 
-- Three content collections keyed by folder slug: `exhibits` (YAML), `essays` and `makingOfs` (MDX). Pages exist only for `open` exhibits. → ADR 002.
-- Tailwind 4 `@theme` tokens. The exhibit accent is a CSS variable overridden on the exhibit layout root.
-- Instrument Serif + Inter Tight + IBM Plex Mono self-hosted via Astro's Fonts API (Fontsource provider, downloaded at build). → ADR 003.
-- `<ClientRouter />` in the base layout. The exhibit title carries `transition:name`.
-- Astro 7 (not 6): approved 2026-11-10 → ADR 001.
-- Exact Astro 7 / Tailwind 4 syntax (content loaders, `@theme`, fonts) is checked against current docs via Context7 before writing, not from memory.
+### Part A: Content and the essay
+- [ ] T1: Content data — research reference, descriptions, site settings
+- [ ] T2: Lagado essay page — note, "Read the full article" button, byline, essay text
 
-## Task list
+### Checkpoint A (author review)
+- [ ] Tests, check and build pass
+- [ ] Phone screenshots of the essay sent to the author: she checks her text and the typography fixes
 
-See [todo.md](./todo.md) for acceptance criteria and verification per task.
-
-### Phase A: Foundation
-- [x] T1: Scaffold Astro 7 project
-- [x] T2: Design foundations
-- [x] T3: Exhibit content model
-
-### Checkpoint A
-- [ ] `npm run test`, `npm run check`, `npm run build` all pass
-- [ ] Short report to the operator (what's in place, anything surprising, e.g. Node 26)
-
-### Phase B: Pages
-- [x] T4: Home page from the collection
-- [x] T5: Lagado demo page, exhibit layout and nav
-- [x] T6: Essay and making-of pages
-- [x] T7: Page transitions and 404
+### Part B: The shared frame
+- [ ] T3: Shared exhibit frame — calls to action, credits, play-first link, footer
+- [ ] T4: Page information for LinkedIn — title, description, Open Graph, canonical; mono font preload
+- [ ] T5: Lagado demo teaser and making-of note
 
 ### Checkpoint B
-- [ ] Full playwright-cli run on a phone viewport (spec checks 1–5), then desktop
-- [ ] Operator sees screenshots before deployment
+- [ ] All browser checks from the spec pass at 390×844, 375×667 and 1280×800
 
-### Phase C: Ship
-- [x] T8: ADRs, journal, README
-- [x] T9: Draft PR, Vercel connection, preview checks
+### Part C: Ship
+- [ ] T6: ADR 004, README, journal
+- [ ] T7: Draft PR, Vercel preview, author's phone check
 
-### Checkpoint C (Phase 0 done)
-- [ ] All spec success criteria met
-- [ ] Operator has opened the preview on her phone
-- [ ] Merge only on the operator's go-ahead; production URL written into `docs/project.md`
+### Checkpoint C (before merge)
+- [ ] Author approves on her phone; merge on her word
+- [ ] T8: after merge, Post Inspector on the production essay URL
 
-## Risks and mitigations
+## Risks and Mitigations
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| ~~Astro not happy on Node 26~~ | — | Resolved in T1: Astro 7 runs on Node 26. |
-| Sätteri (Astro 7's new Markdown engine) mishandles essay features such as footnotes | Medium | Placeholder essay in T3 includes a footnote. Fallback: classic remark engine via `@astrojs/markdown-remark`. |
-| Astro 7 / Tailwind 4 syntax differs from what agents remember | Medium | Docs check (Context7 or docs.astro.build) before each config file. `npm run check` + build after each task. |
-| Vercel build uses a different Node than local | Medium | `engines.node >=22.23.4`. Check the first Vercel build log. |
-| Build depends on Fontsource being reachable | Low | Only at build time, never for visitors. If it fails, switch to the local-files provider. |
-| Vercel preview URLs are login-protected | Low | Expected: the operator is logged in on her phone. LinkedIn previews are a Phase 1.1 concern, on production. |
-| "No full reload" hard to prove | Low | `window` marker survives navigation in playwright-cli. |
+| The note and the "Read the full article" button don't fit above the fold on a phone: the giant exhibit title, tagline and tabs already take most of the screen, and LinkedIn's in-app browser shows less than a normal browser | High (it's the author's explicit request) | Measure in T2 at 390×844 and 375×667. If it doesn't fit, use a smaller exhibit header on the essay and making-of pages (the giant title stays on the demo page). Shown to the author at Checkpoint A |
+| Astro 7's default Markdown engine (Sätteri) handles some typography or MDX detail differently | Low | Check the rendered essay in T2; fallback documented in docs/project.md (classic remark engine) |
+| LinkedIn shows an outdated card if the essay link is pasted before it's final | Low (no posts before 1.2) | Post Inspector forces a fresh read |
+| The author's name and LinkedIn URL are hard-coded in several places | Low | Stored once in `src/lib/site.ts` |
 
-## Open questions
+## Open Questions
 
-None. All spec questions were resolved by the operator on 2026-11-10.
+None for this phase. (The 36 vs 40 students question belongs to Phase 1.2.)

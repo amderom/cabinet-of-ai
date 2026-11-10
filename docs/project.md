@@ -199,7 +199,7 @@ Files created at runtime by agent-skills (not by the vibe-project skill):
 - **Curio direction (chosen 2026-11-10):** elegant *and* playful. Near-black, a slowly drifting glow made from the exhibit's colour, fine film grain, a giant modern display serif (Instrument Serif) with italics, Inter Tight for reading, tiny mono labels (IBM Plex Mono). Playful touches: floating engraving plates the visitor can drag (they never cover text or buttons), a scrolling serif banner, rotated parody stickers ("In beta since 1726"). All neutrals in one warm cream family. Rejected: a classic "rounded cards, grey text" look (felt web 2.0).
 - One accent colour per exhibit, inspired by the object, pushed to a saturated, modern colour (neon on near-black). The contrast is the point: vintage content, unmistakably 2026 presentation.
 - The homepage looks like an actual cabinet (a piece of furniture). No exhibit is the entry point.
-- Engravings are the main illustration source, from free-to-use, public-domain collections.
+- **Engravings are the common thread of the whole site** (agreed 2026-11-10). They appear everywhere, in three forms: on the exhibit plates (the real object, readable), as a soft neon texture in the background tinted with the exhibit's colour (atmosphere, never competing with text, fainter on reading pages), and in the cabinet on the homepage. All come from free-to-use, public-domain collections, with source and licence recorded.
 - Motion: light CSS animations, page transitions, GSAP sequences. No 3D for now.
 - Sound: optional enhancement, never required to understand anything.
 - The operator's own photos and drawings shared during Vibe Project were for mood only and must **not** be used on the site.
