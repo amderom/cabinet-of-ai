@@ -39,7 +39,7 @@ See [todo.md](./todo.md) for acceptance criteria and verification per task.
 ### Phase A: Foundation
 - [x] T1: Scaffold Astro 7 project
 - [x] T2: Design foundations
-- [ ] T3: Exhibit content model
+- [x] T3: Exhibit content model
 
 ### Checkpoint A
 - [ ] `npm run test`, `npm run check`, `npm run build` all pass
