@@ -1,219 +1,162 @@
-# Spec: Phase 1.1 — The exhibit page, with Lagado's text
+# Spec: Phase 1.2 part 1 — Images and engravings
 
-> Source: [STARTUP.md → Phase 1.1](./STARTUP.md#phase-11--the-exhibit-page-with-lagados-text).
-> Decision filter: [docs/project.md → Project compass](./docs/project.md#project-compass).
-> Branch: `feature/phase-1-1-exhibit-page`. Replaces the Phase 0 spec (kept in git history). This file can be deleted before the phase is merged.
+> Source: [STARTUP.md → Phase 1.2, Part 1](./STARTUP.md#phase-12--the-lagado-machine).
+> Decision filter: [docs/project.md → Project compass](./docs/project.md#project-compass) and Design references ("Engravings are the common thread of the whole site").
+> Branch: `feature/phase-1-2-images`. Replaces the Phase 1.1 spec (kept in git history). This file can be deleted before the part is merged.
 
 ## Objective
 
-Build the page structure every exhibit will share and fill it with Lagado's real essay. Every page also carries the hidden title and description that LinkedIn reads to build its link preview. The preview **images** are designed later, at the end of Phase 1.2 (see section 5).
+Give the site its images, once and for all: find the first public-domain engravings for Lagado, build one way of showing images everywhere (with credits handled automatically), add Lagado's soft neon engraving texture in the background, illustrate the essay, and give the reading pages more personality.
 
-**What a visitor can do at the end:** open a shared link to the Lagado essay on a phone, see at once that it is a light take on a peer-reviewed article, tap through to that article, read the essay comfortably, and reach the author's LinkedIn. From any of the three parts, they can find the research and LinkedIn links.
+**Why now:** engravings are the site's common thread, and the machine (Part 2) should be drawn in the same engraving language. The essay is live but not announced, so it can change freely.
 
-**Use cases** (from STARTUP.md):
-- UC1.1.1: A recruiter taps a LinkedIn post, lands on the Lagado essay and reads it comfortably on a phone.
-- UC1.1.2: An academic follows the essay's link to the published journal article.
-- UC1.1.3: A visitor reaches the author's LinkedIn from any part of the exhibit.
+**What a visitor sees at the end:** the Lagado pages carry a faint neon engraving in orange behind the title; the essay has one to three engravings at section breaks, each with a caption and credit; the essay page reads with more presence and movement (the direction the author picks); every image is credited at the bottom of the page. On a phone, pages stay fast and the text stays easy to read.
 
-**The essay is not the article.** The published article belongs to its journal (French, CC BY-NC-ND 4.0) and is never reproduced on the site. The essay page carries the author's own short, playful essay ("Dice and Device: The Lagado Engine"), says plainly near the top that it is a condensed, light version, and links to the real article above the fold on a phone.
+**Users:** visitors arriving from LinkedIn on phones (recruiters, academics); the author, who picks the engravings and the reading-page direction.
 
-The single capability here is "the exhibit page", so no capability map is needed (Phase 0 of the spec skill skipped).
+**Scope check.** This part bundles four pieces (engravings, image system, texture, reading pages), but they share one data model and one review loop with the author, and none ships usefully alone. One spec, built in a gated order (below), rather than a capability map with four specs.
+
+## The work, in order (each step gated by the author)
+
+### Step 1 — Engraving shortlist (research, no code)
+
+The agent searches open collections and presents a **shortlist** with, for each image: a preview, title, artist, date, collection, source URL, licence, and where it would go (essay illustration, texture, or both). The author picks.
+
+- **Allowed sources:** collections that state public domain or CC0 per item: Wikimedia Commons (only files marked public domain, checked per file), Rijksmuseum, The Met Open Access, Library of Congress, British Library (public-domain Flickr set), Internet Archive scans of out-of-copyright books, Smithsonian Open Access.
+- **Avoided:** sources with reuse conditions (e.g. Gallica's "non-commercial with attribution" terms), any image whose licence or artist dates are unclear. If in doubt, the image is dropped (AGENTS.md → Assets and credits).
+- **What to look for:** 19th-century illustrated editions of *Gulliver's Travels* (Laputa, Balnibarbi, the Academy of Lagado, the word frame), and images for the essay's sections (dice and frames, Borel's monkey, the spider and the bee). At least 2 candidates for the texture and 4–6 for the essay.
+- **Output:** `docs/features/lagado/engravings.md` (shortlist + the author's picks), so the choice is recorded for the making-of.
+
+### Step 2 — One image system, with automatic credits
+
+- Every exhibit image lives in its exhibit's folder: `src/content/exhibits/<slug>/images/`.
+- Each image is declared once in `exhibit.yaml` → `credits`, now with an `id`, the `file`, its `alt` text, and an optional `caption`:
+
+```yaml
+credits:
+  - id: lagado-frame
+    file: ./images/lagado-frame.jpg
+    alt: "Engraving of a wooden frame covered in word-blocks, turned by students at handles."
+    caption: "The word frame of the Academy of Lagado."
+    asset: "The Academy of Lagado"
+    author: "J. J. Grandville"        # example only; real values come from Step 1
+    source: "Wikimedia Commons"
+    url: "https://commons.wikimedia.org/…"
+    licence: "Public domain"
+```
+
+- **In MDX**, an image is placed by its id: `<Figure id="lagado-frame" />`. The component reads the alt, caption and credit from the metadata, so nothing is typed twice.
+- Images are optimised by Astro at build (sizes for phone and desktop, modern formats, lazy-loaded below the first screen). No new dependency: Astro already includes its image tool.
+- **The credits block** (built in Phase 1.1) lists every image automatically.
+- **Build guard:** the build fails, with a clear message, if an image file in an exhibit's `images/` folder has no credit entry, or if a credit has no licence. This enforces the "no asset without its licence" rule mechanically.
+- The same system will serve the plates in Part 2 (no plates are built now).
+
+### Step 3 — Lagado essay illustrations
+
+One to three of the picked engravings placed in the essay at section breaks, with caption and credit. The essay's wording stays unchanged.
+
+### Step 4 — Lagado's neon engraving texture
+
+- `exhibit.yaml` gets an optional `texture` (the id of one of its credited images).
+- The engraving appears behind the page as **faint lines tinted in the exhibit's colour** on near-black, like neon line-art. Built with CSS from the original image (no image editing by hand).
+- **Strength:** visible as atmosphere on the demo page; much fainter on reading pages, and only around the title area, fading out before the text (same rule as the glow).
+- Respects reduced motion (no movement of the texture if motion is reduced). Never covers text or controls; never catches taps.
+
+### Step 5 — Reading pages with more personality (ideation, then build)
+
+1. **Explore:** the agent builds **three directions** of the real Lagado essay on a separate exploration branch with its own preview link, viewed by the author on her phone. Starting proposals (to refine when building):
+   - **A. Editorial:** a strong opening (first sentence in the large italic serif), a pulled quotation from Swift set large across the column, section numbers as small mono labels, engravings at section breaks.
+   - **B. Fluid:** A's typography plus gentle motion as you scroll: headings and images settle in softly, the texture drifts slightly with the scroll.
+   - **C. Margin:** engravings and short quotations float beside the text on desktop and between paragraphs on phone, like a scholar's annotated copy.
+2. **Pick:** the author chooses one (or a mix). The exploration branch is never merged and is deleted afterwards.
+3. **Build:** the chosen direction is built properly into the shared exhibit layout, so every future essay and making-of gets it.
 
 ## Tech Stack
 
-See [docs/project.md → Tech Stack](./docs/project.md#tech-stack). **No new dependency.** GSAP, Howler and Tone.js are still not installed (Phase 1.2 / 1.3).
+See [docs/project.md → Tech Stack](./docs/project.md#tech-stack). Uses Astro's built-in image handling (`astro:assets`, `image()` in content schemas). **No new dependency.** If Step 5's chosen direction needs scroll animation beyond CSS, GSAP (already approved in docs/project.md) may be installed, loaded only on the pages that use it, after asking the author.
 
 ## Commands
 
 ```
 Install:   npm install
-Dev:       npm run dev          # http://localhost:4321
-Build:     npm run build        # static output in dist/
-Preview:   npm run preview      # serves dist/ locally
-Test:      npm run test         # vitest run
-Check:     npm run check        # astro check (types + content schema)
+Dev:       npm run dev          # http://localhost:4321 (one dev server per folder; stop old ones with `npx astro dev stop`)
+Build:     npm run build
+Preview:   npm run preview
+Test:      npm run test
+Check:     npm run check
 ```
-
-## What gets built
-
-### 1. Exhibit layout (shared by every exhibit)
-
-Order on the page, top to bottom, on a phone:
-
-1. Header: `← Cabinet of AI` (home). The "Placeholder" label goes.
-2. Exhibit title (morphs between parts, as now) and tagline.
-3. Part navigation: Demo · Essay · Making-of (current part marked). Built so a fourth part ("The original", Phase 1.2) can be added without redesign.
-4. The part's own content (the slot).
-5. **Calls to action block**, identical on every part:
-   - "Read the full article ↗": the journal article (external, opens in a new tab, marked "in French").
-   - "Follow the series on LinkedIn ↗": the author's LinkedIn profile.
-6. **Credits block**: source, author (if known) and licence of each third-party asset, read from the exhibit's `credits`. Hidden when `credits` is empty (Lagado has none yet in 1.1).
-7. Footer: back to the cabinet.
-
-**Play first:** the essay and making-of pages show a prominent "Play with the machine →" link to the demo near the top (under the navigation), not just in the tabs.
-
-### 2. Lagado essay page (`/exhibits/lagado/essay/`)
-
-Top to bottom:
-
-1. Essay title, "Dice and Device: The Lagado Engine", in the display serif.
-2. **"About this essay" note** (draft wording, author to validate):
-   > A short, playful take on my peer-reviewed article *Totalité et infini de la machine à tout dire de Gulliver's Travels : du programme littéraire au programme informatique*, published in French in *XVII-XVIII*, no. 77 (2020). For the full argument, notes and sources, read the original.
-3. **"Read the full article ↗"** button, right under the note, visible without scrolling on a 390×844 phone.
-4. The essay body: the five sections as given by the author, headings as `##`. **Wording is the author's and is not edited.** Only typographic fixes are allowed (curly quotes, en/em dashes, italics for titles such as *Gulliver's Travels*, *Hamlet*, *The Battle of the Books*). Every such change is listed in the PR.
-5. Calls to action, credits, footer (from the layout).
-
-**Reading comfort on a phone:** body text in Inter Tight at 18px, line height ~1.65, max ~62ch (existing `prose-cabinet`); headings in Instrument Serif; no sideways scroll at 375px; tap targets at least 44px high.
-
-### 3. Lagado demo page (`/exhibits/lagado/`), honest teaser
-
-The demo slot stays empty until Phase 1.2. It shows a short teaser in the exhibit's style ("The machine is being assembled.") with a link to the essay. No "Placeholder" label. Lagado is not announced on LinkedIn until 1.2, so few people will see this.
-
-### 4. Lagado making-of page (`/exhibits/lagado/making-of/`), short note
-
-Two or three honest lines (draft, author to validate): the machine is being built with AI, and the making-of will follow it. Calls to action and credits as on every part. The real making-of is written in Phase 1.2 from the build journal.
-
-### 5. Link previews: page information now, images in Phase 1.2
-
-When a link is pasted into a LinkedIn post, LinkedIn shows a card built from hidden information on the page. Nothing of this is visible on the site.
-
-**Now (Phase 1.1):** every page (the three Lagado parts, the home, the 404) outputs:
-
-- `<title>` and `<meta name="description">`
-- `og:title`, `og:description`, `og:url` (absolute), `og:type` (`article` for essays, `website` otherwise), `og:site_name` ("Cabinet of AI")
-- `<link rel="canonical">` with the absolute URL
-- `og:image` (+ width, height, alt) and `twitter:card` **only when an image exists** for that page. In 1.1 none exists, so these tags are absent.
-
-Absolute URLs come from Astro's `site` setting, set to the production URL `https://cabinet-of-ai-gx8a.vercel.app` (changed in one place when a custom domain arrives).
-
-The page title says which part the link goes to (e.g. "Dice and Device: The Lagado Engine · Essay · Cabinet of AI"), because that is the line LinkedIn writes under the image.
-
-**Later (end of Phase 1.2, before the first Lagado post):** the preview images are designed with the author, once the machine and the site's look exist. Direction agreed so far: one image per exhibit (not one per part), very few words; the first mockups (name + glow on near-black) were rejected, so the design starts fresh. The layout already accepts an image per exhibit, so adding them needs no rework.
-
-**Descriptions** (drafts, author to validate):
-- Demo: the exhibit tagline.
-- Essay: "In 1726, Swift imagined a machine that writes every book. A short, playful take on a peer-reviewed article about the first text generator."
-- Making-of: "How the Lagado Engine is being rebuilt with AI."
-
-### 6. Small fix carried over from Phase 0
-
-Preload the IBM Plex Mono label font so labels no longer flash in a fallback font on first load.
-
-## Content model changes
-
-| Where | Change |
-|---|---|
-| `exhibits` schema | Add optional `research`: `{ title, journal, issue?, year, url, doi?, language }`. When present, the calls to action and the essay note use it. When missing, the "Read the full article" link is hidden. |
-| `essays` and `makingOfs` schemas | Add `description` (string, required, used for `description` and `og:description`). |
-| Site settings | `src/lib/site.ts`: site name and the author's LinkedIn URL (one place, used by every exhibit). |
-
-Lagado's `research` entry:
-
-```yaml
-research:
-  title: "Totalité et infini de la machine à tout dire de Gulliver's Travels : du programme littéraire au programme informatique"
-  journal: "XVII-XVIII"
-  issue: "77"
-  year: 2020
-  url: "https://journals.openedition.org/1718/5936"
-  doi: "10.4000/1718.5936"
-  language: "French"
-```
-
-The content model change and the link-preview approach (page information now, images per exhibit later) are recorded in **ADR 004**.
 
 ## Project Structure
 
-Follows [docs/project.md → Project Structure](./docs/project.md#project-structure). Expected changes:
+Expected changes (follows [docs/project.md → Project Structure](./docs/project.md#project-structure)):
 
 ```
-astro.config.mjs                         site: production URL; mono font preload
-src/content.config.ts                    research, description fields
-src/content/exhibits/lagado/exhibit.yaml research reference, real tagline (author validates)
-src/content/exhibits/lagado/essay.mdx    the author's essay
-src/content/exhibits/lagado/making-of.mdx short "being written" note
-src/lib/site.ts                          site name, LinkedIn URL
-src/lib/seo.ts (+ seo.test.ts)           pure helpers: absolute URLs, page titles
-src/layouts/BaseLayout.astro             Open Graph + canonical tags
-src/layouts/ExhibitLayout.astro          play-first link, calls to action, credits, footer
-src/components/ExhibitCta.astro          "Read the full article" + "Follow on LinkedIn"
-src/components/Credits.astro             credits block
-src/components/ResearchNote.astro        "About this essay" note on the essay page
-src/demos/lagado/Demo.astro              honest teaser
-docs/adr/004-research-and-link-previews.md
-docs/features/lagado/journal.md          Lagado build journal (started with this spec)
+src/content.config.ts                     credits: id, file (image()), alt, caption?; exhibits: texture?
+src/content/exhibits/lagado/images/       the picked engravings (originals, credited)
+src/content/exhibits/lagado/exhibit.yaml  credits + texture
+src/content/exhibits/lagado/essay.mdx     <Figure> placements (text unchanged)
+src/components/Figure.astro               image + caption + credit, by id
+src/components/Texture.astro              the neon engraving background layer
+src/lib/credits.ts (+ credits.test.ts)    pure helpers: find a credit by id, check uncredited files
+src/lib/exhibit-pages.ts                  build guard for uncredited images
+src/layouts/BaseLayout.astro, ExhibitLayout.astro   texture layer; chosen reading-page direction
+src/styles/global.css                     texture and reading-page styles
+docs/features/lagado/engravings.md        shortlist and picks
+docs/adr/005-images-and-credits.md        the image + credits model
 ```
 
 ## Code Style
 
-As in Phase 0: TypeScript strict, Astro components for static UI (no React in this phase), Tailwind utility classes, custom CSS only in `global.css`, small pure functions in `src/lib/` with Vitest tests. External links open in a new tab with `rel="noopener"` and a visible ↗.
+As in earlier phases: TypeScript strict, Astro components, Tailwind utilities, custom CSS only in `global.css`, pure helpers in `src/lib/` with Vitest tests.
 
 ```ts
-// src/lib/seo.ts
-import type { ExhibitPart } from "./exhibits";
-
-const PART_NAMES = { demo: null, essay: "Essay", "making-of": "Making-of" } as const;
-
-export function pageTitle(title: string, part: "demo" | ExhibitPart): string {
-  const partName = PART_NAMES[part];
-  return [title, partName, "Cabinet of AI"].filter(Boolean).join(" · ");
+// src/lib/credits.ts
+export interface CreditLike {
+  id: string;
+  licence: string;
 }
 
-export function absoluteUrl(path: string, site: URL): string {
-  return new URL(path, site).href;
+/** The credit for an image id, or a clear error naming the exhibit. */
+export function creditFor<T extends CreditLike>(credits: T[], id: string, exhibit: string): T {
+  const credit = credits.find((c) => c.id === id);
+  if (!credit) throw new Error(`Exhibit "${exhibit}" has no credit with id "${id}" (add it to exhibit.yaml → credits)`);
+  return credit;
 }
 ```
 
 ## Testing Strategy
 
-- **Unit (Vitest):** `seo.ts` helpers (absolute URLs, page titles per part); the content schema accepts Lagado's `research` and rejects a bad URL.
-- **Build as a test:** `npm run build` and `npm run check` pass.
-- **Browser (playwright-cli, phone 390×844 first, then 375×667 and desktop 1280×800):**
-  1. Essay page: the "About this essay" note and the "Read the full article" button are visible without scrolling at 390×844; the link goes to the journal URL in a new tab.
-  2. Every part shows "Follow the series on LinkedIn" with the right URL.
-  3. Essay and making-of show "Play with the machine →" near the top, linking to the demo.
-  4. No sideways scroll at 375px; no console errors; no request leaves the site except user-clicked links.
-  5. Every page's head contains title, description, canonical and Open Graph tags with absolute URLs, and no `og:image` tag (no image yet).
-  6. Credits block: hidden for Lagado (no credits); shown correctly when a test credit is added locally (not committed).
-  7. Labels render in IBM Plex Mono from the first paint (no fallback flash).
-- **After merge, on production:** the essay URL checked in LinkedIn's Post Inspector: it reads the right title and description (no image yet). Vercel previews are protected, so this can only be done on production.
-- **Phone check by the author** on the PR's Vercel preview before merge.
+- **Unit (Vitest):** `credits.ts`: find by id, unknown id gives a clear error, uncredited file detection, duplicate ids rejected.
+- **Build as a test:** `npm run build` fails on an uncredited image, a credit without licence, an unknown `<Figure id>` or an unknown `texture` id (each triggered once on purpose, then reverted).
+- **Browser (playwright-cli, 390×844, 375×667, 1280×800):**
+  1. Every image has alt text, a caption and a credit; the credits block lists them all.
+  2. Images are served in phone-sized versions (no image wider than ~2× its displayed size); images below the first screen load lazily.
+  3. The texture is visible on the demo page, fainter on reading pages, never over the essay's text area, never blocks taps; it stands still with reduced motion.
+  4. No sideways scroll; no request leaves the site; no console errors.
+  5. Performance (Lighthouse mobile, local build): LCP under 2.5 s and CLS under 0.1 on the essay page.
+- **Author checks:** the shortlist (Step 1), the three directions on her phone (Step 5), the final PR preview.
 
 ## Boundaries
 
-- **Always:** work on `feature/phase-1-1-exhibit-page`; run `npm run test`, `npm run check` and `npm run build` before each commit; read exhibits from the collection; keep the author's essay wording intact; append a dated entry to `docs/features/lagado/journal.md` at the end of each session; verify Astro syntax against current Astro 7 docs.
-- **Ask first:** any change to the essay's wording beyond typography; any new dependency; the final wording of the "About this essay" note, descriptions, teaser and making-of note; changing accent colours or typefaces; editing `docs/project.md`.
-- **Never:** reproduce the journal article's text on the site; push or merge to `main` directly; add analytics, cookies, tracking or third-party embeds (no LinkedIn widget or "follow" script, just a plain link); use the operator's personal photos or drawings; announce Lagado on LinkedIn before Phase 1.2 ships (the author's call, noted here as a reminder).
+- **Always:** record source, author, licence and URL for every image before it enters the repo; keep the essay's wording unchanged; check every image on a phone; write alt text for every image (author validates); append to `docs/features/lagado/journal.md` after each session; verify Astro image APIs against current Astro 7 docs.
+- **Ask first:** using any image (the author picks from the shortlist); installing GSAP; any change to the essay text; changing accent colours or typefaces; editing `docs/project.md`.
+- **Never:** use an image with an unclear licence or from a source with reuse conditions; use the operator's personal photos or drawings; load images from another site at runtime (all images are served from this site); merge the exploration branch; build the plates, the machine or the preview images (Parts 2 and 3).
 
 ## Success Criteria
 
-1. The essay page shows the author's essay, the "condensed version" note and the "Read the full article" link above the fold on a 390×844 phone (UC1.1.1, UC1.1.2).
-2. All three Lagado parts carry the calls to action (research + LinkedIn), and the essay and making-of link back to the demo (UC1.1.3).
-3. The credits block exists in the layout and appears whenever an exhibit has credits.
-4. Every page outputs its title, description, canonical URL and Open Graph tags with absolute URLs.
-5. `npm run test`, `npm run check` and `npm run build` pass; all browser checks pass on phone and desktop, locally and on the Vercel preview.
-6. The author has read the PR preview on her phone and approved the texts.
-7. **Done when:** after merge, the production Lagado essay reads well on a phone, and LinkedIn's Post Inspector shows its right title and description. The full card with image is checked at the end of Phase 1.2.
-8. ADR 004 written; `docs/features/lagado/journal.md` started and up to date.
-
-## Assumptions (taken from recommendations, override any of them)
-
-1. **Preview images wait until the end of Phase 1.2** (agreed). *Could go wrong:* a link shared before then shows a card with no image. Unlikely (no posts before 1.2). Impact: a plain card, not a broken one.
-2. **Empty demo page:** honest "being assembled" teaser linking to the essay. *Could go wrong:* someone finds it before 1.2 and expects a machine. Unlikely (not announced). Impact: minor.
-3. **Making-of page:** a short "being written" note; the real making-of comes in 1.2.
-4. **The article is French:** the link says "(in French)" so a recruiter isn't surprised.
-5. **Byline:** the essay page shows the author's name under the title, linked to LinkedIn.
-
-## Resolved decisions (operator, 2026-11-10)
-
-1. LinkedIn profile URL: `https://www.linkedin.com/in/ameliederome/` (stored once, in `src/lib/site.ts`).
-2. Byline: the author's name under the essay title, linked to LinkedIn. The about-note stays in the first person ("my article").
-3. Tagline kept: "Write any book. No genius. No study. Just turn the cranks."
-4. Draft wordings (about-note, descriptions, teaser, making-of note) accepted as drafted; final versions shown in the PR.
-5. Preview images moved to the end of Phase 1.2, one per exhibit, designed from scratch (first mockups rejected).
+1. `docs/features/lagado/engravings.md` lists the shortlist with licences and the author's picks.
+2. Every Lagado image is declared once with id, alt, licence and source; the build fails if any image lacks a credit.
+3. The Lagado essay shows 1–3 engravings with captions and credits; the credits block lists them.
+4. Lagado's neon engraving texture shows on its pages, faint on reading pages, never hurting readability (the author's judgement on her phone).
+5. The author has compared three reading-page directions on her phone, and the chosen one is built into the shared layout.
+6. Essay page on mobile: LCP < 2.5 s, CLS < 0.1; no sideways scroll; no external requests.
+7. ADR 005 written; journal up to date; PR preview approved by the author on her phone.
 
 ## Open Questions
 
-1. For Phase 1.2, not now: the essay says 36 students write the sentences, the demo-context notes say 40. To check against Swift's text before the specifications plate is made.
+1. How many essay images: the author decides from the shortlist (1 to 3).
+2. Alt texts and captions: drafted by the agent, validated by the author.
+3. Whether the chosen reading-page direction needs GSAP (asked at Step 5).
+4. For Part 2, still pending: 36 vs 40 students, to check against Swift.
 
 Spec approved by the operator on 2026-11-10.

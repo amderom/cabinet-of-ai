@@ -49,3 +49,7 @@ The operator, on the preview: the note and the essay's first line felt squashed;
 ## 2026-11-10 — Phase 1.1 done: merged and live
 
 The operator checked the preview on her phone: "Checked, merge it". PR amderom/cabinet-of-ai#3 merged; production serves the essay, demo teaser and making-of note with their own titles and production URLs; sealed Llull returns 404. LinkedIn Post Inspector on the production essay URL: title, description and type (article) read correctly, canonical URL correct; only warning "no og:image", expected until Phase 1.2. Also noted for 1.2: LinkedIn finds no author or publish date (`article:author` / `article:published_time` could be added with the images). The essay is live but not announced.
+
+## 2026-11-10 — Phase 1.2 part 1 spec
+
+`/spec phase 1.2 part 1` (images and engravings). The operator chose: the agent shortlists public-domain engravings and she picks; one neon engraving texture per exhibit (not one shared); three reading-page directions built as real pages on a preview link (not screenshots); 1–3 engravings inside the Lagado essay. One spec in five gated steps: shortlist → image system with automatic credits and a build guard against uncredited images → essay illustrations → texture → reading-page ideation, then build. No new dependency (Astro's own image tool).
