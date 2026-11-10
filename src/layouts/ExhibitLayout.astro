@@ -14,6 +14,7 @@ interface Props {
 }
 
 const { exhibit, part } = Astro.props;
+const isDemo = part === "demo";
 const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part];
 const pageTitle =
   part === "demo" ? `${exhibit.data.title} · Cabinet of AI` : `${partName} · ${exhibit.data.title} · Cabinet of AI`;
@@ -22,16 +23,20 @@ const pageTitle =
 <BaseLayout title={pageTitle} description={exhibit.data.tagline} accent={exhibit.data.accent}>
   <header class="label flex justify-between p-4 text-muted">
     <a href="/" class="text-cream hover:text-accent">← Cabinet of AI</a>
-    <span>Placeholder · {partName}</span>
+    <span>{partName}</span>
   </header>
 
-  <section class="px-4 pt-[10svh] pb-8">
+  {/* Reading parts get a smaller header so the text (and the article link) starts on the first screen. */}
+  <section class:list={["px-4", isDemo ? "pt-[10svh] pb-8" : "pt-[3svh] pb-5"]}>
     <h1
       transition:name={`exhibit-title-${exhibit.id}`}
-      class="font-display text-[clamp(56px,17vw,180px)] leading-[0.85] tracking-[-0.03em]">
+      class:list={[
+        "font-display leading-[0.85] tracking-[-0.03em]",
+        isDemo ? "text-[clamp(56px,17vw,180px)]" : "text-[clamp(40px,11vw,112px)]",
+      ]}>
       {exhibit.data.title}
     </h1>
-    <p class="mt-4 max-w-[34ch] text-base leading-snug text-cream/85">{exhibit.data.tagline}</p>
+    {isDemo && <p class="mt-4 max-w-[34ch] text-base leading-snug text-cream/85">{exhibit.data.tagline}</p>}
   </section>
 
   <ExhibitNav slug={exhibit.id} current={part} />
