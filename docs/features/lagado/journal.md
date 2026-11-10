@@ -95,3 +95,5 @@ The operator: "I love C", but the fine orange margin line felt off. Agent's call
 ## 2026-11-10 — T7: speed on a phone
 
 Measured with a Chrome performance trace on the local build, essay page, phone viewport, Slow 4G and 4× slower CPU. First run: LCP 3.07 s (target 2.5 s), CLS 0.00. The largest element was the Engine texture (104 KB), downloading alongside five preloaded fonts. Fixes: texture served as a 480px AVIF (37 KB; it is faint and blended, so detail isn't needed), and only the regular font styles preloaded (italics load when first used). Result: **LCP 2.07 s, CLS 0.07** (the small shift is the italic font arriving; within the 0.1 target).
+
+**T8:** ADR 005 (images declared once by id, build-enforced credits, CSS-tinted texture, annotated-copy reading pages, throwaway exploration branches, the Gallica exception) and README updated.

@@ -143,11 +143,11 @@
 
 ---
 
-## T7: Performance and full browser checks
+## T7: Performance and full browser checks ✅
 
 **Acceptance criteria:**
-- [ ] Lighthouse mobile on the local build, essay page: LCP < 2.5 s, CLS < 0.1
-- [ ] All spec browser checks pass at 390×844, 375×667 and 1280×800 (alt text, captions and credits, phone-sized images, lazy loading, texture rules, no sideways scroll, no external requests, no console errors)
+- [x] Lighthouse mobile on the local build, essay page: LCP < 2.5 s, CLS < 0.1
+- [x] All spec browser checks pass at 390×844, 375×667 and 1280×800 (alt text, captions and credits, phone-sized images, lazy loading, texture rules, no sideways scroll, no external requests, no console errors)
 
 **Verification:** Lighthouse numbers and check output recorded in the journal
 
@@ -156,11 +156,11 @@
 
 ---
 
-## T8: ADR 005, README, journal
+## T8: ADR 005, README, journal ✅
 
 **Acceptance criteria:**
-- [ ] `docs/adr/005-images-and-credits.md`: images per exhibit, declared once by id, build guard, CSS-tinted texture, exploration-branch practice
-- [ ] README current state updated; journal entries for each session
+- [x] `docs/adr/005-images-and-credits.md`: images per exhibit, declared once by id, build guard, CSS-tinted texture, exploration-branch practice
+- [x] README current state updated; journal entries for each session
 
 **Dependencies:** T7
 **Files likely touched:** `docs/adr/005-images-and-credits.md`, `README.md`, `docs/features/lagado/journal.md`

@@ -6,10 +6,10 @@ A cabinet of curiosities of the historical prefigurations of artificial intellig
 
 ## Current state
 
-**Current phase:** Phase 1.1 done (live at https://cabinet-of-ai-gx8a.vercel.app); next: Phase 1.2 part 1, images and engravings
+**Current phase:** Phase 1.2 part 1 in review (images and engravings); Phase 1.1 live at https://cabinet-of-ai-gx8a.vercel.app
 **Target MVP:** end of Phase 1.3 (cabinet homepage + complete Lagado exhibit)
 
-What works today: a dark home page listing the exhibits from content (Lagado open; Llull and Hesse sealed). Lagado has three parts with their own links: a demo page (teaser until the machine arrives), the author's essay with a prominent link to the published article, and a making-of note. Every part links to the article and to LinkedIn, lists asset credits when there are any, and carries its own title and description for link previews. Sealed exhibits show a 404 page. Decisions so far: [docs/adr/](./docs/adr/). Build journals: [cabinet](./docs/features/cabinet/journal.md), [Lagado](./docs/features/lagado/journal.md).
+What works today: a dark home page listing the exhibits from content (Lagado open; Llull and Hesse sealed). Lagado has three parts with their own links: a demo page (teaser until the machine arrives), the author's essay with a prominent link to the published article, and a making-of note. Engravings are the common thread: each exhibit declares its images once with their credits (the build refuses uncredited images), shows its engraving as a neon background texture, and reading pages are laid out as an annotated copy (engravings and quotes in the margin, orange marginalia, soft motion on scroll). Every part links to the article and to LinkedIn and carries its own title and description for link previews. Decisions so far: [docs/adr/](./docs/adr/). Build journals: [cabinet](./docs/features/cabinet/journal.md), [Lagado](./docs/features/lagado/journal.md).
 
 > Full startup plan: see [STARTUP.md](./STARTUP.md)
 > Project compass, stack and architecture: see [docs/project.md](./docs/project.md)
@@ -42,7 +42,9 @@ npm run check     # type and template check (astro check)
 npm run test      # unit tests (Vitest)
 ```
 
-When run by an agent (non-interactively), `npm run dev` and `npm run preview` start in the background; stop them with `npx astro dev stop` / `npx astro preview stop`. Restart the dev server after adding new content folders or pages.
+When run by an agent (non-interactively), `npm run dev` and `npm run preview` start in the background; stop them with `npx astro dev stop` / `npx astro preview stop`. Restart the dev server after adding new content folders or pages. Only one dev server can run per folder: stop an old one with `npx astro dev stop`.
+
+**Adding an image to an exhibit:** put the file in `src/content/exhibits/<slug>/images/` (longest side ≤ 2400px), declare it in that exhibit's `exhibit.yaml → credits` (id, file, alt, source, licence…), then place it with `<Figure id="…" />` in the MDX or as `texture`/`hero`. The build stops if any image lacks a credit.
 
 ---
 

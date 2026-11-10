@@ -61,8 +61,8 @@ Everything is sequential: each step builds on the previous one, and the checkpoi
 - [x] T6: Chosen direction in the shared exhibit layout
 
 ### Part D: Ship
-- [ ] T7: Performance and full browser checks
-- [ ] T8: ADR 005, README, journal
+- [x] T7: Performance and full browser checks
+- [x] T8: ADR 005, README, journal
 - [ ] T9: PR, preview, phone check
 
 ## Risks and Mitigations
