@@ -84,3 +84,9 @@ Short, factual, dated entries. The public making-of is written from this journal
 **T8:** ADR 002 (exhibits as content collections, one folder per exhibit, build fails on missing parts) and ADR 003 (Instrument Serif, Inter Tight, IBM Plex Mono via Astro's Fonts API; Geist + Newsreader rejected). README updated with the current state, commands and structure.
 
 **Phase 0 summary for the making-of:** the plan held, but two things changed on the way: Astro 7 instead of 6 (ADR 001) and the whole visual direction (Curio, after the first sample looked "web 2.0"). The demo-context discussion (plates, banner, "The original") shaped Phase 1.2 before it started.
+
+## 2026-11-10 — T9: draft PR and Vercel
+
+**Done:** branch pushed, draft PR amderom/cabinet-of-ai#1 opened. The operator imported the repo in Vercel herself (guided through the browser pane). Gotchas worth keeping for the making-of: Vercel's page now leads with its AI builder, "Import Git Repository" sits lower; the Vercel GitHub app only had access to an older repo (`cabinet-of-ai-kit`), so access had to be added; "Framework" is now called "Application Preset" and guessed "Other" because `main` had no site yet; it was set to Astro so the first production build failed safely ("astro: command not found") instead of publishing the private docs. An older Vercel project owns the `cabinet-of-ai` name, so this one is `cabinet-of-ai-gx8a` for now.
+
+**Preview checks** (in the operator's signed-in browser pane, since previews are protected by Vercel login): Vercel build passed; home, demo, essay, making-of render; navigation without reload with the accent kept; `/exhibits/llull/` returns 404 with the sealed page; fonts loaded from the site itself, labels 10px, no sideways scroll. Only extra host: `vercel.live`, Vercel's preview toolbar, absent in production.
