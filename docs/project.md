@@ -196,6 +196,7 @@ Files created at runtime by agent-skills (not by the vibe-project skill):
 
 **Visual direction agreed during Vibe Project:**
 - Dark background, contemporary interface. Vintage appears only in objects, labels and inscriptions — never as ornament on the interface. A period typeface (e.g. an 18th-century print face) is reserved for labels and inscriptions on objects, not for interface text.
+- **Curio direction (chosen 2026-11-10):** elegant *and* playful. Near-black, a slowly drifting glow made from the exhibit's colour, fine film grain, a giant modern display serif (Instrument Serif) with italics, Inter Tight for reading, tiny mono labels (IBM Plex Mono). Playful touches: floating engraving plates the visitor can drag (they never cover text or buttons), a scrolling serif banner, rotated parody stickers ("In beta since 1726"). All neutrals in one warm cream family. Rejected: a classic "rounded cards, grey text" look (felt web 2.0).
 - One accent colour per exhibit, inspired by the object, pushed to a saturated, modern colour (neon on near-black). The contrast is the point: vintage content, unmistakably 2026 presentation.
 - The homepage looks like an actual cabinet (a piece of furniture). No exhibit is the entry point.
 - Engravings are the main illustration source, from free-to-use, public-domain collections.

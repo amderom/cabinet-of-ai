@@ -6,7 +6,7 @@
 
 ## Objective
 
-Set up the whole technical base of Cabinet of AI before any visible feature work: an Astro site running locally and on Vercel, with exhibits stored as content, the look's foundations in place (black screen, neon accents, two modern typefaces), and placeholder pages linked by smooth page transitions.
+Set up the whole technical base of Cabinet of AI before any visible feature work: an Astro site running locally and on Vercel, with exhibits stored as content, the look's foundations in place (black screen, glow in the exhibit's colour, film grain, giant display serif, tiny mono labels), and placeholder pages linked by smooth page transitions.
 
 **Visual intent (agreed with the operator).** The content is vintage: engravings, 18th-century inscriptions, well-written essays. The presentation is unmistakably 2026: near-black background, big confident type, saturated neon accents, fluid motion. The impact comes from that contrast. People from the past should feel like people now, not the other way round. Phase 0 doesn't deliver the "wow" (that belongs to the machine in 1.2 and the cabinet in 1.3), but it lays down the tokens, type and transitions those moments depend on.
 
@@ -99,25 +99,31 @@ Initial entries (all text is a clearly marked placeholder):
 | `llull` | sealed | 2 | `#FF2D55` hot magenta-red (rubric ink as neon) |
 | `hesse` | sealed | 3 | `#00E0FF` acid cyan (glass beads lit from behind) |
 
-## Design foundations
+## Design foundations — "Curio" direction
 
-Tokens are Tailwind 4 theme variables in `src/styles/global.css`:
+Chosen by the operator on 2026-11-10 after three mockups (Signal, Pop, Glow): C's elegance and colours, plus B's playfulness (floating engraving plates, scrolling banner). The first T2 attempt (Geist + Newsreader, rounded cards) was rejected as "too classical, web 2.0".
 
-```css
-@import "tailwindcss";
+Tokens are Tailwind 4 theme variables in `src/styles/global.css` (one warm family for all neutrals):
 
-@theme {
-  --color-ink: #0A0A0B;        /* near-black background */
-  --color-paper: #F2F0EB;      /* main text */
-  --color-muted: #8A8780;      /* secondary text */
-  --color-accent: #FF5F1F;     /* default; overridden per exhibit */
-  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Newsreader", ui-serif, Georgia, serif;
-}
-```
+| Token | Value | Use |
+|---|---|---|
+| `ink` | `#070605` | background |
+| `cream` | `#F4ECDF` | main text, buttons |
+| `plate` | `#EFE4CF` | paper of engraving plates |
+| `muted` | `#9A9184` | secondary text, sealed items |
+| `line` | cream at 14% | hairlines |
+| `accent` | `var(--accent)` | per exhibit (default `#FF5F1F`) |
 
-- **Per-exhibit accent:** the exhibit layout sets `style="--color-accent: {exhibit.accent}"` on its root, so `text-accent`, `bg-accent`, etc. follow the exhibit automatically.
-- **Typefaces (two, provisional):** Geist (sans, for titles and interface, used large and bold) and Newsreader (serif, for essay and making-of body text). Both are SIL Open Font License. They're self-hosted through Astro's built-in Fonts API (`fonts` in `astro.config.mjs`, Fontsource provider): files are downloaded at build time and served from this site, `font-display: swap`. Visitors never request a font CDN. (Changed from hand-copied woff2 files during T2: same outcome, no files or licences to maintain by hand.) The vintage inscription typeface is **not** part of Phase 0 (it arrives with the Lagado demo in 1.2, loaded only there).
+- **Per-exhibit accent:** a page sets `--accent` (e.g. `style="--accent: #FF2D55"`); `text-accent`, `bg-accent`, the glow and the banner stars all follow it.
+- **Glow + grain** (site-wide, in `BaseLayout`): a slowly drifting blurred glow made only from the accent colour, and a fine film grain.
+- **Typefaces (three, all OFL, self-hosted via Astro's Fonts API, downloaded at build, never from a CDN for visitors):**
+  - **Instrument Serif** (display): titles, exhibit names, the banner. Used very large; italics for emphasis.
+  - **Inter Tight** (text sans): reading text, essays, buttons, interface.
+  - **IBM Plex Mono** (labels only): tiny uppercase labels, `label` utility, **10px** (the operator asked for small labels).
+  - The vintage inscription typeface for objects still arrives with the Lagado demo (1.2), loaded only there.
+- **Scrolling banner:** `Ticker.astro`, display-serif italics with accent stars.
+- **Motion respects reduced-motion:** glow and banner stand still when the visitor's device asks for less motion.
+- **Floating, draggable engraving plates** are part of the direction but are built with the exhibit pages (Phase 1.x), not in Phase 0. Requirement already agreed: plates never cover text or buttons (they stay inside their own area while dragged), tested on large and small phones.
 - **Dark only.** No light theme.
 - **Page transitions:** `<ClientRouter />` in `BaseLayout`; exhibit title carries a `transition:name` so it morphs between the three parts. Respect `prefers-reduced-motion` (Astro's default fallback).
 - **Placeholders are honest stubs:** page title, which part this is, links to the other parts, accent applied, a visible "Placeholder" label. No layout design yet: that is Phase 1.1.
@@ -151,7 +157,7 @@ Naming: kebab-case files and slugs, PascalCase components, camelCase functions. 
   1. Home loads, shows Lagado as open and Llull and Hesse as sealed, with no console errors.
   2. Home → Lagado demo → essay → making-of → back: each URL is correct, and navigation happens without a full page reload (a marker set on `window` survives navigation).
   3. `/exhibits/llull/` returns the 404 page.
-  4. Computed body font is Geist; essay body is Newsreader; no request goes to a font CDN (network log).
+  4. Computed fonts: titles Instrument Serif, reading text Inter Tight, labels IBM Plex Mono at 10px; no request leaves the site (network log).
   5. The Lagado pages' accent is `#FF5F1F`.
 - Same checks repeated on the Vercel preview URL, and the operator opens it on her phone.
 
@@ -179,7 +185,7 @@ Once the first PR is open, the operator imports the GitHub repo `amderom/cabinet
 
 1. `docs/project.md` design references reworded: accents are "inspired by the object, pushed to a saturated, modern colour".
 2. `@astrojs/check` + `typescript` approved as dev dependencies; `npm run check` is part of the commands.
-3. Geist + Newsreader approved as the starting pair (still swappable later via ADR 003).
+3. ~~Geist + Newsreader~~ replaced by the "Curio" trio (Instrument Serif, Inter Tight, IBM Plex Mono) after the operator's design review — ADR 003.
 4. Node 26 accepted; Astro compatibility confirmed at install.
 5. Astro 7 instead of 6 (Astro 6 no longer updated since 2026-06-17; current add-ons require 7). Approved as an exception to the 6-month rule — ADR 001.
 

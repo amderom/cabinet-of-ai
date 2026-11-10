@@ -26,16 +26,16 @@
 
 ## T2: Design foundations ✅
 
-**Description:** Add Tailwind 4 via `npx astro add tailwind`, define the tokens (ink, paper, muted, accent, sans, serif) in `src/styles/global.css`, self-host Geist and Newsreader through Astro's Fonts API (downloaded at build, served from the site), and create `BaseLayout.astro` (html lang="en", dark body, fonts, global CSS).
+**Description:** Add Tailwind 4 via `npx astro add tailwind`, define the Curio tokens (ink, cream, plate, muted, line, accent, display/sans/mono), glow + grain, `label` utility and `Ticker` component in `src/styles/global.css`, self-host Instrument Serif, Inter Tight and IBM Plex Mono through Astro's Fonts API (downloaded at build, served from the site), and create `BaseLayout.astro` (html lang="en", dark body, fonts, global CSS).
 
 **Acceptance criteria:**
-- [x] The index page renders with near-black background, paper text, Geist as body font
+- [x] The index page renders the Curio sample: near-black, accent glow, grain, Instrument Serif titles, Inter Tight text, 10px mono labels
 - [x] Font files load from the site itself (`/_astro/fonts/…`); no request leaves the site
 - [x] Font licences (OFL) recorded in ADR 003 (T8)
 
 **Verification:**
 - [ ] `npm run build` + `npm run check` pass
-- [ ] playwright-cli: computed `font-family` on body resolves to Geist; network log has no external font request
+- [x] playwright-cli (390×844 and 375×667, plus reduced motion): fonts as above, no external request, no console error, motion off when reduced
 
 **Dependencies:** T1
 **Files likely touched:** `src/styles/global.css`, `src/layouts/BaseLayout.astro`, `astro.config.mjs`, `package.json`
@@ -108,15 +108,15 @@
 
 ## T6: Essay and making-of pages
 
-**Description:** Create `essay.astro` and `making-of.astro` under `src/pages/exhibits/[slug]/`, rendering the matching MDX entry inside `ExhibitLayout` with Newsreader for body text. `getStaticPaths` throws a clear build error if an open exhibit is missing a part (using the T3 helper).
+**Description:** Create `essay.astro` and `making-of.astro` under `src/pages/exhibits/[slug]/`, rendering the matching MDX entry inside `ExhibitLayout` with Inter Tight for body text and Instrument Serif for titles. `getStaticPaths` throws a clear build error if an open exhibit is missing a part (using the T3 helper).
 
 **Acceptance criteria:**
-- [ ] `/exhibits/lagado/essay/` and `/exhibits/lagado/making-of/` render their placeholder MDX in Newsreader
+- [ ] `/exhibits/lagado/essay/` and `/exhibits/lagado/making-of/` render their placeholder MDX (titles Instrument Serif, body Inter Tight)
 - [ ] Temporarily removing `lagado/essay.mdx` makes the build fail with a message naming the exhibit and the missing part
 
 **Verification:**
 - [ ] `npm run build` passes (and fails as expected in the removal test, then restored)
-- [ ] playwright-cli: computed font of the essay body is Newsreader; nav moves between all three parts
+- [ ] playwright-cli: computed font of the essay body is Inter Tight; nav moves between all three parts
 
 **Dependencies:** T5
 **Files likely touched:** `src/pages/exhibits/[slug]/essay.astro`, `src/pages/exhibits/[slug]/making-of.astro`, `src/layouts/ExhibitLayout.astro`

@@ -26,3 +26,13 @@ Short, factual, dated entries. The public making-of is written from this journal
 **Changed:** fonts are no longer hand-copied woff2 files (as the spec first said) but handled by Astro's Fonts API: same outcome, nothing to maintain by hand.
 
 **Caught:** a missing space between inline words ("semibold,black"), caused by Astro 7's new HTML compression. Fixed with `{" "}`; the risk was already listed in ADR 001.
+
+## 2026-11-10 — T2 redone: the "Curio" direction
+
+**What happened:** the operator reviewed the first T2 sample (Geist + Newsreader, rounded cards) and said it still looked "very classical… a bit web 2.0", asking for something "super modern, really fun", pointing back to her references.
+
+**Process:** the agent screenshotted the five reference sites on a phone, then built three throwaway mockups: A "Signal" (black lab, falling lines, condensed caps), B "Pop" (full-colour screens, chunky type, floating cards), C "Glow" (black, accent glow, grain, giant serif). Her answer: C for the serif and colours, B's floating cards and scrolling banner for fun: "the playfulness of B, and the elegance of C".
+
+**Iterations on the mix ("Curio"):** cards became draggable engraving plates ("specimen cards" of the cabinet). Feedback 1: cards must never go over text and buttons → plates confined to their own area, tested by dragging every plate to every corner on a large and a small phone (a first test script was invalid, synthetic events never moved the plates; redone with real mouse drags; it caught a 4px overflow on the small phone). Feedback 2: harmonise colours → glow made only from the accent (the pink mix clashed), one warm cream family for text, paper and greys. Feedback 3: labels smaller → 10px (a CSS specificity bug had made the essay label 18px in the mockup).
+
+**Built:** Instrument Serif + Inter Tight + IBM Plex Mono via Astro's Fonts API, Curio tokens, glow + grain in the base layout, `label` utility, `Ticker` component, favicon, new design sample. Plates are deferred to the exhibit pages (Phase 1.x).

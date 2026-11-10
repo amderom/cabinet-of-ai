@@ -1,0 +1,69 @@
+---
+/**
+ * Scrolling banner in display-serif italics, items separated by accent stars.
+ * Stands still for visitors who ask their device to reduce motion.
+ */
+interface Props {
+  items: string[];
+  /** Seconds for one full loop. */
+  duration?: number;
+}
+
+const { items, duration = 22 } = Astro.props;
+// The sequence is rendered twice so the loop is seamless; the copy is hidden from screen readers.
+---
+
+<div class="ticker border-y border-line py-3" style={`--ticker-duration: ${duration}s`}>
+  <p class="sr-only">{items.join(". ")}</p>
+  <div class="ticker-track" aria-hidden="true">
+    {
+      [0, 1].map(() =>
+        items.map((item) => (
+          <span class="ticker-item">
+            {item}
+            <span class="ticker-star">✺</span>
+          </span>
+        )),
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .ticker {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-track {
+    display: inline-flex;
+    animation: ticker var(--ticker-duration) linear infinite;
+  }
+
+  .ticker-item {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 30px;
+    line-height: 1.1;
+  }
+
+  .ticker-star {
+    margin-inline: 14px;
+    font-style: normal;
+    font-size: 20px;
+    vertical-align: middle;
+    color: var(--color-accent);
+  }
+
+  @keyframes ticker {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+      animation: none;
+    }
+  }
+</style>

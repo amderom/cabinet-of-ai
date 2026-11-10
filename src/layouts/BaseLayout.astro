@@ -16,12 +16,18 @@ const { title, description, accent } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <Font cssVariable="--font-geist" preload />
-    <Font cssVariable="--font-newsreader" />
+    <Font cssVariable="--font-instrument-serif" preload />
+    <Font cssVariable="--font-inter-tight" preload />
+    <Font cssVariable="--font-ibm-plex-mono" />
   </head>
   <body style={accent ? `--accent: ${accent}` : undefined}>
-    <slot />
+    <div class="glow" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="relative z-10">
+      <slot />
+    </div>
   </body>
 </html>

@@ -5,7 +5,7 @@
 
 ## Overview
 
-Scaffold the static Astro site, put the design foundations in place (tokens, neon accents, Geist + Newsreader, dark only), model exhibits as content, generate the home page and Lagado's three placeholder pages from that content, link them with page transitions, then deploy to Vercel with a preview link per PR.
+Scaffold the static Astro site, put the design foundations in place (Curio: tokens, glow + grain, neon accents, Instrument Serif + Inter Tight + IBM Plex Mono, dark only), model exhibits as content, generate the home page and Lagado's three placeholder pages from that content, link them with page transitions, then deploy to Vercel with a preview link per PR.
 
 ## Dependency graph
 
@@ -27,7 +27,7 @@ T2 and T3 are independent once T1 is done, but they're small and share `package.
 
 - Three content collections keyed by folder slug: `exhibits` (YAML), `essays` and `makingOfs` (MDX). Pages exist only for `open` exhibits. → ADR 002.
 - Tailwind 4 `@theme` tokens. The exhibit accent is a CSS variable overridden on the exhibit layout root.
-- Geist + Newsreader self-hosted via Astro's Fonts API (Fontsource provider, downloaded at build). → ADR 003.
+- Instrument Serif + Inter Tight + IBM Plex Mono self-hosted via Astro's Fonts API (Fontsource provider, downloaded at build). → ADR 003.
 - `<ClientRouter />` in the base layout. The exhibit title carries `transition:name`.
 - Astro 7 (not 6): approved 2026-11-10 → ADR 001.
 - Exact Astro 7 / Tailwind 4 syntax (content loaders, `@theme`, fonts) is checked against current docs via Context7 before writing, not from memory.
