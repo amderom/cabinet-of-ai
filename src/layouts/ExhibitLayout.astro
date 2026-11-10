@@ -28,7 +28,10 @@ const { exhibit, part, title, description } = Astro.props;
 const isDemo = part === "demo";
 // The exhibit's engraving texture (an id in its credits), drawn behind the page as neon lines.
 const textureCredit = exhibit.data.texture ? creditFor(exhibit.data.credits, exhibit.data.texture, exhibit.id) : undefined;
-const texture = textureCredit?.file ? (await getImage({ src: textureCredit.file, format: "webp" })).src : undefined;
+// A faint, blended background: a small, lighter file is enough and keeps phone loading fast.
+const texture = textureCredit?.file
+  ? (await getImage({ src: textureCredit.file, format: "avif", width: 480, quality: 45 })).src
+  : undefined;
 const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part];
 ---
 

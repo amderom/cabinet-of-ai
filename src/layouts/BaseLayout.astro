@@ -54,8 +54,9 @@ const url = absoluteUrl(Astro.url.pathname, site);
         </>
       )
     }
-    <Font cssVariable="--font-instrument-serif" preload />
-    <Font cssVariable="--font-inter-tight" preload />
+    <!-- Only the regular styles are preloaded; italics load when first used (keeps phones fast). -->
+    <Font cssVariable="--font-instrument-serif" preload={[{ style: "normal" }]} />
+    <Font cssVariable="--font-inter-tight" preload={[{ style: "normal" }]} />
     <Font cssVariable="--font-ibm-plex-mono" preload />
     <!-- Smooth page changes without full reloads; no animation for reduced-motion visitors. -->
     <ClientRouter />
