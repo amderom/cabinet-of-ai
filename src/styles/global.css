@@ -123,6 +123,20 @@
       opacity: 0.28;
     }
   }
+  /*
+   * Desktop, pages with a texture: the glow is centred on the engraving, so
+   * the machine looks lit by it, and drifts only a little around it.
+   */
+  @media (min-width: 768px) {
+    .glow-lit {
+      left: auto;
+      right: -16vw;
+      top: -22vw;
+      width: 72vw;
+      height: 72vw;
+      animation-name: glow-drift-lit;
+    }
+  }
   /* Reading pages: much fainter, and gone before the text starts. */
   .texture-calm {
     top: -14svh;
@@ -151,6 +165,12 @@
 @keyframes glow-drift {
   to {
     transform: translate(10vw, 35vh) scale(1.15);
+  }
+}
+
+@keyframes glow-drift-lit {
+  to {
+    transform: translate(-5vw, 6vh) scale(1.08);
   }
 }
 

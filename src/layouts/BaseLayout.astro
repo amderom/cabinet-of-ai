@@ -64,10 +64,10 @@ const url = absoluteUrl(Astro.url.pathname, site);
     {
       calm ? (
         <div class="glow-frame" aria-hidden="true">
-          <div class="glow glow-calm" />
+          <div class:list={["glow glow-calm", { "glow-lit": texture }]} />
         </div>
       ) : (
-        <div class="glow" aria-hidden="true" />
+        <div class:list={["glow", { "glow-lit": texture }]} aria-hidden="true" />
       )
     }
     {
