@@ -19,3 +19,9 @@
 **Design rule added:** engravings are the common thread of the whole site (plates, soft neon background texture in the exhibit's colour, cabinet). Recorded in docs/project.md → Design references with the operator's yes; engraving work scheduled in Phases 1.2 and 1.3 of STARTUP.md. Not in 1.1: the background layers already exist, so the texture adds a layer without rework.
 
 **Phase 1.2 reorganised:** images handled as a whole, once for the site (engravings, essay illustrations, background texture), then the machine (in the engraving language), then the preview images. The operator asked "why before the machine?"; answer: the machine should share the engraving style; fallback if image sourcing drags on is temporary visuals. Written into STARTUP.md.
+
+## 2026-11-10 — Build: T1 and T2
+
+**T1:** research reference (`research` in the exhibit metadata, schema unit-tested), descriptions on essays and making-ofs, site settings (name, LinkedIn, byline).
+
+**T2:** the operator's essay on the essay page, word-for-word (checked automatically against her original; only curly quotes, apostrophes and italic titles changed). Byline, "About this essay" note and "Read the full article (in French) ↗" button under the title. Measured: the button fitted at 390×844 but not at 375×667, so the essay and making-of pages got a smaller exhibit header (giant title kept on the demo page); it now ends at 561 of 667 px. The dev server couldn't run twice in the same folder (another session had it), so checks ran on the built site.
