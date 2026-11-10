@@ -168,12 +168,12 @@
 
 ---
 
-## T9: PR, preview, phone check
+## T9: PR, preview, phone check ✅
 
 **Acceptance criteria:**
-- [ ] Draft PR to `main` listing the images with their licences; Vercel checks green
-- [ ] Checks re-run on the preview; the author approves on her phone; merge on her word
-- [ ] After merge: production checked; journal updated
+- [x] Draft PR to `main` listing the images with their licences; Vercel checks green
+- [x] Checks re-run on the preview; the author approves on her phone; merge on her word
+- [x] After merge: production checked; journal updated
 
 **Dependencies:** T8
 **Estimated scope:** S

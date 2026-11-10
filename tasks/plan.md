@@ -63,7 +63,7 @@ Everything is sequential: each step builds on the previous one, and the checkpoi
 ### Part D: Ship
 - [x] T7: Performance and full browser checks
 - [x] T8: ADR 005, README, journal
-- [ ] T9: PR, preview, phone check
+- [x] T9: PR, preview, phone check
 
 ## Risks and Mitigations
 
