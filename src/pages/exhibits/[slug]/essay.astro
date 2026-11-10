@@ -16,7 +16,7 @@ const { Content } = await render(entry);
 const { research } = exhibit.data;
 ---
 
-<ExhibitLayout exhibit={exhibit} part="essay">
+<ExhibitLayout exhibit={exhibit} part="essay" title={entry.data.title} description={entry.data.description}>
   <article class="prose-cabinet">
     <h2>{entry.data.title}</h2>
     {research && <ResearchNote research={research} />}

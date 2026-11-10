@@ -10,20 +10,27 @@ import ExhibitNav from "../components/ExhibitNav.astro";
 import ExhibitCta from "../components/ExhibitCta.astro";
 import Credits from "../components/Credits.astro";
 import type { ExhibitPart } from "../lib/exhibits";
+import { pageTitle } from "../lib/seo";
 
 interface Props {
   exhibit: CollectionEntry<"exhibits">;
   part: "demo" | ExhibitPart;
+  /** Title of this part's text (essay, making-of); the demo uses the exhibit title. */
+  title?: string;
+  /** Link-preview description; the demo uses the exhibit tagline. */
+  description?: string;
 }
 
-const { exhibit, part } = Astro.props;
+const { exhibit, part, title, description } = Astro.props;
 const isDemo = part === "demo";
 const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part];
-const pageTitle =
-  part === "demo" ? `${exhibit.data.title} · Cabinet of AI` : `${partName} · ${exhibit.data.title} · Cabinet of AI`;
 ---
 
-<BaseLayout title={pageTitle} description={exhibit.data.tagline} accent={exhibit.data.accent}>
+<BaseLayout
+  title={isDemo ? pageTitle(exhibit.data.title) : pageTitle(title ?? exhibit.data.title, partName)}
+  description={description ?? exhibit.data.tagline}
+  accent={exhibit.data.accent}
+  type={part === "essay" ? "article" : "website"}>
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
     <a href="/" class="inline-flex min-h-11 items-center text-cream hover:text-accent">← Cabinet of AI</a>
     <span>{partName}</span>
