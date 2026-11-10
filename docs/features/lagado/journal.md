@@ -25,3 +25,15 @@
 **T1:** research reference (`research` in the exhibit metadata, schema unit-tested), descriptions on essays and making-ofs, site settings (name, LinkedIn, byline).
 
 **T2:** the operator's essay on the essay page, word-for-word (checked automatically against her original; only curly quotes, apostrophes and italic titles changed). Byline, "About this essay" note and "Read the full article (in French) ↗" button under the title. Measured: the button fitted at 390×844 but not at 375×667, so the essay and making-of pages got a smaller exhibit header (giant title kept on the demo page); it now ends at 561 of 667 px. The dev server couldn't run twice in the same folder (another session had it), so checks ran on the built site.
+
+## 2026-11-10 — Build: T3 to T6
+
+The operator asked to stop the old local server left running by an earlier session (it blocked a second one); stopped, then "keep going".
+
+**T3:** shared exhibit frame: "Read the full article (in French) ↗" and "Follow the series on LinkedIn ↗" on every part (plain links, no LinkedIn widget), credits block (checked with a temporary test credit, then removed), "Play with the machine →" on the essay and making-of, footer. Older links (header, tabs, byline) enlarged to finger size (44px); the article button still fits on the small phone (635 of 667 px).
+
+**T4:** every page has its own title, description, canonical URL and Open Graph tags with absolute URLs (site address set in the config); no image tags until Phase 1.2. The label font is now preloaded (the flash noted at the end of Phase 0). The 404 page claims no address of its own.
+
+**T5:** demo teaser ("In the workshop · The machine is being assembled", link to the essay) and a two-line making-of note.
+
+**Checkpoint B:** all checks pass at 390×844, 375×667 and 1280×800: no sideways scroll, no request leaving the site, all links correct. **T6:** ADR 004, README.
