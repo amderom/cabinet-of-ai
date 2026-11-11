@@ -159,7 +159,7 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## Checkpoint D — the landing page
+## Checkpoint D — the landing page ✅ ("Yes, balanced", 2026-11-11; parody banner still to do)
 
 - [ ] The author approves the full demo page on her phone
 
