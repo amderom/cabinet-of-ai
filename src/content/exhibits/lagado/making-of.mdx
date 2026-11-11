@@ -1,6 +1,46 @@
 ---
 title: Making the Lagado Engine
-description: "How the Lagado Engine is being rebuilt with AI."
+description: "How Swift’s word machine was rebuilt in two days with an AI coding agent: the prompts, the dead ends and the decisions."
 ---
 
-The Lagado Engine is being rebuilt with AI, piece by piece. This page will tell how — the prompts, the dead ends and the decisions — once the machine is assembled.
+import PullQuote from "../../../components/PullQuote.astro";
+
+I didn’t write the code for this machine. An AI coding agent did, over two days in November 2026, while I decided, played, rejected and approved, mostly from my phone. The agent kept a dated journal as it went; this page is written from it.
+
+My brief was short: the machine had to be “really fun, bold, looks good”, and work on a phone. Everything else was found along the way.
+
+## The vintage is the content
+
+The first drawn version looked like an engraving: a wooden frame, little dice, iron cranks. I rejected it. I told the agent “you’re going for a super vintage feel… the look has to be super modern, super sleek… techy”, and that the cranks “look like out of a point and click game built in the 90s”.
+
+<PullQuote>The vintage is the content, not the look.</PullQuote>
+
+The cause was in our own rules: the project said vintage belongs “in objects”, and the agent had treated the machine as an object, down to the iron cranks it had written into the plan. We rewrote the rule: vintage is content, never look. Swift’s words, his spellings and the old engravings carry the past; everything you touch is from 2026. The agent then built three modern directions of the same machine, and I said “I clearly love Signal the most”: plain words on black, a field of thin lines, letters that scramble into words, and a glowing thread through the words you pick.
+
+## Show, don’t describe
+
+For the phone layout, describing and screenshots failed, round after round. A small screenshot of a phone page looks blurrier than the real page, and a description of a layout is not a layout. What worked was a clickable prototype I could open on my own phone, rebuilt as often as needed (28 versions by the end). My verdict on one of them: “only one sentence on the phone because it’s impossible to understand the vertical thing”.
+
+The phone layout was finally settled by a machine I had built myself, in another session. I showed it to the agent: one look at a working example did what two rounds of descriptions had not.
+
+## Getting Swift right
+
+The words are mine and Swift’s. The agent drafted about two hundred single words from the learned fields of Swift’s time, with a sprinkle of start-up and AI jargon; I cut the old spellings down to about a dozen, because too many were “a bit complicated”. Every old spelling was checked by a script against Swift’s own text, and every figure on the spec sheet against his passage: forty pupils (thirty-six readers, four scribes), forty iron handles, a frame twenty feet square, a fund for five hundred frames. My essay counted thirty-six students and my notes said forty: Swift says both, forty pupils, thirty-six of them reading.
+
+“The original” tab shows his passage exactly as printed, from the 1801 edition on Wikisource. A test compares it word for word with the source and fails if a single word changes.
+
+## The plates, the cards and the sound
+
+Some rounds were just taste. The first cards above the machine were dark and polished, and I said “it looks like vibe-coded slop”. Three more styles looked like “a community manager having fun on Canva”. What survived is simple: three small light plates you can drag around, a huge orange numeral on each, and my ink drawing of Swift on one of them. “The hero has to be my drawing of Swift”, I had said early on.
+
+Sound took three rounds. A floating sound button I found “super annoying”, so there is now one small switch next to the machine, and nothing on the reading pages: the sounds only answer your own taps. The first three sounds came from three different recordings and felt “a bit cheaper”. The agent cannot hear, so it measured instead, cut single clean hits out of free (CC0) recordings and put them on a listening page. I picked a die clicking and an old stamp to sit with the dice rattle, and asked for everything “a bit duller so it feels more luxurious”. I chose the softest of three levels.
+
+## What the agent got wrong
+
+Plenty, and the journal says so. Its own test scripts were often the bug: fake mouse events that moved nothing, a page read before the machine had loaded. A shake made the whole page jump on my phone, and an animation lagged on my computer (“super smooth on phone, not so much on my browser on my computer”); both were measured, traced and fixed. At one point I asked it to stop changing things before asking me. From then on, visual changes mostly started as options I could try in a prototype before anything was built.
+
+What it did well was the patient part: 89 automatic tests, checks at three screen sizes after every change, credits and licences for every image and sound, and a build that refuses to publish anything uncredited.
+
+## Who made what
+
+The agent wrote the code, drafted the words and proposed the options. I chose the direction, the words, the pictures, the sounds and the order of every tab, and checked each step on my phone before it went further. The machine is a collaboration in exactly the way Swift’s professor imagined his: someone turns the handles, and someone decides which lines are worth keeping.
