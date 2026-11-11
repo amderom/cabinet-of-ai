@@ -24,7 +24,8 @@
  * One scale for every exhibit page (agreed 2026-11-11: "the design system has to be cohesive").
  * Type: labels 10px (the label utility), small text 15, reading text 18, quotes 24, section
  * titles 40; page titles are set by the exhibit layout. Spacing: 20 between paragraphs,
- * 44 around an object (engraving, quote, numbers box), 80 between sections.
+ * 44 around an object (engraving, quote, numbers box), 80 between sections, and a larger
+ * step between big standalone blocks (the making-of's scenes): 104 on a phone, 144 on desktop.
  */
 :root {
   --text-small: 15px;
@@ -34,6 +35,12 @@
   --space-text: 20px;
   --space-object: 44px;
   --space-section: 80px;
+  --space-block: 104px;
+}
+@media (min-width: 1024px) {
+  :root {
+    --space-block: 144px;
+  }
 }
 
 /* Tiny uppercase mono label: "Essay · 6 min read", "№ 001 — 1726". */
@@ -496,10 +503,10 @@
 }
 
 /*
- * Making-of pages from 1024px (phones keep one column). Unlayered, so it can set the size of
- * the numbers box over its own styles. The last row puts the credits on the left and the
- * rejection pile on the right. Three layouts are under review with the author (temporary
- * switch, src/components/making-of/LayoutSwitch.astro): A by default, B and C by data-mo.
+ * Making-of pages from 1024px (phones keep one column): "margin notes", chosen by the author
+ * on 2026-11-11 from three layouts. The numbers sit beside the intro; in each scene the chat
+ * stays in the reading column and the commentary sits in the margin, like the essay's
+ * annotations. Unlayered, so it can place the components' own boxes.
  */
 @media (min-width: 1024px) {
   .prose-cabinet:has(.mo-scene) {
@@ -511,73 +518,22 @@
   .prose-cabinet:has(.mo-scene) > * {
     grid-column: 1;
   }
-  .prose-cabinet:has(.mo-scene) > .mo-pair {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-template-columns: minmax(0, 60ch) minmax(0, 1fr);
-    column-gap: 64px;
-    align-items: start;
-  }
-  .mo-pair > .mo-scene {
-    grid-row: 1;
-  }
-  .mo-pair > .mo-scene:first-child {
-    grid-column: 2;
-  }
-  .mo-pair > .mo-scene:last-child {
-    grid-column: 1;
-  }
-  .mo-scene.stack .mo-credits {
-    grid-template-columns: 1fr;
-  }
-  .mo-scene.stack .mo-credits > div {
-    padding-inline: 0;
-  }
-
-  /* A · Column: text and chats in the reading column; the numbers as one wide band. */
   .prose-cabinet:has(.mo-scene) > .mo-numbers {
-    grid-column: 1 / -1;
-    height: 440px;
-    min-height: 0;
-  }
-
-  /* B and C: the numbers beside the intro. */
-  .prose-cabinet:is([data-mo="b"], [data-mo="c"]):has(.mo-scene) > .mo-numbers {
     grid-column: 2;
     grid-row: 2 / span 3;
-    align-self: stretch;
-    height: auto;
-    min-height: 400px;
+    align-self: center;
     margin: 0;
   }
-
-  /* B · Side by side: every scene the same way round, commentary left, chat right. */
-  [data-mo="b"] > .mo-scene:not(.stack) {
-    grid-column: 1 / -1;
-    grid-template-columns: minmax(0, 60ch) minmax(0, 1fr);
-    grid-template-rows: auto auto 1fr;
-    column-gap: 64px;
-    align-items: start;
-  }
-  [data-mo="b"] > .mo-scene:not(.stack) > :is(.mo-label, h2, .mo-side) {
-    grid-column: 1;
-  }
-  [data-mo="b"] > .mo-scene:not(.stack) > .mo-lines {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-  }
-
-  /* C · Margin notes: the chat in the reading column, the commentary in the margin. */
-  [data-mo="c"] > .mo-scene:not(.stack) {
+  .prose-cabinet:has(.mo-scene) > .mo-scene:not(.stack) {
     grid-column: 1 / -1;
     grid-template-columns: minmax(0, 60ch) minmax(0, 1fr);
     column-gap: 64px;
     align-items: start;
   }
-  [data-mo="c"] > .mo-scene:not(.stack) > :is(.mo-label, h2, .mo-lines) {
+  .prose-cabinet:has(.mo-scene) > .mo-scene:not(.stack) > :is(.mo-label, h2, .mo-lines) {
     grid-column: 1;
   }
-  [data-mo="c"] > .mo-scene:not(.stack) > .mo-side {
+  .prose-cabinet:has(.mo-scene) > .mo-scene:not(.stack) > .mo-side {
     grid-column: 2;
     grid-row: 3;
   }

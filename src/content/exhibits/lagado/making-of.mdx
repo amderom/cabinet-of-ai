@@ -8,7 +8,6 @@ import Line from "../../../components/making-of/Line.astro";
 import Point from "../../../components/making-of/Point.astro";
 import Numbers from "../../../demos/lagado/making-of/Numbers.astro";
 import RejectionPile from "../../../demos/lagado/making-of/RejectionPile.astro";
-import LayoutSwitch from "../../../components/making-of/LayoutSwitch.astro";
 
 “The most ignorant person, at a reasonable charge, and with a little bodily labour, might write books in philosophy, poetry, politicks, laws, mathematicks, and theology.” This is how the professor of Lagado sells his engine to Gulliver – and I must admit that, three centuries later, the pitch sounds uncomfortably familiar. In November 2026, I rebuilt his machine in about ten hours, over two days, with an AI coding agent. I don’t write code: my own bodily labour mostly consisted in deciding, testing on my phone, and saying no.
 
@@ -30,6 +29,11 @@ What follows are three lessons, told as conversations which, I should say, never
   <Point slot="point">Herein lies the paradox of the whole project. A machine made of everything ever written was asked to rebuild a machine from 1726 – and it reached, quite logically, for 1726, as if an old idea could only ever look old. Swift’s engine, after all, does little else: it shuffles what already exists. Breaking the habit took a single rule, which now governs the entire site: <strong>vintage is content, never look.</strong> Swift’s words and the engravings belong to the past; everything you can touch belongs to 2026.</Point>
 </Scene>
 
+<Scene label="Interlude" stack>
+  <Fragment slot="title">The rejection pile</Fragment>
+  <RejectionPile />
+</Scene>
+
 <Scene label="2 · The rush">
   <Fragment slot="title">It wanted to <em>build.</em> I wanted to think first.</Fragment>
   <Line who="me">What should it feel like?</Line>
@@ -49,13 +53,6 @@ What follows are three lessons, told as conversations which, I should say, never
   <Line who="agent">The engraving shows fewer handles than the forty in the text. Which one is wrong?</Line>
   <Line who="me">Neither. It’s an illustration, not a blueprint.</Line>
   <Point slot="point">A book, then, has an author, a narrator, editors, an illustrator – and now a scholar writing about it all. Telling those voices apart is a matter of reading rather than computing, and it is precisely where the agent stumbled most. The engraver, for one, never promised Swift an accurate count of handles.</Point>
-</Scene>
-
-<div class="mo-pair">
-
-<Scene label="Interlude" stack>
-  <Fragment slot="title">The rejection pile</Fragment>
-  <RejectionPile />
 </Scene>
 
 <Scene label="Credits" stack>
@@ -82,8 +79,3 @@ What follows are three lessons, told as conversations which, I should say, never
   </div>
   <Point>The professor promised books “without the least assistance from genius or study”. Three centuries later, his engine finally runs – on a phone, no less – and it still took a little of both.</Point>
 </Scene>
-
-</div>
-
-{/* TEMPORARY: layout comparison for the author; remove once a layout is picked. */}
-<LayoutSwitch />
