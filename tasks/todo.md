@@ -270,12 +270,12 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## T15: PR ready, phone check, merge on her word
+## T15: PR ready, phone check, merge on her word ✅
 
 **Acceptance criteria:**
-- [ ] PR marked ready, listing sounds and texts with their licences; Vercel checks green
-- [ ] Checks re-run on the preview; the author approves on her phone (with sound on her iPhone); merge on her word
-- [ ] After merge: production checked; journal updated; reminder that Part 3 (link preview images) comes next
+- [x] PR marked ready, listing sounds and texts with their licences; Vercel checks green
+- [x] Checks re-run on the preview; the author approves on her phone (with sound on her iPhone); merge on her word
+- [x] After merge: production checked; journal updated; reminder that Part 3 (link preview images) comes next
 
 **Dependencies:** T14
 **Estimated scope:** S
