@@ -1,13 +1,20 @@
 /**
- * The Lagado frame and its folio: the playable part of the demo page.
+ * The Lagado frame and its folio: the playable part of the demo page ("Signal" look,
+ * chosen by the author on 2026-11-11 from a clickable prototype).
  * Rules live in engine.ts and folio.ts; this file only draws and reacts.
  *
- * Desktop shows the frame as a square (places as columns, a crank on each column
- * and each row). A phone shows it on its side (places as rows, 3 words each, a
- * crank per place). Both layouts are rendered and CSS shows the one that fits,
- * so the server and the browser always agree.
+ * Desktop shows the frame as a square (one column per grammatical place, a crank on
+ * each column and each row). A phone shows it on its side (one row per place, 3 words,
+ * a crank per place). Both layouts are rendered and CSS shows the one that fits, so the
+ * server and the browser always agree.
+ *
+ * Smoothness (measured with the author, see the journal): only turned words animate;
+ * the scramble plays on a separate layer over each word, so no word changes width and
+ * nothing around it moves; one shared animation loop; the background lines and the
+ * thread between picked words are drawn together on one canvas, about 30 times a
+ * second, and paused when the machine is off screen.
  */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { createFrame, goodCombination, pick, seededRandom, sentence, shake, turnPlace, turnRow, type Frame } from "./engine";
 import { addLine, editLine, loadFolio, newestFirst, removeLines, saveFolio, shareText, type Line } from "./folio";
 import { PLACES } from "./words";
@@ -30,19 +37,28 @@ const storage = () => {
     return null;
   }
 };
+const prefersReducedMotion = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/** One turn of a crank (or a shake): which blocks changed, and which crank to spin. */
+interface Turn {
+  cells: string[];
+  crank: string;
+  n: number;
+}
 
 export default function Machine() {
   const [frame, setFrame] = useState<Frame>(FIRST_FRAME);
-  // Bumped on every turn so the flipped blocks (and the crank) replay their animation.
-  const [turns, setTurns] = useState<{ cells: Set<string>; crank: string; n: number }>({ cells: new Set(), crank: "", n: 0 });
+  const [turn, setTurn] = useState<Turn>({ cells: [], crank: "", n: 0 });
   const [folio, setFolio] = useState<Line[]>([]);
   const [fresh, setFresh] = useState<string | null>(null);
   const [toast, setToast] = useState<{ message: string; undo?: Line[] } | null>(null);
   const [canShare, setCanShare] = useState(false);
-  // Temporary (Checkpoint C): which crank drawing to show, so the author can compare them.
-  const [crankStyle, setCrankStyle] = useState<CrankStyle>("handle");
   // The folio is saved only once the saved one has been read, so it is never overwritten by an empty one.
   const [loaded, setLoaded] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const threadRef = useRef<[number, number][]>([]);
+  const redraw = useSignalField(canvasRef, threadRef);
 
   useEffect(() => {
     setFolio(loadFolio(storage()));
@@ -66,11 +82,42 @@ export default function Machine() {
     return () => clearTimeout(t);
   }, [toast]);
 
+  // Fit the phone rows, then place the thread through the picked words. Runs after every
+  // change of words or picks, and whenever the frame changes size (fonts, rotation).
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const layout = () => {
+      fitPhoneRows(root);
+      threadRef.current = threadPoints(root, canvasRef.current);
+      redraw();
+    };
+    layout();
+    const observer = new ResizeObserver(layout);
+    observer.observe(root);
+    document.fonts?.ready.then(layout);
+    return () => observer.disconnect();
+  }, [frame, redraw]);
+
+  // After a turn: scramble the turned words that are on screen and spin the crank.
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root || turn.n === 0 || prefersReducedMotion()) return;
+    for (const key of turn.cells) {
+      root.querySelectorAll<HTMLElement>(`[data-cell="${key}"]`).forEach((el) => el.offsetParent && scramble(el));
+    }
+    root.querySelectorAll<HTMLElement>(`[data-crank="${turn.crank}"]`).forEach((k) => {
+      k.classList.remove("is-turning");
+      void k.offsetWidth; // restart the spin
+      k.classList.add("is-turning");
+    });
+  }, [turn]);
+
   function apply(next: Frame, crank: string) {
-    const cells = new Set<string>();
-    next.rows.forEach((row, r) => row.forEach((w, p) => w !== frame.rows[r][p] && cells.add(`${r}-${p}`)));
+    const cells: string[] = [];
+    next.rows.forEach((row, r) => row.forEach((w, p) => w !== frame.rows[r][p] && cells.push(`${r}-${p}`)));
     setFrame(next);
-    setTurns((t) => ({ cells, crank, n: t.n + 1 }));
+    setTurn((t) => ({ cells, crank, n: t.n + 1 }));
   }
 
   const words = sentence(frame);
@@ -103,73 +150,55 @@ export default function Machine() {
     }
   }
 
-  const tile = (r: number, p: number) => {
-    const word = frame.rows[r][p];
-    const flipped = turns.cells.has(`${r}-${p}`);
-    return (
-      <button
-        key={`${r}-${p}-${flipped ? turns.n : 0}`}
-        type="button"
-        className={`lagado-tile${flipped ? " is-flipped" : ""}`}
-        aria-pressed={frame.picks[p] === r}
-        onClick={() => setFrame((f) => pick(f, p, r))}>
-        {noBreak(word)}
-      </button>
-    );
-  };
-  const crank = (id: string, label: string, onTurn: () => Frame) => (
+  const word = (r: number, p: number) => (
     <button
-      key={`${id}-${turns.crank === id ? turns.n : 0}`}
+      key={`${r}-${p}`}
       type="button"
-      className={`lagado-crank${turns.crank === id ? " is-turned" : ""}`}
-      aria-label={label}
-      onClick={() => apply(onTurn(), id)}>
-      <CrankDrawing style={crankStyle} />
+      className="lagado-word"
+      data-cell={`${r}-${p}`}
+      aria-pressed={frame.picks[p] === r}
+      onClick={() => setFrame((f) => pick(f, p, r))}>
+      <span className="lagado-word-text">{noBreak(frame.rows[r][p])}</span>
+      <span className="lagado-word-scramble" aria-hidden="true" />
     </button>
   );
-  const placeCrank = (p: number) => crank(`p${p}`, `Turn the ${PLACES[p].name.toLowerCase()} blocks (place ${p + 1})`, () => turnPlace(frame, p, random));
+  const crank = (id: string, label: string, onTurn: () => Frame) => (
+    <button key={id} type="button" className="lagado-crank" data-crank={id} aria-label={label} title={label} onClick={() => apply(onTurn(), id)}>
+      <TurnIcon />
+    </button>
+  );
+  const placeCrank = (p: number, where: string) =>
+    crank(`${where}p${p}`, `Turn the ${PLACES[p].name.toLowerCase()} ${where === "d" ? "column" : "row"}`, () => turnPlace(frame, p, random));
 
   return (
     <div className="lagado">
       <p className="lagado-intro">
-        <span className="lagado-desk">Each column holds one kind of word. Turn a column or a row to flip its blocks. Pick one word per column.</span>
+        <span className="lagado-desk">Each column holds one kind of word. Turn a column or a row to flip its words. Pick one word per column.</span>
         <span className="lagado-phone">Each row holds one kind of word. Turn a row to flip its words. Pick one word per row.</span>
       </p>
 
-      <div className="lagado-choice" role="group" aria-label="Crank design (temporary, to choose one)">
-        <span className="label">Try a crank:</span>
-        {CRANK_STYLES.map(([style, name]) => (
-          <button key={style} type="button" aria-pressed={crankStyle === style} onClick={() => setCrankStyle(style)}>
-            {name}
-          </button>
-        ))}
-      </div>
+      <div className="lagado-machine" ref={rootRef} role="group" aria-label="The word frame">
+        <canvas className="lagado-field" ref={canvasRef} aria-hidden="true" />
 
-      <div className="lagado-frame" role="group" aria-label="The word frame">
         {/* Desktop: the square. */}
         <div className="lagado-square lagado-desk">
           <span />
           {PLACES.map((place, p) => (
             <div key={p} className="lagado-colhead">
               <span className="label">{place.name}</span>
-              {placeCrank(p)}
+              {placeCrank(p, "d")}
             </div>
           ))}
-          {frame.rows.map((_, r) => [
-            crank(`r${r}`, `Turn row ${r + 1}`, () => turnRow(frame, r, random)),
-            ...PLACES.map((_, p) => tile(r, p)),
-          ])}
+          {frame.rows.map((_, r) => [crank(`dr${r}`, `Turn row ${r + 1}`, () => turnRow(frame, r, random)), ...PLACES.map((_, p) => word(r, p))])}
         </div>
 
         {/* Phone: the same frame on its side. */}
         <div className="lagado-phone">
           {PLACES.map((place, p) => (
             <div key={p} className="lagado-place">
-              <div className="lagado-place-head">
-                <span className="label">{place.name}</span>
-                {placeCrank(p)}
-              </div>
-              <div className="lagado-words">{frame.rows.slice(0, PHONE_ROWS).map((_, r) => tile(r, p))}</div>
+              <span className="label">{place.name}</span>
+              <div className="lagado-words">{frame.rows.slice(0, PHONE_ROWS).map((_, r) => word(r, p))}</div>
+              {placeCrank(p, "p")}
             </div>
           ))}
         </div>
@@ -213,12 +242,7 @@ export default function Machine() {
                     onClick={() => share([line.text], "Copied. Paste it anywhere.")}>
                     {canShare ? <ShareIcon /> : <CopyIcon />}
                   </button>
-                  <button
-                    type="button"
-                    className="lagado-icon"
-                    aria-label="Delete this line"
-                    title="Delete"
-                    onClick={() => remove([line.id], "Line deleted.")}>
+                  <button type="button" className="lagado-icon" aria-label="Delete this line" title="Delete" onClick={() => remove([line.id], "Line deleted.")}>
                     <DeleteIcon />
                   </button>
                 </li>
@@ -259,12 +283,201 @@ export default function Machine() {
   );
 }
 
+// ---------- The scramble: random letters settle into the word, left to right ----------
+
+const LETTERS = "abcdefghijklmnopqrstuvwxyz";
+const scrambling = new Map<HTMLElement, { word: string; start: number; last: number }>();
+let scrambleFrame = 0;
+
+/** Plays on the word's overlay; the real word stays underneath, hidden, holding the width. */
+function scramble(el: HTMLElement) {
+  const word = el.querySelector(".lagado-word-text")?.textContent ?? "";
+  const overlay = el.querySelector<HTMLElement>(".lagado-word-scramble");
+  // Random letters from the very first frame, so the word never blinks out.
+  if (overlay) overlay.textContent = [...word].map((c) => (/[a-z]/i.test(c) ? LETTERS[(Math.random() * 26) | 0] : c)).join("");
+  el.classList.add("is-scrambling");
+  const now = performance.now();
+  scrambling.set(el, { word, start: now, last: now });
+  if (!scrambleFrame) scrambleFrame = requestAnimationFrame(scrambleTick);
+}
+
+function scrambleTick(now: number) {
+  for (const [el, s] of scrambling) {
+    const overlay = el.querySelector<HTMLElement>(".lagado-word-scramble");
+    const revealed = Math.floor((now - s.start) / 56); // one more real letter every 56ms
+    if (!overlay || !el.isConnected || revealed >= s.word.length) {
+      el.classList.remove("is-scrambling");
+      if (overlay) overlay.textContent = "";
+      scrambling.delete(el);
+    } else if (now - s.last > 28) {
+      // new random letters every 28ms
+      s.last = now;
+      overlay.textContent = [...s.word].map((c, i) => (i < revealed || !/[a-z]/i.test(c) ? c : LETTERS[(Math.random() * 26) | 0])).join("");
+    }
+  }
+  scrambleFrame = scrambling.size ? requestAnimationFrame(scrambleTick) : 0;
+}
+
+// ---------- Layout helpers ----------
+
+/** Phone: a row of three long words steps down from 21px (17px at most) to stay on one line. */
+function fitPhoneRows(root: HTMLElement) {
+  root.querySelectorAll<HTMLElement>(".lagado-phone .lagado-words").forEach((row) => {
+    if (!row.offsetParent) return;
+    let size = 21;
+    row.style.setProperty("--fs", `${size}px`);
+    while (row.scrollWidth > row.clientWidth + 0.5 && size > 17) {
+      size -= 1;
+      row.style.setProperty("--fs", `${size}px`);
+    }
+  });
+}
+
+/** The centre of each picked word on screen, in reading order, relative to the canvas. */
+function threadPoints(root: HTMLElement, canvas: HTMLCanvasElement | null): [number, number][] {
+  if (!canvas) return [];
+  const box = canvas.getBoundingClientRect();
+  return [...root.querySelectorAll<HTMLElement>('.lagado-word[aria-pressed="true"]')]
+    .filter((el) => el.offsetParent)
+    .sort((a, b) => Number(a.dataset.cell!.split("-")[1]) - Number(b.dataset.cell!.split("-")[1]))
+    .map((el) => {
+      const b = el.getBoundingClientRect();
+      return [b.left + b.width / 2 - box.left, b.top + b.height / 2 - box.top];
+    });
+}
+
+// ---------- The background: a slow field of thin lines, and the thread ----------
+
+/**
+ * Draws the field of short vertical lines (fading at the top and bottom) and the glowing
+ * dashed thread through the picked words, on one canvas, about 30 times a second.
+ * Paused when the machine is off screen or the tab is hidden; drawn once, still, when
+ * the visitor asks for reduced motion. Returns a function that asks for a redraw.
+ */
+function useSignalField(canvasRef: RefObject<HTMLCanvasElement | null>, threadRef: RefObject<[number, number][]>) {
+  const redrawRef = useRef<() => void>(() => {});
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+    const reduced = prefersReducedMotion();
+    const accent = getComputedStyle(canvas).getPropertyValue("--color-accent").trim() || "#ff5f1f";
+    let frameId = 0;
+    let last = -Infinity;
+    let visible = true;
+
+    const paint = (t: number) => {
+      const dpr = devicePixelRatio || 1;
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      const pw = Math.round(w * dpr);
+      const ph = Math.round(h * dpr);
+      if (canvas.width !== pw || canvas.height !== ph) {
+        canvas.width = pw;
+        canvas.height = ph;
+      }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      // The field: short vertical lines, brighter where a slow ripple passes.
+      ctx.fillStyle = "rgb(244 236 223)";
+      for (let x = 7; x < w; x += 14) {
+        for (let y = 6; y < h; y += 22) {
+          const edge = Math.min(1, y / 48, (h - y - 10) / 64);
+          if (edge <= 0) continue;
+          const ripple = reduced ? 0.3 : Math.max(0, Math.sin(Math.hypot(x - w / 2, (y - h / 2) * 1.4) / 38 - t / 900));
+          ctx.globalAlpha = (0.05 + 0.13 * ripple) * edge;
+          ctx.fillRect(x, y, 1, 10);
+        }
+      }
+
+      // The thread: a soft orange glow and moving dashes at 40%, through each picked word.
+      const pts = threadRef.current;
+      if (pts.length > 1) {
+        const line = () => {
+          ctx.beginPath();
+          pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+        };
+        ctx.strokeStyle = accent;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.setLineDash([]);
+        ctx.globalAlpha = 0.07;
+        ctx.lineWidth = 9;
+        line();
+        ctx.stroke();
+        ctx.globalAlpha = 0.12;
+        ctx.lineWidth = 4;
+        line();
+        ctx.stroke();
+        ctx.setLineDash([3, 5]);
+        ctx.lineDashOffset = reduced ? 0 : -((t / 75) % 16);
+        ctx.globalAlpha = 0.4;
+        ctx.lineWidth = 1.2;
+        line();
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      ctx.globalAlpha = 1;
+    };
+
+    const loop = (t: number) => {
+      frameId = 0;
+      if (!visible || document.hidden) return;
+      if (t - last >= 33) {
+        last = t;
+        paint(t);
+      }
+      if (!reduced) frameId = requestAnimationFrame(loop);
+    };
+    const start = () => {
+      if (!frameId) frameId = requestAnimationFrame(loop);
+    };
+    redrawRef.current = () => {
+      last = -Infinity;
+      start();
+    };
+
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+    });
+    io.observe(canvas);
+    const onVisibility = () => !document.hidden && start();
+    document.addEventListener("visibilitychange", onVisibility);
+    start();
+    return () => {
+      cancelAnimationFrame(frameId);
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [canvasRef, threadRef]);
+
+  // A stable function for callers; it always reaches the current loop.
+  const [redraw] = useState(() => () => redrawRef.current());
+  return redraw;
+}
+
+// ---------- Folio line ----------
+
 /**
  * A kept line the visitor can edit like text. The browser owns its text while it is
- * edited (React never redraws inside it), so typing can't confuse the page.
+ * edited (React never redraws inside it), so typing can't confuse the page. Browsers that
+ * don't know plain-text editing (Firefox before 136) get ordinary editing instead.
  */
 function EditableText({ text, onSave }: { text: string; onSave: (text: string) => void }) {
   const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    try {
+      el.contentEditable = "plaintext-only";
+    } catch {
+      el.contentEditable = "true";
+    }
+    if (el.contentEditable !== "plaintext-only") el.contentEditable = "true";
+  }, []);
   useEffect(() => {
     const el = ref.current;
     if (el && document.activeElement !== el) el.textContent = noBreak(text);
@@ -275,7 +488,7 @@ function EditableText({ text, onSave }: { text: string; onSave: (text: string) =
       className="lagado-line-text"
       role="textbox"
       aria-label="Kept line, editable"
-      contentEditable="plaintext-only"
+      tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           e.preventDefault();
@@ -287,56 +500,14 @@ function EditableText({ text, onSave }: { text: string; onSave: (text: string) =
   );
 }
 
-type CrankStyle = "handle" | "wheel" | "key";
-const CRANK_STYLES: [CrankStyle, string][] = [
-  ["handle", "A · Handle"],
-  ["wheel", "B · Wheel"],
-  ["key", "C · Winding key"],
-];
+// ---------- Icons ----------
 
-/** Three crank drawings to choose from, as engraved line art (40 × 40). */
-function CrankDrawing({ style }: { style: CrankStyle }) {
-  if (style === "handle") {
-    // A hub on its axle, an arm, and a turned wooden knob.
-    return (
-      <svg viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r="7" />
-        <circle cx="20" cy="20" r="2.2" className="solid" />
-        <path d="M14.5 15.5 18 19M15.5 14.5 19 18" className="hatch" />
-        <path d="M22.5 17.5 31 9M24 19 32.5 10.5" />
-        <rect x="29" y="3" width="7" height="9" rx="3.5" transform="rotate(45 32.5 7.5)" />
-        <path d="M31 6.5 34 9.5" className="hatch" />
-      </svg>
-    );
-  }
-  if (style === "wheel") {
-    // A spoked iron wheel with a rim and hub.
-    return (
-      <svg viewBox="0 0 40 40" aria-hidden="true">
-        <circle cx="20" cy="20" r="15" />
-        <circle cx="20" cy="20" r="12.5" className="hatch" />
-        <circle cx="20" cy="20" r="3" className="solid" />
-        {[0, 45, 90, 135].map((a) => (
-          <path key={a} d="M20 7.5V32.5" transform={`rotate(${a} 20 20)`} />
-        ))}
-        {[0, 90, 180, 270].map((a) => (
-          <circle key={a} cx="20" cy="3.5" r="1.6" className="solid" transform={`rotate(${a} 20 20)`} />
-        ))}
-      </svg>
-    );
-  }
-  // A clockwork winding key: two rounded wings on a stem.
-  return (
-    <svg viewBox="0 0 40 40" aria-hidden="true">
-      <path d="M20 20V33" />
-      <circle cx="20" cy="34" r="2" className="solid" />
-      <path d="M20 20c-3-1-11-4-12-10s6-6 9-2 3 9 3 12Z" />
-      <path d="M20 20c3-1 11-4 12-10s-6-6-9-2-3 9-3 12Z" />
-      <path d="M12 10.5c1 2 3.5 4.5 6 6M28 10.5c-1 2-3.5 4.5-6 6" className="hatch" />
-    </svg>
-  );
-}
-
+const TurnIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M20 12a8 8 0 1 1-2.34-5.66" />
+    <path d="M20 4v5h-5" />
+  </svg>
+);
 const CopyIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <rect x="9" y="9" width="11" height="11" rx="2" />

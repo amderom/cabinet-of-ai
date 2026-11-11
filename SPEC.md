@@ -46,12 +46,17 @@ Make Lagado playable. A visitor arriving from LinkedIn lands on the Lagado demo 
 - **Start-up and AI jargon mostly in the adjectives and verbs** (about 1 in 5 of each: *Agentic, Pre-seed, monetize, onboard, pivot*…), a little in the nouns (about 1 in 10), so the nouns keep the 18th-century world and the adjective or verb carries the joke. About every other row gets one modern word.
 - The full list lives in a data file (`src/demos/lagado/words.ts`), grouped by column role, and **the author reviews it before the machine is drawn** (Checkpoint A).
 
-### Look
+### Look ("Signal", chosen by the author on 2026-11-11)
 
-- Drawn in the **engraving language from Part 1**: fine neon orange line-work on near-black (the Engine diagram's look), wooden frame and iron cranks as line drawings (SVG, hand-built in code, no image needed), cross-hatching for depth.
-- Words on the blocks in **Instrument Serif**, already on the site: **no new typeface** (the author's choice after a side-by-side sample with IM Fell English, 2026-11-11). Size 20px on a phone (3 blocks per row, each sized to its word, one line in all but the rarest draw) and 24px on desktop so they never touch the block's edges (checked at 375px with cranks on every row and column). The period look comes from the drawing and the words, not from a font.
-- Turning a crank animates: the crank spins, blocks flip to their new word with a short stagger. Bold, but short (under half a second) so cranking stays snappy. Nothing moves with reduced motion; faces change instantly instead.
-- Large enough to tap: every crank and sentence is at least 44 × 44 px on a phone. Every word in the list fits its block at 375px with both sets of cranks in place.
+> Rule, from the author: **vintage is the content, never the look.** The 18th century lives in the words; the machine looks like a 2026 product. An engraved wooden frame with drawn cranks was built (T5) and rejected ("super vintage", "90s point-and-click", fake 3D); three modern directions were then compared in a clickable prototype (https://claude.ai/artifact/3dDzw1fjczqL1MksyoF8Tf) and **Signal** chosen, after the DeepBook reference.
+
+- **Black, with a slow field of thin vertical lines** behind the machine (a ripple passes through them), fading out at the top and bottom so it never runs behind buttons.
+- **Words as plain type** in Instrument Serif, no boxes: unpicked words in soft cream, **picked words glowing in the accent colour**.
+- **A glowing dashed thread** runs through the middle of the picked words, in reading order: moving dashes at 40% with a soft orange glow, no dots.
+- **Turning = letter scramble:** random letters spin through and settle into the new word, left to right; the word keeps its width meanwhile, so nothing on the page moves.
+- **Cranks:** one crisp modern rotate icon, spinning a full turn when used.
+- **Phone:** compact rows (small label above the words, crank beside them), words 21px, a row of three long words steps down to 17px at most to stay on one line; the six rows and the sentence fit on a 375×667 screen. Every control at least 44px.
+- **Smoothness:** only turned words animate; one shared animation loop; the background lines and the thread are drawn on one canvas about 30 times a second, paused off screen; still when reduced motion is requested.
 
 ## The landing page (`/exhibits/lagado/`)
 

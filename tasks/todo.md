@@ -95,46 +95,29 @@
 
 ---
 
-## T5: Frame, blocks and cranks drawn in the engraving language
+## T5: The machine's look ✅ (redone as "Signal")
 
-**Note from Checkpoint B:** the author isn't sure about the cranks; show 2–3 crank designs on the drawn machine so she picks in context.
-
-**Description:** Draw the machine as an object: the frame and its wires, the wooden blocks, the iron cranks at row ends and column feet, in fine neon orange line-work with cross-hatching (SVG and CSS, no image file), sized to the grid chosen at B.
+**What happened:** the engraved frame with three crank drawings was built, then rejected by the author ("the vintage is the content, not the look"). Three modern directions were compared in a clickable prototype; she chose **Signal** and tuned it over several rounds (scramble animation, compact phone rows, the thread through the picked words, smoothness on desktop). See SPEC.md → Look and the journal.
 
 **Acceptance criteria:**
-- [x] The machine reads as a physical object on a phone (the author's "bold, good-looking"), every word legible at 375px
-- [x] Tap targets unchanged (≥ 44 × 44 px); keyboard focus visible on cranks and sentences
+- [x] Signal look in the real machine: line field, plain glowing words, glowing thread, scramble, crisp crank icon; the temporary crank switch removed
+- [x] Tap targets ≥ 44px; keyboard focus visible
+- [x] The same adjective never appears twice in a sentence (engine test)
+- [x] Editing a kept line falls back to ordinary editing in browsers without plain-text editing (Firefox before 136)
 
 **Verification:**
-- [x] `npm run test`, `npm run check`, `npm run build` pass
-- [x] playwright-cli screenshots at three sizes, sent to the author
-
-**Dependencies:** Checkpoint B
-**Files likely touched:** `src/demos/lagado/Machine.tsx`, `src/demos/lagado/machine.css`, `src/demos/lagado/engine.ts`(+ test)
-**Estimated scope:** M
+- [x] `npm run test` (63), `npm run check` (0 errors), `npm run build`
+- [x] playwright-cli in Edge at 375×667, 390×844, 1280×800: cranks, picks, keep, edit, delete, undo, reload; the page below doesn't move on a crank or shake; rows on one line; no console errors
 
 ---
 
-## T6: Motion, word sizing, folio styled
+## T6: Motion, word sizing, folio styled ✅ (folded into T5)
 
-**Description:** Crank turns and blocks flip with a short stagger (under half a second); the kept row slides into the folio; words in Instrument Serif at 20px on a phone and 24px on desktop; the folio styled as a clean, modern list.
-
-**Acceptance criteria:**
-- [ ] Animations short and snappy; with reduced motion, words change instantly and nothing moves
-- [ ] Every word in the list fits its block at 375px without touching the edges (automatic check over the whole list)
-- [ ] Folio matches the site's 2026 interface (reading font, mono labels), not the vintage look
-
-**Verification:**
-- [ ] `npm run check`, `npm run build` pass; reduced-motion check with playwright-cli
-- [ ] Preview link sent to the author
-
-**Dependencies:** T5
-**Files likely touched:** `astro.config.mjs`, `src/demos/lagado/Machine.tsx`, `src/demos/lagado/Folio.tsx`, `src/demos/lagado/machine.css`
-**Estimated scope:** M
+The scramble, word sizing and the modern folio were settled in the prototype rounds and built with T5. Remaining polish, if any, comes from the author's check of the preview.
 
 ---
 
-## Checkpoint C — look and feel
+## Checkpoint C — look and feel (the author checks the real site)
 
 - [ ] The author approves the drawn machine and the folio on her phone
 

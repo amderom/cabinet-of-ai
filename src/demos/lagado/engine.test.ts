@@ -122,6 +122,17 @@ describe("turning the cranks", () => {
     }
   });
 
+  it("never shows the same adjective in both adjective places, so a sentence can't repeat one", () => {
+    let frame = createFrame(6, seededRandom(21));
+    const random = seededRandom(22);
+    const shared = (f: Frame) => column(f, 0).filter((w) => column(f, 3).includes(w));
+    expect(shared(frame)).toEqual([]);
+    for (let i = 0; i < 300; i++) {
+      frame = i % 3 === 0 ? turnPlace(frame, i % 2 ? 0 : 3, random) : i % 3 === 1 ? turnRow(frame, i % 6, random) : shake(frame, random);
+      expect(shared(frame)).toEqual([]);
+    }
+  });
+
   it("leaves the original frame untouched", () => {
     const copy = structuredClone(before);
     turnRow(before, 0, seededRandom(3));

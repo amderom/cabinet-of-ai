@@ -64,8 +64,8 @@ Mostly sequential: each checkpoint is the author's decision and shapes what foll
 ### Checkpoint B — the author plays on her phone ✅
 
 ### Part C: The machine, drawn
-- [ ] T5: Frame, blocks and cranks drawn in the engraving language
-- [ ] T6: Motion, word sizing, folio styled
+- [x] T5: The machine's look (redone as "Signal" after the engraved version was rejected)
+- [x] T6: Motion, word sizing, folio styled (folded into T5)
 
 ### Checkpoint C — look and feel
 

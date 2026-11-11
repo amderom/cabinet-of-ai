@@ -29,7 +29,9 @@ export function createFrame(rowCount: number, random: Random): Frame {
   if (rowCount < 1) throw new Error("A frame needs at least one row");
   const rows: string[][] = [];
   for (let r = 0; r < rowCount; r++) {
-    rows.push(PLACES.map((_, p) => draw(p, rows.map((row) => row[p]), random)));
+    const row: string[] = [];
+    PLACES.forEach((_, p) => row.push(draw(p, takenIn([...rows, row], p), random)));
+    rows.push(row);
   }
   return { rows, picks: PLACES.map(() => 0) };
 }
@@ -93,9 +95,18 @@ export function seededRandom(seed: number): Random {
 function flip(frame: Frame, cells: readonly Cell[], random: Random): Frame {
   const rows = frame.rows.map((row) => [...row]);
   for (const [r, p] of cells) {
-    rows[r][p] = draw(p, [...rows.map((row) => row[p]), frame.rows[r][p]], random);
+    rows[r][p] = draw(p, [...takenIn(rows, p), frame.rows[r][p]], random);
   }
   return { rows, picks: [...frame.picks] };
+}
+
+/**
+ * Words a block of this place may not show: those already showing in its place and in any
+ * place sharing the same list (the two adjective places), so a sentence never repeats a word.
+ */
+function takenIn(rows: readonly (readonly string[])[], place: number): string[] {
+  const twins = PLACES.map((_, i) => i).filter((i) => PLACES[i].words === PLACES[place].words);
+  return rows.flatMap((row) => twins.map((i) => row[i])).filter((w): w is string => Boolean(w));
 }
 
 function draw(place: number, taken: readonly string[], random: Random): string {
