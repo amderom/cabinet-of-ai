@@ -50,13 +50,16 @@ export function withOriginal<T extends ExhibitLike>(exhibits: T[], originalIds: 
   return openExhibits(exhibits).filter((e) => originalIds.includes(e.id));
 }
 
-/** The tabs of an exhibit, in order; "The original" only when the exhibit has one. */
+/**
+ * The tabs of an exhibit, in order (Demo, Essay, The original, Making-of; order chosen by the
+ * author, 2026-11-11); "The original" only when the exhibit has one.
+ */
 export function exhibitTabs(slug: string, hasOriginal: boolean): { key: ExhibitTab; label: string; href: string }[] {
   const base = `/exhibits/${slug}/`;
   return [
     { key: "demo", label: "Demo", href: base },
     { key: "essay", label: "Essay", href: `${base}essay/` },
-    { key: "making-of", label: "Making-of", href: `${base}making-of/` },
     ...(hasOriginal ? [{ key: "original" as const, label: "The original", href: `${base}original/` }] : []),
+    { key: "making-of", label: "Making-of", href: `${base}making-of/` },
   ];
 }

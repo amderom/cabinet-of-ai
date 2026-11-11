@@ -57,12 +57,12 @@ describe("withOriginal", () => {
 });
 
 describe("exhibitTabs", () => {
-  it("shows The original as a fourth tab when the exhibit has one", () => {
+  it("shows The original between the essay and the making-of when the exhibit has one", () => {
     expect(exhibitTabs("lagado", true)).toEqual([
       { key: "demo", label: "Demo", href: "/exhibits/lagado/" },
       { key: "essay", label: "Essay", href: "/exhibits/lagado/essay/" },
-      { key: "making-of", label: "Making-of", href: "/exhibits/lagado/making-of/" },
       { key: "original", label: "The original", href: "/exhibits/lagado/original/" },
+      { key: "making-of", label: "Making-of", href: "/exhibits/lagado/making-of/" },
     ]);
   });
 
