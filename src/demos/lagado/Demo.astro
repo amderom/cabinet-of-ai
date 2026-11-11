@@ -1,11 +1,8 @@
 ---
-// Honest teaser until the playable word frame arrives (Phase 1.2).
+// The Lagado demo: the word frame and its folio (rough look for Checkpoint B).
+// The rules are in engine.ts and folio.ts; Machine.tsx draws them.
+import Machine from "./Machine";
 ---
 
-<div class="rounded-lg border border-dashed border-line px-6 py-10 text-center">
-  <p class="label text-accent">In the workshop</p>
-  <p class="mt-4 font-display text-[clamp(32px,9vw,56px)] leading-none italic">The machine is being assembled.</p>
-  <a href="/exhibits/lagado/essay/" class="label mt-6 inline-flex min-h-11 items-center gap-2 text-cream hover:text-accent">
-    In the meantime, read the essay <span aria-hidden="true">→</span>
-  </a>
-</div>
+<h2 class="mb-2 font-display text-[clamp(32px,9vw,56px)] leading-none italic">Turn the cranks</h2>
+<Machine client:visible />

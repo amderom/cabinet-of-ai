@@ -58,8 +58,8 @@ Mostly sequential: each checkpoint is the author's decision and shapes what foll
 
 ### Part B: The machine, rough
 - [x] T2: Engine logic and tests
-- [ ] T3: Folio logic and tests
-- [ ] T4: Rough machine and folio on the demo page, draft PR
+- [x] T3: Folio logic and tests
+- [x] T4: Rough machine and folio on the demo page, draft PR
 
 ### Checkpoint B — the author plays on her phone
 

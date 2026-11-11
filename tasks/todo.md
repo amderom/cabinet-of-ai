@@ -50,17 +50,17 @@
 
 ---
 
-## T3: Folio logic and tests
+## T3: Folio logic and tests ✅
 
 **Description:** Keeping lines: add the composed sentence, number lines, edit a line, delete one line or all with undo, build the share text for one line and for the whole folio (sentence(s) + the exhibit's link), and save/load on the device, tolerating a browser that refuses storage.
 
 **Acceptance criteria:**
-- [ ] Lines keep their writing order in storage (shown newest first) and survive a save/load round trip; edits are saved; delete and clear can be undone
-- [ ] The share text for one line and for the whole folio includes the exhibit's link
-- [ ] With storage refused (private mode), the folio still works for the visit, without errors
+- [x] Lines keep their writing order in storage (shown newest first) and survive a save/load round trip; edits are saved; delete and clear can be undone
+- [x] The share text for one line and for the whole folio includes the exhibit's link
+- [x] With storage refused (private mode), the folio still works for the visit, without errors
 
 **Verification:**
-- [ ] `npm run test` passes with tests for each rule above
+- [x] `npm run test` passes with tests for each rule above
 
 **Dependencies:** T2 (uses its row reading)
 **Files likely touched:** `src/demos/lagado/folio.ts`, `src/demos/lagado/folio.test.ts`
@@ -68,18 +68,18 @@
 
 ---
 
-## T4: Rough machine and folio on the demo page, draft PR
+## T4: Rough machine and folio on the demo page, draft PR ✅
 
 **Description:** A plain, undrawn but fully playable version: grid of word blocks, a crank button for each row and column, "Shake the frame", tap a sentence to keep it, a plain folio with Copy and Clear. Replaces the "being assembled" teaser. Open the draft PR to get a preview link.
 
 **Acceptance criteria:**
-- [ ] Desktop: a 6 × 6 square, places as columns (crank on top), rows with a crank at the side. Phone (below 760px): the same frame on its side, each place a row of 3 words sized to the word, with its crank. Tap one word per place to compose. Every crank flips its blocks in place; all work by tap and keyboard; controls at least 44 × 44 px
-- [ ] Keep adds the composed sentence as the folio's newest line; each line can be edited, shared (share menu or copy) and deleted with Undo; Copy all and Clear all (with Undo) work; the folio survives a reload
-- [ ] No sideways scroll at 375px; no word touches its block's edges
+- [x] Desktop: a 6 × 6 square, places as columns (crank on top), rows with a crank at the side. Phone (below 760px): the same frame on its side, each place a row of 3 words sized to the word, with its crank. Tap one word per place to compose. Every crank flips its blocks in place; all work by tap and keyboard; controls at least 44 × 44 px
+- [x] Keep adds the composed sentence as the folio's newest line; each line can be edited, shared (share menu or copy) and deleted with Undo; Copy all and Clear all (with Undo) work; the folio survives a reload
+- [x] No sideways scroll at 375px; no word touches its block's edges
 
 **Verification:**
-- [ ] `npm run test`, `npm run check`, `npm run build` pass
-- [ ] playwright-cli at three sizes: crank a row and a column (both on a phone and on desktop), shake, keep two sentences, reload, copy, clear; no console errors; no external requests
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] playwright-cli at three sizes: crank a row and a column (both on a phone and on desktop), shake, keep two sentences, reload, copy, clear; no console errors; no external requests
 - [ ] Draft PR open, Vercel preview link sent to the author
 
 **Dependencies:** T2, T3

@@ -1,0 +1,185 @@
+/* The Lagado frame and folio. Rough look for Checkpoint B; the engraved drawing comes in T5.
+   Uses the site's tokens (global.css): --color-accent, --color-cream, --color-muted, fonts. */
+
+.lagado {
+  --tile-line: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  --crank: 44px;
+  max-width: 1100px;
+  margin-bottom: 48px;
+  color: var(--color-cream);
+}
+.lagado-intro {
+  margin: 0 0 16px;
+  max-width: 54ch;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+/* Only one layout shows: the square from 760px, the frame on its side below. */
+.lagado-desk { display: none; }
+.lagado-phone { display: block; }
+@media (min-width: 760px) {
+  .lagado-desk { display: block; }
+  .lagado-square.lagado-desk { display: grid; }
+  .lagado-phone { display: none; }
+}
+
+.lagado-frame {
+  padding: 10px;
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--color-accent) 4%, #0d0b09);
+}
+
+.lagado-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 9px;
+  border: 1px solid var(--tile-line);
+  border-radius: 3px;
+  background: repeating-linear-gradient(135deg, transparent 0 5px, color-mix(in srgb, var(--color-accent) 7%, transparent) 5px 6px);
+  color: var(--color-cream);
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.lagado-tile[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #0d0b09;
+}
+.lagado-tile.is-flipped { animation: lagado-flip 0.35s ease-out; }
+@keyframes lagado-flip {
+  from { transform: rotateX(90deg); opacity: 0.4; }
+}
+
+.lagado-crank {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--crank);
+  height: var(--crank);
+  padding: 0;
+  border: 1px dashed var(--color-accent);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 18px;
+  cursor: pointer;
+}
+.lagado-crank.is-turned span { display: block; animation: lagado-spin 0.35s ease-out; }
+@keyframes lagado-spin {
+  from { transform: rotate(-360deg); }
+}
+.lagado button:focus-visible { outline: 2px solid var(--color-cream); outline-offset: 2px; }
+
+/* Desktop: the square. */
+.lagado-square {
+  grid-template-columns: var(--crank) repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  align-items: center;
+}
+.lagado-square .lagado-tile { display: flex; width: 100%; height: 56px; padding: 0 6px; font-size: 24px; }
+.lagado-colhead { display: grid; justify-items: center; gap: 4px; }
+.lagado-square .lagado-crank { justify-self: center; }
+
+/* Phone: one row per place. */
+.lagado-place {
+  display: grid;
+  gap: 6px;
+  padding-block: 8px;
+  border-top: 1px solid color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+.lagado-place:first-child { padding-top: 0; border-top: 0; }
+.lagado-place-head { display: flex; align-items: center; justify-content: space-between; }
+.lagado-words { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.lagado-btn {
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 0 16px;
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-cream);
+  font: 600 14px var(--font-sans);
+  cursor: pointer;
+}
+.lagado-btn.is-primary { margin-top: 0; background: var(--color-accent); color: #0d0b09; }
+
+/* The folio: the sentence being composed is its next line; kept lines below, newest first. */
+.lagado-folio { display: grid; gap: 10px; margin-top: 24px; }
+.lagado-folio-head { display: flex; justify-content: space-between; gap: 12px; }
+.lagado-draft {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+  padding: 14px 0;
+  border-block: 1px solid var(--tile-line);
+}
+.lagado-draft p {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 7.5vw, 44px);
+  line-height: 1.06;
+  text-wrap: balance;
+}
+.lagado-combination { min-height: 1.4em; margin: 0; color: var(--color-accent); }
+.lagado-empty { margin: 0; font-size: 14px; color: var(--color-muted); }
+.lagado-lines { display: grid; margin: 0; padding: 0; list-style: none; }
+.lagado-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.lagado-line.is-new { animation: lagado-arrive 0.45s ease-out; }
+@keyframes lagado-arrive {
+  from { opacity: 0; transform: translateY(-14px); }
+}
+.lagado-line-text {
+  min-width: 0;
+  padding: 6px 4px;
+  border-radius: 3px;
+  font-family: var(--font-display);
+  font-size: 21px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.lagado-line-text:hover { background: color-mix(in srgb, var(--color-cream) 5%, transparent); }
+.lagado-line-text:focus { outline: 1px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, transparent); }
+.lagado-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+.lagado-icon:hover { color: var(--color-accent); }
+.lagado-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.lagado-tools { display: flex; flex-wrap: wrap; gap: 10px; }
+.lagado-tools .lagado-btn { margin-top: 0; }
+.lagado-toast { display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: 14px; color: var(--color-muted); }
+.lagado-toast button { padding: 8px 0; border: 0; background: none; color: var(--color-accent); font: 600 14px var(--font-sans); cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lagado-tile.is-flipped,
+  .lagado-crank.is-turned span,
+  .lagado-line.is-new { animation: none; }
+}
