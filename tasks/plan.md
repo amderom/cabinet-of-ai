@@ -33,8 +33,8 @@ T4 rough machine + rough folio on the demo page, draft PR ──► Checkpoint B
 T5 machine drawn (frame, blocks, cranks)
 T6 motion, word sizing, folio styled ──► Checkpoint C (look & feel)
         │
-T7 hero and page order, banner lines
-T8 the three plates ──► Checkpoint D
+T7 the three cards (prototype, then build)
+T8 page order and banner ──► Checkpoint D
         │
 T9 sound module (choice, mute, lazy Howler)      ← independent of T5–T8, could start earlier
 T10 Lagado sounds (CC0, credited, wired) ──► Checkpoint E (author listens)
@@ -70,8 +70,8 @@ Mostly sequential: each checkpoint is the author's decision and shapes what foll
 ### Checkpoint C — look and feel ✅
 
 ### Part D: The page
-- [ ] T7: Hero, page order and banner lines
-- [ ] T8: The three plates
+- [ ] T7: The three cards (prototype first; Swift's drawing on the quote card)
+- [ ] T8: Page order and parody banner
 
 ### Checkpoint D — the landing page
 

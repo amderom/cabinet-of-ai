@@ -60,16 +60,20 @@ Make Lagado playable. A visitor arriving from LinkedIn lands on the Lagado demo 
 
 ## The landing page (`/exhibits/lagado/`)
 
+Decided with the author on 2026-11-11: **no separate hero image** (the title with the Engine glowing behind it already plays that role, and a hero would push the machine a screen down on a phone); **her drawing of Swift goes on the quote card**; **the cards come before the machine**, compact, so a stranger understands the object in five seconds and the machine starts about one swipe down on a phone.
+
 Order on a phone (desktop gets more width, same order):
 
-1. **Hero:** the author's drawing of Swift, as light lines on black (CSS, file untouched), next to the title and tagline. Credited to the author, all rights reserved.
-2. **The three plates** (floating, draggable within their own area, never over text or buttons; tap a plate to bring it forward, larger, to read it; Escape or tap outside to put it back):
+1. **Title and tagline**, with the Engine texture glowing behind (as now).
+2. **The three cards**, compact: a row you can swipe on a phone, side by side on desktop. Tap a card to bring it forward, larger, to read it; Escape or tap outside to put it back. Designed in the Signal look (modern cards; the vintage is their content):
    1. **The specimen:** the Engine diagram, with a museum label (what it is, who imagined it, when).
-   2. **The quote:** Swift's professor promising that "the most ignorant person" can write books "without the least assistance from genius or study", signed.
-   3. **The specifications:** the machine's real figures **laid out like a start-up product sheet** (the author finds this one funny: keep it funny). True facts in a tech format, checked against Swift's passage (the edition below), e.g. *Frame: 20 ft square · Handles: 40 iron · Team: 40 pupils (36 readers, 4 scribes) · Uptime: 6 hours a day · Output: broken sentences, in large folio · Requirements: no genius, no study, "a little bodily labour" · Roadmap: 500 frames, if the publick raises a fund*.
+   2. **The quote, with Swift's face:** the author's ink drawing of Swift (credited to her, all rights reserved), with his professor's promise that "the most ignorant person" can write books "without the least assistance from genius or study", signed. Enlarged, the drawing shows at full size.
+   3. **The specifications:** the machine's real figures **laid out like a start-up product sheet** (the author finds this one funny: keep it funny). True facts in a tech format, checked against Swift's passage, e.g. *Frame: 20 ft square · Handles: 40 iron · Team: 40 pupils (36 readers, 4 scribes) · Uptime: 6 hours a day · Output: broken sentences, in large folio · Requirements: no genius, no study, "a little bodily labour" · Roadmap: 500 frames, if the publick raises a fund*.
 3. **"Turn the cranks"** and the sound choice (below), then **the machine**, then **the folio**.
-4. **The parody banner** (existing scrolling banner) with Lagado's parody lines, drafted by the agent, validated by the author. The banner and the specification plate carry the parody; no other format for now (a pitch deck, pricing page etc. is parked in IDEAS.md).
+4. **The parody banner** (existing scrolling banner) with Lagado's parody lines, drafted by the agent, validated by the author. The banner and the specification card carry the parody; no other format for now (a pitch deck, pricing page etc. is parked in IDEAS.md).
 5. The existing calls to action (research, LinkedIn), credits block, and links to the essay, making-of and original.
+
+(Dragging the cards around, as first imagined in the demo plan, is left out unless the author asks for it: on a phone it fights with scrolling, and the swipeable row does the same job.)
 
 ## Sound
 
@@ -93,7 +97,7 @@ Order on a phone (desktop gets more width, same order):
 1. **Words and figures (content, no code).** Draft word list by column role (with the source of each period spelling), the specification figures checked against Swift, the quote, the museum label, 6–10 banner lines. → **Checkpoint A:** the author reviews and edits.
 2. **Rough machine.** Pure logic with tests, plus a plain, undrawn grid on the demo page; draft PR opened so every push has a preview link. → **Checkpoint B:** the author plays on her phone: is it fun? grid size? does "Shake" feel good? are the sentences funny enough?
 3. **The machine, drawn**, plus the folio. → **Checkpoint C:** look and feel on her phone.
-4. **Landing page:** hero, plates (drag, tap to enlarge), banner lines, page order. → **Checkpoint D.**
+4. **Landing page:** the three cards first (designed in the prototype, then built), then the page order and banner around them. → **Checkpoint D.**
 5. **Sound:** choice, mute toggle, the three sounds. → **Checkpoint E:** she listens, keeps or replaces.
 6. **The original:** page, fourth tab, credits.
 7. **Making-of** written from the journal (author validates), performance and browser checks, ADR, README. → PR ready, author approves on her phone, merge on her word.
