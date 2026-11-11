@@ -39,6 +39,8 @@ export default function Machine() {
   const [fresh, setFresh] = useState<string | null>(null);
   const [toast, setToast] = useState<{ message: string; undo?: Line[] } | null>(null);
   const [canShare, setCanShare] = useState(false);
+  // Temporary (Checkpoint C): which crank drawing to show, so the author can compare them.
+  const [crankStyle, setCrankStyle] = useState<CrankStyle>("handle");
   // The folio is saved only once the saved one has been read, so it is never overwritten by an empty one.
   const [loaded, setLoaded] = useState(false);
 
@@ -122,7 +124,7 @@ export default function Machine() {
       className={`lagado-crank${turns.crank === id ? " is-turned" : ""}`}
       aria-label={label}
       onClick={() => apply(onTurn(), id)}>
-      <span aria-hidden="true">↻</span>
+      <CrankDrawing style={crankStyle} />
     </button>
   );
   const placeCrank = (p: number) => crank(`p${p}`, `Turn the ${PLACES[p].name.toLowerCase()} blocks (place ${p + 1})`, () => turnPlace(frame, p, random));
@@ -133,6 +135,15 @@ export default function Machine() {
         <span className="lagado-desk">Each column holds one kind of word. Turn a column or a row to flip its blocks. Pick one word per column.</span>
         <span className="lagado-phone">Each row holds one kind of word. Turn a row to flip its words. Pick one word per row.</span>
       </p>
+
+      <div className="lagado-choice" role="group" aria-label="Crank design (temporary, to choose one)">
+        <span className="label">Try a crank:</span>
+        {CRANK_STYLES.map(([style, name]) => (
+          <button key={style} type="button" aria-pressed={crankStyle === style} onClick={() => setCrankStyle(style)}>
+            {name}
+          </button>
+        ))}
+      </div>
 
       <div className="lagado-frame" role="group" aria-label="The word frame">
         {/* Desktop: the square. */}
@@ -273,6 +284,56 @@ function EditableText({ text, onSave }: { text: string; onSave: (text: string) =
       }}
       onBlur={(e) => onSave(plain(e.currentTarget.textContent ?? "").trim() || text)}
     />
+  );
+}
+
+type CrankStyle = "handle" | "wheel" | "key";
+const CRANK_STYLES: [CrankStyle, string][] = [
+  ["handle", "A · Handle"],
+  ["wheel", "B · Wheel"],
+  ["key", "C · Winding key"],
+];
+
+/** Three crank drawings to choose from, as engraved line art (40 × 40). */
+function CrankDrawing({ style }: { style: CrankStyle }) {
+  if (style === "handle") {
+    // A hub on its axle, an arm, and a turned wooden knob.
+    return (
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="7" />
+        <circle cx="20" cy="20" r="2.2" className="solid" />
+        <path d="M14.5 15.5 18 19M15.5 14.5 19 18" className="hatch" />
+        <path d="M22.5 17.5 31 9M24 19 32.5 10.5" />
+        <rect x="29" y="3" width="7" height="9" rx="3.5" transform="rotate(45 32.5 7.5)" />
+        <path d="M31 6.5 34 9.5" className="hatch" />
+      </svg>
+    );
+  }
+  if (style === "wheel") {
+    // A spoked iron wheel with a rim and hub.
+    return (
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="15" />
+        <circle cx="20" cy="20" r="12.5" className="hatch" />
+        <circle cx="20" cy="20" r="3" className="solid" />
+        {[0, 45, 90, 135].map((a) => (
+          <path key={a} d="M20 7.5V32.5" transform={`rotate(${a} 20 20)`} />
+        ))}
+        {[0, 90, 180, 270].map((a) => (
+          <circle key={a} cx="20" cy="3.5" r="1.6" className="solid" transform={`rotate(${a} 20 20)`} />
+        ))}
+      </svg>
+    );
+  }
+  // A clockwork winding key: two rounded wings on a stem.
+  return (
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <path d="M20 20V33" />
+      <circle cx="20" cy="34" r="2" className="solid" />
+      <path d="M20 20c-3-1-11-4-12-10s6-6 9-2 3 9 3 12Z" />
+      <path d="M20 20c3-1 11-4 12-10s-6-6-9-2-3 9-3 12Z" />
+      <path d="M12 10.5c1 2 3.5 4.5 6 6M28 10.5c-1 2-3.5 4.5-6 6" className="hatch" />
+    </svg>
   );
 }
 

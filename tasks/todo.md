@@ -102,12 +102,12 @@
 **Description:** Draw the machine as an object: the frame and its wires, the wooden blocks, the iron cranks at row ends and column feet, in fine neon orange line-work with cross-hatching (SVG and CSS, no image file), sized to the grid chosen at B.
 
 **Acceptance criteria:**
-- [ ] The machine reads as a physical object on a phone (the author's "bold, good-looking"), every word legible at 375px
-- [ ] Tap targets unchanged (≥ 44 × 44 px); keyboard focus visible on cranks and sentences
+- [x] The machine reads as a physical object on a phone (the author's "bold, good-looking"), every word legible at 375px
+- [x] Tap targets unchanged (≥ 44 × 44 px); keyboard focus visible on cranks and sentences
 
 **Verification:**
-- [ ] `npm run test`, `npm run check`, `npm run build` pass
-- [ ] playwright-cli screenshots at three sizes, sent to the author
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] playwright-cli screenshots at three sizes, sent to the author
 
 **Dependencies:** Checkpoint B
 **Files likely touched:** `src/demos/lagado/Machine.tsx`, `src/demos/lagado/machine.css`, `src/demos/lagado/engine.ts`(+ test)
