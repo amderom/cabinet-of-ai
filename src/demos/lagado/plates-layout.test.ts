@@ -32,6 +32,15 @@ describe("fanPositions", () => {
     expect(Math.abs(left - right)).toBeLessThan(1);
   });
 
+  it("centres the fan vertically too, so a tall area has as much room above the cards as below", () => {
+    const area = { width: 630, height: 560 };
+    const card = { width: 248, height: 300 };
+    const fan = fanPositions(area, card, 3, 14, true);
+    const top = Math.min(...fan.map((p) => p.y));
+    const bottom = area.height - Math.max(...fan.map((p) => p.y + card.height));
+    expect(Math.abs(top - bottom)).toBeLessThan(1);
+  });
+
   it("overlaps the cards like a hand, rather than spreading them across a wide screen", () => {
     const pos = fanPositions({ width: 1180, height: 400 }, { width: 236, height: 270 }, 3);
     expect(pos[1].x - pos[0].x).toBeLessThan(236);

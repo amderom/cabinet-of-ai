@@ -47,14 +47,14 @@ const titleEnd = words.at(-1);
   type={part === "essay" ? "article" : "website"}
   calm={!isDemo}
   texture={texture}>
-  <div class:list={[isDemo && "demo-stage"]}>
+  <div class="exhibit-stage">
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
     <a href="/" class="inline-flex min-h-11 items-center text-cream hover:text-accent">← Cabinet of AI</a>
     <span>{partName}</span>
   </header>
 
   {/* Reading parts get a smaller header so the text (and the article link) starts on the first screen. */}
-  <section class:list={["px-4", isDemo ? "demo-hero pt-[6svh] pb-6" : "pt-[3svh] pb-5"]}>
+  <section class:list={["px-4", isDemo ? "demo-hero pt-[6svh] pb-6" : "pt-[3svh] pb-[clamp(24px,3.5vw,44px)]"]}>
     {isDemo && exhibit.data.sticker && <span class="exhibit-sticker">{exhibit.data.sticker}</span>}
     <h1
       transition:name={`exhibit-title-${exhibit.id}`}
@@ -89,7 +89,7 @@ const titleEnd = words.at(-1);
     <slot />
     {
       isDemo && exhibit.data.banner && (
-        <div class="-mx-4 mt-14">
+        <div class="exhibit-bleed mt-14">
           <Ticker items={exhibit.data.banner} duration={40} />
         </div>
       )
@@ -99,7 +99,7 @@ const titleEnd = words.at(-1);
   </main>
   {!isDemo && <Reveal />}
 
-  <footer class="label flex justify-between border-t border-line p-4 pb-8 text-muted">
+  <footer class="exhibit-rule label flex justify-between border-t border-line pt-4 pb-8 text-muted">
     <a href="/" class="inline-flex min-h-11 items-center text-cream hover:text-accent">← Back to the cabinet</a>
     <span class="inline-flex min-h-11 items-center">Cabinet of AI</span>
   </footer>

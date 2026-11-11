@@ -12,13 +12,13 @@
 @media (min-width: 760px) {
   .lp-area { height: 400px; }
 }
-/* Desktop stage: the plates have their own column beside the title, and are bigger. */
+/* Desktop stage: the plates have their own column beside the title, with room to play. */
 @media (min-width: 960px) {
-  .lp-area { height: 470px; margin-top: 0; }
-  .lp-plate { width: 272px !important; padding: 16px 17px 17px !important; }
-  .lp-pic { height: 220px !important; }
-  .lp-num { font-size: 152px !important; }
-  .lp-cap i { font-size: 27px !important; }
+  .lp-area { height: 560px; margin-top: 0; }
+  .lp-plate { width: 248px !important; padding: 15px 16px 16px !important; }
+  .lp-pic { height: 200px !important; }
+  .lp-num { font-size: 140px !important; }
+  .lp-cap i { font-size: 25px !important; }
   .lp-hint { text-align: center; }
 }
 

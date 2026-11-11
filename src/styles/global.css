@@ -393,16 +393,29 @@
 }
 
 /*
- * Demo pages, desktop: one centred stage (decided with the author, 2026-11-11). The title
- * sits on the left, the exhibit's hero (Lagado: the plates) on the right, and the
- * texture and glow are anchored behind that right column instead of the window's edge,
- * so the object, its light and its engraving share one place. Phones are unchanged.
+ * Exhibit pages (demo, essay, making-of): one centred stage (decided with the author,
+ * 2026-11-11). Text sits 16px inside the stage. On phones, rules (tabs, banner, footer)
+ * run edge to edge; from 960px they start and end exactly where the text does, so every
+ * line and block on the page shares the same two edges.
  */
-.demo-stage { max-width: 1232px; margin-inline: auto; }
+.exhibit-stage { max-width: 1232px; margin-inline: auto; }
+.exhibit-rule { padding-inline: 16px; }
+.exhibit-bleed { margin-inline: -16px; }
+@media (min-width: 960px) {
+  .exhibit-rule { margin-inline: 16px; padding-inline: 0; }
+  .exhibit-bleed { margin-inline: 0; }
+}
+
+/*
+ * Demo pages, desktop: the title on the left, taking only the room it needs, and the
+ * exhibit's hero (Lagado: the plates) in the rest; the texture and glow are anchored
+ * behind that right column instead of the window's edge, so the object, its light and
+ * its engraving share one place. Phones are unchanged.
+ */
 @media (min-width: 960px) {
   .demo-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    grid-template-columns: max-content minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     column-gap: 32px;
     align-items: center;

@@ -6,7 +6,6 @@
 .lagado {
   --rule: rgb(244 236 223 / 0.12);
   --crank: 44px;
-  max-width: 1100px;
   margin-bottom: 48px;
   color: var(--color-cream);
 }
@@ -38,6 +37,10 @@
   width: calc(100% + 32px);
   height: calc(100% + 40px);
   pointer-events: none;
+}
+/* Desktop: the field stays inside the page's shared edges. */
+@media (min-width: 960px) {
+  .lagado-field { left: 0; width: 100%; }
 }
 
 /* A word: plain type, no box. The scramble plays on its overlay while the real word,
