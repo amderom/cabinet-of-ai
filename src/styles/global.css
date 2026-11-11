@@ -63,9 +63,13 @@
 }
 
 @layer components {
-  /* Slowly drifting glow made only from the exhibit's accent colour. */
+  /*
+   * Slowly drifting glow made only from the exhibit's accent colour. It sits in a frame at the
+   * top of the page and scrolls away with it (decided with the author, 2026-11-11: fixed behind
+   * the machine, it made a crank take 250-380ms to show on a slowed phone; 157ms this way).
+   */
   .glow {
-    position: fixed;
+    position: absolute;
     z-index: 0;
     left: -10vw;
     top: -25vw;

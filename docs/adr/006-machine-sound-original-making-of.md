@@ -16,7 +16,7 @@ Phase 1.2 part 2 makes Lagado playable: a word machine visitors crank on a phone
 - **An optional fourth part, "The original"**: an `originals` collection (`original.mdx`: title, description, lead, and the id of the text's credit), a page at `/exhibits/<slug>/original/`, and a tab between Essay and Making-of, only for exhibits whose source is in the public domain (`withOriginal`, `exhibitTabs`, tested). A test keeps Lagado's passage word for word identical to the saved Wikisource copy.
 - **The making-of as made-up scenes.** Shared components (`src/components/making-of/`: `Scene`, `Line`, `Point`) tell a making-of as short scripted exchanges that each make one point, with commentary; on desktop the commentary sits in the margin ("margin notes", like the essay's annotations). Lagado adds a numbers piece and a rejection pile of its own.
 - **One type and spacing scale for every exhibit page** (`:root` in `global.css`): type 10 / 15 / 18 / 24 / 40px (labels, small, reading, quotes, section titles), spacing 20 / 44 / 80px (paragraphs, around objects, between sections) plus a block step (104px on a phone, 144px on desktop) between big standalone blocks. Page titles and the objects' own type (the machine's words, the plate captions) stay with their components.
-- **Speed on phones.** The engraving texture is preloaded with high priority (it is the largest element on the first screen); the plates' pictures are served small (AVIF, 440px) and their large versions load only when a plate is opened.
+- **Speed on phones.** The engraving texture is preloaded with high priority (it is the largest element on the first screen); the plates' pictures are served small (AVIF, 440px) and their large versions load only when a plate is opened. The site's drifting glow sits at the top of every page and scrolls away with it instead of staying fixed behind the content (the operator's choice): fixed behind the machine, it doubled the time a crank took to show.
 
 ## Alternatives considered
 
@@ -32,4 +32,4 @@ Phase 1.2 part 2 makes Lagado playable: a word machine visitors crank on a phone
 - A new exhibit gets sound by adding credited files and a `registerSounds` call; silent visitors pay nothing.
 - A new exhibit gets "The original" by adding `original.mdx` and a text credit; Hesse (in copyright) never will.
 - The making-of components and the scale apply to the next exhibits as they are.
-- Known cost: on a slowed phone profile, the site-wide drifting glow, fixed behind the machine, makes a crank take about 250–380ms to show (157ms when the glow scrolls away with the top of the page); left as designed pending the operator's choice.
+- On a slowed phone profile (CPU 4× slower), a crank now shows in 136–184ms (248–360ms with the fixed glow); "Shake the frame" (216–328ms, it redraws all 36 words) and "Keep" (248–320ms) remain slower, to revisit if real phones feel it.
