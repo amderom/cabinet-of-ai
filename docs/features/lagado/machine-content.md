@@ -8,11 +8,11 @@
 - **One word per block, 6 words per sentence:** **adjective · noun · verb · adjective · noun · adverb**. On a phone, **one sentence** in two lines of three; on desktop, a **6 × 6 square**, one sentence per row, one grammatical place per column. Turning any row or column flips its blocks to new words in place. Prototype: https://claude.ai/artifact/3dDzw1fjczqL1MksyoF8Tf
 - The first noun is the one doing something, so it is always **plural** (so that "Comets *monetize*" works). The second noun can be plural or a mass noun (*Musick*, *Gunpowder*).
 - **9 letters at most**, so every word fits a block on a 375px phone in Instrument Serif, with cranks on rows and columns (checked on screen, see the sample image).
-- **Period spellings, sparingly: marked S.** Only 12 words, the easiest to read (*Musick, Publick, Politicks, Errour…*), about 1 word in 15, so a grid of 18 blocks shows about one or two at a time. Each one is printed that way in Swift's own *Voyage to Laputa* (same Wikisource edition as The original), checked automatically; *Opticks* is the title of Newton's book (1704). Every other word is in modern spelling.
+- **Period spellings, sparingly: marked S.** Only 11 words, the easiest to read (*Musick, Publick, Politicks, Errour…*), about 1 word in 15, so a grid of 18 blocks shows about one or two at a time. Each one is printed that way in Swift's own *Voyage to Laputa* (same Wikisource edition as The original), checked automatically; *Opticks* is the title of Newton's book (1704). Every other word is in modern spelling.
 - **⚡ = start-up / AI jargon, mostly in adjectives and verbs** (about 1 in 5 of each), a little in nouns (1 in 10). So the nouns keep the 18th-century world and the adjective or verb carries the joke. About every other row gets one modern word.
 - **The domain in brackets** helps the machine spot "good combinations" (see the end).
 
-**Totals:** 40 adjectives, 44 subject nouns, 40 verbs, 46 object nouns, 20 adverbs = **190 words**. Jargon: 29 (8 adjectives, 4 subject nouns, 9 verbs, 5 object nouns, 3 adverbs). Period spellings: 12.
+**Totals:** 40 adjectives, 44 subject nouns, 40 verbs, 46 object nouns, 20 adverbs = **190 words**. Jargon: 29 (8 adjectives, 4 subject nouns, 9 verbs, 5 object nouns, 3 adverbs). Period spellings: 11.
 
 ---
 
@@ -72,7 +72,7 @@
 
 | Words |
 |---|
-| intirely S (Swift: "intirely changed"), softly (the pupils "read the several lines softly"), hourly, nightly, gravely, wisely, sweetly, backwards, slowly, loudly, privately, gratis, forever, daily, twice, abroad, eternally, virally ⚡, remotely ⚡, on-chain ⚡ |
+| entirely (modern spelling, at the author's request; Swift prints "intirely"), softly (the pupils "read the several lines softly"), hourly, nightly, gravely, wisely, sweetly, backwards, slowly, loudly, privately, gratis, forever, daily, twice, abroad, eternally, virally ⚡, remotely ⚡, on-chain ⚡ |
 
 ---
 

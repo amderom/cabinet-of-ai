@@ -72,7 +72,7 @@ const verbs = [
 ];
 
 const adverbs = [
-  "intirely", "softly", "hourly", "nightly", "gravely", "wisely", "sweetly", "backwards", "slowly", "loudly",
+  "entirely", "softly", "hourly", "nightly", "gravely", "wisely", "sweetly", "backwards", "slowly", "loudly",
   "privately", "gratis", "forever", "daily", "twice", "abroad", "eternally", "virally", "remotely", "on-chain",
 ];
 
