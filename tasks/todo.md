@@ -245,11 +245,11 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## T13: Performance and full browser checks
+## T13: Performance and full browser checks ✅
 
 **Acceptance criteria:**
-- [ ] Demo page on a slowed phone profile (local build): LCP < 2.5 s, CLS < 0.1, INP < 200 ms on a crank
-- [ ] Every browser check in the spec passes at 390×844, 375×667 and 1280×800 (no sideways scroll, no external requests, no console errors, reduced motion)
+- [x] Demo page on a slowed phone profile (local build): LCP < 2.5 s, CLS < 0.1, INP < 200 ms on a crank
+- [x] Every browser check in the spec passes at 390×844, 375×667 and 1280×800 (no sideways scroll, no external requests, no console errors, reduced motion)
 
 **Verification:** numbers and check output recorded in the journal
 
@@ -258,11 +258,11 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## T14: ADR 006, README, journal
+## T14: ADR 006, README, journal ✅
 
 **Acceptance criteria:**
-- [ ] `docs/adr/006-…md`: machine logic apart from drawing, the sound module and on-demand Howler, credited sounds, the optional original part
-- [ ] README current state updated; journal entries for each session
+- [x] `docs/adr/006-…md`: machine logic apart from drawing, the sound module and on-demand Howler, credited sounds, the optional original part
+- [x] README current state updated; journal entries for each session
 
 **Dependencies:** T13
 **Files likely touched:** `docs/adr/006-*.md`, `README.md`, `docs/features/lagado/journal.md`
