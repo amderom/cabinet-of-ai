@@ -80,7 +80,7 @@
 **Verification:**
 - [x] `npm run test`, `npm run check`, `npm run build` pass
 - [x] playwright-cli at three sizes: crank a row and a column (both on a phone and on desktop), shake, keep two sentences, reload, copy, clear; no console errors; no external requests
-- [ ] Draft PR open, Vercel preview link sent to the author
+- [x] Draft PR open, Vercel preview link sent to the author
 
 **Dependencies:** T2, T3
 **Files likely touched:** `src/demos/lagado/Demo.astro`, `src/demos/lagado/Machine.tsx`, `src/demos/lagado/Folio.tsx`
