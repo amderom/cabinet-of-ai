@@ -33,6 +33,10 @@ const texture = textureCredit?.file
   ? (await getImage({ src: textureCredit.file, format: "avif", width: 480, quality: 45 })).src
   : undefined;
 const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part];
+// On the demo page the title's last word goes on its own line, in italics ("The Lagado / Engine").
+const words = exhibit.data.title.split(" ");
+const titleStart = words.slice(0, -1).join(" ");
+const titleEnd = words.at(-1);
 ---
 
 <BaseLayout
@@ -48,16 +52,24 @@ const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part
   </header>
 
   {/* Reading parts get a smaller header so the text (and the article link) starts on the first screen. */}
-  <section class:list={["px-4", isDemo ? "pt-[10svh] pb-8" : "pt-[3svh] pb-5"]}>
+  <section class:list={["px-4", isDemo ? "pt-[6svh] pb-6" : "pt-[3svh] pb-5"]}>
+    {isDemo && exhibit.data.sticker && <span class="exhibit-sticker">{exhibit.data.sticker}</span>}
     <h1
       transition:name={`exhibit-title-${exhibit.id}`}
       class:list={[
         "font-display leading-[0.85] tracking-[-0.03em]",
         isDemo ? "text-[clamp(56px,17vw,180px)]" : "text-[clamp(40px,11vw,112px)]",
       ]}>
-      {exhibit.data.title}
+      {isDemo && titleStart ? (
+        <>
+          {titleStart} <em class="block italic">{titleEnd}</em>
+        </>
+      ) : (
+        exhibit.data.title
+      )}
     </h1>
-    {isDemo && <p class="mt-4 max-w-[34ch] text-base leading-snug text-cream/85">{exhibit.data.tagline}</p>}
+    {/* An exhibit can place its own hero here, right under the title (Lagado: the three plates). */}
+    <slot name="hero" />
   </section>
 
   <ExhibitNav slug={exhibit.id} current={part} />

@@ -123,18 +123,18 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## T7: The three cards (specimen, quote with Swift's face, spec sheet)
+## T7: The three cards (specimen, quote with Swift's face, spec sheet) ✅
 
 **Description:** Design the three cards in the Signal look (modern cards; the vintage is their content), first in the clickable prototype for the author, then build them on the demo page above the machine. The quote card carries the author's drawing of Swift. Texts from Checkpoint A (`machine-content.md`).
 
 **Acceptance criteria:**
-- [ ] Prototype version shown to the author on her phone and desktop, and approved before building
-- [ ] On the page: a compact row (swipe on a phone, side by side on desktop); tap a card to enlarge it, Escape or tap outside to close; works by keyboard; screen readers get the full texts
-- [ ] The Swift drawing shown by its credit id, credited to the author; full size when enlarged; the spec sheet funny, every figure true to Swift's passage
+- [x] Prototype version shown to the author on her phone and desktop, and approved before building
+- [x] On the page: a compact row (swipe on a phone, side by side on desktop); tap a card to enlarge it, Escape or tap outside to close; works by keyboard; screen readers get the full texts
+- [x] The Swift drawing shown by its credit id, credited to the author; full size when enlarged; the spec sheet funny, every figure true to Swift's passage
 
 **Verification:**
-- [ ] `npm run test`, `npm run check`, `npm run build` pass
-- [ ] playwright-cli in Edge at 375×667, 390×844, 1280×800: swipe, enlarge, close, keyboard; no sideways scroll; the machine still within about one swipe on a phone
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] playwright-cli in Edge at 375×667, 390×844, 1280×800: swipe, enlarge, close, keyboard; no sideways scroll; the machine still within about one swipe on a phone
 
 **Dependencies:** Checkpoint C
 **Files likely touched:** `src/components/Cards.astro` (or `.tsx`), `src/demos/lagado/Demo.astro`, `src/content/exhibits/lagado/exhibit.yaml`, styles
@@ -142,7 +142,7 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## T8: Page order and parody banner
+## T8: Page order and parody banner (page order ✅; parody banner still to do)
 
 **Description:** Put the page in the agreed order (title → cards → "Turn the cranks" → machine → folio → banner → calls to action and credits) and fill the scrolling banner with the validated parody lines.
 

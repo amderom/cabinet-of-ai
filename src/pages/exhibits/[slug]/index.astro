@@ -10,6 +10,11 @@ const demos = import.meta.glob<{ default: (props: object) => unknown }>(
   "../../../demos/*/Demo.astro",
   { eager: true },
 );
+// Optional: an exhibit's hero, shown right under the title (src/demos/<slug>/Hero.astro).
+const heroes = import.meta.glob<{ default: (props: object) => unknown }>(
+  "../../../demos/*/Hero.astro",
+  { eager: true },
+);
 
 export async function getStaticPaths() {
   return openExhibits(await getCollection("exhibits")).map((exhibit) => ({
@@ -28,8 +33,10 @@ if (!demo) {
   throw new Error(`Open exhibit "${exhibit.id}" has no demo: add src/demos/${exhibit.id}/Demo.astro`);
 }
 const Demo = demo.default;
+const Hero = heroes[`../../../demos/${exhibit.id}/Hero.astro`]?.default;
 ---
 
 <ExhibitLayout exhibit={exhibit} part="demo">
+  {Hero && <Hero slot="hero" />}
   <Demo />
 </ExhibitLayout>

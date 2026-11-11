@@ -47,6 +47,8 @@ const exhibits = defineCollection({
       texture: z.string().optional(),
       /** Id of the credited image that greets visitors on the landing page (shown from Part 2). */
       hero: z.string().optional(),
+      /** Small tilted label above the title on the demo page, e.g. "In beta since 1726". */
+      sticker: z.string().optional(),
     }),
 });
 

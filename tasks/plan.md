@@ -70,7 +70,7 @@ Mostly sequential: each checkpoint is the author's decision and shapes what foll
 ### Checkpoint C — look and feel ✅
 
 ### Part D: The page
-- [ ] T7: The three cards (prototype first; Swift's drawing on the quote card)
+- [x] T7: The three plates ("Split", prototype first; Swift's drawing on plate II)
 - [ ] T8: Page order and parody banner
 
 ### Checkpoint D — the landing page

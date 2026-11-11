@@ -377,3 +377,17 @@
     list-style: decimal;
   }
 }
+
+/* Demo pages: the small tilted label above the title (exhibit.yaml → sticker). */
+.exhibit-sticker {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #140700;
+  font: 600 12px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+}
