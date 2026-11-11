@@ -20,6 +20,22 @@
   --font-mono: var(--font-ibm-plex-mono);
 }
 
+/*
+ * One scale for every exhibit page (agreed 2026-11-11: "the design system has to be cohesive").
+ * Type: labels 10px (the label utility), small text 15, reading text 18, quotes 24, section
+ * titles 40; page titles are set by the exhibit layout. Spacing: 20 between paragraphs,
+ * 44 around an object (engraving, quote, numbers box), 80 between sections.
+ */
+:root {
+  --text-small: 15px;
+  --text-body: 18px;
+  --text-quote: 24px;
+  --text-title: 40px;
+  --space-text: 20px;
+  --space-object: 44px;
+  --space-section: 80px;
+}
+
 /* Tiny uppercase mono label: "Essay · 6 min read", "№ 001 — 1726". */
 @utility label {
   font-family: var(--font-mono);
@@ -239,7 +255,7 @@
 @layer components {
   .prose-cabinet {
     max-width: 62ch;
-    font-size: 18px;
+    font-size: var(--text-body);
     line-height: 1.65;
     color: color-mix(in oklab, var(--color-cream) 88%, transparent);
   }
@@ -248,7 +264,7 @@
   }
   .prose-cabinet h2 {
     font-family: var(--font-display);
-    font-size: 40px;
+    font-size: var(--text-title);
     line-height: 1;
     color: var(--color-cream);
   }
@@ -283,7 +299,7 @@
   }
   .prose-cabinet > h2:not(:first-child) {
     counter-increment: section;
-    margin-top: 2em;
+    margin-top: var(--space-section);
   }
   .prose-cabinet > h2:not(:first-child)::before {
     content: "§ " counter(section, upper-roman);
@@ -296,11 +312,11 @@
   }
   .pull-quote {
     position: relative;
-    margin-block: 1.8em;
+    margin-block: var(--space-object);
     padding: 0.2em 0 0 34px;
     font-family: var(--font-display);
     font-style: italic;
-    font-size: 24px;
+    font-size: var(--text-quote);
     line-height: 1.18;
     color: var(--color-cream);
   }
@@ -318,55 +334,6 @@
     margin-top: 0.7em;
     font-style: normal;
     color: var(--color-accent);
-  }
-
-  /*
-   * Making-of pages, from 1024px: the page uses the whole stage instead of one reading column.
-   * The intro sits beside the numbers box, scenes are spreads (see Scene.astro), and the
-   * rejection pile sits beside the credits. Phones keep the single column.
-   */
-  @media (min-width: 1024px) {
-    .prose-cabinet:has(.mo-scene) {
-      display: grid;
-      grid-template-columns: minmax(0, 60ch) minmax(0, 1fr);
-      column-gap: 64px;
-      max-width: none;
-    }
-    .prose-cabinet:has(.mo-scene) > * {
-      grid-column: 1;
-    }
-    .prose-cabinet:has(.mo-scene) > .mo-numbers {
-      grid-column: 2;
-      grid-row: 2 / span 3;
-      align-self: stretch;
-    }
-    .prose-cabinet:has(.mo-scene) > .mo-scene:not(.stack) {
-      grid-column: 1 / -1;
-    }
-    /* Last row: the credits on the left, the rejection pile on the right (on a phone: pile first). */
-    .prose-cabinet:has(.mo-scene) > .mo-pair {
-      display: grid;
-      grid-column: 1 / -1;
-      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-      column-gap: 88px;
-      align-items: start;
-    }
-    .mo-pair > .mo-scene {
-      grid-row: 1;
-    }
-    .mo-pair > .mo-scene:first-child {
-      grid-column: 2;
-    }
-    .mo-pair > .mo-scene:last-child {
-      grid-column: 1;
-    }
-    /* The credits' two lists stack in their column. */
-    .mo-scene.stack .mo-credits {
-      grid-template-columns: 1fr;
-    }
-    .mo-scene.stack .mo-credits > div {
-      padding-inline: 0 !important;
-    }
   }
 
   /* Making-of credits: who made what, two plain lists side by side from 620px. */
@@ -395,7 +362,7 @@
   }
   .mo-credits h3 {
     margin: 0 0 8px;
-    font: italic 400 30px/1 var(--font-display);
+    font: italic 400 var(--text-quote)/1 var(--font-display);
     color: var(--color-cream);
   }
   .mo-credits ul {
@@ -412,7 +379,7 @@
 
   /* Engravings in a text: printed on the plate colour, so every scan shares one paper tone. */
   .prose-cabinet .figure {
-    margin-block: 2.5em;
+    margin-block: var(--space-object);
   }
   .figure-plate {
     background: var(--color-plate);
@@ -437,7 +404,7 @@
       margin: 0.4em -340px 1.5em 0;
     }
     .prose-cabinet .pull-quote {
-      font-size: 22px;
+      font-size: var(--text-quote);
     }
   }
   .figure-plate img {
@@ -450,7 +417,7 @@
   }
   .prose-cabinet figcaption {
     margin-top: 0.8em;
-    font-size: 15px;
+    font-size: var(--text-small);
     line-height: 1.45;
     color: color-mix(in oklab, var(--color-cream) 75%, transparent);
   }
@@ -459,7 +426,7 @@
     margin-top: 3em;
     padding-top: 1.5em;
     border-top: 1px solid var(--color-line);
-    font-size: 15px;
+    font-size: var(--text-small);
     color: var(--color-muted);
   }
   .prose-cabinet .footnotes ol {
@@ -525,5 +492,93 @@
     left: calc(50% + min(25vw, 300px) - 34vw);
     width: 68vw;
     height: 68vw;
+  }
+}
+
+/*
+ * Making-of pages from 1024px (phones keep one column). Unlayered, so it can set the size of
+ * the numbers box over its own styles. The last row puts the credits on the left and the
+ * rejection pile on the right. Three layouts are under review with the author (temporary
+ * switch, src/components/making-of/LayoutSwitch.astro): A by default, B and C by data-mo.
+ */
+@media (min-width: 1024px) {
+  .prose-cabinet:has(.mo-scene) {
+    display: grid;
+    grid-template-columns: minmax(0, 60ch) minmax(0, 1fr);
+    column-gap: 64px;
+    max-width: none;
+  }
+  .prose-cabinet:has(.mo-scene) > * {
+    grid-column: 1;
+  }
+  .prose-cabinet:has(.mo-scene) > .mo-pair {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 60ch) minmax(0, 1fr);
+    column-gap: 64px;
+    align-items: start;
+  }
+  .mo-pair > .mo-scene {
+    grid-row: 1;
+  }
+  .mo-pair > .mo-scene:first-child {
+    grid-column: 2;
+  }
+  .mo-pair > .mo-scene:last-child {
+    grid-column: 1;
+  }
+  .mo-scene.stack .mo-credits {
+    grid-template-columns: 1fr;
+  }
+  .mo-scene.stack .mo-credits > div {
+    padding-inline: 0;
+  }
+
+  /* A · Column: text and chats in the reading column; the numbers as one wide band. */
+  .prose-cabinet:has(.mo-scene) > .mo-numbers {
+    grid-column: 1 / -1;
+    height: 440px;
+    min-height: 0;
+  }
+
+  /* B and C: the numbers beside the intro. */
+  .prose-cabinet:is([data-mo="b"], [data-mo="c"]):has(.mo-scene) > .mo-numbers {
+    grid-column: 2;
+    grid-row: 2 / span 3;
+    align-self: stretch;
+    height: auto;
+    min-height: 400px;
+    margin: 0;
+  }
+
+  /* B · Side by side: every scene the same way round, commentary left, chat right. */
+  [data-mo="b"] > .mo-scene:not(.stack) {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 60ch) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    column-gap: 64px;
+    align-items: start;
+  }
+  [data-mo="b"] > .mo-scene:not(.stack) > :is(.mo-label, h2, .mo-side) {
+    grid-column: 1;
+  }
+  [data-mo="b"] > .mo-scene:not(.stack) > .mo-lines {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+
+  /* C · Margin notes: the chat in the reading column, the commentary in the margin. */
+  [data-mo="c"] > .mo-scene:not(.stack) {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 60ch) minmax(0, 1fr);
+    column-gap: 64px;
+    align-items: start;
+  }
+  [data-mo="c"] > .mo-scene:not(.stack) > :is(.mo-label, h2, .mo-lines) {
+    grid-column: 1;
+  }
+  [data-mo="c"] > .mo-scene:not(.stack) > .mo-side {
+    grid-column: 2;
+    grid-row: 3;
   }
 }

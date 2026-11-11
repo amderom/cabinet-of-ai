@@ -12,7 +12,7 @@
 .lagado-intro {
   margin: 0 0 16px;
   max-width: 54ch;
-  font-size: 15px;
+  font-size: var(--text-small);
   line-height: 1.45;
   color: var(--color-muted);
 }
@@ -127,7 +127,7 @@
   border-radius: 999px;
   background: transparent;
   color: var(--color-cream);
-  font: 600 14px var(--font-sans);
+  font: 600 var(--text-small) var(--font-sans);
   cursor: pointer;
 }
 .lagado-btn:hover { border-color: var(--color-cream); }
@@ -153,7 +153,7 @@
   text-wrap: balance;
 }
 .lagado-combination { min-height: 1.4em; margin: 0; color: var(--color-accent); }
-.lagado-empty { margin: 0; font-size: 14px; color: var(--color-muted); }
+.lagado-empty { margin: 0; font-size: var(--text-small); color: var(--color-muted); }
 .lagado-lines { display: grid; margin: 0; padding: 0; list-style: none; }
 .lagado-line {
   display: grid;
@@ -194,8 +194,8 @@
 .lagado-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .lagado-tools { display: flex; flex-wrap: wrap; gap: 10px; }
 .lagado-tools .lagado-btn { margin-top: 0; }
-.lagado-toast { display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: 14px; color: var(--color-muted); }
-.lagado-toast button { padding: 8px 0; border: 0; background: none; color: var(--color-accent); font: 600 14px var(--font-sans); cursor: pointer; }
+.lagado-toast { display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: var(--text-small); color: var(--color-muted); }
+.lagado-toast button { padding: 8px 0; border: 0; background: none; color: var(--color-accent); font: 600 var(--text-small) var(--font-sans); cursor: pointer; }
 
 @media (prefers-reduced-motion: reduce) {
   .lagado-crank.is-turning svg,

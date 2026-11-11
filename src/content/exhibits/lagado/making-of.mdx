@@ -8,6 +8,7 @@ import Line from "../../../components/making-of/Line.astro";
 import Point from "../../../components/making-of/Point.astro";
 import Numbers from "../../../demos/lagado/making-of/Numbers.astro";
 import RejectionPile from "../../../demos/lagado/making-of/RejectionPile.astro";
+import LayoutSwitch from "../../../components/making-of/LayoutSwitch.astro";
 
 “The most ignorant person, at a reasonable charge, and with a little bodily labour, might write books in philosophy, poetry, politicks, laws, mathematicks, and theology.” This is how the professor of Lagado sells his engine to Gulliver – and I must admit that, three centuries later, the pitch sounds uncomfortably familiar. In November 2026, I rebuilt his machine in about ten hours, over two days, with an AI coding agent. I don’t write code: my own bodily labour mostly consisted in deciding, testing on my phone, and saying no.
 
@@ -17,7 +18,7 @@ What follows are three lessons, told as conversations which, I should say, never
 
 <Numbers />
 
-<Scene label="1 · The paradox" flip>
+<Scene label="1 · The paradox">
   <Fragment slot="title">I asked for <em>modern.</em> The machine kept making it old.</Fragment>
   <Line who="me">Make it modern. Sleek. Techy.</Line>
   <Line who="agent">An eighteenth-century typeface for the words. A quill for the folio.</Line>
@@ -39,7 +40,7 @@ What follows are three lessons, told as conversations which, I should say, never
   <Point slot="point">An agent turns a plan into working code in a matter of minutes – and is, I’d argue, always slightly too eager to do so. Specs came fast; the vision came more slowly, through conversation, through prototypes I could tap on my phone, and once through a machine I had built myself. Tellingly, the rounds that began with building were the very ones we had to redo, which is why I kept drawing the agent back: brainstorm first, options second, code last.</Point>
 </Scene>
 
-<Scene label="3 · The authors" flip>
+<Scene label="3 · The authors">
   <Fragment slot="title">Swift, Gulliver and me: <em>who wrote what?</em></Fragment>
   <Line who="agent">Caption: the Engine, drawn by Gulliver.</Line>
   <Line who="me">Gulliver is the narrator. Swift wrote the book. An engraver drew the picture.</Line>
@@ -84,3 +85,5 @@ What follows are three lessons, told as conversations which, I should say, never
 
 </div>
 
+{/* TEMPORARY: layout comparison for the author; remove once a layout is picked. */}
+<LayoutSwitch />

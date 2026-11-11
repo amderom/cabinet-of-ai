@@ -26,7 +26,7 @@ const source = creditFor(exhibit.data.credits, entry.data.credit, exhibit.id);
     <h2>{entry.data.title}</h2>
     <div class="label mb-8 text-muted">{entry.data.lead}</div>
     <Content />
-    <p class="label mt-10 border-t border-line pt-4 leading-relaxed text-muted">
+    <p class="label mt-[var(--space-object)] border-t border-line pt-4 leading-relaxed text-muted">
       Source: {source.asset} · {source.author} ·{" "}
       {source.url ? <a href={source.url}>{source.source}</a> : source.source} · {source.licence}
     </p>

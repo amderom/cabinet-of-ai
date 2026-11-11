@@ -92,7 +92,7 @@ const titleEnd = words.at(-1);
     <slot />
     {
       isDemo && exhibit.data.banner && (
-        <div class="exhibit-bleed mt-14">
+        <div class="exhibit-bleed mt-[var(--space-section)]">
           <Ticker items={exhibit.data.banner} duration={40} />
         </div>
       )

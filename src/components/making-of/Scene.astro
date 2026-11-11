@@ -4,21 +4,18 @@
  * exchange (<Line>) and a paragraph of commentary (<Point slot="point">). Wrapped in its own
  * section, so the essay's § numbering skips it. Put the title in the "title" slot.
  *
- * On a phone it reads top to bottom: title, exchange, commentary. From 1024px it is a
- * two-column spread: label, title and commentary on the left, the exchange on the right.
- * `flip` puts the exchange on the left and the commentary on the right, so a page can
- * alternate sides. `stack` keeps it in one column at every width (e.g. the credits, set
- * beside another block).
+ * On a phone it reads top to bottom: title, exchange, commentary.
+ * `stack` keeps it in one column at every width (e.g. the credits, set beside another
+ * block). The desktop layouts live in global.css (making-of section).
  */
 interface Props {
   label: string;
   stack?: boolean;
-  flip?: boolean;
 }
-const { label, stack = false, flip = false } = Astro.props;
+const { label, stack = false } = Astro.props;
 ---
 
-<section class:list={["mo-scene", { stack, flip }]}>
+<section class:list={["mo-scene", { stack }]}>
   <span class="label mo-label">{label}</span>
   <h2><slot name="title" /></h2>
   <div class="mo-lines"><slot /></div>
@@ -29,15 +26,15 @@ const { label, stack = false, flip = false } = Astro.props;
   .mo-scene {
     display: grid;
     gap: 10px;
-    margin-top: 72px;
+    margin-top: var(--space-section);
   }
   .mo-label {
     color: var(--color-accent);
   }
   h2 {
     margin: 0 0 14px;
-    font-size: clamp(34px, 9.4vw, 48px);
-    line-height: 0.98;
+    font-size: var(--text-title);
+    line-height: 1;
     letter-spacing: -0.01em;
     text-wrap: balance;
   }
@@ -50,34 +47,5 @@ const { label, stack = false, flip = false } = Astro.props;
   }
   .mo-side:empty {
     display: none;
-  }
-  @media (min-width: 1024px) {
-    .mo-scene {
-      margin-top: 128px;
-    }
-    .mo-scene:not(.stack) {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-      grid-template-rows: auto auto 1fr;
-      column-gap: 88px;
-      align-items: start;
-    }
-    .mo-scene:not(.stack) > :is(.mo-label, h2, .mo-side) {
-      grid-column: 1;
-    }
-    .mo-scene:not(.stack) > .mo-lines {
-      grid-column: 2;
-      grid-row: 1 / span 3;
-      gap: 14px;
-    }
-    /* Flipped: the exchange on the left, the commentary on the right. */
-    .mo-scene.flip {
-      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-    }
-    .mo-scene.flip > :is(.mo-label, h2, .mo-side) {
-      grid-column: 2;
-    }
-    .mo-scene.flip > .mo-lines {
-      grid-column: 1;
-    }
   }
 </style>
