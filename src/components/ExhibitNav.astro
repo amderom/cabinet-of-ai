@@ -1,30 +1,31 @@
 ---
-/** Moves between the three parts of an exhibit; the current part is marked. */
-import type { ExhibitPart } from "../lib/exhibits";
+/**
+ * Moves between the parts of an exhibit; the current part is marked. The first label
+ * starts on the text's left edge and the last ends on its right edge. "The original"
+ * appears only for exhibits that have one.
+ */
+import { exhibitTabs, type ExhibitTab } from "../lib/exhibits";
 
 interface Props {
   slug: string;
-  current: "demo" | ExhibitPart;
+  current: ExhibitTab;
+  hasOriginal: boolean;
 }
 
-const { slug, current } = Astro.props;
-const parts = [
-  { key: "demo", label: "Demo", href: `/exhibits/${slug}/` },
-  { key: "essay", label: "Essay", href: `/exhibits/${slug}/essay/` },
-  { key: "making-of", label: "Making-of", href: `/exhibits/${slug}/making-of/` },
-] as const;
+const { slug, current, hasOriginal } = Astro.props;
+const parts = exhibitTabs(slug, hasOriginal);
 ---
 
-<nav aria-label="Exhibit parts" class="border-y border-line">
-  <ul class="flex">
+<nav aria-label="Exhibit parts" class="exhibit-rule border-y border-line">
+  <ul class="flex justify-between gap-4">
     {
       parts.map((part) => (
-        <li class="flex-1">
+        <li>
           <a
             href={part.href}
             aria-current={part.key === current ? "page" : undefined}
             class:list={[
-              "label flex min-h-11 items-center justify-center py-3 text-center transition-colors",
+              "label flex min-h-11 items-center py-3 transition-colors",
               part.key === current ? "text-accent" : "text-muted hover:text-cream",
             ]}
           >

@@ -1,0 +1,27 @@
+---
+// Lagado's hero: three plates under the title (Specimen, Portrait, Figures), fanned like a
+// hand of cards, draggable inside their own area, tap to open. Chosen with the author on
+// 2026-11-11 from a clickable prototype ("Split" plates).
+// The two pictures are the credited originals (the Engine diagram; the author's drawing of
+// Swift) turned into ink on a transparent ground, prepared once as files (plates/*-ink.png)
+// so they arrive ready, with nothing to compute in the visitor's browser.
+import { getImage } from "astro:assets";
+import Plates from "./Plates";
+import engineInk from "./plates/engine-ink.png";
+import swiftInk from "./plates/swift-ink.png";
+
+// Two sizes: small for the plates (at most ~220px tall, so 440px covers a 3x phone screen),
+// large for the opened plate, which the browser fetches only when a plate is opened.
+const [engine, swift, engineBig, swiftBig] = await Promise.all([
+  getImage({ src: engineInk, format: "avif", width: 440, quality: 60 }),
+  getImage({ src: swiftInk, format: "avif", width: 440, quality: 60 }),
+  getImage({ src: engineInk, format: "webp", width: 720, quality: 80 }),
+  getImage({ src: swiftInk, format: "webp", width: 720, quality: 80 }),
+]);
+---
+
+<Plates
+  client:load
+  images={{ engine: engine.src, swift: swift.src, engineBig: engineBig.src, swiftBig: swiftBig.src }}
+/>
+<noscript><style>.lp-plate { opacity: 1 !important; }</style></noscript>

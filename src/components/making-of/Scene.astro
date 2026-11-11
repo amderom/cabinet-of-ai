@@ -1,0 +1,51 @@
+---
+/**
+ * A making-of scene: a small label, a title that states the point, then a short made-up
+ * exchange (<Line>) and a paragraph of commentary (<Point slot="point">). Wrapped in its own
+ * section, so the essay's § numbering skips it. Put the title in the "title" slot.
+ *
+ * On a phone it reads top to bottom: title, exchange, commentary.
+ * `stack` keeps it in one column at every width (e.g. the credits, set beside another
+ * block). The desktop layouts live in global.css (making-of section).
+ */
+interface Props {
+  label: string;
+  stack?: boolean;
+}
+const { label, stack = false } = Astro.props;
+---
+
+<section class:list={["mo-scene", { stack }]}>
+  <span class="label mo-label">{label}</span>
+  <h2><slot name="title" /></h2>
+  <div class="mo-lines"><slot /></div>
+  <div class="mo-side"><slot name="point" /></div>
+</section>
+
+<style>
+  .mo-scene {
+    display: grid;
+    gap: 10px;
+    margin-top: var(--space-block);
+  }
+  .mo-label {
+    color: var(--color-accent);
+  }
+  h2 {
+    margin: 0 0 14px;
+    font-size: var(--text-title);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  h2 :global(em) {
+    color: var(--color-accent);
+  }
+  .mo-lines {
+    display: grid;
+    gap: 12px;
+  }
+  .mo-side:empty {
+    display: none;
+  }
+</style>

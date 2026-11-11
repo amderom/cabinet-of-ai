@@ -36,6 +36,8 @@ const exhibits = defineCollection({
               phoneFile: image().optional(),
               alt: z.string().optional(),
               caption: z.string().optional(),
+              /** Sound name, matching every file of that name in src/demos/<slug>/sounds/ (e.g. crank → crank.ogg, crank.m4a). */
+              sound: z.string().regex(/^[a-z0-9-]+$/, "sound name must be kebab-case").optional(),
             })
             .refine((c) => !c.file || (c.alt && c.alt.trim().length > 0), {
               message: "an image credit needs alt text",
@@ -47,6 +49,10 @@ const exhibits = defineCollection({
       texture: z.string().optional(),
       /** Id of the credited image that greets visitors on the landing page (shown from Part 2). */
       hero: z.string().optional(),
+      /** Small tilted label above the title on the demo page, e.g. "In beta since 1726". */
+      sticker: z.string().optional(),
+      /** Parody lines for the scrolling banner under the demo. */
+      banner: z.array(z.string().trim().min(1)).optional(),
     }),
 });
 
@@ -60,4 +66,17 @@ const makingOfs = defineCollection({
   schema: z.object({ title: z.string(), description: z.string() }),
 });
 
-export const collections = { exhibits, essays, makingOfs };
+// Optional: the historical text an exhibit rebuilds, when it is in the public domain.
+// `credit` is the id of its credit in exhibit.yaml (edition, editor, year, source, licence).
+const originals = defineCollection({
+  loader: glob({ base, pattern: "*/original.mdx", generateId: folderId }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    /** One line under the title: where the passage comes from (shown as a small label). */
+    lead: z.string(),
+    credit: z.string(),
+  }),
+});
+
+export const collections = { exhibits, essays, makingOfs, originals };

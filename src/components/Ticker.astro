@@ -33,6 +33,8 @@ const { items, duration = 22 } = Astro.props;
   .ticker {
     overflow: hidden;
     white-space: nowrap;
+    /* Words fade in and out at the ends instead of being cut mid-letter. */
+    mask-image: linear-gradient(to right, transparent, #000 48px, #000 calc(100% - 48px), transparent);
   }
 
   .ticker-track {

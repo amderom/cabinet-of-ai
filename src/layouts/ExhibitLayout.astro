@@ -10,14 +10,16 @@ import ExhibitNav from "../components/ExhibitNav.astro";
 import ExhibitCta from "../components/ExhibitCta.astro";
 import Credits from "../components/Credits.astro";
 import Reveal from "../components/Reveal.astro";
-import type { ExhibitPart } from "../lib/exhibits";
+import Ticker from "../components/Ticker.astro";
+import type { ExhibitTab } from "../lib/exhibits";
 import { getImage } from "astro:assets";
+import { getEntry } from "astro:content";
 import { creditFor } from "../lib/credits";
 import { pageTitle } from "../lib/seo";
 
 interface Props {
   exhibit: CollectionEntry<"exhibits">;
-  part: "demo" | ExhibitPart;
+  part: ExhibitTab;
   /** Title of this part's text (essay, making-of); the demo uses the exhibit title. */
   title?: string;
   /** Link-preview description; the demo uses the exhibit tagline. */
@@ -32,7 +34,13 @@ const textureCredit = exhibit.data.texture ? creditFor(exhibit.data.credits, exh
 const texture = textureCredit?.file
   ? (await getImage({ src: textureCredit.file, format: "avif", width: 480, quality: 45 })).src
   : undefined;
-const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part];
+const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of", original: "The original" }[part];
+// Only exhibits with an original text get its tab.
+const hasOriginal = Boolean(await getEntry("originals", exhibit.id));
+// On the demo page the title's last word goes on its own line, in italics ("The Lagado / Engine").
+const words = exhibit.data.title.split(" ");
+const titleStart = words.slice(0, -1).join(" ");
+const titleEnd = words.at(-1);
 ---
 
 <BaseLayout
@@ -42,25 +50,34 @@ const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part
   type={part === "essay" ? "article" : "website"}
   calm={!isDemo}
   texture={texture}>
+  <div class="exhibit-stage">
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
     <a href="/" class="inline-flex min-h-11 items-center text-cream hover:text-accent">← Cabinet of AI</a>
     <span>{partName}</span>
   </header>
 
   {/* Reading parts get a smaller header so the text (and the article link) starts on the first screen. */}
-  <section class:list={["px-4", isDemo ? "pt-[10svh] pb-8" : "pt-[3svh] pb-5"]}>
+  <section class:list={["px-4", isDemo ? "demo-hero pt-[6svh] pb-6" : "pt-[3svh] pb-[clamp(24px,3.5vw,44px)]"]}>
+    {isDemo && exhibit.data.sticker && <span class="exhibit-sticker">{exhibit.data.sticker}</span>}
     <h1
       transition:name={`exhibit-title-${exhibit.id}`}
       class:list={[
         "font-display leading-[0.85] tracking-[-0.03em]",
         isDemo ? "text-[clamp(56px,17vw,180px)]" : "text-[clamp(40px,11vw,112px)]",
       ]}>
-      {exhibit.data.title}
+      {isDemo && titleStart ? (
+        <>
+          {titleStart} <em class="block italic">{titleEnd}</em>
+        </>
+      ) : (
+        exhibit.data.title
+      )}
     </h1>
-    {isDemo && <p class="mt-4 max-w-[34ch] text-base leading-snug text-cream/85">{exhibit.data.tagline}</p>}
+    {/* An exhibit can place its own hero here: under the title on a phone, beside it on desktop (Lagado: the three plates). */}
+    <div class="demo-hero-side"><slot name="hero" /></div>
   </section>
 
-  <ExhibitNav slug={exhibit.id} current={part} />
+  <ExhibitNav slug={exhibit.id} current={part} hasOriginal={hasOriginal} />
 
   <main class:list={["px-4 pb-16", isDemo ? "pt-10" : "pt-3"]}>
     {
@@ -73,13 +90,21 @@ const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of" }[part
       )
     }
     <slot />
+    {
+      isDemo && exhibit.data.banner && (
+        <div class="exhibit-bleed mt-[var(--space-section)]">
+          <Ticker items={exhibit.data.banner} duration={40} />
+        </div>
+      )
+    }
     <ExhibitCta research={exhibit.data.research} />
     <Credits credits={exhibit.data.credits} />
   </main>
   {!isDemo && <Reveal />}
 
-  <footer class="label flex justify-between border-t border-line p-4 pb-8 text-muted">
+  <footer class="exhibit-rule label flex justify-between border-t border-line pt-4 pb-8 text-muted">
     <a href="/" class="inline-flex min-h-11 items-center text-cream hover:text-accent">← Back to the cabinet</a>
     <span class="inline-flex min-h-11 items-center">Cabinet of AI</span>
   </footer>
+  </div>
 </BaseLayout>

@@ -70,3 +70,21 @@
 **Estimated effort:** Medium per exhibit
 **Dependencies:** Lagado demo page with banner and plates (Phase 1.2)
 **Date:** 2026-11-10
+
+---
+
+### A parody format around each machine
+**Context:** Raised in the Phase 1.2 part 2 spec. For Lagado, the parody banner and the specification plate (true figures as a product sheet) carry the parody; a fuller format was set aside to see first whether it's needed.
+**Value:** A stronger start-up joke around the object: a pitch deck, a pricing page, an app-store listing or a launch page wrapped around the machine.
+**Estimated effort:** Medium per exhibit
+**Dependencies:** Lagado demo page shipped (Phase 1.2)
+**Date:** 2026-11-11
+
+---
+
+### A shareable image of the folio
+**Context:** Phase 1.2 part 2: the Lagado folio is kept on the visitor's device and copied out as text. An image was set aside to keep the first version simple.
+**Value:** Visitors post their machine-written folio as a picture (engraved page look), which advertises the exhibit on LinkedIn.
+**Estimated effort:** Medium (image generated in the browser, no server)
+**Dependencies:** Lagado folio (Phase 1.2)
+**Date:** 2026-11-11

@@ -38,3 +38,28 @@ export function missingParts(
     }))
     .filter((r) => r.missing.length > 0);
 }
+
+/** Every tab an exhibit page can show: the demo, its two written parts and the optional original text. */
+export type ExhibitTab = "demo" | ExhibitPart | "original";
+
+/**
+ * Open exhibits that have an original text (an `original.mdx`), in cabinet order.
+ * Only these get the /original/ page and its tab; an exhibit still in copyright never does.
+ */
+export function withOriginal<T extends ExhibitLike>(exhibits: T[], originalIds: string[]): T[] {
+  return openExhibits(exhibits).filter((e) => originalIds.includes(e.id));
+}
+
+/**
+ * The tabs of an exhibit, in order (Demo, Essay, The original, Making-of; order chosen by the
+ * author, 2026-11-11); "The original" only when the exhibit has one.
+ */
+export function exhibitTabs(slug: string, hasOriginal: boolean): { key: ExhibitTab; label: string; href: string }[] {
+  const base = `/exhibits/${slug}/`;
+  return [
+    { key: "demo", label: "Demo", href: base },
+    { key: "essay", label: "Essay", href: `${base}essay/` },
+    ...(hasOriginal ? [{ key: "original" as const, label: "The original", href: `${base}original/` }] : []),
+    { key: "making-of", label: "Making-of", href: `${base}making-of/` },
+  ];
+}

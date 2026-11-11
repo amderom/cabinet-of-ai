@@ -1,0 +1,203 @@
+/* The Lagado frame and folio, "Signal" look (chosen by the author, 2026-11-11): plain words
+   on black over a slow field of thin lines, the picked words glowing in the accent colour
+   and joined by a glowing thread. Vintage is the content (the words), never the look.
+   Uses the site's tokens (global.css): --color-accent, --color-cream, --color-muted, fonts. */
+
+.lagado {
+  --rule: rgb(244 236 223 / 0.12);
+  --crank: 44px;
+  margin-bottom: 48px;
+  color: var(--color-cream);
+}
+.lagado-intro {
+  margin: 0 0 16px;
+  max-width: 54ch;
+  font-size: var(--text-small);
+  line-height: 1.45;
+  color: var(--color-muted);
+}
+
+/* Only one layout shows: the square from 760px, the frame on its side below. */
+.lagado-desk { display: none; }
+.lagado-phone { display: block; }
+@media (min-width: 760px) {
+  .lagado-desk { display: block; }
+  .lagado-square.lagado-desk { display: grid; }
+  .lagado-phone { display: none; }
+}
+
+/* The machine and its background canvas (lines + thread). The canvas reaches into the
+   page's side gutter and 40px above, and stops at the machine's bottom edge. */
+.lagado-machine { position: relative; isolation: isolate; }
+.lagado-field {
+  position: absolute;
+  z-index: -1;
+  top: -40px;
+  left: -16px;
+  width: calc(100% + 32px);
+  height: calc(100% + 40px);
+  pointer-events: none;
+}
+/* Desktop: the field stays inside the page's shared edges. */
+@media (min-width: 960px) {
+  .lagado-field { left: 0; width: 100%; }
+}
+
+/* A word: plain type, no box. The scramble plays on its overlay while the real word,
+   hidden, keeps the width, so nothing moves. */
+.lagado-word {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgb(244 236 223 / 0.55);
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+.lagado-word:hover { color: var(--color-cream); }
+.lagado-word[aria-pressed="true"] {
+  color: var(--color-accent);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--color-accent) 55%, transparent);
+}
+.lagado-word-scramble { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; }
+.lagado-word.is-scrambling .lagado-word-text { visibility: hidden; }
+.lagado-word.is-scrambling .lagado-word-scramble { display: flex; }
+
+/* Cranks: a crisp rotate icon that spins a full turn when used. */
+.lagado-crank {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--crank);
+  height: var(--crank);
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.lagado-crank:hover { color: var(--color-accent); }
+.lagado-crank svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.lagado-crank.is-turning svg { animation: lagado-spin 0.5s cubic-bezier(0.3, 0.7, 0.2, 1); }
+@keyframes lagado-spin {
+  from { transform: rotate(-360deg); }
+}
+.lagado button:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+/* Desktop: the square, one column per grammatical place. */
+.lagado-square {
+  grid-template-columns: var(--crank) repeat(6, minmax(0, 1fr));
+  gap: 2px 8px;
+  align-items: center;
+}
+.lagado-square .lagado-word { width: 100%; height: 54px; }
+.lagado-colhead { display: grid; justify-items: center; gap: 8px; padding-bottom: 6px; }
+
+/* Phone: the frame on its side, compact so the six rows and the sentence fit on one
+   small screen: label above the words, crank beside them. --fs is set per row: a row of
+   three long words steps down a size or two so it stays on one line. */
+.lagado-place {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--crank);
+  grid-template-rows: auto auto;
+  column-gap: 8px;
+  padding: 4px 0;
+}
+.lagado-place .label { grid-row: 1; grid-column: 1; font-size: 9px; }
+.lagado-place .lagado-crank { grid-row: 1 / 3; grid-column: 2; align-self: center; }
+.lagado-words { grid-row: 2; grid-column: 1; display: flex; flex-wrap: nowrap; gap: 0 14px; min-width: 0; }
+.lagado-phone .lagado-word { height: 44px; font-size: var(--fs, 21px); }
+
+.lagado-btn {
+  min-height: 44px;
+  margin-top: 16px;
+  padding: 0 18px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-cream);
+  font: 600 var(--text-small) var(--font-sans);
+  cursor: pointer;
+}
+.lagado-btn:hover { border-color: var(--color-cream); }
+.lagado-btn.is-primary { margin-top: 0; border-color: var(--color-accent); background: var(--color-accent); color: #140700; }
+
+/* The folio: the sentence being composed is its next line; kept lines below, newest first. */
+.lagado-folio { display: grid; gap: 10px; margin-top: 24px; }
+.lagado-folio-head { display: flex; justify-content: space-between; gap: 12px; }
+.lagado-draft {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+  padding: 14px 0;
+  border-block: 1px solid var(--rule);
+}
+.lagado-draft p {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 7.5vw, 44px);
+  line-height: 1.06;
+  text-wrap: balance;
+}
+.lagado-combination { min-height: 1.4em; margin: 0; color: var(--color-accent); }
+.lagado-empty { margin: 0; font-size: var(--text-small); color: var(--color-muted); }
+.lagado-lines { display: grid; margin: 0; padding: 0; list-style: none; }
+.lagado-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.lagado-line.is-new { animation: lagado-arrive 0.45s ease-out; }
+@keyframes lagado-arrive {
+  from { opacity: 0; transform: translateY(-14px); }
+}
+.lagado-line-text {
+  min-width: 0;
+  padding: 6px 4px;
+  border-radius: 3px;
+  font-family: var(--font-display);
+  font-size: 21px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.lagado-line-text:hover { background: color-mix(in srgb, var(--color-cream) 5%, transparent); }
+.lagado-line-text:focus { outline: 1px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, transparent); }
+.lagado-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+.lagado-icon:hover { color: var(--color-accent); }
+.lagado-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.lagado-tools { display: flex; flex-wrap: wrap; gap: 10px; }
+.lagado-tools .lagado-btn { margin-top: 0; }
+.lagado-toast { display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: var(--text-small); color: var(--color-muted); }
+.lagado-toast button { padding: 8px 0; border: 0; background: none; color: var(--color-accent); font: 600 var(--text-small) var(--font-sans); cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lagado-crank.is-turning svg,
+  .lagado-line.is-new { animation: none; }
+}

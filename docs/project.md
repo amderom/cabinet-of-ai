@@ -65,7 +65,7 @@ None at runtime.
 - `@astrojs/mdx@8` — MDX content
 - `tailwindcss@4` + `@tailwindcss/vite` — styling (installed via `astro add tailwind`)
 - `gsap@3.15` + `@gsap/react` — animation; all plugins (ScrollTrigger, SplitText, Flip, Draggable…) are free, including commercial use
-- `howler@2.2` — sound effects across the site (version to confirm at install; not listed by Context7)
+- `howler@2.2.4` — sound effects across the site, downloaded only when a visitor turns sound on (2.2.4 confirmed as the latest stable release on npm at install, 2026-11-11; not listed by Context7)
 - `tone@15.1` — generative music, loaded **only** inside demos that need it (first use: Glass Bead Game, post-MVP)
 - `vitest@5` — unit tests
 - `@astrojs/check` + `typescript@5` — type checking (`npm run check`), dev only
@@ -78,7 +78,7 @@ None at runtime.
 - No analytics, tracking scripts or cookies
 
 ### Version policy
-All versions above were verified via Context7 at project start, except Howler (not listed by Context7 — confirm the stable 2.2.x release at install).
+All versions above were verified via Context7 at project start, except Howler (not listed by Context7; 2.2.4 confirmed on npm and its README at install).
 Any upgrade must be re-validated via Context7 (or the official docs when Context7 lags) and documented as an ADR in `docs/adr/`.
 Exception to the 6-month rule: Astro 7 (released 2026-06-22), approved by the operator — see ADR 001.
 
@@ -110,6 +110,7 @@ A static Astro site. Pages are plain HTML by default; interactive parts (each ex
 | `/exhibits/<slug>/` | Demo + parody |
 | `/exhibits/<slug>/essay/` | Essay |
 | `/exhibits/<slug>/making-of/` | Making-of |
+| `/exhibits/<slug>/original/` | The original text the exhibit rebuilds (optional: only exhibits with an `original.mdx`, i.e. a public-domain source; adds a fourth tab) |
 
 Every URL has its own Open Graph title, description and preview image (LinkedIn link previews). Sealed exhibits have no public pages.
 
@@ -195,7 +196,7 @@ Files created at runtime by agent-skills (not by the vibe-project skill):
 - **Design system specification:** none yet. If a `design/DESIGN.md` is added (getdesign.md convention), agents read it before generating UI.
 
 **Visual direction agreed during Vibe Project:**
-- Dark background, contemporary interface. Vintage appears only in objects, labels and inscriptions — never as ornament on the interface. A period typeface (e.g. an 18th-century print face) is reserved for labels and inscriptions on objects, not for interface text.
+- **Vintage is content, never look** (agreed 2026-11-11, replacing "vintage appears only in objects, labels and inscriptions", which left a loophole). The past lives only in the words, texts and quotations, and in real public-domain engravings shown as images. Everything the visitor can see or touch as interface (the machines, frames, blocks, buttons, icons, controls, panels) is designed as a 2026 product: flat, sleek, techy, crisp modern icons. Never imitate old materials or old software: no wood, brass, parchment, bevels, fake 3D, drop-shadow "depth", or illustrative skeuomorphic icons. When in doubt, ask: would this look at home in a 2026 product launch? If not, it doesn't ship. No period typeface: the site's own three typefaces are used everywhere (the author's choice, 2026-11-11).
 - **Curio direction (chosen 2026-11-10):** elegant *and* playful. Near-black, a slowly drifting glow made from the exhibit's colour, fine film grain, a giant modern display serif (Instrument Serif) with italics, Inter Tight for reading, tiny mono labels (IBM Plex Mono). Playful touches: floating engraving plates the visitor can drag (they never cover text or buttons), a scrolling serif banner, rotated parody stickers ("In beta since 1726"). All neutrals in one warm cream family. Rejected: a classic "rounded cards, grey text" look (felt web 2.0).
 - One accent colour per exhibit, inspired by the object, pushed to a saturated, modern colour (neon on near-black). The contrast is the point: vintage content, unmistakably 2026 presentation.
 - The homepage looks like an actual cabinet (a piece of furniture). No exhibit is the entry point.

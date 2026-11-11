@@ -36,8 +36,51 @@ credits:
     source: "Source gallica.bnf.fr / BnF"
     url: "https://gallica.bnf.fr/ark:/12148/btv1b86002890/f78.item"
     licence: "Public domain, non-commercial reuse (Gallica terms)"
+  # The text on the "The original" page (original.mdx). Edition read on Wikisource, 2026-11-11.
+  - id: swift-text
+    asset: "Gulliver’s Travels, Part III, Chapter 5, in The Works of the Rev. Jonathan Swift, Vol. 6, ed. John Nichols (1801)"
+    author: "Jonathan Swift"
+    source: "Wikisource"
+    url: "https://en.wikisource.org/wiki/The_Works_of_the_Rev._Jonathan_Swift/Volume_6/A_Voyage_to_Laputa/Chapter_5"
+    licence: "Public domain"
+  # Sounds (src/demos/lagado/sounds/): each cut to one hit, softened (high frequencies rolled off,
+  # a little low warmth) and levelled to the rattle; saved as .m4a, with a .wav fallback.
+  # Licences read on each source page (OpenGameArt's licence field and the pack's licence file;
+  # Freesound's licence box), 2026-11-11. Chosen by the author by ear (Checkpoint E).
+  - id: sound-crank
+    sound: crank
+    asset: "One die clicking (die-throw-1, trimmed and softened), from Casino Audio"
+    author: "Kenney (kenney.nl)"
+    source: "OpenGameArt"
+    url: "https://opengameart.org/content/54-casino-sound-effects-cards-dice-chips"
+    licence: "CC0"
+  - id: sound-shake
+    sound: shake
+    asset: "Dice shaken in a cup (dice-shake-1, trimmed and softened), from Casino Audio"
+    author: "Kenney (kenney.nl)"
+    source: "OpenGameArt"
+    url: "https://opengameart.org/content/54-casino-sound-effects-cards-dice-chips"
+    licence: "CC0"
+  - id: sound-keep
+    sound: keep
+    asset: "Traditional stamp (trimmed and softened)"
+    author: "I.fekry"
+    source: "Freesound"
+    url: "https://freesound.org/people/I.fekry/sounds/470710/"
+    licence: "CC0"
 texture: the-engine
 hero: swift-portrait
+sticker: In beta since 1726
+# Parody banner under the machine (chosen by the operator from machine-content.md, 2026-11-11).
+banner:
+  - Trained on all the words of the language
+  - "Human in the loop: 36 readers, 4 scribes"
+  - "Now hiring: 40 pupils, six hours a day"
+  - Shipping broken sentences in large folio since 1726
+  - Disrupting the Royal Society since 1726
+  - Sole inventor. Rivals in Europe welcome to steal
+  - Hallucinations, hand-bound
+  - Founded in Lagado. Funded by nobody, yet
 research:
   title: "Totalité et infini de la machine à tout dire de Gulliver's Travels : du programme littéraire au programme informatique"
   journal: "XVII-XVIII"

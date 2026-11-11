@@ -1,179 +1,281 @@
-# Tasks: Phase 1.2 part 1 — Images and engravings
+# Tasks: Phase 1.2 part 2 — The Lagado machine
 
 > Plan: [plan.md](./plan.md). Spec: [SPEC.md](../SPEC.md).
-> Every code task: verify Astro APIs against current Astro 7 docs, run `npm run test`, `npm run check` and `npm run build` before committing, keep `main` untouched, and append to `docs/features/lagado/journal.md` at the end of the session.
+> Every code task: verify Astro, React and Howler APIs against current docs, run `npm run test`, `npm run check` and `npm run build` before committing, check at phone width first (390×844, 375×667, then 1280×800) with playwright-cli, keep `main` untouched, and append to `docs/features/lagado/journal.md` at the end of the session.
 
 ---
 
-## T1: Engraving shortlist with licences ✅
+## T1: Words, figures, plate and banner texts ✅
 
-**Description:** Search the allowed open collections for 19th-century Gulliver illustrations (Laputa, the Academy of Lagado, the word frame) and images for the essay's sections. Present a shortlist with previews, then record it.
+**Description:** Draft all the words and texts the machine and page need, in one document the author can edit: the word list by column role, the three plate texts, the banner lines.
 
 **Acceptance criteria:**
-- [x] At least 2 texture candidates and 4–6 essay candidates (the hero is the author's Swift drawing, already provided), each with title, artist, date, collection, source URL, licence and suggested use
-- [x] Every candidate's licence checked on its own source page (public domain worldwide or CC0); doubtful ones excluded, with the reason noted
-- [x] `docs/features/lagado/engravings.md` written; previews shown to the author
+- [x] `docs/features/lagado/machine-content.md` with: 160–200 single words grouped by role (adjectives, nouns, verbs) from the learned domains in the spec, start-up/AI jargon mostly in adjectives and verbs, period spellings sparingly (about 1 in 15) each with its source in Swift's text; no word longer than 9 letters
+- [x] Sample sentences, and a clickable prototype the author can open on her phone (added after two rounds of images proved hard to judge)
+- [x] Plate texts: museum label for the Engine, the quote with its signature, the specifications sheet with every figure traced to a sentence of `original-passage.md`; 6–10 parody banner lines
+- [x] Screen samples: IM Fell English beside Instrument Serif; the longest words at 375px with the cranks in place
 
 **Verification:**
-- [x] Each source URL opens and states the licence
-- [x] The author has seen the previews
+- [x] Every figure on the specifications plate matches the passage word for word
+- [x] The author has read the document
 
 **Dependencies:** None
-**Files likely touched:** `docs/features/lagado/engravings.md`
-**Estimated scope:** S (research-heavy)
+**Files likely touched:** `docs/features/lagado/machine-content.md`
+**Estimated scope:** S (writing-heavy)
 
 ---
 
-## Checkpoint A — the author picks ✅
+## Checkpoint A — the author edits ✅
 
-- [x] The author picks the texture engraving and 1–3 essay engravings
-- [x] Picks recorded in `engravings.md`; only the picked files are downloaded
+- [x] Word list, plate texts and banner lines validated or corrected by the author
+- [x] Typeface decided: Instrument Serif (no new typeface)
 
 ---
 
-## T2: Image model, credits helpers, build guard ✅
+## T2: Engine logic and tests ✅
 
-**Description:** Extend `credits` with `id`, `file`, `alt` and `caption`; add `texture` to exhibits; add pure helpers and the build guard. Add the picked images (resized originals) to Lagado.
+**Description:** The machine's rules as plain TypeScript: a frame of rows (3 on a phone, 6 on desktop) × 6 grammatical places; flip a set of blocks (a place or a row), shake, pick one word per place, read the composed sentence, spot a good combination; no duplicate word within a place; randomness that can be fixed for tests. Words from the validated list in `words.ts`.
 
 **Acceptance criteria:**
-- [x] `credits` entries accept `id`, `file` (checked by Astro's `image()`), optional `phoneFile`, `alt` and `caption?`; ids are unique per exhibit; exhibits accept `texture?` and `hero?` (ids of credited images; unknown ids stop the build)
-- [x] The build fails with a clear message on: an image file without a credit, a credit without a licence, a duplicate id
-- [x] Lagado's picked images are in `src/content/exhibits/lagado/images/` (longest side ≤ 2400 px), each credited; the Swift drawing (`swift-portrait.jpg`, already in the folder) is credited to the author (all rights reserved) and set as `hero`
+- [x] Turning a row changes only that row; a column only that column; shake changes the whole grid; a block never shows the same word twice in a row
+- [x] Every word stays in its grammatical place; place cranks and row cranks each flip exactly the right blocks; the composed sentence follows the picks
+- [x] The same seed gives the same results; good combinations are detected by a simple, documented rule
 
 **Verification:**
-- [x] Unit tests for `src/lib/credits.ts` pass (find by id, unknown-id error, uncredited files, duplicates)
-- [x] Each build failure triggered once on purpose, then reverted
-- [x] `npm run check` and `npm run build` pass; the credits block on Lagado's pages lists the images
+- [x] `npm run test` passes with tests for each rule above; `npm run check` passes
 
 **Dependencies:** Checkpoint A
-**Files likely touched:** `src/content.config.ts`, `src/lib/credits.ts`, `src/lib/credits.test.ts`, `src/lib/exhibit-pages.ts`, `src/content/exhibits/lagado/exhibit.yaml` (+ images)
+**Files likely touched:** `src/demos/lagado/engine.ts`, `src/demos/lagado/engine.test.ts`, `src/demos/lagado/words.ts`
 **Estimated scope:** M
 
 ---
 
-## T3: Figure component and essay illustrations ✅
+## T3: Folio logic and tests ✅
 
-**Description:** A `<Figure id>` component that shows an optimised image with its caption and credit, used in the Lagado essay at section breaks.
+**Description:** Keeping lines: add the composed sentence, number lines, edit a line, delete one line or all with undo, build the share text for one line and for the whole folio (sentence(s) + the exhibit's link), and save/load on the device, tolerating a browser that refuses storage.
 
 **Acceptance criteria:**
-- [x] `<Figure id="…" />` renders a responsive, optimised image with alt text, caption and a short credit line; serves the `phoneFile` version on small screens when there is one; an unknown id stops the build
-- [x] 1–3 figures in the essay at section breaks; the essay's words unchanged (automatic comparison, as in Phase 1.1)
-- [x] Images below the first screen load lazily; no layout shift when they load
+- [x] Lines keep their writing order in storage (shown newest first) and survive a save/load round trip; edits are saved; delete and clear can be undone
+- [x] The share text for one line and for the whole folio includes the exhibit's link
+- [x] With storage refused (private mode), the folio still works for the visit, without errors
 
 **Verification:**
-- [x] `npm run test`, `npm run check` and `npm run build` pass
-- [x] playwright-cli at 390×844, 375×667 and 1280×800: images present with alt text and caption, served at phone size, no sideways scroll
-- [x] Phone screenshots sent to the author
+- [x] `npm run test` passes with tests for each rule above
 
-**Dependencies:** T2
-**Files likely touched:** `src/components/Figure.astro`, `src/content/exhibits/lagado/essay.mdx`, `src/styles/global.css`
+**Dependencies:** T2 (uses its row reading)
+**Files likely touched:** `src/demos/lagado/folio.ts`, `src/demos/lagado/folio.test.ts`
+**Estimated scope:** S
+
+---
+
+## T4: Rough machine and folio on the demo page, draft PR ✅
+
+**Description:** A plain, undrawn but fully playable version: grid of word blocks, a crank button for each row and column, "Shake the frame", tap a sentence to keep it, a plain folio with Copy and Clear. Replaces the "being assembled" teaser. Open the draft PR to get a preview link.
+
+**Acceptance criteria:**
+- [x] Desktop: a 6 × 6 square, places as columns (crank on top), rows with a crank at the side. Phone (below 760px): the same frame on its side, each place a row of 3 words sized to the word, with its crank. Tap one word per place to compose. Every crank flips its blocks in place; all work by tap and keyboard; controls at least 44 × 44 px
+- [x] Keep adds the composed sentence as the folio's newest line; each line can be edited, shared (share menu or copy) and deleted with Undo; Copy all and Clear all (with Undo) work; the folio survives a reload
+- [x] No sideways scroll at 375px; no word touches its block's edges
+
+**Verification:**
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] playwright-cli at three sizes: crank a row and a column (both on a phone and on desktop), shake, keep two sentences, reload, copy, clear; no console errors; no external requests
+- [x] Draft PR open, Vercel preview link sent to the author
+
+**Dependencies:** T2, T3
+**Files likely touched:** `src/demos/lagado/Demo.astro`, `src/demos/lagado/Machine.tsx`, `src/demos/lagado/Folio.tsx`
 **Estimated scope:** M
 
 ---
 
-## Checkpoint B — the author reviews the illustrated essay ✅
+## Checkpoint B — the author plays on her phone ✅
 
-- [x] Captions and alt texts validated (or corrected) by the author
-- [x] Placement of the images approved
+- [x] Fun? Yes ("it's fun"). Light-up note kept for now. Cranks: not loved yet; options shown against the drawn machine at Checkpoint C
+- [x] Decisions recorded in the journal
 
 ---
 
-## T4: Lagado neon engraving texture ✅
+## T5: The machine's look ✅ (redone as "Signal")
 
-**Description:** A texture layer made from the exhibit's `texture` image, tinted in the accent colour with CSS, behind the page.
+**What happened:** the engraved frame with three crank drawings was built, then rejected by the author ("the vintage is the content, not the look"). Three modern directions were compared in a clickable prototype; she chose **Signal** and tuned it over several rounds (scramble animation, compact phone rows, the thread through the picked words, smoothness on desktop). See SPEC.md → Look and the journal.
 
 **Acceptance criteria:**
-- [x] Visible as atmosphere on the demo page; much fainter on the essay and making-of, limited to the title area and fading out before the text
-- [x] Never over the essay's text area, never catches taps, no sideways scroll; still when reduced motion is requested
-- [x] An unknown `texture` id stops the build; exhibits without a `texture` show no layer
+- [x] Signal look in the real machine: line field, plain glowing words, glowing thread, scramble, crisp crank icon; the temporary crank switch removed
+- [x] Tap targets ≥ 44px; keyboard focus visible
+- [x] The same adjective never appears twice in a sentence (engine test)
+- [x] Editing a kept line falls back to ordinary editing in browsers without plain-text editing (Firefox before 136)
 
 **Verification:**
-- [x] `npm run check` and `npm run build` pass
-- [x] playwright-cli on all three parts at three sizes; reduced-motion check
-- [x] Screenshots of the demo and essay pages sent to the author
-
-**Dependencies:** T2
-**Files likely touched:** `src/components/Texture.astro`, `src/layouts/BaseLayout.astro`, `src/layouts/ExhibitLayout.astro`, `src/content/exhibits/lagado/exhibit.yaml`, `src/styles/global.css`
-**Estimated scope:** M
+- [x] `npm run test` (63), `npm run check` (0 errors), `npm run build`
+- [x] playwright-cli in Edge at 375×667, 390×844, 1280×800: cranks, picks, keep, edit, delete, undo, reload; the page below doesn't move on a crank or shake; rows on one line; no console errors
 
 ---
 
-## T5: Three reading-page directions (exploration branch) ✅
+## T6: Motion, word sizing, folio styled ✅ (folded into T5)
 
-**Description:** On `explore/reading-pages` (branched from the feature branch), build three variants of the real Lagado essay: A Editorial, B Fluid, C Margin. Push it to get a Vercel preview link. Never merged.
+The scramble, word sizing and the modern folio were settled in the prototype rounds and built with T5. Remaining polish, if any, comes from the author's check of the preview.
+
+---
+
+## Checkpoint C — look and feel ✅ ("I LOVE IT", 2026-11-11)
+
+- [x] The author approves the drawn machine and the folio on her phone
+
+---
+
+## T7: The three cards (specimen, quote with Swift's face, spec sheet) ✅
+
+**Description:** Design the three cards in the Signal look (modern cards; the vintage is their content), first in the clickable prototype for the author, then build them on the demo page above the machine. The quote card carries the author's drawing of Swift. Texts from Checkpoint A (`machine-content.md`).
 
 **Acceptance criteria:**
-- [x] Three variants reachable on the preview, each clearly labelled A, B or C, using the real essay, images and texture
-- [x] Each works at phone width (no sideways scroll, text readable); B's motion respects reduced motion
-- [x] A one-line description of each sent to the author with the links
+- [x] Prototype version shown to the author on her phone and desktop, and approved before building
+- [x] On the page: a compact row (swipe on a phone, side by side on desktop); tap a card to enlarge it, Escape or tap outside to close; works by keyboard; screen readers get the full texts
+- [x] The Swift drawing shown by its credit id, credited to the author; full size when enlarged; the spec sheet funny, every figure true to Swift's passage
 
 **Verification:**
-- [x] playwright-cli quick check at 390×844 on each variant
-- [x] The author opens all three on her phone
-
-**Dependencies:** T3, T4
-**Files likely touched:** exploration branch only (temporary variant pages and styles)
-**Estimated scope:** M (timeboxed)
-
----
-
-## Checkpoint C — the author picks a direction ✅
-
-- [x] The author picks A, B, C or a mix; GSAP asked about only if needed
-- [x] Decision recorded in the journal; the exploration branch deleted after T6
-
----
-
-## T6: Chosen direction in the shared exhibit layout ✅
-
-**Description:** Rebuild the chosen direction cleanly on the feature branch, in the shared layout and styles, so every future essay and making-of gets it.
-
-**Acceptance criteria:**
-- [x] The essay and making-of pages use the chosen direction; nothing Lagado-specific in shared files
-- [x] The article button is still visible without scrolling at 375×667; motion respects reduced motion
-- [x] The essay's words unchanged
-
-**Verification:**
-- [x] `npm run test`, `npm run check` and `npm run build` pass
-- [x] playwright-cli at three sizes; word comparison
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] playwright-cli in Edge at 375×667, 390×844, 1280×800: swipe, enlarge, close, keyboard; no sideways scroll; the machine still within about one swipe on a phone
 
 **Dependencies:** Checkpoint C
-**Files likely touched:** `src/layouts/ExhibitLayout.astro`, `src/styles/global.css`, `src/components/*` as needed (≤ 5 files)
+**Files likely touched:** `src/components/Cards.astro` (or `.tsx`), `src/demos/lagado/Demo.astro`, `src/content/exhibits/lagado/exhibit.yaml`, styles
 **Estimated scope:** M
 
 ---
 
-## T7: Performance and full browser checks ✅
+## T8: Page order and parody banner ✅
+
+**Description:** Put the page in the agreed order (title → cards → "Turn the cranks" → machine → folio → banner → calls to action and credits) and fill the scrolling banner with the validated parody lines.
 
 **Acceptance criteria:**
-- [x] Lighthouse mobile on the local build, essay page: LCP < 2.5 s, CLS < 0.1
-- [x] All spec browser checks pass at 390×844, 375×667 and 1280×800 (alt text, captions and credits, phone-sized images, lazy loading, texture rules, no sideways scroll, no external requests, no console errors)
+- [x] Order as in the spec at phone and desktop sizes; the machine about one swipe down on a phone
+- [x] Banner shows Lagado's lines (chosen by the author from `machine-content.md`); still with reduced motion
 
-**Verification:** Lighthouse numbers and check output recorded in the journal
-
-**Dependencies:** T6
-**Estimated scope:** S
-
----
-
-## T8: ADR 005, README, journal ✅
-
-**Acceptance criteria:**
-- [x] `docs/adr/005-images-and-credits.md`: images per exhibit, declared once by id, build guard, CSS-tinted texture, exploration-branch practice
-- [x] README current state updated; journal entries for each session
+**Verification:**
+- [x] `npm run check`, `npm run build` pass; playwright-cli at three sizes; screenshots to the author
 
 **Dependencies:** T7
-**Files likely touched:** `docs/adr/005-images-and-credits.md`, `README.md`, `docs/features/lagado/journal.md`
+**Files likely touched:** `src/demos/lagado/Demo.astro`, `src/layouts/ExhibitLayout.astro`, `src/content/exhibits/lagado/exhibit.yaml`
 **Estimated scope:** S
 
 ---
 
-## T9: PR, preview, phone check ✅
+## Checkpoint D — the landing page ✅ ("Yes, balanced", 2026-11-11; banner lines chosen the same day)
+
+- [x] The author approves the full demo page on her phone
+
+---
+
+## T9: Sound module: choice, mute toggle, on-demand Howler ✅
+
+**Description:** `src/sound/`: the preference (unset, on, off) saved on the device, never in a cookie; one small "Sound" toggle right of the play heading, the only sound control (decided with the author after two other versions); Howler downloaded only when sound is turned on. Install Howler 2.2.x after confirming the stable version in its docs.
 
 **Acceptance criteria:**
-- [x] Draft PR to `main` listing the images with their licences; Vercel checks green
-- [x] Checks re-run on the preview; the author approves on her phone; merge on her word
-- [x] After merge: production checked; journal updated
+- [x] Silent by default; the choice is remembered; the mute toggle stays put across page changes and is keyboard-reachable with a clear label
+- [x] With silence chosen (or never chosen), Howler is never downloaded
+- [x] `src/sound/` imports nothing else from the app
 
-**Dependencies:** T8
+**Verification:**
+- [x] `npm run test` (preference logic), `npm run check`, `npm run build` pass
+- [x] playwright-cli network log: no Howler request while silent; Howler requested after "With sound"; mute state kept from demo to essay and back
+
+**Dependencies:** Checkpoint D (can start earlier if a checkpoint is waiting)
+**Files likely touched:** `package.json`, `src/sound/preference.ts` (+ test), `src/sound/player.ts`, `src/sound/SoundToggle.astro`, `src/demos/lagado/Demo.astro`
+**Estimated scope:** M
+
+---
+
+## T10: Lagado sounds, credited and wired ✅
+
+**Description:** Find CC0 candidates for a crank clack, a shake rattle and a soft "kept" click; check each licence on its own page; compress; declare each in Lagado's credits; play them from the machine. Extend the build guard so an uncredited sound file stops the build.
+
+**Acceptance criteria:**
+- [x] Each sound CC0, licence read on its source page, credited (shown in the credits block); each file under ~30 KB
+- [x] Sounds play on crank, shake and keep when sound is on, never when off
+- [x] The build fails on an uncredited sound file (triggered once on purpose, then reverted)
+
+**Verification:**
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] Preview link sent to the author
+
+**Dependencies:** T9
+**Files likely touched:** `src/demos/lagado/sounds/*`, `src/content/exhibits/lagado/exhibit.yaml`, `src/lib/exhibit-pages.ts`, `src/demos/lagado/Machine.tsx`
+**Estimated scope:** M
+
+---
+
+## Checkpoint E — the author listens ✅
+
+- [x] The author keeps or replaces each sound: rattle kept; crank and keep replaced (dice click, traditional stamp); all softened, "softest" level
+- [x] Checked on her iPhone (sound unlock in Safari): "Yes, I like softest, and please let's move on"
+
+---
+
+## T11: The original page and fourth tab ✅
+
+**Description:** An optional `original.mdx` per exhibit; the page at `/exhibits/<slug>/original/` in the annotated-copy layout with a link back to the demo; the tab "The original" shown only when the file exists. Lagado's passage from `original-passage.md`, with the page-break marker removed and the edition credited.
+
+**Acceptance criteria:**
+- [x] Lagado has the page and the tab; an exhibit without `original.mdx` has neither (tested)
+- [x] Passage identical to the Wikisource text apart from the removed marker (automatic comparison); edition, year and editor credited
+- [x] Four tabs on one line at 375px; own title and link preview description; `docs/project.md → Routes` updated
+
+**Verification:**
+- [x] `npm run test`, `npm run check`, `npm run build` pass; playwright-cli at three sizes
+
+**Dependencies:** T1 (independent of the machine)
+**Files likely touched:** `src/content.config.ts`, `src/pages/exhibits/[slug]/original.astro`, `src/components/ExhibitNav.astro`, `src/content/exhibits/lagado/original.mdx`, `docs/project.md`
+**Estimated scope:** M
+
+---
+
+## T12: Lagado making-of ✅
+
+**Description:** Write the making-of from the journal (Phases 0 to 1.2): what was built with AI, the key prompts and decisions, what failed. Short, readable on a phone.
+
+**Acceptance criteria:**
+- [x] Every fact traceable to the journal; the author's quoted words exact
+- [x] Validated or corrected by the author
+
+**Verification:**
+- [x] `npm run build` passes; read on phone width
+
+**Dependencies:** T11 (so it can mention every part)
+**Files likely touched:** `src/content/exhibits/lagado/making-of.mdx`
+**Estimated scope:** S
+
+---
+
+## T13: Performance and full browser checks ✅
+
+**Acceptance criteria:**
+- [x] Demo page on a slowed phone profile (local build): LCP < 2.5 s, CLS < 0.1, INP < 200 ms on a crank
+- [x] Every browser check in the spec passes at 390×844, 375×667 and 1280×800 (no sideways scroll, no external requests, no console errors, reduced motion)
+
+**Verification:** numbers and check output recorded in the journal
+
+**Dependencies:** T12
+**Estimated scope:** S
+
+---
+
+## T14: ADR 006, README, journal ✅
+
+**Acceptance criteria:**
+- [x] `docs/adr/006-…md`: machine logic apart from drawing, the sound module and on-demand Howler, credited sounds, the optional original part
+- [x] README current state updated; journal entries for each session
+
+**Dependencies:** T13
+**Files likely touched:** `docs/adr/006-*.md`, `README.md`, `docs/features/lagado/journal.md`
+**Estimated scope:** S
+
+---
+
+## T15: PR ready, phone check, merge on her word
+
+**Acceptance criteria:**
+- [ ] PR marked ready, listing sounds and texts with their licences; Vercel checks green
+- [ ] Checks re-run on the preview; the author approves on her phone (with sound on her iPhone); merge on her word
+- [ ] After merge: production checked; journal updated; reminder that Part 3 (link preview images) comes next
+
+**Dependencies:** T14
 **Estimated scope:** S
