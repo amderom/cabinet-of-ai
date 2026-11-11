@@ -17,7 +17,7 @@ What follows are three lessons, told as conversations which, I should say, never
 
 <Numbers />
 
-<Scene label="1 · The paradox">
+<Scene label="1 · The paradox" flip>
   <Fragment slot="title">I asked for <em>modern.</em> The machine kept making it old.</Fragment>
   <Line who="me">Make it modern. Sleek. Techy.</Line>
   <Line who="agent">An eighteenth-century typeface for the words. A quill for the folio.</Line>
@@ -39,7 +39,7 @@ What follows are three lessons, told as conversations which, I should say, never
   <Point slot="point">An agent turns a plan into working code in a matter of minutes – and is, I’d argue, always slightly too eager to do so. Specs came fast; the vision came more slowly, through conversation, through prototypes I could tap on my phone, and once through a machine I had built myself. Tellingly, the rounds that began with building were the very ones we had to redo, which is why I kept drawing the agent back: brainstorm first, options second, code last.</Point>
 </Scene>
 
-<Scene label="3 · The authors">
+<Scene label="3 · The authors" flip>
   <Fragment slot="title">Swift, Gulliver and me: <em>who wrote what?</em></Fragment>
   <Line who="agent">Caption: the Engine, drawn by Gulliver.</Line>
   <Line who="me">Gulliver is the narrator. Swift wrote the book. An engraver drew the picture.</Line>
@@ -50,7 +50,12 @@ What follows are three lessons, told as conversations which, I should say, never
   <Point slot="point">A book, then, has an author, a narrator, editors, an illustrator – and now a scholar writing about it all. Telling those voices apart is a matter of reading rather than computing, and it is precisely where the agent stumbled most. The engraver, for one, never promised Swift an accurate count of handles.</Point>
 </Scene>
 
-<RejectionPile />
+<div class="mo-pair">
+
+<Scene label="Interlude" stack>
+  <Fragment slot="title">The rejection pile</Fragment>
+  <RejectionPile />
+</Scene>
 
 <Scene label="Credits" stack>
   <Fragment slot="title">Who made what</Fragment>
@@ -76,3 +81,6 @@ What follows are three lessons, told as conversations which, I should say, never
   </div>
   <Point>The professor promised books “without the least assistance from genius or study”. Three centuries later, his engine finally runs – on a phone, no less – and it still took a little of both.</Point>
 </Scene>
+
+</div>
+

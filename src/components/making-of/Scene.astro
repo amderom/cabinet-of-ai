@@ -6,16 +6,19 @@
  *
  * On a phone it reads top to bottom: title, exchange, commentary. From 1024px it is a
  * two-column spread: label, title and commentary on the left, the exchange on the right.
- * `stack` keeps it in one column at every width (e.g. the credits, set beside another block).
+ * `flip` puts the exchange on the left and the commentary on the right, so a page can
+ * alternate sides. `stack` keeps it in one column at every width (e.g. the credits, set
+ * beside another block).
  */
 interface Props {
   label: string;
   stack?: boolean;
+  flip?: boolean;
 }
-const { label, stack = false } = Astro.props;
+const { label, stack = false, flip = false } = Astro.props;
 ---
 
-<section class:list={["mo-scene", { stack }]}>
+<section class:list={["mo-scene", { stack, flip }]}>
   <span class="label mo-label">{label}</span>
   <h2><slot name="title" /></h2>
   <div class="mo-lines"><slot /></div>
@@ -26,7 +29,7 @@ const { label, stack = false } = Astro.props;
   .mo-scene {
     display: grid;
     gap: 10px;
-    margin-top: 3.2em;
+    margin-top: 72px;
   }
   .mo-label {
     color: var(--color-accent);
@@ -49,10 +52,13 @@ const { label, stack = false } = Astro.props;
     display: none;
   }
   @media (min-width: 1024px) {
+    .mo-scene {
+      margin-top: 128px;
+    }
     .mo-scene:not(.stack) {
       grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
       grid-template-rows: auto auto 1fr;
-      column-gap: 64px;
+      column-gap: 88px;
       align-items: start;
     }
     .mo-scene:not(.stack) > :is(.mo-label, h2, .mo-side) {
@@ -61,6 +67,17 @@ const { label, stack = false } = Astro.props;
     .mo-scene:not(.stack) > .mo-lines {
       grid-column: 2;
       grid-row: 1 / span 3;
+      gap: 14px;
+    }
+    /* Flipped: the exchange on the left, the commentary on the right. */
+    .mo-scene.flip {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    }
+    .mo-scene.flip > :is(.mo-label, h2, .mo-side) {
+      grid-column: 2;
+    }
+    .mo-scene.flip > .mo-lines {
+      grid-column: 1;
     }
   }
 </style>

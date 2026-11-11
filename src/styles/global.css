@@ -343,10 +343,24 @@
     .prose-cabinet:has(.mo-scene) > .mo-scene:not(.stack) {
       grid-column: 1 / -1;
     }
-    .prose-cabinet:has(.mo-scene) > .mo-scene.stack {
+    /* Last row: the credits on the left, the rejection pile on the right (on a phone: pile first). */
+    .prose-cabinet:has(.mo-scene) > .mo-pair {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      column-gap: 88px;
+      align-items: start;
+    }
+    .mo-pair > .mo-scene {
+      grid-row: 1;
+    }
+    .mo-pair > .mo-scene:first-child {
       grid-column: 2;
     }
-    /* Beside the pile, the credits' two lists stack. */
+    .mo-pair > .mo-scene:last-child {
+      grid-column: 1;
+    }
+    /* The credits' two lists stack in their column. */
     .mo-scene.stack .mo-credits {
       grid-template-columns: 1fr;
     }
@@ -390,8 +404,6 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    font-size: 16px;
-    line-height: 1.45;
   }
   .mo-credits li::before {
     content: "— ";
