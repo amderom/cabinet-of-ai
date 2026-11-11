@@ -1,6 +1,6 @@
 ---
 /**
- * Soft reveal on reading pages: headings, engravings and pulled quotes fade
+ * Soft reveal on reading pages: headings, engravings, pulled quotes and making-of chat lines fade
  * and rise in as they reach the screen. Elements are only hidden once this
  * script has run (html.motion-ready), and never with reduced motion.
  */
@@ -9,7 +9,7 @@
 <script>
   function setUp() {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const targets = document.querySelectorAll(".prose-cabinet :is(h2:not(:first-child), .figure, .pull-quote)");
+    const targets = document.querySelectorAll(".prose-cabinet :is(h2:not(:first-child), .figure, .pull-quote, .mo-line, .mo-point)");
     if (!targets.length || !("IntersectionObserver" in window)) return;
     document.documentElement.classList.add("motion-ready");
     const io = new IntersectionObserver(

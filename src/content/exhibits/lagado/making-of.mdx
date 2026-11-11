@@ -1,46 +1,78 @@
 ---
 title: Making the Lagado Engine
-description: "How Swift’s word machine was rebuilt in two days with an AI coding agent: the prompts, the dead ends and the decisions."
+description: "How Swift’s word machine was rebuilt in two days with an AI coding agent: a paradox, a rush to build, and a few confused authors."
 ---
 
-import PullQuote from "../../../components/PullQuote.astro";
+import Scene from "../../../components/making-of/Scene.astro";
+import Line from "../../../components/making-of/Line.astro";
+import Point from "../../../components/making-of/Point.astro";
+import Numbers from "../../../demos/lagado/making-of/Numbers.astro";
+import RejectionPile from "../../../demos/lagado/making-of/RejectionPile.astro";
 
-I didn’t write the code for this machine. An AI coding agent did, over two days in November 2026, while I decided, played, rejected and approved, mostly from my phone. The agent kept a dated journal as it went; this page is written from it.
+“The most ignorant person, at a reasonable charge, and with a little bodily labour, might write books in philosophy, poetry, politicks, laws, mathematicks, and theology.” This is how the professor of Lagado sells his engine to Gulliver – and I must admit that, three centuries later, the pitch sounds uncomfortably familiar. In November 2026, I rebuilt his machine in two days with an AI coding agent. I don’t write code: my own bodily labour mostly consisted in deciding, testing on my phone, and saying no.
 
-My brief was short: the machine had to be “really fun, bold, looks good”, and work on a phone. Everything else was found along the way.
+The method, however, was anything but random. It relied on two sets of skills for coding agents: [Addy Osmani’s agent-skills](https://github.com/addyosmani/agent-skills), which make the agent behave like a careful engineer (spec, plan, build, test, review, ship), and my coworker Félix Medioni’s Vibe Project, which turned my idea into the project’s compass, plan and stack before a single line of code existed.
 
-## The vintage is the content
+What follows are three lessons, told as conversations which, I should say, never quite happened in these words.
 
-The first drawn version looked like an engraving: a wooden frame, little dice, iron cranks. I rejected it. I told the agent “you’re going for a super vintage feel… the look has to be super modern, super sleek… techy”, and that the cranks “look like out of a point and click game built in the 90s”.
+<Numbers />
 
-<PullQuote>The vintage is the content, not the look.</PullQuote>
+<Scene label="1 · The paradox">
+  <Fragment slot="title">I asked for <em>modern.</em> The machine kept making it old.</Fragment>
+  <Line who="me">Make it modern. Sleek. Techy.</Line>
+  <Line who="agent">An eighteenth-century typeface for the words. A quill for the folio.</Line>
+  <Line who="me">Modern.</Line>
+  <Line who="agent">A wooden frame, iron cranks, cross-hatching.</Line>
+  <Line who="me">Modern!</Line>
+  <Line who="agent">Little 3D dice?</Line>
+  <Line who="me">The vintage is the content, not the look.</Line>
+  <Point>Herein lies the paradox of the whole project. A machine made of everything ever written was asked to rebuild a machine from 1726 – and it reached, quite logically, for 1726, as if an old idea could only ever look old. Swift’s engine, after all, does little else: it shuffles what already exists. Breaking the habit took a single rule, which now governs the entire site: <strong>vintage is content, never look.</strong> Swift’s words and the engravings belong to the past; everything you can touch belongs to 2026.</Point>
+</Scene>
 
-The cause was in our own rules: the project said vintage belongs “in objects”, and the agent had treated the machine as an object, down to the iron cranks it had written into the plan. We rewrote the rule: vintage is content, never look. Swift’s words, his spellings and the old engravings carry the past; everything you touch is from 2026. The agent then built three modern directions of the same machine, and I said “I clearly love Signal the most”: plain words on black, a field of thin lines, letters that scramble into words, and a glowing thread through the words you pick.
+<Scene label="2 · The rush">
+  <Fragment slot="title">It wanted to <em>build.</em> I wanted to think first.</Fragment>
+  <Line who="me">What should it feel like?</Line>
+  <Line who="agent">Spec ready. Fifteen tasks. Starting task one.</Line>
+  <Line who="me">Wait. Ask me before you change anything.</Line>
+  <Line who="agent">Understood. Building the sound buttons…</Line>
+  <Line who="me">Think about it first. Explain it to me before you do anything.</Line>
+  <Point>An agent turns a plan into working code in a matter of minutes – and is, I’d argue, always slightly too eager to do so. Specs came fast; the vision came more slowly, through conversation, through prototypes I could tap on my phone, and once through a machine I had built myself. Tellingly, the rounds that began with building were the very ones we had to redo, which is why I kept drawing the agent back: brainstorm first, options second, code last.</Point>
+</Scene>
 
-## Show, don’t describe
+<Scene label="3 · The authors">
+  <Fragment slot="title">Swift, Gulliver and me: <em>who wrote what?</em></Fragment>
+  <Line who="agent">Caption: the Engine, drawn by Gulliver.</Line>
+  <Line who="me">Gulliver is the narrator. Swift wrote the book. An engraver drew the picture.</Line>
+  <Line who="agent">“No genius. No study. Just turn the cranks.” Jonathan Swift, 1726.</Line>
+  <Line who="me">Not Swift’s words. His are “without the least assistance from genius or study”.</Line>
+  <Line who="agent">The engraving shows fewer handles than the forty in the text. Which one is wrong?</Line>
+  <Line who="me">Neither. It’s an illustration, not a blueprint.</Line>
+  <Point>A book, then, has an author, a narrator, editors, an illustrator – and now a scholar writing about it all. Telling those voices apart is a matter of reading rather than computing, and it is precisely where the agent stumbled most. The engraver, for one, never promised Swift an accurate count of handles.</Point>
+</Scene>
 
-For the phone layout, describing and screenshots failed, round after round. A small screenshot of a phone page looks blurrier than the real page, and a description of a layout is not a layout. What worked was a clickable prototype I could open on my own phone, rebuilt as often as needed (28 versions by the end). My verdict on one of them: “only one sentence on the phone because it’s impossible to understand the vertical thing”.
+<RejectionPile />
 
-The phone layout was finally settled by a machine I had built myself, in another session. I showed it to the agent: one look at a working example did what two rounds of descriptions had not.
-
-## Getting Swift right
-
-The words are mine and Swift’s. The agent drafted about two hundred single words from the learned fields of Swift’s time, with a sprinkle of start-up and AI jargon; I cut the old spellings down to about a dozen, because too many were “a bit complicated”. Every old spelling was checked by a script against Swift’s own text, and every figure on the spec sheet against his passage: forty pupils (thirty-six readers, four scribes), forty iron handles, a frame twenty feet square, a fund for five hundred frames. My essay counted thirty-six students and my notes said forty: Swift says both, forty pupils, thirty-six of them reading.
-
-“The original” tab shows his passage exactly as printed, from the 1801 edition on Wikisource. A test compares it word for word with the source and fails if a single word changes.
-
-## The plates, the cards and the sound
-
-Some rounds were just taste. The first cards above the machine were dark and polished, and I said “it looks like vibe-coded slop”. Three more styles looked like “a community manager having fun on Canva”. What survived is simple: three small light plates you can drag around, a huge orange numeral on each, and my ink drawing of Swift on one of them. “The hero has to be my drawing of Swift”, I had said early on.
-
-Sound took three rounds. A floating sound button I found “super annoying”, so there is now one small switch next to the machine, and nothing on the reading pages: the sounds only answer your own taps. The first three sounds came from three different recordings and felt “a bit cheaper”. The agent cannot hear, so it measured instead, cut single clean hits out of free (CC0) recordings and put them on a listening page. I picked a die clicking and an old stamp to sit with the dice rattle, and asked for everything “a bit duller so it feels more luxurious”. I chose the softest of three levels.
-
-## What the agent got wrong
-
-Plenty, and the journal says so. Its own test scripts were often the bug: fake mouse events that moved nothing, a page read before the machine had loaded. A shake made the whole page jump on my phone, and an animation lagged on my computer (“super smooth on phone, not so much on my browser on my computer”); both were measured, traced and fixed. At one point I asked it to stop changing things before asking me. From then on, visual changes mostly started as options I could try in a prototype before anything was built.
-
-What it did well was the patient part: 89 automatic tests, checks at three screen sizes after every change, credits and licences for every image and sound, and a build that refuses to publish anything uncredited.
-
-## Who made what
-
-The agent wrote the code, drafted the words and proposed the options. I chose the direction, the words, the pictures, the sounds and the order of every tab, and checked each step on my phone before it went further. The machine is a collaboration in exactly the way Swift’s professor imagined his: someone turns the handles, and someone decides which lines are worth keeping.
+<Scene label="Credits">
+  <Fragment slot="title">Who made what</Fragment>
+  <div class="mo-credits">
+    <div>
+      <h3>Amélie</h3>
+      <ul>
+        <li>The research article and the essay</li>
+        <li>The vision and the brief</li>
+        <li>Swift’s passage, chosen from his text</li>
+        <li>The ink drawing of Swift</li>
+        <li>Every choice of look, word and sound, checked on her phone</li>
+      </ul>
+    </div>
+    <div>
+      <h3>The agent</h3>
+      <ul>
+        <li>All the code, and its tests</li>
+        <li>First drafts of the machine’s words, the plate texts and the banner, edited and approved by Amélie</li>
+        <li>Options to choose from, and a journal of every step</li>
+      </ul>
+    </div>
+  </div>
+  <Point>The professor promised books “without the least assistance from genius or study”. Three centuries later, his engine finally runs – on a phone, no less – and it still took a little of both.</Point>
+</Scene>

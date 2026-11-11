@@ -1,0 +1,360 @@
+---
+/**
+ * The rejection pile: ideas the author turned down while the machine was built, each with
+ * a tiny drawing of what it looked like and a paraphrase of her verdict (from the journal).
+ * Tap, swipe or use the arrows to go through the deck. The drawings are CSS and inline SVG;
+ * the period-typeface card shows "Mathematicks" in IM Fell English (by Igino Marini, SIL
+ * Open Font License) as a small picture, so the site loads no extra typeface for one word.
+ */
+import { Image } from "astro:assets";
+import fell from "./mathematicks-im-fell.png";
+
+const speaker = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="#9a9184"/></svg>';
+---
+
+<section class="mo-pile" aria-label="The rejection pile">
+  <span class="label">Interlude</span>
+  <h2>The rejection pile</h2>
+  <div class="deck" tabindex="0" aria-label="Rejected ideas. Tap or swipe for the next one.">
+    <article class="card">
+      <span class="what">A quill for the folio</span>
+      <div class="snip s-paper">
+        <svg viewBox="0 0 120 90" width="120" height="90" aria-hidden="true">
+          <path d="M98 8 C70 14 42 40 30 74 L26 84 L34 76 C50 60 74 34 98 8 Z" fill="#fff8e8" stroke="#3b2a17" stroke-width="1.5"></path>
+          <path d="M98 8 L32 78" stroke="#3b2a17" stroke-width="1"></path>
+          <path d="M20 86 C34 82 52 84 70 82" stroke="#3b2a17" stroke-width="1" fill="none" stroke-dasharray="2 3"></path>
+        </svg>
+      </div>
+      <p class="verdict">Too old school for a modern machine.</p>
+      <span class="stamp">REJECTED</span>
+    </article>
+    <article class="card">
+      <span class="what">A period typeface</span>
+      <div class="snip s-paper">
+        <Image src={fell} alt="The word Mathematicks set in IM Fell English, an eighteenth-century style typeface" width={210} />
+      </div>
+      <p class="verdict">One typeface too many.</p>
+      <span class="stamp">REJECTED</span>
+    </article>
+    <article class="card">
+      <span class="what">The engraved machine</span>
+      <div class="snip s-paper">
+        <div class="frame" aria-hidden="true">
+          {Array.from({ length: 12 }, () => <i />)}
+          <span class="k" style="top:-9px;left:20px"></span>
+          <span class="k" style="top:-9px;right:20px"></span>
+          <span class="k" style="left:-10px;top:38px"></span>
+          <span class="k" style="right:-10px;top:38px"></span>
+        </div>
+      </div>
+      <p class="verdict">Like a 90s point-and-click game.</p>
+      <span class="stamp">REJECTED</span>
+    </article>
+    <article class="card">
+      <span class="what">Little 3D dice</span>
+      <div class="snip s-dice" aria-hidden="true">
+        <span class="d">Musick</span><span class="d">Comets</span><span class="d">wisely</span>
+      </div>
+      <p class="verdict">The 3D effect just didn’t work.</p>
+      <span class="stamp">REJECTED</span>
+    </article>
+    <article class="card">
+      <span class="what">Dark, polished cards</span>
+      <div class="snip s-dark" aria-hidden="true">
+        <div class="c"><b>PL. I</b><span>The Engine.<br />Write any book.</span></div>
+      </div>
+      <p class="verdict">Too generic. It looked AI-made.</p>
+      <span class="stamp">REJECTED</span>
+    </article>
+    <article class="card">
+      <span class="what">Three more card styles</span>
+      <div class="snip s-canva" aria-hidden="true"><span class="st">IN<br />BETA!</span></div>
+      <p class="verdict">Fun, but a social-media template.</p>
+      <span class="stamp">REJECTED</span>
+    </article>
+    <article class="card">
+      <span class="what">A floating sound button</span>
+      <div class="snip s-float" aria-hidden="true">
+        <div class="lines"><i style="width:90%"></i><i style="width:80%"></i><i style="width:94%"></i><i style="width:60%"></i><i style="width:86%"></i></div>
+        <span class="b" set:html={speaker} />
+      </div>
+      <p class="verdict">Always in the way of the text.</p>
+      <span class="stamp">REJECTED</span>
+    </article>
+  </div>
+  <div class="nav">
+    <button type="button" class="btn prev" aria-label="Previous card">←</button>
+    <span class="count" aria-live="polite"></span>
+    <button type="button" class="btn next" aria-label="Next card">→</button>
+  </div>
+</section>
+
+<style>
+  .mo-pile {
+    display: grid;
+    gap: 14px;
+    margin-top: 3.2em;
+  }
+  h2 {
+    margin: 0;
+    font-size: clamp(34px, 9.4vw, 48px);
+    line-height: 0.98;
+  }
+  .deck {
+    position: relative;
+    height: 330px;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+  }
+  .deck:focus-visible,
+  .btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  .card {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 10px;
+    padding: 14px 16px 16px;
+    border-radius: 18px;
+    background: var(--color-cream);
+    color: #140d07;
+    box-shadow:
+      0 18px 40px -16px rgb(0 0 0 / 0.8),
+      0 0 30px color-mix(in oklab, var(--color-accent) 15%, transparent);
+    transition:
+      transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.35s;
+  }
+  .what {
+    font: 500 11px var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6b5d4c;
+  }
+  .verdict {
+    align-self: end;
+    margin: 0;
+    font: italic 400 26px/1.1 var(--font-display);
+    color: #140d07;
+  }
+  .stamp {
+    justify-self: end;
+    padding: 4px 10px;
+    border: 2px solid var(--color-accent);
+    border-radius: 6px;
+    color: var(--color-accent);
+    font: 600 12px var(--font-mono);
+    letter-spacing: 0.14em;
+    transform: rotate(-6deg);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-cream);
+    font: 600 14px var(--font-sans);
+    cursor: pointer;
+  }
+  .btn:hover {
+    border-color: var(--color-cream);
+  }
+  .count {
+    font: 500 12px var(--font-mono);
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The tiny drawings */
+  .snip {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 128px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .s-paper {
+    background: #efe3c8;
+  }
+  .s-paper img {
+    width: 210px;
+    height: auto;
+  }
+  .frame {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    width: 128px;
+    height: 92px;
+    padding: 5px;
+    border: 3px double #3b2a17;
+    background: repeating-linear-gradient(45deg, #3b2a17 0 1px, transparent 1px 5px);
+  }
+  .frame i {
+    background: #f6ecd6;
+    border: 1px solid #3b2a17;
+  }
+  .frame .k {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #3b2a17;
+    border-radius: 50%;
+    background: #efe3c8;
+  }
+  .s-dice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: #1a130d;
+  }
+  .s-dice .d {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #f7e7c6, #b8915c);
+    box-shadow:
+      inset -4px -5px 0 #8d6a3d,
+      inset 3px 3px 0 #fff6e0,
+      4px 6px 8px rgb(0 0 0 / 0.6);
+    font: 400 12px var(--font-display);
+    color: #2b1d0f;
+  }
+  .s-dark {
+    background: #1c1c22;
+  }
+  .s-dark .c {
+    display: grid;
+    align-content: space-between;
+    width: 150px;
+    height: 92px;
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    background: linear-gradient(135deg, #2a2a35, #121218);
+    box-shadow: 0 0 24px rgb(130 110 255 / 0.35);
+  }
+  .s-dark b {
+    font: 600 11px var(--font-sans);
+    letter-spacing: 0.08em;
+    color: #b9b2ff;
+  }
+  .s-dark span {
+    font: 700 15px/1.1 var(--font-sans);
+    color: #fff;
+  }
+  .s-canva {
+    background: #ffd6e8;
+  }
+  .s-canva .st {
+    display: grid;
+    place-items: center;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: #ff3d8b;
+    color: #fff;
+    text-align: center;
+    font: 800 15px/1 var(--font-sans);
+    transform: rotate(-12deg);
+    box-shadow: 6px 6px 0 #2400ff;
+  }
+  .s-float {
+    place-items: stretch;
+    background: #0a0806;
+  }
+  .s-float .lines {
+    display: grid;
+    align-content: start;
+    gap: 7px;
+    padding: 16px;
+  }
+  .s-float .lines i {
+    height: 7px;
+    border-radius: 4px;
+    background: rgb(244 236 223 / 0.22);
+  }
+  .s-float .b {
+    position: absolute;
+    top: 34px;
+    right: 22px;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgb(244 236 223 / 0.3);
+    background: rgb(30 24 18 / 0.95);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function setUp(pile: HTMLElement) {
+    const deck = pile.querySelector<HTMLElement>(".deck")!;
+    const cards = [...deck.querySelectorAll<HTMLElement>(".card")];
+    const count = pile.querySelector<HTMLElement>(".count")!;
+    let at = 0;
+    const show = () => {
+      cards.forEach((c, i) => {
+        const d = i - at;
+        c.style.zIndex = String(100 - Math.abs(d));
+        c.style.opacity = d < 0 || d > 2 ? "0" : "1";
+        c.style.transform =
+          d < 0 ? "translateX(-115%) rotate(-10deg)" : `translateY(${d * 10}px) scale(${1 - d * 0.04}) rotate(${d === 0 ? 0 : d % 2 ? 2.5 : -2}deg)`;
+        c.setAttribute("aria-hidden", String(d !== 0));
+      });
+      count.textContent = `${at + 1} / ${cards.length}`;
+    };
+    const go = (n: number) => {
+      at = Math.max(0, Math.min(cards.length - 1, at + n));
+      show();
+    };
+    pile.querySelector<HTMLButtonElement>(".next")!.addEventListener("click", () => go(1));
+    pile.querySelector<HTMLButtonElement>(".prev")!.addEventListener("click", () => go(-1));
+    deck.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") go(1);
+      if (e.key === "ArrowLeft") go(-1);
+    });
+    let x0: number | null = null;
+    deck.addEventListener("pointerdown", (e) => (x0 = e.clientX));
+    deck.addEventListener("pointerup", (e) => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0;
+      go(Math.abs(dx) > 40 && dx > 0 ? -1 : 1);
+      x0 = null;
+    });
+    show();
+  }
+
+  // Runs on first load and after every page change (view transitions).
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLElement>(".mo-pile").forEach((pile) => {
+      if (pile.dataset.ready) return;
+      pile.dataset.ready = "true";
+      setUp(pile);
+    });
+  });
+</script>

@@ -1,0 +1,42 @@
+---
+/**
+ * A making-of scene: a small label, a title that states the point, then a short made-up
+ * exchange (<Line>) and a paragraph of commentary (<Point>). Wrapped in its own section, so
+ * the essay's § numbering skips it. Put the title in the "title" slot.
+ */
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+
+<section class="mo-scene">
+  <span class="label mo-label">{label}</span>
+  <h2><slot name="title" /></h2>
+  <div class="mo-lines"><slot /></div>
+</section>
+
+<style>
+  .mo-scene {
+    display: grid;
+    gap: 10px;
+    margin-top: 3.2em;
+  }
+  .mo-label {
+    color: var(--color-accent);
+  }
+  h2 {
+    margin: 0 0 14px;
+    font-size: clamp(34px, 9.4vw, 48px);
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  h2 :global(em) {
+    color: var(--color-accent);
+  }
+  .mo-lines {
+    display: grid;
+    gap: 12px;
+  }
+</style>

@@ -228,16 +228,16 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## T12: Lagado making-of
+## T12: Lagado making-of ✅
 
 **Description:** Write the making-of from the journal (Phases 0 to 1.2): what was built with AI, the key prompts and decisions, what failed. Short, readable on a phone.
 
 **Acceptance criteria:**
-- [ ] Every fact traceable to the journal; the author's quoted words exact
-- [ ] Validated or corrected by the author
+- [x] Every fact traceable to the journal; the author's quoted words exact
+- [x] Validated or corrected by the author
 
 **Verification:**
-- [ ] `npm run build` passes; read on phone width
+- [x] `npm run build` passes; read on phone width
 
 **Dependencies:** T11 (so it can mention every part)
 **Files likely touched:** `src/content/exhibits/lagado/making-of.mdx`
