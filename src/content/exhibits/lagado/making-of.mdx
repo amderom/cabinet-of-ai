@@ -9,7 +9,7 @@ import Point from "../../../components/making-of/Point.astro";
 import Numbers from "../../../demos/lagado/making-of/Numbers.astro";
 import RejectionPile from "../../../demos/lagado/making-of/RejectionPile.astro";
 
-“The most ignorant person, at a reasonable charge, and with a little bodily labour, might write books in philosophy, poetry, politicks, laws, mathematicks, and theology.” This is how the professor of Lagado sells his engine to Gulliver – and I must admit that, three centuries later, the pitch sounds uncomfortably familiar. In November 2026, I rebuilt his machine in two days with an AI coding agent. I don’t write code: my own bodily labour mostly consisted in deciding, testing on my phone, and saying no.
+“The most ignorant person, at a reasonable charge, and with a little bodily labour, might write books in philosophy, poetry, politicks, laws, mathematicks, and theology.” This is how the professor of Lagado sells his engine to Gulliver – and I must admit that, three centuries later, the pitch sounds uncomfortably familiar. In November 2026, I rebuilt his machine in about ten hours, over two days, with an AI coding agent. I don’t write code: my own bodily labour mostly consisted in deciding, testing on my phone, and saying no.
 
 The method, however, was anything but random. It relied on two sets of skills for coding agents: [Addy Osmani’s agent-skills](https://github.com/addyosmani/agent-skills), which make the agent behave like a careful engineer (spec, plan, build, test, review, ship), and my coworker Félix Medioni’s Vibe Project, which turned my idea into the project’s compass, plan and stack before a single line of code existed.
 
@@ -26,7 +26,7 @@ What follows are three lessons, told as conversations which, I should say, never
   <Line who="me">Modern!</Line>
   <Line who="agent">Little 3D dice?</Line>
   <Line who="me">The vintage is the content, not the look.</Line>
-  <Point>Herein lies the paradox of the whole project. A machine made of everything ever written was asked to rebuild a machine from 1726 – and it reached, quite logically, for 1726, as if an old idea could only ever look old. Swift’s engine, after all, does little else: it shuffles what already exists. Breaking the habit took a single rule, which now governs the entire site: <strong>vintage is content, never look.</strong> Swift’s words and the engravings belong to the past; everything you can touch belongs to 2026.</Point>
+  <Point slot="point">Herein lies the paradox of the whole project. A machine made of everything ever written was asked to rebuild a machine from 1726 – and it reached, quite logically, for 1726, as if an old idea could only ever look old. Swift’s engine, after all, does little else: it shuffles what already exists. Breaking the habit took a single rule, which now governs the entire site: <strong>vintage is content, never look.</strong> Swift’s words and the engravings belong to the past; everything you can touch belongs to 2026.</Point>
 </Scene>
 
 <Scene label="2 · The rush">
@@ -36,7 +36,7 @@ What follows are three lessons, told as conversations which, I should say, never
   <Line who="me">Wait. Ask me before you change anything.</Line>
   <Line who="agent">Understood. Building the sound buttons…</Line>
   <Line who="me">Think about it first. Explain it to me before you do anything.</Line>
-  <Point>An agent turns a plan into working code in a matter of minutes – and is, I’d argue, always slightly too eager to do so. Specs came fast; the vision came more slowly, through conversation, through prototypes I could tap on my phone, and once through a machine I had built myself. Tellingly, the rounds that began with building were the very ones we had to redo, which is why I kept drawing the agent back: brainstorm first, options second, code last.</Point>
+  <Point slot="point">An agent turns a plan into working code in a matter of minutes – and is, I’d argue, always slightly too eager to do so. Specs came fast; the vision came more slowly, through conversation, through prototypes I could tap on my phone, and once through a machine I had built myself. Tellingly, the rounds that began with building were the very ones we had to redo, which is why I kept drawing the agent back: brainstorm first, options second, code last.</Point>
 </Scene>
 
 <Scene label="3 · The authors">
@@ -47,12 +47,12 @@ What follows are three lessons, told as conversations which, I should say, never
   <Line who="me">Not Swift’s words. His are “without the least assistance from genius or study”.</Line>
   <Line who="agent">The engraving shows fewer handles than the forty in the text. Which one is wrong?</Line>
   <Line who="me">Neither. It’s an illustration, not a blueprint.</Line>
-  <Point>A book, then, has an author, a narrator, editors, an illustrator – and now a scholar writing about it all. Telling those voices apart is a matter of reading rather than computing, and it is precisely where the agent stumbled most. The engraver, for one, never promised Swift an accurate count of handles.</Point>
+  <Point slot="point">A book, then, has an author, a narrator, editors, an illustrator – and now a scholar writing about it all. Telling those voices apart is a matter of reading rather than computing, and it is precisely where the agent stumbled most. The engraver, for one, never promised Swift an accurate count of handles.</Point>
 </Scene>
 
 <RejectionPile />
 
-<Scene label="Credits">
+<Scene label="Credits" stack>
   <Fragment slot="title">Who made what</Fragment>
   <div class="mo-credits">
     <div>

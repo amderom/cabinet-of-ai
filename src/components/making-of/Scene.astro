@@ -1,19 +1,25 @@
 ---
 /**
  * A making-of scene: a small label, a title that states the point, then a short made-up
- * exchange (<Line>) and a paragraph of commentary (<Point>). Wrapped in its own section, so
- * the essay's § numbering skips it. Put the title in the "title" slot.
+ * exchange (<Line>) and a paragraph of commentary (<Point slot="point">). Wrapped in its own
+ * section, so the essay's § numbering skips it. Put the title in the "title" slot.
+ *
+ * On a phone it reads top to bottom: title, exchange, commentary. From 1024px it is a
+ * two-column spread: label, title and commentary on the left, the exchange on the right.
+ * `stack` keeps it in one column at every width (e.g. the credits, set beside another block).
  */
 interface Props {
   label: string;
+  stack?: boolean;
 }
-const { label } = Astro.props;
+const { label, stack = false } = Astro.props;
 ---
 
-<section class="mo-scene">
+<section class:list={["mo-scene", { stack }]}>
   <span class="label mo-label">{label}</span>
   <h2><slot name="title" /></h2>
   <div class="mo-lines"><slot /></div>
+  <div class="mo-side"><slot name="point" /></div>
 </section>
 
 <style>
@@ -38,5 +44,23 @@ const { label } = Astro.props;
   .mo-lines {
     display: grid;
     gap: 12px;
+  }
+  .mo-side:empty {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .mo-scene:not(.stack) {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      grid-template-rows: auto auto 1fr;
+      column-gap: 64px;
+      align-items: start;
+    }
+    .mo-scene:not(.stack) > :is(.mo-label, h2, .mo-side) {
+      grid-column: 1;
+    }
+    .mo-scene:not(.stack) > .mo-lines {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+    }
   }
 </style>

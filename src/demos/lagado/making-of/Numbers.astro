@@ -4,10 +4,11 @@
  * field of short lines, drawn as in Machine.tsx) and the site's accent glow. Each new figure
  * scrambles into place like the machine's words, sends an accent ring through the field
  * and moves the glow. Tap (or Enter / arrows) for the next one; auto-advances otherwise.
- * Nothing moves with reduced motion. Figures from docs/features/lagado/journal.md.
+ * Nothing moves with reduced motion. Figures from docs/features/lagado/journal.md; the hours
+ * from git: 19:33–21:12 on 10 November and 12:28–20:34 on 11 November (first to last commit).
  */
 const STATS = [
-  ["2", "days to build the machine", "10–11 November 2026"],
+  ["10", "hours to build the machine", "first to last commit of each day, 10–11 Nov 2026"],
   ["28", "prototypes before it felt right", "versions of the clickable prototype"],
   ["15", "card styles. One survived.", "the three plates above the machine"],
   ["4", "word animations. The first one won.", "a scramble, a die, a flip card, a flip"],
@@ -141,6 +142,13 @@ const [first] = STATS;
   .dots span.on {
     width: 30px;
     background: var(--color-accent);
+  }
+  @media (min-width: 1024px) {
+    .mo-numbers {
+      height: auto;
+      min-height: 400px;
+      margin: 0;
+    }
   }
   @keyframes mo-glow {
     to {

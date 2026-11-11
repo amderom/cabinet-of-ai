@@ -320,6 +320,41 @@
     color: var(--color-accent);
   }
 
+  /*
+   * Making-of pages, from 1024px: the page uses the whole stage instead of one reading column.
+   * The intro sits beside the numbers box, scenes are spreads (see Scene.astro), and the
+   * rejection pile sits beside the credits. Phones keep the single column.
+   */
+  @media (min-width: 1024px) {
+    .prose-cabinet:has(.mo-scene) {
+      display: grid;
+      grid-template-columns: minmax(0, 60ch) minmax(0, 1fr);
+      column-gap: 64px;
+      max-width: none;
+    }
+    .prose-cabinet:has(.mo-scene) > * {
+      grid-column: 1;
+    }
+    .prose-cabinet:has(.mo-scene) > .mo-numbers {
+      grid-column: 2;
+      grid-row: 2 / span 3;
+      align-self: stretch;
+    }
+    .prose-cabinet:has(.mo-scene) > .mo-scene:not(.stack) {
+      grid-column: 1 / -1;
+    }
+    .prose-cabinet:has(.mo-scene) > .mo-scene.stack {
+      grid-column: 2;
+    }
+    /* Beside the pile, the credits' two lists stack. */
+    .mo-scene.stack .mo-credits {
+      grid-template-columns: 1fr;
+    }
+    .mo-scene.stack .mo-credits > div {
+      padding-inline: 0 !important;
+    }
+  }
+
   /* Making-of credits: who made what, two plain lists side by side from 620px. */
   .mo-credits {
     display: grid;
