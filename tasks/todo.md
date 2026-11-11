@@ -142,16 +142,16 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## T8: Page order and parody banner (page order ✅; parody banner still to do)
+## T8: Page order and parody banner ✅
 
 **Description:** Put the page in the agreed order (title → cards → "Turn the cranks" → machine → folio → banner → calls to action and credits) and fill the scrolling banner with the validated parody lines.
 
 **Acceptance criteria:**
-- [ ] Order as in the spec at phone and desktop sizes; the machine about one swipe down on a phone
-- [ ] Banner shows Lagado's lines (chosen by the author from `machine-content.md`); still with reduced motion
+- [x] Order as in the spec at phone and desktop sizes; the machine about one swipe down on a phone
+- [x] Banner shows Lagado's lines (chosen by the author from `machine-content.md`); still with reduced motion
 
 **Verification:**
-- [ ] `npm run check`, `npm run build` pass; playwright-cli at three sizes; screenshots to the author
+- [x] `npm run check`, `npm run build` pass; playwright-cli at three sizes; screenshots to the author
 
 **Dependencies:** T7
 **Files likely touched:** `src/demos/lagado/Demo.astro`, `src/layouts/ExhibitLayout.astro`, `src/content/exhibits/lagado/exhibit.yaml`
@@ -159,9 +159,9 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## Checkpoint D — the landing page ✅ ("Yes, balanced", 2026-11-11; parody banner still to do)
+## Checkpoint D — the landing page ✅ ("Yes, balanced", 2026-11-11; banner lines chosen the same day)
 
-- [ ] The author approves the full demo page on her phone
+- [x] The author approves the full demo page on her phone
 
 ---
 

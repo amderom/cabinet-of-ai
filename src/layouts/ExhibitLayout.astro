@@ -10,6 +10,7 @@ import ExhibitNav from "../components/ExhibitNav.astro";
 import ExhibitCta from "../components/ExhibitCta.astro";
 import Credits from "../components/Credits.astro";
 import Reveal from "../components/Reveal.astro";
+import Ticker from "../components/Ticker.astro";
 import type { ExhibitPart } from "../lib/exhibits";
 import { getImage } from "astro:assets";
 import { creditFor } from "../lib/credits";
@@ -86,6 +87,13 @@ const titleEnd = words.at(-1);
       )
     }
     <slot />
+    {
+      isDemo && exhibit.data.banner && (
+        <div class="-mx-4 mt-14">
+          <Ticker items={exhibit.data.banner} duration={40} />
+        </div>
+      )
+    }
     <ExhibitCta research={exhibit.data.research} />
     <Credits credits={exhibit.data.credits} />
   </main>

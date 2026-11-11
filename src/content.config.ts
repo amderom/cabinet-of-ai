@@ -49,6 +49,8 @@ const exhibits = defineCollection({
       hero: z.string().optional(),
       /** Small tilted label above the title on the demo page, e.g. "In beta since 1726". */
       sticker: z.string().optional(),
+      /** Parody lines for the scrolling banner under the demo. */
+      banner: z.array(z.string().trim().min(1)).optional(),
     }),
 });
 

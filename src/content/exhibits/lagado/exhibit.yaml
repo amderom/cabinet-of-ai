@@ -39,6 +39,16 @@ credits:
 texture: the-engine
 hero: swift-portrait
 sticker: In beta since 1726
+# Parody banner under the machine (chosen by the operator from machine-content.md, 2026-11-11).
+banner:
+  - Trained on all the words of the language
+  - "Human in the loop: 36 readers, 4 scribes"
+  - "Now hiring: 40 pupils, six hours a day"
+  - Shipping broken sentences in large folio since 1726
+  - Disrupting the Royal Society since 1726
+  - Sole inventor. Rivals in Europe welcome to steal
+  - Hallucinations, hand-bound
+  - Founded in Lagado. Funded by nobody, yet
 research:
   title: "Totalité et infini de la machine à tout dire de Gulliver's Travels : du programme littéraire au programme informatique"
   journal: "XVII-XVIII"
