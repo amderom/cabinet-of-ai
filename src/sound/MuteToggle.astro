@@ -1,23 +1,26 @@
 ---
 /**
- * The site-wide sound switch, in every page header. It stays in place across page
- * changes (transition:persist) and reads "Sound" with a pressed state, so screen readers
- * hear "Sound, toggle button, pressed / not pressed". Turning it on downloads Howler.
+ * The site-wide sound switch: a small speaker icon pinned to the top-right corner of every
+ * page (in line with the header row at the top, and still there while scrolling, so sound
+ * can be muted at any moment). Kept across page changes (transition:persist). Screen
+ * readers hear "Sound, toggle button, pressed / not pressed". Turning it on downloads Howler.
+ *
+ * Pages leave room for it at the right end of their header row (see `.sound-room`).
  */
 ---
 
 <button
   type="button"
-  class="sound-toggle label"
+  class="sound-toggle"
   data-sound-toggle
+  aria-label="Sound"
   aria-pressed="false"
   transition:persist="sound-toggle">
-  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
     <path class="speaker" d="M3 9.5v5h4l5 4v-13l-5 4H3z"></path>
     <path class="waves" d="M15.5 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"></path>
     <path class="cross" d="M16 9.5l5 5M21 9.5l-5 5"></path>
   </svg>
-  <span>Sound</span>
 </button>
 
 <script>
@@ -44,19 +47,30 @@
 
 <style>
   .sound-toggle {
-    display: inline-flex;
-    min-width: 44px;
-    min-height: 44px;
-    align-items: center;
-    gap: 7px;
+    position: fixed;
+    z-index: 40;
+    /* In line with the header row (56px tall), and with the page's right text edge. */
+    top: max(6px, env(safe-area-inset-top));
+    right: max(16px, calc((100% - 1232px) / 2 + 16px));
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
     padding: 0;
-    border: 0;
-    background: none;
+    border: 1px solid rgb(244 236 223 / 0.12);
+    border-radius: 999px;
+    background: rgb(10 8 6 / 0.72);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     color: var(--color-muted);
     cursor: pointer;
+    transition:
+      color 0.2s,
+      border-color 0.2s;
   }
   .sound-toggle:hover,
   .sound-toggle[aria-pressed="true"] {
+    border-color: rgb(244 236 223 / 0.3);
     color: var(--color-cream);
   }
   .sound-toggle:focus-visible {
@@ -64,7 +78,6 @@
     outline-offset: 2px;
   }
   svg {
-    flex: none;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.6;

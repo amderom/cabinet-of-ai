@@ -77,8 +77,8 @@ Order on a phone (desktop gets more width, same order):
 
 ## Sound
 
-- **The choice:** two buttons above the machine, *"With sound"* and *"In silence"*. The machine is playable before choosing (silent until then: play first). The choice is remembered on the device (browser storage, never a cookie). In Phase 1.3, the cabinet asks the same question at its first gesture and the answer carries over.
-- **Mute toggle** in the site header, on every page, kept across page changes (`transition:persist`), reachable by keyboard, with a clear label.
+- **The invitation:** one quiet button above the machine, *"Play with sound"* (a toggle, pressed when sound is on). Silence is the default, so there is no "In silence" button (changed from two buttons with the author, 2026-11-11). The machine is playable before choosing (silent until then: play first). The choice is remembered on the device (browser storage, never a cookie). In Phase 1.3, the cabinet asks the same question at its first gesture and the answer carries over.
+- **Sound icon** pinned to the top-right corner of every page (in line with the header row, still there while scrolling), kept across page changes (`transition:persist`), first in keyboard order, labelled "Sound" with a pressed state.
 - **First sounds:** a wooden clack for a crank, a rattle for "Shake the frame", a soft click when a row is kept in the folio. Short, quiet, and never needed to understand anything.
 - **Sources:** CC0 recordings only (e.g. Freesound filtered on CC0), licence checked on each file's own page, each declared in Lagado's `credits` (shown in the credits block). Files kept small (compressed, under ~30 KB each).
 - **Howler.js** (approved in docs/project.md) is downloaded only after the visitor picks "With sound" or unmutes. Visitors who stay silent never load it.

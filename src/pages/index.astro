@@ -4,7 +4,6 @@
 // The real cabinet design comes in Phase 1.1.
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import MuteToggle from "../sound/MuteToggle.astro";
 import { sortByOrder } from "../lib/exhibits";
 
 const exhibits = sortByOrder(await getCollection("exhibits"));
@@ -14,12 +13,9 @@ const exhibits = sortByOrder(await getCollection("exhibits"));
   title="Cabinet of AI"
   description="A cabinet of curiosities of the historical prefigurations of artificial intelligence."
 >
-  <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
+  <header class="sound-room label flex items-center justify-between px-4 py-1.5 text-muted">
     <span class="text-cream">Cabinet of AI</span>
-    <div class="flex items-center gap-5">
-      <MuteToggle />
-      <span>Placeholder</span>
-    </div>
+    <span>Placeholder</span>
   </header>
 
   <main>

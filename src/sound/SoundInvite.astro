@@ -1,0 +1,78 @@
+---
+/**
+ * "Play with sound": one quiet invitation above a demo. Silence is the default, so there
+ * is no "in silence" button; the demo plays before anyone taps this. It is a toggle in
+ * step with the pinned sound icon (pressed = sound on), and the tap counts as the gesture
+ * iPhones need before a page may play sound.
+ */
+---
+
+<button type="button" class="sound-invite" data-sound-invite aria-pressed="false">
+  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+    <path class="speaker" d="M3 9.5v5h4l5 4v-13l-5 4H3z"></path>
+    <path class="waves" d="M15.5 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"></path>
+  </svg>
+  Play with sound
+</button>
+
+<script>
+  import { getPreference, onPreferenceChange, setPreference } from "./player";
+  import { toggled } from "./preference";
+
+  function sync() {
+    for (const button of document.querySelectorAll("[data-sound-invite]")) {
+      button.setAttribute("aria-pressed", String(getPreference() === "on"));
+    }
+  }
+
+  // Runs on the first load and after every page change, binding the new page's button.
+  document.addEventListener("astro:page-load", () => {
+    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-sound-invite]")) {
+      if (button.dataset.bound) continue;
+      button.dataset.bound = "true";
+      button.addEventListener("click", () => setPreference(toggled(getPreference())));
+    }
+    sync();
+  });
+  onPreferenceChange(sync);
+</script>
+
+<style>
+  .sound-invite {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    margin: 14px 0 18px;
+    padding: 0 18px 0 15px;
+    border: 1px solid rgb(244 236 223 / 0.12);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-muted);
+    font: 600 14px var(--font-sans);
+    cursor: pointer;
+  }
+  .sound-invite:hover,
+  .sound-invite[aria-pressed="true"] {
+    border-color: var(--color-cream);
+    color: var(--color-cream);
+  }
+  .sound-invite:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  svg {
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+  }
+  .speaker {
+    fill: currentColor;
+    stroke: none;
+  }
+  [aria-pressed="true"] .waves {
+    stroke: var(--color-accent);
+  }
+</style>

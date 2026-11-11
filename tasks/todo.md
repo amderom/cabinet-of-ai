@@ -167,7 +167,7 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ## T9: Sound module: choice, mute toggle, on-demand Howler ✅
 
-**Description:** `src/sound/`: the preference (unset, on, off) saved on the device, never in a cookie; "With sound / In silence" buttons above the machine; a mute toggle in the site header kept across page changes; Howler downloaded only when sound is turned on. Install Howler 2.2.x after confirming the stable version in its docs.
+**Description:** `src/sound/`: the preference (unset, on, off) saved on the device, never in a cookie; a "Play with sound" button above the machine (was "With sound / In silence", changed with the author); a sound icon pinned to the top-right corner of every page, kept across page changes; Howler downloaded only when sound is turned on. Install Howler 2.2.x after confirming the stable version in its docs.
 
 **Acceptance criteria:**
 - [x] Silent by default; the choice is remembered; the mute toggle stays put across page changes and is keyboard-reachable with a clear label
