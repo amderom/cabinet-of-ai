@@ -88,14 +88,16 @@
 
 ---
 
-## Checkpoint B — the author plays on her phone
+## Checkpoint B — the author plays on her phone ✅
 
-- [ ] Fun? Light-up effect kept, changed or dropped?
-- [ ] Decisions recorded in the journal
+- [x] Fun? Yes ("it's fun"). Light-up note kept for now. Cranks: not loved yet; options shown against the drawn machine at Checkpoint C
+- [x] Decisions recorded in the journal
 
 ---
 
 ## T5: Frame, blocks and cranks drawn in the engraving language
+
+**Note from Checkpoint B:** the author isn't sure about the cranks; show 2–3 crank designs on the drawn machine so she picks in context.
 
 **Description:** Draw the machine as an object: the frame and its wires, the wooden blocks, the iron cranks at row ends and column feet, in fine neon orange line-work with cross-hatching (SVG and CSS, no image file), sized to the grid chosen at B.
 

@@ -169,12 +169,6 @@ export default function Machine() {
       </button>
 
       <section className="lagado-folio" aria-label="Folio">
-        <div className="lagado-folio-head label">
-          <span>
-            Folio · {folio.length} line{folio.length === 1 ? "" : "s"}
-          </span>
-          <span>Tap a line to edit it</span>
-        </div>
         <div className="lagado-draft">
           <p aria-live="polite">{noBreak(words.join(" "))}</p>
           <button type="button" className="lagado-btn is-primary" onClick={keep}>
@@ -189,29 +183,37 @@ export default function Machine() {
         {folio.length === 0 ? (
           <p className="lagado-empty">Kept lines land here. Edit them, share them, or throw them away.</p>
         ) : (
-          <ul className="lagado-lines">
-            {newestFirst(folio).map((line) => (
-              <li key={line.id} className={`lagado-line${line.id === fresh ? " is-new" : ""}`}>
-                <EditableText text={line.text} onSave={(text) => setFolio((f) => editLine(f, line.id, text))} />
-                <button
-                  type="button"
-                  className="lagado-icon"
-                  aria-label={canShare ? "Share this line" : "Copy this line"}
-                  title={canShare ? "Share" : "Copy"}
-                  onClick={() => share([line.text], "Copied. Paste it anywhere.")}>
-                  {canShare ? <ShareIcon /> : <CopyIcon />}
-                </button>
-                <button
-                  type="button"
-                  className="lagado-icon"
-                  aria-label="Delete this line"
-                  title="Delete"
-                  onClick={() => remove([line.id], "Line deleted.")}>
-                  <DeleteIcon />
-                </button>
-              </li>
-            ))}
-          </ul>
+          <>
+            <div className="lagado-folio-head label">
+              <span>
+                Folio · {folio.length} line{folio.length === 1 ? "" : "s"}
+              </span>
+              <span>Tap a line to edit it</span>
+            </div>
+            <ul className="lagado-lines">
+              {newestFirst(folio).map((line) => (
+                <li key={line.id} className={`lagado-line${line.id === fresh ? " is-new" : ""}`}>
+                  <EditableText text={line.text} onSave={(text) => setFolio((f) => editLine(f, line.id, text))} />
+                  <button
+                    type="button"
+                    className="lagado-icon"
+                    aria-label={canShare ? "Share this line" : "Copy this line"}
+                    title={canShare ? "Share" : "Copy"}
+                    onClick={() => share([line.text], "Copied. Paste it anywhere.")}>
+                    {canShare ? <ShareIcon /> : <CopyIcon />}
+                  </button>
+                  <button
+                    type="button"
+                    className="lagado-icon"
+                    aria-label="Delete this line"
+                    title="Delete"
+                    onClick={() => remove([line.id], "Line deleted.")}>
+                    <DeleteIcon />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
 
         {folio.length > 0 && (

@@ -61,7 +61,7 @@ Mostly sequential: each checkpoint is the author's decision and shapes what foll
 - [x] T3: Folio logic and tests
 - [x] T4: Rough machine and folio on the demo page, draft PR
 
-### Checkpoint B — the author plays on her phone
+### Checkpoint B — the author plays on her phone ✅
 
 ### Part C: The machine, drawn
 - [ ] T5: Frame, blocks and cranks drawn in the engraving language
