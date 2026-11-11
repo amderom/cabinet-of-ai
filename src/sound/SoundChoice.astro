@@ -1,0 +1,65 @@
+---
+/**
+ * "With sound / In silence", shown above a demo. The demo plays before any choice (in
+ * silence). The pressed button shows the current choice and stays in step with the
+ * header's sound switch. The "With sound" tap also counts as the gesture iPhones need
+ * before a page may play sound.
+ */
+---
+
+<div class="sound-choice" role="group" aria-label="Sound">
+  <button type="button" data-sound-choice="on" aria-pressed="false">With sound</button>
+  <button type="button" data-sound-choice="off" aria-pressed="false">In silence</button>
+</div>
+
+<script>
+  import { getPreference, onPreferenceChange, setPreference } from "./player";
+
+  function sync() {
+    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-sound-choice]")) {
+      button.setAttribute("aria-pressed", String(button.dataset.soundChoice === getPreference()));
+    }
+  }
+
+  // Runs on the first load and after every page change, binding the new page's buttons.
+  document.addEventListener("astro:page-load", () => {
+    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-sound-choice]")) {
+      if (button.dataset.bound) continue;
+      button.dataset.bound = "true";
+      button.addEventListener("click", () => setPreference(button.dataset.soundChoice === "on" ? "on" : "off"));
+    }
+    sync();
+  });
+  onPreferenceChange(sync);
+</script>
+
+<style>
+  .sound-choice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0 18px;
+  }
+  button {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid rgb(244 236 223 / 0.12);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-muted);
+    font: 600 14px var(--font-sans);
+    cursor: pointer;
+  }
+  button:hover {
+    border-color: var(--color-cream);
+    color: var(--color-cream);
+  }
+  button[aria-pressed="true"] {
+    border-color: var(--color-cream);
+    color: var(--color-cream);
+  }
+  button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+</style>

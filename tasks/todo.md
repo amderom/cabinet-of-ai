@@ -165,18 +165,18 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## T9: Sound module: choice, mute toggle, on-demand Howler
+## T9: Sound module: choice, mute toggle, on-demand Howler ✅
 
 **Description:** `src/sound/`: the preference (unset, on, off) saved on the device, never in a cookie; "With sound / In silence" buttons above the machine; a mute toggle in the site header kept across page changes; Howler downloaded only when sound is turned on. Install Howler 2.2.x after confirming the stable version in its docs.
 
 **Acceptance criteria:**
-- [ ] Silent by default; the choice is remembered; the mute toggle stays put across page changes and is keyboard-reachable with a clear label
-- [ ] With silence chosen (or never chosen), Howler is never downloaded
-- [ ] `src/sound/` imports nothing else from the app
+- [x] Silent by default; the choice is remembered; the mute toggle stays put across page changes and is keyboard-reachable with a clear label
+- [x] With silence chosen (or never chosen), Howler is never downloaded
+- [x] `src/sound/` imports nothing else from the app
 
 **Verification:**
-- [ ] `npm run test` (preference logic), `npm run check`, `npm run build` pass
-- [ ] playwright-cli network log: no Howler request while silent; Howler requested after "With sound"; mute state kept from demo to essay and back
+- [x] `npm run test` (preference logic), `npm run check`, `npm run build` pass
+- [x] playwright-cli network log: no Howler request while silent; Howler requested after "With sound"; mute state kept from demo to essay and back
 
 **Dependencies:** Checkpoint D (can start earlier if a checkpoint is waiting)
 **Files likely touched:** `package.json`, `src/sound/preference.ts` (+ test), `src/sound/player.ts`, `src/sound/MuteToggle.astro`, `src/layouts/ExhibitLayout.astro`

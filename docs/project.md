@@ -65,7 +65,7 @@ None at runtime.
 - `@astrojs/mdx@8` — MDX content
 - `tailwindcss@4` + `@tailwindcss/vite` — styling (installed via `astro add tailwind`)
 - `gsap@3.15` + `@gsap/react` — animation; all plugins (ScrollTrigger, SplitText, Flip, Draggable…) are free, including commercial use
-- `howler@2.2` — sound effects across the site (version to confirm at install; not listed by Context7)
+- `howler@2.2.4` — sound effects across the site, downloaded only when a visitor turns sound on (2.2.4 confirmed as the latest stable release on npm at install, 2026-11-11; not listed by Context7)
 - `tone@15.1` — generative music, loaded **only** inside demos that need it (first use: Glass Bead Game, post-MVP)
 - `vitest@5` — unit tests
 - `@astrojs/check` + `typescript@5` — type checking (`npm run check`), dev only
@@ -78,7 +78,7 @@ None at runtime.
 - No analytics, tracking scripts or cookies
 
 ### Version policy
-All versions above were verified via Context7 at project start, except Howler (not listed by Context7 — confirm the stable 2.2.x release at install).
+All versions above were verified via Context7 at project start, except Howler (not listed by Context7; 2.2.4 confirmed on npm and its README at install).
 Any upgrade must be re-validated via Context7 (or the official docs when Context7 lags) and documented as an ADR in `docs/adr/`.
 Exception to the 6-month rule: Astro 7 (released 2026-06-22), approved by the operator — see ADR 001.
 

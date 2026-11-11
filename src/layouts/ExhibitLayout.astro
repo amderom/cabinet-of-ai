@@ -11,6 +11,7 @@ import ExhibitCta from "../components/ExhibitCta.astro";
 import Credits from "../components/Credits.astro";
 import Reveal from "../components/Reveal.astro";
 import Ticker from "../components/Ticker.astro";
+import MuteToggle from "../sound/MuteToggle.astro";
 import type { ExhibitPart } from "../lib/exhibits";
 import { getImage } from "astro:assets";
 import { creditFor } from "../lib/credits";
@@ -50,7 +51,10 @@ const titleEnd = words.at(-1);
   <div class="exhibit-stage">
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
     <a href="/" class="inline-flex min-h-11 items-center text-cream hover:text-accent">← Cabinet of AI</a>
-    <span>{partName}</span>
+    <div class="flex items-center gap-5">
+      <MuteToggle />
+      <span>{partName}</span>
+    </div>
   </header>
 
   {/* Reading parts get a smaller header so the text (and the article link) starts on the first screen. */}
