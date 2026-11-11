@@ -63,7 +63,7 @@ export default function Plates({ images }: Props) {
     };
     const layout = () => {
       // Start 14px in, so the first card's tilted corner lines up with the title.
-      const fan = fanPositions(size(), { width: cards[0].offsetWidth, height: cards[0].offsetHeight }, cards.length, 14);
+      const fan = fanPositions(size(), { width: cards[0].offsetWidth, height: cards[0].offsetHeight }, cards.length, 14, matchMedia("(min-width: 960px)").matches);
       cards.forEach((c, i) => (c.dataset.moved ? put(c, Number(c.dataset.x), Number(c.dataset.y)) : put(c, fan[i].x, fan[i].y)));
     };
     layout();

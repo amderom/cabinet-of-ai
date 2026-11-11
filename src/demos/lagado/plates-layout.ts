@@ -16,11 +16,15 @@ export interface Point {
 /** Vertical offsets of the fan, as fractions of the free height (the middle card sits highest). */
 const FAN_Y = [0.22, 0.04, 0.28, 0.12, 0.3];
 
-/** `inset`: how far from the left edge the first card starts (room for its tilted corner). */
-export function fanPositions(area: Size, card: Size, count: number, inset = 0): Point[] {
+/**
+ * `inset`: how far from the left edge the first card starts (room for its tilted corner).
+ * `centre`: place the whole fan in the middle of the area instead (desktop stage).
+ */
+export function fanPositions(area: Size, card: Size, count: number, inset = 0, centre = false): Point[] {
   const step = Math.min(card.width * 0.72, Math.max(0, (area.width - card.width - inset) / Math.max(1, count - 1)));
+  const start = centre ? Math.max(inset, (area.width - (card.width + (count - 1) * step)) / 2) : inset;
   return Array.from({ length: count }, (_, i) =>
-    clampToArea({ x: inset + i * step, y: FAN_Y[i % FAN_Y.length] * (area.height - card.height) }, area, card),
+    clampToArea({ x: start + i * step, y: FAN_Y[i % FAN_Y.length] * (area.height - card.height) }, area, card),
   );
 }
 

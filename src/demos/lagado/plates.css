@@ -12,6 +12,15 @@
 @media (min-width: 760px) {
   .lp-area { height: 400px; }
 }
+/* Desktop stage: the plates have their own column beside the title, and are bigger. */
+@media (min-width: 960px) {
+  .lp-area { height: 470px; margin-top: 0; }
+  .lp-plate { width: 272px !important; padding: 16px 17px 17px !important; }
+  .lp-pic { height: 220px !important; }
+  .lp-num { font-size: 152px !important; }
+  .lp-cap i { font-size: 27px !important; }
+  .lp-hint { text-align: center; }
+}
 
 .lp-plate {
   position: absolute;
@@ -111,6 +120,11 @@
 
 /* A plate opened large: the same cream paper. */
 .lp-dialog {
+  /* Centred on every screen: the site's base styles remove the browser's default centring. */
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
   box-sizing: border-box;
   width: min(92vw, 520px);
   max-height: 88vh;

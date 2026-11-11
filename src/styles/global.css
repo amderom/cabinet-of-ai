@@ -391,3 +391,36 @@
   text-transform: uppercase;
   transform: rotate(-4deg);
 }
+
+/*
+ * Demo pages, desktop: one centred stage (decided with the author, 2026-11-11). The title
+ * sits on the left, the exhibit's hero (Lagado: the plates) on the right, and the
+ * texture and glow are anchored behind that right column instead of the window's edge,
+ * so the object, its light and its engraving share one place. Phones are unchanged.
+ */
+.demo-stage { max-width: 1232px; margin-inline: auto; }
+@media (min-width: 960px) {
+  .demo-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 32px;
+    align-items: center;
+  }
+  .demo-hero .exhibit-sticker { grid-column: 1; grid-row: 1; justify-self: start; align-self: end; }
+  .demo-hero h1 { grid-column: 1; grid-row: 2; align-self: start; font-size: clamp(104px, 10.4vw, 148px) !important; }
+  .demo-hero .demo-hero-side { grid-column: 2; grid-row: 1 / 3; }
+  /* Texture and glow centred on the right column of the stage (50% + about a quarter of 1232px). */
+  .texture:not(.texture-calm) {
+    right: auto;
+    left: calc(50% + min(25vw, 300px) - min(22vw, 320px));
+    top: 4svh;
+    width: min(44vw, 640px);
+  }
+  .glow-lit {
+    right: auto;
+    left: calc(50% + min(25vw, 300px) - 34vw);
+    width: 68vw;
+    height: 68vw;
+  }
+}

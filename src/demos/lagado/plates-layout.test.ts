@@ -26,6 +26,12 @@ describe("fanPositions", () => {
     expect(pos[2].x + 152).toBeLessThanOrEqual(360);
   });
 
+  it("can centre the whole fan in its area (desktop stage)", () => {
+    const pos = fanPositions({ width: 700, height: 470 }, { width: 272, height: 330 }, 3, 14, true);
+    const left = pos[0].x, right = 700 - (pos[2].x + 272);
+    expect(Math.abs(left - right)).toBeLessThan(1);
+  });
+
   it("overlaps the cards like a hand, rather than spreading them across a wide screen", () => {
     const pos = fanPositions({ width: 1180, height: 400 }, { width: 236, height: 270 }, 3);
     expect(pos[1].x - pos[0].x).toBeLessThan(236);
