@@ -32,17 +32,17 @@
 
 ---
 
-## T2: Engine logic and tests
+## T2: Engine logic and tests ✅
 
 **Description:** The machine's rules as plain TypeScript: a frame of rows (3 on a phone, 6 on desktop) × 6 grammatical places; flip a set of blocks (a place or a row), shake, pick one word per place, read the composed sentence, spot a good combination; no duplicate word within a place; randomness that can be fixed for tests. Words from the validated list in `words.ts`.
 
 **Acceptance criteria:**
-- [ ] Turning a row changes only that row; a column only that column; shake changes the whole grid; a block never shows the same word twice in a row
-- [ ] Every word stays in its grammatical place; place cranks and row cranks each flip exactly the right blocks; the composed sentence follows the picks
-- [ ] The same seed gives the same results; good combinations are detected by a simple, documented rule
+- [x] Turning a row changes only that row; a column only that column; shake changes the whole grid; a block never shows the same word twice in a row
+- [x] Every word stays in its grammatical place; place cranks and row cranks each flip exactly the right blocks; the composed sentence follows the picks
+- [x] The same seed gives the same results; good combinations are detected by a simple, documented rule
 
 **Verification:**
-- [ ] `npm run test` passes with tests for each rule above; `npm run check` passes
+- [x] `npm run test` passes with tests for each rule above; `npm run check` passes
 
 **Dependencies:** Checkpoint A
 **Files likely touched:** `src/demos/lagado/engine.ts`, `src/demos/lagado/engine.test.ts`, `src/demos/lagado/words.ts`

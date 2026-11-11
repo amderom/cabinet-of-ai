@@ -57,7 +57,7 @@ Mostly sequential: each checkpoint is the author's decision and shapes what foll
 ### Checkpoint A — the author edits the words and texts ✅
 
 ### Part B: The machine, rough
-- [ ] T2: Engine logic and tests
+- [x] T2: Engine logic and tests
 - [ ] T3: Folio logic and tests
 - [ ] T4: Rough machine and folio on the demo page, draft PR
 
