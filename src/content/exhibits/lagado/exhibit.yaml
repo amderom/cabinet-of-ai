@@ -36,28 +36,30 @@ credits:
     source: "Source gallica.bnf.fr / BnF"
     url: "https://gallica.bnf.fr/ark:/12148/btv1b86002890/f78.item"
     licence: "Public domain, non-commercial reuse (Gallica terms)"
-  # Sounds (src/demos/lagado/sounds/): the original .ogg untouched, plus an .m4a copy for Safari.
-  # Licences read on each pack's OpenGameArt page and in the licence file inside the pack (2026-11-11).
+  # Sounds (src/demos/lagado/sounds/): each cut to one hit, softened (high frequencies rolled off,
+  # a little low warmth) and levelled to the rattle; saved as .m4a, with a .wav fallback.
+  # Licences read on each source page (OpenGameArt's licence field and the pack's licence file;
+  # Freesound's licence box), 2026-11-11. Chosen by the author by ear (Checkpoint E).
   - id: sound-crank
     sound: crank
-    asset: "Wooden knock (wood_hit_06), from 100 CC0 metal and wood SFX"
-    author: "rubberduck"
+    asset: "One die clicking (die-throw-1, trimmed and softened), from Casino Audio"
+    author: "Kenney (kenney.nl)"
     source: "OpenGameArt"
-    url: "https://opengameart.org/content/100-cc0-metal-and-wood-sfx"
+    url: "https://opengameart.org/content/54-casino-sound-effects-cards-dice-chips"
     licence: "CC0"
   - id: sound-shake
     sound: shake
-    asset: "Dice shaken in a cup (dice-shake-1), from Casino Audio"
+    asset: "Dice shaken in a cup (dice-shake-1, trimmed and softened), from Casino Audio"
     author: "Kenney (kenney.nl)"
     source: "OpenGameArt"
     url: "https://opengameart.org/content/54-casino-sound-effects-cards-dice-chips"
     licence: "CC0"
   - id: sound-keep
     sound: keep
-    asset: "Book set down (bookPlace1), from RPG sounds"
-    author: "Kenney (kenney.nl)"
-    source: "OpenGameArt"
-    url: "https://opengameart.org/content/50-rpg-sound-effects"
+    asset: "Traditional stamp (trimmed and softened)"
+    author: "I.fekry"
+    source: "Freesound"
+    url: "https://freesound.org/people/I.fekry/sounds/470710/"
     licence: "CC0"
 texture: the-engine
 hero: swift-portrait

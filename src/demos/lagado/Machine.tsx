@@ -20,19 +20,20 @@ import { addLine, editLine, loadFolio, newestFirst, removeLines, saveFolio, shar
 import { PLACES } from "./words";
 import "./machine.css";
 import { play, registerSounds } from "../../sound/player";
-import crankOgg from "./sounds/crank.ogg?url";
 import crankM4a from "./sounds/crank.m4a?url";
-import shakeOgg from "./sounds/shake.ogg?url";
+import crankWav from "./sounds/crank.wav?url";
 import shakeM4a from "./sounds/shake.m4a?url";
-import keepOgg from "./sounds/keep.ogg?url";
+import shakeWav from "./sounds/shake.wav?url";
 import keepM4a from "./sounds/keep.m4a?url";
+import keepWav from "./sounds/keep.wav?url";
 
-// Quiet answers to the visitor's own gestures (credited in exhibit.yaml). Downloaded only
-// once sound is on; the rattle is cut to the length of the scramble.
+// Quiet answers to the visitor's own gestures, one family (dice, then a stamp), softened and
+// levelled together (chosen by the author by ear, 2026-11-11; credited in exhibit.yaml).
+// Downloaded only once sound is on; the .wav is a fallback for a browser without AAC.
 registerSounds({
-  crank: { src: [crankOgg, crankM4a], volume: 0.35 },
-  shake: { src: [shakeOgg, shakeM4a], volume: 0.45, maxMs: 700 },
-  keep: { src: [keepOgg, keepM4a], volume: 0.5 },
+  crank: { src: [crankM4a, crankWav], volume: 0.45 },
+  shake: { src: [shakeM4a, shakeWav], volume: 0.45 },
+  keep: { src: [keepM4a, keepWav], volume: 0.45 },
 });
 
 const ROWS = 6; // desktop square

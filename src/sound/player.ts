@@ -35,16 +35,13 @@ export function onPreferenceChange(listener: (value: SoundPreference) => void): 
 }
 
 /**
- * One sound: its files (Howler plays the first format the browser supports), how loud it
- * is (0–1, before the visitor's own volume), and, for a long recording, when to fade it out.
+ * One sound: its files (Howler plays the first format the browser supports) and how loud
+ * it is (0–1, before the visitor's own volume).
  */
 export interface SoundSpec {
   src: string[];
   volume?: number;
-  maxMs?: number;
 }
-
-const FADE_MS = 150;
 
 let howler: Promise<typeof import("howler")> | undefined;
 const specs = new Map<string, SoundSpec>();
@@ -70,13 +67,8 @@ export function registerSounds(map: Record<string, SoundSpec>): void {
 export function play(id: string): void {
   if (store.get() !== "on") return;
   const howl = howls.get(id);
-  if (!howl) return void prepare();
-  const playing = howl.play();
-  const { maxMs, volume = 1 } = specs.get(id) ?? {};
-  if (maxMs) {
-    setTimeout(() => howl.fade(volume, 0, FADE_MS, playing), Math.max(0, maxMs - FADE_MS));
-    setTimeout(() => howl.stop(playing), maxMs);
-  }
+  if (howl) howl.play();
+  else void prepare();
 }
 
 if (typeof window !== "undefined") {
