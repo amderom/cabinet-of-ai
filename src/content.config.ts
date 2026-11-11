@@ -36,6 +36,8 @@ const exhibits = defineCollection({
               phoneFile: image().optional(),
               alt: z.string().optional(),
               caption: z.string().optional(),
+              /** Sound name, matching every file of that name in src/demos/<slug>/sounds/ (e.g. crank → crank.ogg, crank.m4a). */
+              sound: z.string().regex(/^[a-z0-9-]+$/, "sound name must be kebab-case").optional(),
             })
             .refine((c) => !c.file || (c.alt && c.alt.trim().length > 0), {
               message: "an image credit needs alt text",

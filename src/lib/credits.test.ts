@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { creditFor, creditProblems, uncreditedFiles } from "./credits";
+import { creditFor, creditProblems, uncreditedFiles, uncreditedSounds } from "./credits";
 
 const credits = [
   { id: "the-engine", licence: "Public domain" },
@@ -54,5 +54,19 @@ describe("creditProblems", () => {
 
   it("reports an empty licence", () => {
     expect(creditProblems([{ id: "x", licence: " " }], [])).toEqual(['credit "x" has no licence']);
+  });
+});
+
+describe("uncreditedSounds", () => {
+  it("finds a sound file whose name no credit declares", () => {
+    expect(uncreditedSounds(["crank.ogg", "crank.m4a", "rattle.ogg"], ["crank"])).toEqual(["rattle.ogg"]);
+  });
+
+  it("accepts every format of a declared sound (same name, any extension)", () => {
+    expect(uncreditedSounds(["keep.ogg", "keep.m4a"], ["keep"])).toEqual([]);
+  });
+
+  it("ignores hidden files such as .DS_Store", () => {
+    expect(uncreditedSounds([".DS_Store"], [])).toEqual([]);
   });
 });

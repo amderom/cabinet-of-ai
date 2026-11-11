@@ -46,3 +46,15 @@ export function uncreditedFiles(files: string[], sources: string[]): string[] {
     return !names.some((name) => name === file || name.startsWith(`${stem}.`));
   });
 }
+
+/**
+ * Sound files in a demo's sounds/ folder that no credit declares. A credit names a sound
+ * once (`sound: crank`); every format of it (crank.ogg, crank.m4a) is covered.
+ */
+export function uncreditedSounds(files: string[], declared: string[]): string[] {
+  return files.filter((file) => {
+    if (file.startsWith(".")) return false;
+    const stem = file.slice(0, file.lastIndexOf(".")) || file;
+    return !declared.includes(stem);
+  });
+}

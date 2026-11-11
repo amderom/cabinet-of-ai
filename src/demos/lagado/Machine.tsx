@@ -19,6 +19,21 @@ import { createFrame, goodCombination, pick, seededRandom, sentence, shake, turn
 import { addLine, editLine, loadFolio, newestFirst, removeLines, saveFolio, shareText, type Line } from "./folio";
 import { PLACES } from "./words";
 import "./machine.css";
+import { play, registerSounds } from "../../sound/player";
+import crankOgg from "./sounds/crank.ogg?url";
+import crankM4a from "./sounds/crank.m4a?url";
+import shakeOgg from "./sounds/shake.ogg?url";
+import shakeM4a from "./sounds/shake.m4a?url";
+import keepOgg from "./sounds/keep.ogg?url";
+import keepM4a from "./sounds/keep.m4a?url";
+
+// Quiet answers to the visitor's own gestures (credited in exhibit.yaml). Downloaded only
+// once sound is on; the rattle is cut to the length of the scramble.
+registerSounds({
+  crank: { src: [crankOgg, crankM4a], volume: 0.35 },
+  shake: { src: [shakeOgg, shakeM4a], volume: 0.45, maxMs: 700 },
+  keep: { src: [keepOgg, keepM4a], volume: 0.5 },
+});
 
 const ROWS = 6; // desktop square
 const PHONE_ROWS = 3; // words per place on a phone
@@ -118,6 +133,7 @@ export default function Machine() {
     next.rows.forEach((row, r) => row.forEach((w, p) => w !== frame.rows[r][p] && cells.push(`${r}-${p}`)));
     setFrame(next);
     setTurn((t) => ({ cells, crank, n: t.n + 1 }));
+    play(crank === "shake" ? "shake" : "crank");
   }
 
   const words = sentence(frame);
@@ -127,6 +143,7 @@ export default function Machine() {
     const id = newId();
     setFolio((f) => addLine(f, words, id));
     setFresh(id);
+    play("keep");
   }
   function remove(ids: string[], message: string) {
     setToast({ message, undo: folio });

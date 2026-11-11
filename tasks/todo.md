@@ -184,18 +184,18 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## T10: Lagado sounds, credited and wired
+## T10: Lagado sounds, credited and wired ✅
 
 **Description:** Find CC0 candidates for a crank clack, a shake rattle and a soft "kept" click; check each licence on its own page; compress; declare each in Lagado's credits; play them from the machine. Extend the build guard so an uncredited sound file stops the build.
 
 **Acceptance criteria:**
-- [ ] Each sound CC0, licence read on its source page, credited (shown in the credits block); each file under ~30 KB
-- [ ] Sounds play on crank, shake and keep when sound is on, never when off
-- [ ] The build fails on an uncredited sound file (triggered once on purpose, then reverted)
+- [x] Each sound CC0, licence read on its source page, credited (shown in the credits block); each file under ~30 KB
+- [x] Sounds play on crank, shake and keep when sound is on, never when off
+- [x] The build fails on an uncredited sound file (triggered once on purpose, then reverted)
 
 **Verification:**
-- [ ] `npm run test`, `npm run check`, `npm run build` pass
-- [ ] Preview link sent to the author
+- [x] `npm run test`, `npm run check`, `npm run build` pass
+- [x] Preview link sent to the author
 
 **Dependencies:** T9
 **Files likely touched:** `src/demos/lagado/sounds/*`, `src/content/exhibits/lagado/exhibit.yaml`, `src/lib/exhibit-pages.ts`, `src/demos/lagado/Machine.tsx`
