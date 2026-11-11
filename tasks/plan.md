@@ -1,82 +1,109 @@
-# Implementation Plan: Phase 1.2 part 1 — Images and engravings
+# Implementation Plan: Phase 1.2 part 2 — The Lagado machine
 
 > Spec: [SPEC.md](../SPEC.md). Tasks: [todo.md](./todo.md).
-> Branch: `feature/phase-1-2-images`. Exploration branch for Step 5: `explore/reading-pages` (never merged). Replaces the Phase 1.1 plan (done and merged, kept in git history).
+> Branch: `feature/phase-1-2-machine`. Replaces the Phase 1.2 part 1 plan (done and merged, kept in git history).
 
 ## Overview
 
-The spec's five gated steps, turned into nine tasks. Research comes first, so nothing gets built on images we might not be allowed to use. Then the image system, proven on the real picks; then the essay illustrations; then the texture; then the reading-page exploration; and finally the chosen direction, checks and shipping. The author steps in at three checkpoints: picking the engravings, reviewing the illustrated essay, and picking a reading-page direction.
+The spec's seven gated steps, turned into fifteen tasks. Content comes first (words, figures, plate texts), because the machine is only as funny as its words. Then a rough, playable machine with a rough folio, so the author can judge the fun on her phone before anything is drawn. Then the drawing, then the page around it (hero, plates, banner), then sound, then The original, and finally the making-of and shipping. The author steps in at five checkpoints (A–E) plus the final preview.
 
 ## Architecture Decisions
 
-- **Images live with their exhibit** (`src/content/exhibits/<slug>/images/`) and are declared once in `exhibit.yaml → credits` with an `id`. Astro's content `image()` helper checks that each file exists and optimises it at build.
-- **Placed by id everywhere:** `<Figure id="…" />` in MDX, `texture: <id>` in metadata, and the plates in Part 2. Alt text, caption and credit come from the metadata and are never retyped.
-- **The licence rule is enforced by the build:** an image file without a credit, or a credit without a licence, stops the build with a clear message.
-- **Originals are resized before committing** (longest side about 2400 px, with macOS's built-in `sips`), so the repository doesn't fill up with 20 MB scans. Astro then makes the phone and desktop sizes.
-- **The texture is tinted with CSS only** (blend modes over the accent colour), so any engraving works without hand editing.
-- **Exploration happens on its own branch**, with its own Vercel preview link. Nothing from it is merged; the chosen direction is rebuilt cleanly on the feature branch.
-- Recorded in **ADR 005**.
+- **The machine's rules live apart from its drawing.** `engine.ts` (sentences of 6 grammatical places, turning rows and columns, shaking) and `folio.ts` (keeping lines, numbering, copied text, saving on the device) are plain TypeScript with tests. The React island only draws and reacts. This is what lets us test the machine without a browser, and restyle it later without breaking it.
+- **Randomness can be fixed for tests** (a seed), so a test can say "after this crank, the row reads exactly this".
+- **One model for both screens:** a frame of rows × 6 grammatical places, plus the visitor's pick for each place. Desktop shows it as a 6 × 6 square (places as columns); a phone shows it on its side (places as rows, 3 words each). Turning = a list of blocks to flip, so the same rules serve both layouts. Validated with a clickable prototype at Checkpoint A.
+- **One React island per page** (`client:visible`): the machine and its folio together, since keeping a row feeds the folio. The plates are a separate, much lighter piece of plain browser code.
+- **Sound is its own module** (`src/sound/`), depending on nothing else in the app, so the cabinet can reuse it in Phase 1.3. Howler is downloaded only once sound is chosen.
+- **Every sound file is credited like an image.** The build guard from Part 1 is extended: a sound file without a credit stops the build.
+- **The original is an optional fourth content file** (`original.mdx`). An exhibit with one gets the page and the tab; an exhibit without one gets neither.
+- **The draft PR opens early** (with the rough machine), so every later push has a preview link for the author's phone.
+- Recorded in **ADR 006**; `docs/project.md → Routes` gets the new route.
 
 ## Dependency graph
 
 ```
-T1 shortlist (research)  ──► Checkpoint A: author picks
+T1 words, figures, plate & banner texts ──► Checkpoint A (author edits)
         │
-T2 image model + credits + build guard (uses the picks)
+T2 engine logic + tests
         │
-T3 Figure + essay illustrations ──► Checkpoint B: author reviews captions / alt texts
+T3 folio logic + tests
         │
-T4 Lagado texture
+T4 rough machine + rough folio on the demo page, draft PR ──► Checkpoint B (author plays)
         │
-T5 three reading-page directions (explore branch) ──► Checkpoint C: author picks
+T5 machine drawn (frame, blocks, cranks)
+T6 motion, word sizing, folio styled ──► Checkpoint C (look & feel)
         │
-T6 chosen direction in the shared layout
+T7 hero and page order, banner lines
+T8 the three plates ──► Checkpoint D
         │
-T7 performance + full browser checks
-T8 ADR 005, README, journal
-T9 PR, preview, phone check, merge on her word
+T9 sound module (choice, mute, lazy Howler)      ← independent of T5–T8, could start earlier
+T10 Lagado sounds (CC0, credited, wired) ──► Checkpoint E (author listens)
+        │
+T11 The original (page, fourth tab, route)        ← independent, only needs T1
+        │
+T12 making-of (author validates)
+T13 performance + full browser checks
+T14 ADR 006, README, journal
+T15 PR ready, phone check, merge on her word
 ```
 
-Everything is sequential: each step builds on the previous one, and the checkpoints are the author's decisions.
+Mostly sequential: each checkpoint is the author's decision and shapes what follows. T9 and T11 don't depend on the machine; they stay in this order so the author reviews one thing at a time, but they can move earlier if a checkpoint is waiting.
 
 ## Task List
 
-### Part A: Engravings
-- [x] T1: Engraving shortlist with licences
+### Part A: Content
+- [x] T1: Words, figures, plate and banner texts
 
-### Checkpoint A — the author picks the engravings
+### Checkpoint A — the author edits the words and texts ✅
 
-### Part B: Image system and essay
-- [x] T2: Image model, credits helpers, build guard
-- [x] T3: Figure component and essay illustrations
+### Part B: The machine, rough
+- [ ] T2: Engine logic and tests
+- [ ] T3: Folio logic and tests
+- [ ] T4: Rough machine and folio on the demo page, draft PR
 
-### Checkpoint B — the author reviews the illustrated essay
+### Checkpoint B — the author plays on her phone
 
-### Part C: Texture and reading pages
-- [x] T4: Lagado neon engraving texture
-- [x] T5: Three reading-page directions on the exploration branch
+### Part C: The machine, drawn
+- [ ] T5: Frame, blocks and cranks drawn in the engraving language
+- [ ] T6: Motion, word sizing, folio styled
 
-### Checkpoint C — the author picks a direction
+### Checkpoint C — look and feel
 
-- [x] T6: Chosen direction in the shared exhibit layout
+### Part D: The page
+- [ ] T7: Hero, page order and banner lines
+- [ ] T8: The three plates
 
-### Part D: Ship
-- [x] T7: Performance and full browser checks
-- [x] T8: ADR 005, README, journal
-- [x] T9: PR, preview, phone check
+### Checkpoint D — the landing page
+
+### Part E: Sound
+- [ ] T9: Sound module: choice, mute toggle, on-demand Howler
+- [ ] T10: Lagado sounds, credited and wired
+
+### Checkpoint E — the author listens
+
+### Part F: The original and shipping
+- [ ] T11: The original page and fourth tab
+- [ ] T12: Lagado making-of
+- [ ] T13: Performance and full browser checks
+- [ ] T14: ADR 006, README, journal
+- [ ] T15: PR ready, phone check, merge on her word
 
 ## Risks and Mitigations
 
-| Risk | Impact | Mitigation |
-|---|---|---|
-| No engraving of the Lagado frame itself has a clear licence | Med | Widen to other Laputa and Academy plates and to period engravings of machines, dice, spiders and bees. The essay doesn't need the frame itself; the frame matters most for Part 2 |
-| A collection's licence is ambiguous (e.g. a Wikimedia file marked public domain in one country only) | Med | Only "public domain worldwide" or CC0 items, from artists who died long ago; otherwise the image is dropped |
-| The texture's colour blending looks different in Safari on iPhone | Med | Checked on the author's phone at Checkpoint C and in the PR preview. Fallback: a plain, faint grey engraving without tint |
-| Images slow the essay down on a phone | Med | Optimised sizes, lazy loading below the first screen, and a Lighthouse check (LCP < 2.5 s) in T7 |
-| The three exploration directions take long to build | Med | Each direction is a variant of the same page (styles and small markup changes), not a separate site. Timeboxed; the motion direction can start with CSS only |
-| The "Fluid" direction needs GSAP | Low | Asked first; loaded only on reading pages if approved |
+| Risk | Likelihood | Impact | Mitigation / fallback |
+|---|---|---|---|
+| The machine isn't fun on a phone | Medium | High | Checkpoint B on a rough version before any drawing; grid size, modes and the "light up" effect are cheap to change at that stage |
+| Sentences read as nonsense, even with roles | Medium | High | Word list edited by the author at A; rows tested at B; roles can be tightened (e.g. verbs that suit their nouns) |
+| Long period words don't fit a block at 4 columns on a 375px phone | High | Medium | Word length capped in T1 (about 10 letters), text sized to fit in T5; fallback 3 columns on small phones |
+| The drawing takes too long | Medium | Medium | STARTUP.md fallback: ship the simpler look from T4, restyle later |
+| Plates fight with page scrolling on a phone (drag vs scroll) | Medium | Medium | Drag starts only on the plate itself, with a small threshold; tap to enlarge stays the main way to read |
+| iPhone Safari blocks or delays sound | High (known) | Low | Sound starts from the "With sound" tap; checked on the author's iPhone at E |
+| No good CC0 sound for a clack or a rattle | Low | Low | Several candidates per sound; worst case, a short sound made in the browser (no file) |
+| The page gets slow (island + fonts + images) | Medium | Medium | Island loads when visible; Howler on demand; no new typeface; measured in T13 (LCP < 2.5 s, INP < 200 ms) |
+| Four tabs don't fit at 375 px | Medium | Low | Smaller spacing; last resort the tab reads "Original" |
 
 ## Open Questions
 
-- Number of essay images (1–3): decided at Checkpoint A.
-- GSAP: only if the author picks the "Fluid" direction and CSS isn't enough.
+- Fun; the light-up effect: Checkpoint B.
+- Folio look: Checkpoint C. (Typeface settled at Checkpoint A: Instrument Serif.)
+- The edition's year and editor for The original: read from the Wikisource page in T11.
