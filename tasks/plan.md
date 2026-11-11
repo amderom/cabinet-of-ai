@@ -67,7 +67,7 @@ Mostly sequential: each checkpoint is the author's decision and shapes what foll
 - [x] T5: The machine's look (redone as "Signal" after the engraved version was rejected)
 - [x] T6: Motion, word sizing, folio styled (folded into T5)
 
-### Checkpoint C — look and feel
+### Checkpoint C — look and feel ✅
 
 ### Part D: The page
 - [ ] T7: Hero, page order and banner lines

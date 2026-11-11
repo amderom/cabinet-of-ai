@@ -117,9 +117,9 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## Checkpoint C — look and feel (the author checks the real site)
+## Checkpoint C — look and feel ✅ ("I LOVE IT", 2026-11-11)
 
-- [ ] The author approves the drawn machine and the folio on her phone
+- [x] The author approves the drawn machine and the folio on her phone
 
 ---
 
