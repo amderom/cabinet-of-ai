@@ -4,7 +4,7 @@
  */
 import { getCollection, type CollectionEntry } from "astro:content";
 import { creditProblems, uncreditedFiles, uncreditedSounds } from "./credits";
-import { missingParts, openExhibits, type ExhibitPart } from "./exhibits";
+import { missingParts, openExhibits, withOriginal, type ExhibitPart } from "./exhibits";
 
 /**
  * Stops the build if an exhibit's images or sounds break the credits rule: a file in
@@ -67,5 +67,17 @@ export async function partPaths(part: ExhibitPart) {
   return openExhibits(exhibits).map((exhibit) => ({
     params: { slug: exhibit.id },
     props: { exhibit, entry: entries.find((e) => e.id === exhibit.id)! },
+  }));
+}
+
+/** Static paths for the optional original page: only open exhibits with an original.mdx. */
+export async function originalPaths() {
+  const [exhibits, originals] = await Promise.all([getCollection("exhibits"), getCollection("originals")]);
+  return withOriginal(
+    exhibits,
+    originals.map((o) => o.id),
+  ).map((exhibit) => ({
+    params: { slug: exhibit.id },
+    props: { exhibit, entry: originals.find((o) => o.id === exhibit.id)! },
   }));
 }

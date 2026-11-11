@@ -203,24 +203,24 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## Checkpoint E — the author listens (sounds chosen ✅; iPhone check still to do)
+## Checkpoint E — the author listens ✅
 
 - [x] The author keeps or replaces each sound: rattle kept; crank and keep replaced (dice click, traditional stamp); all softened, "softest" level
-- [ ] Checked on her iPhone (sound unlock in Safari)
+- [x] Checked on her iPhone (sound unlock in Safari): "Yes, I like softest, and please let's move on"
 
 ---
 
-## T11: The original page and fourth tab
+## T11: The original page and fourth tab ✅
 
 **Description:** An optional `original.mdx` per exhibit; the page at `/exhibits/<slug>/original/` in the annotated-copy layout with a link back to the demo; the tab "The original" shown only when the file exists. Lagado's passage from `original-passage.md`, with the page-break marker removed and the edition credited.
 
 **Acceptance criteria:**
-- [ ] Lagado has the page and the tab; an exhibit without `original.mdx` has neither (tested)
-- [ ] Passage identical to the Wikisource text apart from the removed marker (automatic comparison); edition, year and editor credited
-- [ ] Four tabs on one line at 375px; own title and link preview description; `docs/project.md → Routes` updated
+- [x] Lagado has the page and the tab; an exhibit without `original.mdx` has neither (tested)
+- [x] Passage identical to the Wikisource text apart from the removed marker (automatic comparison); edition, year and editor credited
+- [x] Four tabs on one line at 375px; own title and link preview description; `docs/project.md → Routes` updated
 
 **Verification:**
-- [ ] `npm run test`, `npm run check`, `npm run build` pass; playwright-cli at three sizes
+- [x] `npm run test`, `npm run check`, `npm run build` pass; playwright-cli at three sizes
 
 **Dependencies:** T1 (independent of the machine)
 **Files likely touched:** `src/content.config.ts`, `src/pages/exhibits/[slug]/original.astro`, `src/components/ExhibitNav.astro`, `src/content/exhibits/lagado/original.mdx`, `docs/project.md`

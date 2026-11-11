@@ -110,6 +110,7 @@ A static Astro site. Pages are plain HTML by default; interactive parts (each ex
 | `/exhibits/<slug>/` | Demo + parody |
 | `/exhibits/<slug>/essay/` | Essay |
 | `/exhibits/<slug>/making-of/` | Making-of |
+| `/exhibits/<slug>/original/` | The original text the exhibit rebuilds (optional: only exhibits with an `original.mdx`, i.e. a public-domain source; adds a fourth tab) |
 
 Every URL has its own Open Graph title, description and preview image (LinkedIn link previews). Sealed exhibits have no public pages.
 

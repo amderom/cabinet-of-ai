@@ -66,4 +66,17 @@ const makingOfs = defineCollection({
   schema: z.object({ title: z.string(), description: z.string() }),
 });
 
-export const collections = { exhibits, essays, makingOfs };
+// Optional: the historical text an exhibit rebuilds, when it is in the public domain.
+// `credit` is the id of its credit in exhibit.yaml (edition, editor, year, source, licence).
+const originals = defineCollection({
+  loader: glob({ base, pattern: "*/original.mdx", generateId: folderId }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    /** One line under the title: where the passage comes from (shown as a small label). */
+    lead: z.string(),
+    credit: z.string(),
+  }),
+});
+
+export const collections = { exhibits, essays, makingOfs, originals };

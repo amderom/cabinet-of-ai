@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { missingParts, openExhibits, sortByOrder } from "./exhibits";
+import { exhibitTabs, missingParts, openExhibits, sortByOrder, withOriginal } from "./exhibits";
 
 // Minimal fixtures shaped like `exhibits` collection entries.
 const exhibit = (id: string, order: number, status: "open" | "sealed") => ({
@@ -43,5 +43,30 @@ describe("missingParts", () => {
 
   it("ignores sealed exhibits, which have no pages", () => {
     expect(missingParts([hesse, llull], [], [])).toEqual([]);
+  });
+});
+
+describe("withOriginal", () => {
+  it("gives the original page only to open exhibits that have an original text", () => {
+    expect(withOriginal([babbage, hesse, lagado, llull], ["lagado", "hesse"]).map((e) => e.id)).toEqual(["lagado"]);
+  });
+
+  it("gives it to no exhibit when none has an original", () => {
+    expect(withOriginal([lagado, babbage], [])).toEqual([]);
+  });
+});
+
+describe("exhibitTabs", () => {
+  it("shows The original as a fourth tab when the exhibit has one", () => {
+    expect(exhibitTabs("lagado", true)).toEqual([
+      { key: "demo", label: "Demo", href: "/exhibits/lagado/" },
+      { key: "essay", label: "Essay", href: "/exhibits/lagado/essay/" },
+      { key: "making-of", label: "Making-of", href: "/exhibits/lagado/making-of/" },
+      { key: "original", label: "The original", href: "/exhibits/lagado/original/" },
+    ]);
+  });
+
+  it("has no original tab for an exhibit without one", () => {
+    expect(exhibitTabs("babbage", false).map((t) => t.key)).toEqual(["demo", "essay", "making-of"]);
   });
 });
