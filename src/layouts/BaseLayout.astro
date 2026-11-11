@@ -4,7 +4,6 @@ import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import { absoluteUrl } from "../lib/seo";
 import { SITE_NAME } from "../lib/site";
-import MuteToggle from "../sound/MuteToggle.astro";
 
 interface Props {
   /** Full page title, e.g. built with pageTitle(). */
@@ -83,8 +82,6 @@ const url = absoluteUrl(Astro.url.pathname, site);
       )
     }
     <div class="grain" aria-hidden="true"></div>
-    <!-- Pinned to the top-right corner; first in the page so the keyboard reaches it at once. -->
-    <MuteToggle />
     <div class="relative z-10">
       <slot />
     </div>

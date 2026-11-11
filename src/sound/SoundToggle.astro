@@ -1,18 +1,20 @@
 ---
 /**
- * "Play with sound": one quiet invitation above a demo. Silence is the default, so there
- * is no "in silence" button; the demo plays before anyone taps this. It is a toggle in
- * step with the pinned sound icon (pressed = sound on), and the tap counts as the gesture
- * iPhones need before a page may play sound.
+ * The site's one sound control: a small "Sound" toggle placed where the play is (right of a
+ * demo's play heading, the same spot in every exhibit). Reading pages never make a sound,
+ * so they have none. Silence is the default; the choice is remembered across the site.
+ * Pressed = sound on. The tap also counts as the gesture iPhones need before a page may
+ * play sound, and turning sound on is what downloads Howler.
  */
 ---
 
-<button type="button" class="sound-invite" data-sound-invite aria-pressed="false">
+<button type="button" class="sound-toggle label" data-sound-toggle aria-pressed="false">
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
     <path class="speaker" d="M3 9.5v5h4l5 4v-13l-5 4H3z"></path>
     <path class="waves" d="M15.5 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"></path>
+    <path class="cross" d="M16 9.5l5 5M21 9.5l-5 5"></path>
   </svg>
-  Play with sound
+  Sound
 </button>
 
 <script>
@@ -20,14 +22,14 @@
   import { toggled } from "./preference";
 
   function sync() {
-    for (const button of document.querySelectorAll("[data-sound-invite]")) {
+    for (const button of document.querySelectorAll("[data-sound-toggle]")) {
       button.setAttribute("aria-pressed", String(getPreference() === "on"));
     }
   }
 
-  // Runs on the first load and after every page change, binding the new page's button.
+  // Runs on the first load and after every page change, binding the new page's toggle.
   document.addEventListener("astro:page-load", () => {
-    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-sound-invite]")) {
+    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-sound-toggle]")) {
       if (button.dataset.bound) continue;
       button.dataset.bound = "true";
       button.addEventListener("click", () => setPreference(toggled(getPreference())));
@@ -38,26 +40,24 @@
 </script>
 
 <style>
-  .sound-invite {
+  .sound-toggle {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    min-width: 44px;
     min-height: 44px;
-    margin: 14px 0 18px;
-    padding: 0 18px 0 15px;
-    border: 1px solid rgb(244 236 223 / 0.12);
-    border-radius: 999px;
-    background: transparent;
+    padding: 0;
+    border: 0;
+    background: none;
     color: var(--color-muted);
-    font: 600 14px var(--font-sans);
     cursor: pointer;
+    transition: color 0.2s;
   }
-  .sound-invite:hover,
-  .sound-invite[aria-pressed="true"] {
-    border-color: var(--color-cream);
+  .sound-toggle:hover,
+  .sound-toggle[aria-pressed="true"] {
     color: var(--color-cream);
   }
-  .sound-invite:focus-visible {
+  .sound-toggle:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
   }
@@ -67,12 +67,20 @@
     stroke: currentColor;
     stroke-width: 1.6;
     stroke-linecap: round;
+    stroke-linejoin: round;
   }
   .speaker {
     fill: currentColor;
     stroke: none;
   }
-  [aria-pressed="true"] .waves {
+  .waves {
+    display: none;
     stroke: var(--color-accent);
+  }
+  [aria-pressed="true"] .waves {
+    display: inline;
+  }
+  [aria-pressed="true"] .cross {
+    display: none;
   }
 </style>

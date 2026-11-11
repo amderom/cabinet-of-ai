@@ -2,9 +2,12 @@
 // The Lagado demo: the sound choice, the word frame and its folio.
 // The rules are in engine.ts and folio.ts; Machine.tsx draws them.
 import Machine from "./Machine";
-import SoundInvite from "../../sound/SoundInvite.astro";
+import SoundToggle from "../../sound/SoundToggle.astro";
 ---
 
-<h2 class="font-display text-[clamp(32px,9vw,56px)] leading-none italic">Turn the cranks</h2>
-<SoundInvite />
+{/* Sound lives where the play is: one small toggle, right of the play heading (same spot in every exhibit). */}
+<div class="mb-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+  <h2 class="font-display text-[clamp(32px,9vw,56px)] leading-none italic">Turn the cranks</h2>
+  <SoundToggle />
+</div>
 <Machine client:visible />

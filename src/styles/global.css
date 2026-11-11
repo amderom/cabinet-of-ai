@@ -392,9 +392,6 @@
   transform: rotate(-4deg);
 }
 
-/* Page headers leave room at their right end for the pinned sound icon (src/sound/MuteToggle.astro). */
-.sound-room { padding-right: 72px; }
-
 /*
  * Exhibit pages (demo, essay, making-of): one centred stage (decided with the author,
  * 2026-11-11). Text sits 16px inside the stage. On phones, rules (tabs, banner, footer)
