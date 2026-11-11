@@ -54,6 +54,8 @@ const url = absoluteUrl(Astro.url.pathname, site);
         </>
       )
     }
+    <!-- The engraving texture is the largest thing on the first screen: ask for it first. -->
+    {texture && <link rel="preload" as="image" href={texture} fetchpriority="high" />}
     <!-- Only the regular styles are preloaded; italics load when first used (keeps phones fast). -->
     <Font cssVariable="--font-instrument-serif" preload={[{ style: "normal" }]} />
     <Font cssVariable="--font-inter-tight" preload={[{ style: "normal" }]} />
@@ -75,7 +77,7 @@ const url = absoluteUrl(Astro.url.pathname, site);
       texture && (
         <div class="texture-frame" aria-hidden="true">
           <div class:list={["texture", { "texture-calm": calm }]}>
-            <img src={texture} alt="" decoding="async" />
+            <img src={texture} alt="" decoding="async" fetchpriority="high" />
             <span class="texture-tint" />
           </div>
         </div>

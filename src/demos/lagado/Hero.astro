@@ -10,11 +10,18 @@ import Plates from "./Plates";
 import engineInk from "./plates/engine-ink.png";
 import swiftInk from "./plates/swift-ink.png";
 
-const [engine, swift] = await Promise.all([
-  getImage({ src: engineInk, format: "webp", width: 720 }),
-  getImage({ src: swiftInk, format: "webp", width: 720 }),
+// Two sizes: small for the plates (at most ~220px tall, so 440px covers a 3x phone screen),
+// large for the opened plate, which the browser fetches only when a plate is opened.
+const [engine, swift, engineBig, swiftBig] = await Promise.all([
+  getImage({ src: engineInk, format: "avif", width: 440, quality: 60 }),
+  getImage({ src: swiftInk, format: "avif", width: 440, quality: 60 }),
+  getImage({ src: engineInk, format: "webp", width: 720, quality: 80 }),
+  getImage({ src: swiftInk, format: "webp", width: 720, quality: 80 }),
 ]);
 ---
 
-<Plates client:load images={{ engine: engine.src, swift: swift.src }} />
+<Plates
+  client:load
+  images={{ engine: engine.src, swift: swift.src, engineBig: engineBig.src, swiftBig: swiftBig.src }}
+/>
 <noscript><style>.lp-plate { opacity: 1 !important; }</style></noscript>

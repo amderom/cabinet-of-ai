@@ -8,7 +8,7 @@ import { clampToArea, fanPositions } from "./plates-layout";
 import "./plates.css";
 
 interface Props {
-  images: { engine: string; swift: string };
+  images: { engine: string; swift: string; engineBig: string; swiftBig: string };
 }
 
 type Key = "specimen" | "portrait" | "figures";
@@ -202,7 +202,7 @@ export default function Plates({ images }: Props) {
             </p>
             {open === "specimen" && (
               <>
-                <img className="lp-big-pic" src={images.engine} alt={ALT.engine} draggable={false} width={853} height={900} />
+                <img className="lp-big-pic" src={images.engineBig} alt={ALT.engine} draggable={false} width={853} height={900} loading="lazy" />
                 <p className="lp-title">The Engine</p>
                 <p className="lp-note">
                   A satirical machine from 1726 that writes books by shuffling words at random, three centuries before AI wrote its first
@@ -216,7 +216,7 @@ export default function Plates({ images }: Props) {
             )}
             {open === "portrait" && (
               <>
-                <img className="lp-big-pic" src={images.swift} alt={ALT.swift} draggable={false} width={675} height={900} />
+                <img className="lp-big-pic" src={images.swiftBig} alt={ALT.swift} draggable={false} width={675} height={900} loading="lazy" />
                 <blockquote className="lp-quote">
                   …the most ignorant person… might write books… without the least assistance from genius or study.
                 </blockquote>
