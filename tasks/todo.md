@@ -203,9 +203,10 @@ The scramble, word sizing and the modern folio were settled in the prototype rou
 
 ---
 
-## Checkpoint E — the author listens
+## Checkpoint E — the author listens (sounds chosen ✅; iPhone check still to do)
 
-- [ ] The author keeps or replaces each sound, checked on her iPhone (sound unlock in Safari)
+- [x] The author keeps or replaces each sound: rattle kept; crank and keep replaced (dice click, traditional stamp); all softened, "softest" level
+- [ ] Checked on her iPhone (sound unlock in Safari)
 
 ---
 
