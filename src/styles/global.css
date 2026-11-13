@@ -59,6 +59,9 @@
 
   body {
     @apply bg-ink text-cream font-sans antialiased;
+    /* Re-read here so an exhibit's --accent (set on body) reaches hand-written CSS such as the
+       glow; resolved on :root alone, it was always the default orange. */
+    --color-accent: var(--accent, #ff5f1f);
   }
 }
 
@@ -79,7 +82,7 @@
     background: radial-gradient(
       circle,
       var(--color-accent) 0%,
-      color-mix(in oklab, var(--color-accent) 55%, #3a0d00) 32%,
+      color-mix(in oklab, var(--color-accent) 55%, var(--glow-deep, #3a0d00)) 32%,
       transparent 64%
     );
     filter: blur(48px);
@@ -541,4 +544,24 @@
     grid-column: 2;
     grid-row: 3;
   }
+}
+
+/*
+ * Home page → exhibit: the card's engraving grows into the exhibit's background engraving
+ * (src/cabinet/Vitrine.astro and BaseLayout's texture share a name). Slower than the default
+ * quarter second so the growth reads; here, not in the cabinet's CSS, because the home page's
+ * styles are gone once the new page is in place.
+ */
+::view-transition-group(*.exhibit-art) {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+::view-transition-old(*.exhibit-art),
+::view-transition-new(*.exhibit-art) {
+  animation-duration: 0.6s;
+}
+/* The texture is drawn with screen blending on the page; keep that while it grows in, so its
+   black ground never shows as a dark box. (The card's image is ink on a transparent ground.) */
+::view-transition-new(*.exhibit-art) {
+  mix-blend-mode: screen;
 }

@@ -18,8 +18,8 @@ const soundFiles = Object.keys(import.meta.glob("/src/demos/*/sounds/*"));
 export function checkExhibitAssets(exhibits: CollectionEntry<"exhibits">[]) {
   const lines: string[] = [];
   for (const exhibit of exhibits) {
-    const { credits, texture, hero, preview } = exhibit.data;
-    const referenced = [texture, hero, preview].filter((id): id is string => Boolean(id));
+    const { credits, texture, hero, preview, card } = exhibit.data;
+    const referenced = [texture, hero, preview, card].filter((id): id is string => Boolean(id));
     const problems = creditProblems(credits, referenced);
 
     const prefix = `/src/content/exhibits/${exhibit.id}/images/`;

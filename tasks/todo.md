@@ -1,57 +1,33 @@
-# Tasks: Phase 1.2 part 3 — LinkedIn preview images
+# Tasks: Phase 1.3 — The cabinet, as the homepage
 
 > Plan: [plan.md](./plan.md). Spec: [SPEC.md](../SPEC.md).
 
-## T1: Three directions as real images ✅
-
-**Acceptance criteria:**
-- [x] Machine sentence, engraving, and Swift drawing directions, each a 1200 × 627 picture made from HTML in `design/previews/`
-- [x] Shown full size and on a mock LinkedIn card at phone width
-- [x] The author picks a direction (or a mix)
-
-**Verification:** pictures are exactly 1200 × 627; screenshots of the mock cards sent to the author
-**Dependencies:** none
-**Files likely touched:** `design/previews/*`
+## T1: Clickable prototype ✅
+- [x] Round 1 (line, monolith, engraving inside) rejected; round 2 (specimens, timeline, signal) published
+- [x] The author picks: Specimens (Checkpoint A)
 **Estimated scope:** S
 
-## T2: Final Lagado and site images ✅
+## T2: Specimens from content ✅
+- [x] `src/cabinet/specimens.ts`: one plate per exhibit in order; only open ones linked; labels; places in the case for 1–6 plates (unit-tested)
+**Dependencies:** T1 · **Estimated scope:** S
 
-**Acceptance criteria:**
-- [x] Lagado image and site image refined in the chosen direction; under 1 MB each
-- [x] The author approves both (2026-11-13: "perf", with rounded plate corners)
+## T3: The vitrine on the home page ✅
+- [x] Built in Astro + a small script; plates are links; JS off → Lagado still a link; reduced motion → no movement
+- [x] Choose → forward + glow in its colour; enter → `/exhibits/lagado/` with the title morph; sealed → no navigation
+- [ ] The author checks it on her phone (Checkpoint B)
+**Dependencies:** T2 · **Estimated scope:** M
 
-**Verification:** size and weight checked; mock card screenshots
-**Dependencies:** T1
-**Files likely touched:** `design/previews/*`, `src/content/exhibits/lagado/images/`, site image location
-**Estimated scope:** S
+## T4: Sounds, credits, details ✅
+- [x] Open/pull sounds only with sound on (CC0, credited); site credits spot; line + LinkedIn under the cabinet; engraving if used
+- [x] The author approves (Checkpoint C)
+**Dependencies:** T3 · **Estimated scope:** M
 
-## T3: Wiring ✅
+## T5: Checks and docs ✅
+- [x] LCP < 2.5 s, CLS < 0.1, opening < 200 ms; Edge at 390/375/1280: no sideways scroll, no external requests, no console errors
+- [x] ADR 008; docs/project.md Domain map (with her yes); README; journal
+**Dependencies:** T4 · **Estimated scope:** S
 
-**Acceptance criteria:**
-- [x] Optional `preview` field in the exhibit schema; Lagado's credited preview passed on all four parts; site image on the home page; none on 404 or sealed exhibits
-- [x] `src/lib/preview.ts` refuses an unknown/uncredited id or a wrong size, with a message naming the fix (unit-tested)
-- [x] Built pages carry `og:image` (absolute URL), width, height, alt and `twitter:card`; the image URL answers
-
-**Verification:** `npm run test`, `npm run check`, `npm run build`; grep the built HTML; fetch the image on the local preview
-**Dependencies:** T2
-**Files likely touched:** `src/content.config.ts`, `src/lib/preview.ts` (+ test), `src/lib/site.ts`, `src/layouts/ExhibitLayout.astro`, `src/pages/index.astro`, `exhibit.yaml`
-**Estimated scope:** M
-
-## T4: ADR 007, README, journals ✅
-
-**Acceptance criteria:**
-- [x] `docs/adr/007-…md`: how previews are made, declared and checked
-- [x] README current state; Lagado and cabinet journals updated
-
-**Dependencies:** T3
-**Estimated scope:** S
-
-## T5: PR, merge, Post Inspector ✅
-
-**Acceptance criteria:**
-- [x] Draft PR with the preview link; the author checks it on her phone; merge on her word
-- [x] After merge: Post Inspector shows the full card for the four Lagado links and the home page
-- [x] Journal updated; reminder that Phase 1.3 (the cabinet) comes next
-
-**Dependencies:** T4
-**Estimated scope:** S
+## T6: Ship and MVP
+- [ ] PR preview checked on her phone; merge on her word; production checked
+- [ ] MVP declared; ask before deleting STARTUP.md
+**Dependencies:** T5 · **Estimated scope:** S

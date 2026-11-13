@@ -1,46 +1,42 @@
-# Implementation Plan: Phase 1.2 part 3 — LinkedIn preview images
+# Implementation Plan: Phase 1.3 — The cabinet, as the homepage
 
 > Spec: [SPEC.md](../SPEC.md). Tasks: [todo.md](./todo.md).
-> Branch: `feature/phase-1-2-previews`. Replaces the Phase 1.2 part 2 plan (done and merged, kept in git history).
+> Branch: `feature/phase-1-3-cabinet`. Replaces the Phase 1.2 part 3 plan (done and merged, kept in git history).
 
 ## Overview
 
-Design one preview image for Lagado and one for the site with the author, then wire them into the pages LinkedIn reads, and check the cards in LinkedIn's Post Inspector once live. Mostly design; the wiring is small because `BaseLayout` already writes the image tags when given an image.
+Design the cabinet with the author through a clickable prototype, then build it into the home page as plain links from the content collection with a small animation script, add sound and credits, check speed and behaviour, and ship. The end of this plan is the MVP.
 
 ## Architecture Decisions
 
-- **Images designed as HTML, captured as pictures** with playwright-cli at 1200 × 627 using the site's fonts and colours; the picture is committed, the HTML kept in `design/previews/`. No build-time generation, no new dependency (ADR 004).
-- **Declared like every image** (ADR 005): a credit in `exhibit.yaml`, named by a new optional `preview` field; the site image in `src/lib/site.ts`.
-- **Checked at build:** a pure helper (`src/lib/preview.ts`) refuses an uncredited or wrongly sized preview.
-- **Served as Astro gives it**: the original PNG, unchanged, at a hashed `/_astro/` address (decided in T3; a new image gets a new address, so LinkedIn fetches it fresh). See ADR 007.
+- **Prototype first** (private Claude artifact with a direction switch), nothing built into the site before the author picks.
+- **Links first, motion second:** Astro renders the cabinet and drawers as HTML links (works with JavaScript off); a small script opens the doors and pulls drawers. No React island (ADR 008, docs/project.md Domain map with her yes).
+- **No GSAP:** CSS transitions are enough (prototype).
+- **Exhibit-neutral:** the page glow is cream until a plate is chosen; every plate uses only its own exhibit's colour and engraving.
+- **Reuse:** drawers from the exhibits collection; sound from `src/sound/`; credits pattern from ADR 005; view transition title morph from Phase 0.
 
 ## Task List
 
-### Phase 1: Design (gated by the author)
-- [x] T1: Three directions as real images on a phone-sized mock card
-- [x] T2: Final Lagado and site images in the chosen direction
+### Phase 1: Direction (gated)
+- [x] T1: Clickable prototype → Checkpoint A (round 2: Specimens chosen)
 
-### Checkpoint A/B: the author picks a direction (after T1) and approves the finals (after T2)
+### Phase 2: Build (gated)
+- [x] T2: Specimens from content and their places in the case (pure, tested)
+- [x] T3: The vitrine on the home page, links first, then choosing → Checkpoint B
 
-### Phase 2: Wiring
-- [x] T3: `preview` field, build check, tags on Lagado pages and home
-- [x] T4: ADR 007, README, journals
+### Phase 3: Details (gated)
+- [x] T4: Sounds, credits spot, line under the cabinet; engraving if used → Checkpoint C
 
-### Checkpoint: tests, check and build pass; tags present in the built pages
-
-### Phase 3: Ship
-- [x] T5: PR, phone check, merge on her word, Post Inspector on production
+### Phase 4: Ship
+- [x] T5: Speed and browser checks, ADR 008, docs, journal
+- [ ] T6: PR, phone check, merge on her word; MVP; reminder to delete STARTUP.md
 
 ## Risks and Mitigations
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| No direction convinces (as with the first mockups) | Med | Three distinct directions with real content; mix allowed; quick iterations on HTML |
-| LinkedIn caches an old text-only card | Med | Post Inspector forces a fresh fetch; no Lagado post before it shows the image |
-| Astro re-encodes or hashes the image unexpectedly | Low | Check the built tags and fetch the image URL on the local build and the preview |
-| Text unreadable at thumbnail size | Med | Every option judged at phone card size, not full size |
-
-## Open Questions
-
-- Direction (Checkpoint A); Swift drawing only with the author's yes.
-- Post Inspector: author signs in in the browser pane, or runs it herself from a list.
+| The cabinet drifts vintage (twice before) | High | Every option judged against "2026 product launch"; no materials, no fake 3D |
+| No direction convinces | Med | Three distinct options, mixes allowed, cheap prototype rounds |
+| Opening lags on a mid-range phone | Med | Animate only transform/opacity; measure taps in a slowed trace; GSAP only if needed |
+| Engraving licence unclear | Low | Verify on the source page; otherwise no engraving, or one already credited |
+| Cabinet hides the way into Lagado without JavaScript | Med | Drawers are real links; JS-off check in the browser tests |

@@ -5,6 +5,8 @@ description: "Write any book. No genius. No study. Just turn the cranks. Swiftâ€
 accent: "#FF5F1F"
 status: open
 order: 1
+# Gulliver's Travels, first edition (Benjamin Motte, London, 1726).
+year: "1726"
 # Every image is declared once here and placed elsewhere by its id (ADR 005).
 # Sources and licences: docs/features/lagado/engravings.md
 credits:
@@ -38,6 +40,15 @@ credits:
     source: "Source gallica.bnf.fr / BnF"
     url: "https://gallica.bnf.fr/ark:/12148/btv1b86002890/f78.item"
     licence: "Public domain, non-commercial reuse (Gallica terms)"
+  # The Engine as black ink on a transparent ground (prepared from the-engine.png), for the
+  # home page card: no white backdrop shows while it grows into the page's texture.
+  - id: engine-ink
+    file: ./images/engine-ink.png
+    alt: "Diagram of the Lagado engine: a square frame of word-blocks with crank handles all around its edges."
+    asset: "The Engine, from Gulliver's Travels, Part III (ink on a transparent ground)"
+    source: "Wikimedia Commons"
+    url: "https://commons.wikimedia.org/wiki/File:The_Engine_(Gulliver).png"
+    licence: "Public domain"
   # The text on the "The original" page (original.mdx). Edition read on Wikisource, 2026-11-11.
   - id: swift-text
     asset: "Gulliverâ€™s Travels, Part III, Chapter 5, in The Works of the Rev. Jonathan Swift, Vol. 6, ed. John Nichols (1801)"
@@ -80,6 +91,7 @@ credits:
     source: "The author"
     licence: "All rights reserved"
 texture: the-engine
+card: engine-ink
 preview: lagado-preview
 hero: swift-portrait
 sticker: In beta since 1726
