@@ -87,7 +87,7 @@ Exception to the 6-month rule: Astro 7 (released 2026-06-22), approved by the op
 ## Architecture
 
 ### Overview
-A static Astro site. Pages are plain HTML by default; interactive parts (each exhibit's demo, the sound controls) are React islands; the homepage cabinet is plain HTML with a small script (ADR 008) that load only on the pages that use them. Exhibits are content entries (MDX + metadata), so adding an exhibit means adding a content entry and its own demo component, without touching the rest of the site.
+A static Astro site. Pages are plain HTML by default; interactive parts (each exhibit's demo, the sound controls) are React islands that load only on the pages that use them; the homepage cabinet is plain HTML with a small script (ADR 008). Exhibits are content entries (MDX + metadata), so adding an exhibit means adding a content entry and its own demo component, without touching the rest of the site.
 
 ### Domain Map
 
