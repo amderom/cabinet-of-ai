@@ -124,17 +124,17 @@ credits:
     asset: "Il sogno del lullista"
     source: "Lexicon Philosophicum"
     url: "https://lexicon.cnr.it/ojs/index.php/LP/article/download/848/741/4847"
-  # The texts on "The original" page (original.mdx), translated from the Latin by us (2026-11-13).
+  # The Latin texts behind "The original" page (original.mdx), translated into English by Claude (2026-11-13).
   - id: petitio-celestine
     on: [original]
-    asset: "Ramon Llull, Petitio Raymundi pro conversione infidelium ad Coelestinum V (Naples, 1294), in G. Golubovich, Biblioteca bio-bibliografica della Terra Santa, vol. I (Quaracchi, 1906), pp. 373–375"
+    asset: "Ramon Llull, Petitio Raymundi pro conversione infidelium ad Coelestinum V (Naples, 1294), in G. Golubovich, Biblioteca bio-bibliografica della Terra Santa, vol. I (Quaracchi, 1906), pp. 373–375; translated into English by Claude"
     author: "Ramon Llull"
     source: "University of Toronto, via the Internet Archive"
     url: "https://archive.org/details/bibliotecabiobib01colluoft/page/373/mode/1up"
     licence: "Public domain"
   - id: ars-brevis-1617
     on: [original]
-    asset: "Ramon Llull, Ars brevis (Pisa, 1308), ch. XLVI and closing lines, in Raymundi Lullii opera (Strasbourg, Zetzner, 1617), p. 42"
+    asset: "Ramon Llull, Ars brevis (Pisa, 1308), ch. XLVI and closing lines, in Raymundi Lullii opera (Strasbourg, Zetzner, 1617), p. 42; translated into English by Claude"
     author: "Ramon Llull"
     source: "BIU Santé (Paris), via the Internet Archive"
     url: "https://archive.org/details/BIUSante_pharma_res011289/page/n66/mode/1up"

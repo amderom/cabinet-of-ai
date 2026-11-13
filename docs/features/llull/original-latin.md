@@ -1,6 +1,6 @@
 # Llull's original: the Latin, as checked (2026-11-13)
 
-> Transcribed by the agent and checked word by word against the page images. Rules: long s as s; abbreviations expanded ("absq;" → "absque", "Domin." → "Domini"); spelling, accents, ligatures (æ) and "&" as printed. The page's Latin must stay identical to this file (`src/content/exhibits/llull/original.test.ts`).
+> Transcribed by the agent and checked word by word against the page images. Rules: long s as s; abbreviations expanded ("absq;" → "absque", "Domin." → "Domini"); spelling, accents, ligatures (æ) and "&" as printed. Kept as the record the English translation was made from; the page shows only the English and links to the scans (the author, 2026-11-13).
 
 ## Petition to Celestine V
 
