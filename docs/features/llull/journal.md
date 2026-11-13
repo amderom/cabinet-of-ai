@@ -149,3 +149,7 @@ Same layout as Lagado's (direction C, ADR 007): "Cabinet of AI · Exhibit 02", "
 ## 2026-11-13 — Task 15: opened
 
 The author: "Open". `status: open` made permanent (the temporary comment removed), the making-of's hours finalised (19:32, her first message about Llull, to 22:51, the opening commit: about three hours; Lagado took ten), README updated, PR made ready and merged.
+
+## 2026-11-13 — Fix after opening: the Descartes quote
+
+The author, on the live essay: the Descartes pull quote overlapped the link below the essay. Cause: on desktop (≥ 1024px) margin items float beside the text, and the quote, placed after the essay's last paragraph, ran 106px past the end of the text column into "Follow the series on LinkedIn". Fix: the quote moved before Descartes's paragraph (it sits beside it); and, so it can't happen again, the text column now always grows to hold its margin items (`.prose-cabinet { display: flow-root }`). Checked before and after on About, Lagado's essay, original and making-of, and Llull's essay, original and making-of at 375, 1024, 1280 and 1440px: no item spills anywhere; only Llull's essay changed height; 128 tests, build OK.
