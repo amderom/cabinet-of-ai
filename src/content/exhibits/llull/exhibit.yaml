@@ -139,6 +139,25 @@ credits:
     source: "BIU Santé (Paris), via the Internet Archive"
     url: "https://archive.org/details/BIUSante_pharma_res011289/page/n66/mode/1up"
     licence: "Licence Ouverte / Etalab"
+  # Sounds (src/demos/llull/sounds/): each cut to one hit, faded and levelled to Lagado's sounds;
+  # saved as .m4a with a .wav fallback. Licences read on each source (Kenney's licence file;
+  # Freesound's licence box), 2026-11-13. Chosen by the author by ear (Checkpoint E).
+  - id: sound-reason
+    on: [demo]
+    sound: reason
+    asset: "Soft click (click_002, trimmed), from Interface Sounds"
+    author: "Kenney (kenney.nl)"
+    source: "OpenGameArt"
+    url: "https://opengameart.org/content/interface-sounds"
+    licence: "CC0"
+  - id: sound-verdict
+    on: [demo]
+    sound: verdict
+    asset: "Singing bowl strike (trimmed, faded)"
+    author: "inoshirodesign"
+    source: "Freesound"
+    url: "https://freesound.org/people/inoshirodesign/sounds/271370/"
+    licence: "CC0"
   # The facts and page numbers of plate II ("The Pitch to the Pope"), cited there as "Peers".
   - id: peers-biography
     on: [demo]

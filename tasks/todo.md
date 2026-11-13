@@ -68,17 +68,17 @@
   - Acceptance: a short Latin passage (*Ars brevis*, 1617, or the 1517 *Ars generalis ultima*) chosen with her, translated together, Latin source and our translation credited; fourth tab appears.
   - Verify: a test keeps the page text identical to the validated translation.
   - Files: `src/content/exhibits/llull/original.mdx`, `exhibit.yaml`
-- [ ] **Task 11: Sound**
+- [x] **Task 11: Sound** (click on each reason, singing bowl on the answer; none on the tap)
   - Acceptance: candidates (CC0) on a private listening page; her picks credited, softened like Lagado's, registered with the sound module.
   - Verify: silent visit downloads nothing; sound on plays each gesture's sound.
   - Files: `src/demos/llull/sounds/*`, `exhibit.yaml`, `Machine.tsx`
 
 ### Checkpoint E
-- [ ] Sounds chosen by ear
+- [x] Sounds chosen by ear
 
 ## Phase 5: Finish
 
 - [ ] **Task 12: Link-preview image** (her drawing, 1200 × 627, `design/previews/previews.html`)
-- [ ] **Task 13: Making-of** (from this journal, shared making-of components, validated by her)
+- [x] **Task 13: Making-of** (three scenes, numbers in hours, the paper trail; validated by her)
 - [ ] **Task 14: Speed, browser sweep, README, ADR if needed**
 - [ ] **Task 15: Draft PR, Llull still sealed; open and merge on her word**

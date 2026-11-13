@@ -13,6 +13,19 @@ import { useEffect, useRef, useState } from "react";
 import { ALPHABET, LETTERS, type Letter } from "./art";
 import { QUESTIONS, type Question } from "./questions";
 import "./machine.css";
+import { play, registerSounds } from "../../sound/player";
+import reasonM4a from "./sounds/reason.m4a?url";
+import reasonWav from "./sounds/reason.wav?url";
+import verdictM4a from "./sounds/verdict.m4a?url";
+import verdictWav from "./sounds/verdict.wav?url";
+
+// Two quiet sounds, chosen by the author by ear (2026-11-13; credited in exhibit.yaml): a soft
+// click as each reason lights up, a singing-bowl strike when the answer lands. No sound on the
+// tap itself (her choice). Downloaded only once sound is on; .wav is a fallback without AAC.
+registerSounds({
+  reason: { src: [reasonM4a, reasonWav], volume: 0.45 },
+  verdict: { src: [verdictM4a, verdictWav], volume: 0.45 },
+});
 
 const TRIANGLE_MS = 1000;
 const ANSWER_AT = 1100;
@@ -280,6 +293,7 @@ export default function Machine() {
       setShown(q.reasons.length);
       setPhase("done");
       showWheel();
+      play("verdict");
       return;
     }
     setWheel([...q.column], meaning, performance.now());
@@ -287,6 +301,7 @@ export default function Machine() {
     showWheel();
     later(ANSWER_AT, () => {
       setPhase("answer");
+      play("verdict");
       follow();
     });
     q.reasons.forEach((r, i) => {
@@ -294,6 +309,7 @@ export default function Machine() {
         setPhase("why");
         setShown(i + 1);
         drawState.current.focus = [...r.letters];
+        play("reason");
         follow();
       });
     });

@@ -1,10 +1,12 @@
 ---
 // The Llull demo: "Ask the Art". The rules are in art.ts and questions.ts; Machine.tsx draws them.
-// Sound comes later (Task 11): the toggle is added with the sounds.
 import Machine from "./Machine";
+import SoundToggle from "../../sound/SoundToggle.astro";
 ---
 
-<div class="mb-3">
+{/* Sound lives where the play is: one small toggle, right of the play heading (same spot in every exhibit). */}
+<div class="mb-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
   <h2 class="font-display text-[length:var(--text-title)] leading-none italic">Ask the Art</h2>
+  <SoundToggle />
 </div>
 <Machine client:visible />
