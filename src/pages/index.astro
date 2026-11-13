@@ -20,7 +20,7 @@ const preview = previewImage({ file: sitePreview, alt: SITE_PREVIEW_ALT }, "site
 >
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
     <span class="text-cream">Cabinet of AI</span>
-    <span>A cabinet of curiosities</span>
+    <a href="/about/" class="inline-flex min-h-11 items-center text-cream">About</a>
   </header>
 
   <main class="home">
@@ -47,6 +47,8 @@ const preview = previewImage({ file: sitePreview, alt: SITE_PREVIEW_ALT }, "site
       <a class="text-cream underline decoration-line underline-offset-4 hover:decoration-cream" href={LINKEDIN_URL}>
         Follow the series on LinkedIn ↗
       </a>
+      <span class="text-muted"> · </span>
+      <a class="text-cream underline decoration-line underline-offset-4 hover:decoration-cream" href="/about/">About the project</a>
     </p>
     <p class="label mt-6 text-muted">
       Credits: link-preview image after an ink drawing of Jonathan Swift by {AUTHOR_NAME}, all rights reserved. Each

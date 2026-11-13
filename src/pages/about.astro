@@ -1,0 +1,147 @@
+---
+// About the project. Black and white only, built from elements used elsewhere on the site
+// (the author's request, 2026-11-13): the home page's header and title, a cream "Portrait"
+// plate like Lagado's, the essays' reading style, the exhibits' "Go further" links.
+// The photo is the author's, given for this page only: credited to her, all rights reserved.
+import { getImage } from "astro:assets";
+import { getEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ExhibitCta from "../components/ExhibitCta.astro";
+import { previewImage } from "../lib/preview";
+import { pageTitle } from "../lib/seo";
+import { AUTHOR_NAME, SITE_PREVIEW_ALT } from "../lib/site";
+import sitePreview from "../assets/site-preview.png";
+import portraitFile from "../assets/about/portrait.jpg";
+
+const preview = previewImage({ file: sitePreview, alt: SITE_PREVIEW_ALT }, "site");
+const portrait = await getImage({ src: portraitFile, format: "avif", width: 560, quality: 60 });
+// The paper is the Lagado article: read from the exhibit's research reference, not typed twice.
+const research = (await getEntry("exhibits", "lagado"))?.data.research;
+---
+
+<BaseLayout
+  title={pageTitle("About")}
+  description="Who keeps the Cabinet of AI: a former PhD student in English literature who followed Swift's word machine to today's language models, and now leads AI adoption and learning."
+  accent="#F4ECDF"
+  image={preview}
+>
+  <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
+    <a href="/" class="inline-flex min-h-11 items-center text-cream">← Cabinet of AI</a>
+    <span>About</span>
+  </header>
+
+  <main class="about px-4">
+    <h1 class="about-title font-display text-[clamp(64px,17vw,160px)] leading-[0.85] tracking-[-0.03em]">
+      About the <em>cabinet</em>
+    </h1>
+
+    <figure class="about-plate">
+      <span class="about-plate-top"><span>Portrait</span><span>2026</span></span>
+      <img src={portrait.src} alt={`${AUTHOR_NAME}, smiling over her shoulder against an old studded wooden door.`} width="560" height="717" />
+      <figcaption><i>{AUTHOR_NAME}</i><b>Keeper</b></figcaption>
+    </figure>
+
+    <article class="about-text prose-cabinet">
+      <p>Cabinet of AI began, as questionable machines often do, in a library.</p>
+      <p>
+        I used to be a PhD student at Aix-Marseille Université, working on the French translations of Jonathan Swift’s <em>Gulliver’s Travels</em>.
+        There I met the engine of Lagado, which lets anyone “write books in philosophy,
+        poetry, politics” “without the least assistance from genius or study”. It looked less like a joke every year.
+        I followed the thread to the machines it prefigured, gave talks about them at Princeton University, Boston
+        University and Université Paris 8, and wrote a paper about it.
+      </p>
+      <p>For the past three years I have been AI Adoption and Learning Lead at Logotel France.</p>
+      <p>
+        I like making things, with my hands and with words. This site is where they meet: AI and technology, research,
+        open source, drawing and a little humour. It is also my workshop for vibe coding: every machine here is built
+        with an AI agent, and the making-of pages show how.
+      </p>
+      <p>If you came looking for a lesson, I’m afraid there isn’t one. <a href="/exhibits/lagado/">Turn the cranks anyway.</a></p>
+    </article>
+
+    <div class="about-cta">
+      <ExhibitCta research={research} />
+      <p class="label mt-6 text-muted">Photo: {AUTHOR_NAME}, all rights reserved.</p>
+    </div>
+  </main>
+
+  <footer class="about-foot label mt-[var(--space-section)] flex justify-between border-t border-line px-4 pt-4 pb-8 text-muted">
+    <a href="/" class="inline-flex min-h-11 items-center text-cream">← Back to the cabinet</a>
+    <span class="inline-flex min-h-11 items-center">About</span>
+  </footer>
+</BaseLayout>
+
+<style>
+  /* Black and white: no page glow (as on the home page). */
+  :global(.glow-frame) {
+    display: none;
+  }
+  .about {
+    display: grid;
+    gap: var(--space-object);
+    padding-top: 10svh;
+    max-width: 1232px;
+    margin-inline: auto;
+  }
+  /* The plate: the same cream paper, ink, labels and caption as Lagado's "Portrait" plate. */
+  .about-plate {
+    justify-self: center;
+    width: min(78vw, 300px);
+    padding: 12px 13px 13px;
+    border-radius: 10px;
+    background: #f8f3eb;
+    color: #111;
+    rotate: -3deg;
+    box-shadow: 0 18px 34px -12px rgb(0 0 0 / 0.8), 0 2px 6px rgb(0 0 0 / 0.35);
+  }
+  .about-plate-top,
+  .about-plate figcaption {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .about-plate-top {
+    font: 9px var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .about-plate img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 3px;
+    filter: grayscale(1) contrast(1.05);
+  }
+  .about-plate figcaption {
+    margin-top: 10px;
+  }
+  .about-plate figcaption i {
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1;
+  }
+  .about-plate figcaption b {
+    font: 400 9px var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  @media (min-width: 1024px) {
+    .about {
+      grid-template-columns: 1fr 340px;
+      column-gap: 80px;
+      align-items: start;
+    }
+    .about-title,
+    .about-text,
+    .about-cta {
+      grid-column: 1;
+    }
+    .about-plate {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+      align-self: center;
+      width: 320px;
+    }
+  }
+</style>
