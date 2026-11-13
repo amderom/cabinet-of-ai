@@ -203,14 +203,6 @@ const langName = { la: "Latin", ca: "Catalan" };
     color: var(--color-cream);
     box-shadow: 0 0 22px color-mix(in oklab, var(--color-accent) 45%, transparent);
   }
-  .t-year.is-done::after {
-    content: "✓";
-    position: absolute;
-    top: -6px;
-    right: -4px;
-    font-size: 11px;
-    color: var(--color-accent);
-  }
 
   /* A book: a cream card. */
   .t-book {
@@ -448,7 +440,6 @@ const langName = { la: "Latin", ca: "Catalan" };
       book.querySelector<HTMLElement>(".t-count")!.textContent = `${n} / ${chips.length}`;
       const done = n === chips.length;
       book.classList.toggle("is-translated", done);
-      years[Number(book.dataset.i)].classList.toggle("is-done", done);
     };
     trail.classList.add("is-on");
     books.forEach((book) => {
