@@ -46,12 +46,12 @@
 **Dependencies:** T3
 **Estimated scope:** S
 
-## T5: PR, merge, Post Inspector
+## T5: PR, merge, Post Inspector ✅
 
 **Acceptance criteria:**
-- [ ] Draft PR with the preview link; the author checks it on her phone; merge on her word
-- [ ] After merge: Post Inspector shows the full card for the four Lagado links and the home page
-- [ ] Journal updated; reminder that Phase 1.3 (the cabinet) comes next
+- [x] Draft PR with the preview link; the author checks it on her phone; merge on her word
+- [x] After merge: Post Inspector shows the full card for the four Lagado links and the home page
+- [x] Journal updated; reminder that Phase 1.3 (the cabinet) comes next
 
 **Dependencies:** T4
 **Estimated scope:** S
