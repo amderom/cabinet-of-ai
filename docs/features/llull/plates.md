@@ -36,7 +36,6 @@
   | | |
   |---|---|
   | Letters | 9 |
-  | Columns | 84 |
   | Chambers | 1,680 |
   | Chance | 0 |
 
@@ -46,16 +45,12 @@
   |---|---|
   | Product | The Art (*Ars generalis ultima*) |
   | Release | Pisa, 1308 (begun in Lyon, 1305) |
-  | First version | Mount Randa, Majorca, c. 1274 |
   | Founder | Ramon Llull (c. 1232–1316), ex-courtier, ex-troubadour |
   | Alphabet | 9 letters, B to K, 6 meanings each |
-  | Figures | 4 (one of them turns) |
   | Wheels | 3, of which 2 rotate |
-  | Columns | 84 |
   | Chambers | 1,680 (84 × 20) |
   | Chance | 0 |
-  | False answers | 0, by definition |
-  | Questions supported | All of them |
+  | Human in the loop | Yes, and God too |
   | Roadmap | Three colleges of languages. Status: pitching (see Pl. II) |
 
 - **Sources:** SEP ("1305–1308"; Randa traditionally 1274); the Table's 84 columns of 20 chambers (Part 5); the 1517 *Quarta figura* (outer circle fixed, two inner paper discs turning); Peers on his years as seneschal and troubadour at the court (pp. 11–13) and his dates (1232–1316, the Internet Archive record's dates).
@@ -95,3 +90,6 @@ Each fact-based line is sourced above: 7–8 (Peers, p. 360), 9 (Peers, pp. 11�
 ## Checkpoint A, validated (2026-11-13)
 
 The author: "I love all the rest." Sticker: **Aligned since 1308**. Banner: **all twelve lines**. Plate texts as drafted, with "decrees" for the Council of Vienne. Checked again at the author's request: the decree is certain (canon 24; Peers p. 360; New Catholic Encyclopedia); Peers's "Rome" is the decree's "wherever the Roman curia resides", which was Avignon at the time; whether the chairs were really set up is not certain (one source says the Arabic chairs never were). So the plate says "decrees" and "the papal court". Simplified at her request ("no one will understand he asked for three colleges and got five"): verdict "Yes, on paper. It took five of them and twenty-seven years."; plate II's last line and banner line 8 ("Funded on paper, 1312") rewritten to match.
+
+
+**Spec sheet trimmed (2026-11-13, Checkpoint D):** the author removed First version, Figures, Columns and Questions supported, and replaced "False answers: 0, by definition" with "Human in the loop: Yes, and God too".
