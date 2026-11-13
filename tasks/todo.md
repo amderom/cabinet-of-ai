@@ -80,5 +80,5 @@
 
 - [x] **Task 12: Link-preview image** (her drawing, 1200 × 627, `design/previews/previews.html`; approved with tagline and description)
 - [x] **Task 13: Making-of** (three scenes, numbers in hours, the paper trail; validated by her)
-- [ ] **Task 14: Speed, browser sweep, README, ADR if needed**
+- [x] **Task 14: Speed, browser sweep, README, ADR if needed** (all pages under 1.3 s; 40 page views clean; ADR 010)
 - [ ] **Task 15: Draft PR, Llull still sealed; open and merge on her word**
