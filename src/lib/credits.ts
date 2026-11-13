@@ -6,7 +6,18 @@
 
 export interface CreditLike {
   id: string;
-  licence: string;
+  /** Required for every asset; a cited source (a text an essay refers to) has none. */
+  licence?: string;
+  cited?: boolean;
+}
+
+/** The parts of an exhibit a credit can appear on. */
+export type CreditPart = "demo" | "essay" | "original" | "making-of";
+
+/** What one page shows in its credits: the assets it uses, then the sources it cites (yaml order). */
+export function creditsFor<T extends { cited?: boolean; on: readonly string[] }>(credits: T[], part: CreditPart) {
+  const here = credits.filter((c) => c.on.includes(part));
+  return { assets: here.filter((c) => !c.cited), sources: here.filter((c) => c.cited) };
 }
 
 /** The credit for an image id, or a clear error naming the exhibit. */
@@ -25,7 +36,7 @@ export function creditProblems(credits: CreditLike[], referencedIds: string[]): 
   for (const credit of credits) {
     if (seen.has(credit.id)) problems.push(`duplicate credit id "${credit.id}"`);
     seen.add(credit.id);
-    if (!credit.licence.trim()) problems.push(`credit "${credit.id}" has no licence`);
+    if (!credit.cited && !credit.licence?.trim()) problems.push(`credit "${credit.id}" has no licence`);
   }
   for (const id of referencedIds) {
     if (!seen.has(id)) problems.push(`no credit with id "${id}"`);

@@ -106,7 +106,7 @@ const titleEnd = words.at(-1);
       )
     }
     <ExhibitCta research={exhibit.data.research} />
-    <Credits credits={exhibit.data.credits} />
+    <Credits credits={exhibit.data.credits} part={part} />
   </main>
   {!isDemo && <Reveal />}
 

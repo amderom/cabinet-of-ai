@@ -1,39 +1,65 @@
 ---
 /**
- * Source, author and licence of every third-party asset used by an exhibit.
- * Renders nothing when the exhibit has no credits.
+ * The credits of one page of an exhibit: the assets it shows (source, author, licence),
+ * then the sources it cites (an essay's references), each tagged in exhibit.yaml with the
+ * pages that use it (`on`). Renders nothing when the page has none.
  */
 import type { CollectionEntry } from "astro:content";
+import { creditsFor, type CreditPart } from "../lib/credits";
 
 interface Props {
   credits: CollectionEntry<"exhibits">["data"]["credits"];
+  part: CreditPart;
 }
 
-const { credits } = Astro.props;
+const { assets, sources } = creditsFor(Astro.props.credits, Astro.props.part);
+const link = "underline underline-offset-2 hover:text-accent";
 ---
 
 {
-  credits.length > 0 && (
+  (assets.length > 0 || sources.length > 0) && (
     <section aria-labelledby="credits-title" class="mt-[var(--space-object)]">
       <h2 id="credits-title" class="label text-muted">
         Credits
       </h2>
-      <ul class="mt-3 space-y-2 text-[length:var(--text-small)] leading-snug text-cream/70">
-        {credits.map((credit) => (
-          <li>
-            <span class="text-cream">{credit.asset}</span>
-            {credit.author && <> · {credit.author}</>} ·{" "}
-            {credit.url ? (
-              <a href={credit.url} target="_blank" rel="noopener" class="underline underline-offset-2 hover:text-accent">
-                {credit.source}
-              </a>
-            ) : (
-              credit.source
-            )}{" "}
-            · {credit.licence}
-          </li>
-        ))}
-      </ul>
+      {assets.length > 0 && (
+        <ul class="mt-3 space-y-2 text-[length:var(--text-small)] leading-snug text-cream/70">
+          {assets.map((credit) => (
+            <li>
+              <span class="text-cream">{credit.asset}</span>
+              {credit.author && <> · {credit.author}</>} ·{" "}
+              {credit.url ? (
+                <a href={credit.url} target="_blank" rel="noopener" class={link}>
+                  {credit.source}
+                </a>
+              ) : (
+                credit.source
+              )}{" "}
+              · {credit.licence}
+            </li>
+          ))}
+        </ul>
+      )}
+      {sources.length > 0 && (
+        <>
+          <h3 class="label mt-6 text-muted">Sources</h3>
+          <ul class="mt-3 space-y-2 text-[length:var(--text-small)] leading-snug text-cream/70">
+            {sources.map((credit) => (
+              <li>
+                {credit.author && <>{credit.author}{credit.author.endsWith(" in") ? " " : ", "}</>}
+                {credit.url ? (
+                  <a href={credit.url} target="_blank" rel="noopener" class={`text-cream ${link}`}>
+                    {credit.asset}
+                  </a>
+                ) : (
+                  <span class="text-cream">{credit.asset}</span>
+                )}
+                {credit.year && <> ({credit.year})</>}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </section>
   )
 }

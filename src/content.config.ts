@@ -30,7 +30,16 @@ const exhibits = defineCollection({
               asset: z.string(),
               source: z.string(),
               author: z.string().optional(),
-              licence: z.string().trim().min(1, "every credit needs a licence"),
+              /** Every asset needs one; a cited source (cited: true) does not. */
+              licence: z.string().trim().optional(),
+              /** A text the exhibit refers to (an essay's sources): listed under "Sources" in the credits. */
+              cited: z.boolean().optional(),
+              /** Year shown after a cited source's title. */
+              year: z.string().optional(),
+              /** The pages that use it, so each page credits only what it shows. */
+              on: z
+                .array(z.enum(["demo", "essay", "original", "making-of"]))
+                .min(1, "say where this credit is used: on: [demo, essay, original, making-of]"),
               url: z.url().optional(),
               /** Image file, relative to exhibit.yaml (e.g. ./images/the-engine.png). */
               file: image().optional(),
@@ -43,6 +52,9 @@ const exhibits = defineCollection({
             })
             .refine((c) => !c.file || (c.alt && c.alt.trim().length > 0), {
               message: "an image credit needs alt text",
+            })
+            .refine((c) => c.cited || (c.licence && c.licence.length > 0), {
+              message: "every credit needs a licence (only a cited source may go without)",
             }),
         )
         .default([]),
