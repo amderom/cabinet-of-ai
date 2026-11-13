@@ -23,7 +23,7 @@ export type PlateBlock =
   | { quote: string }
   | { note: string }
   | { specs: [string, string][] }
-  | { timeline: { when: string; text: string; source?: string }[] };
+  | { timeline: { when: string; who?: string; text: string; source?: string }[] };
 
 export interface Plate {
   /** "Specimen", "Portrait", "Figures": top left of the card and of the opened plate. */
@@ -89,6 +89,7 @@ function Block({ block }: { block: PlateBlock }) {
         <li key={t.when + t.text}>
           <span>{t.when}</span>
           <span>
+            {t.who && <b>{t.who} </b>}
             {inline(t.text)}
             {t.source && <small>{inline(t.source)}</small>}
           </span>

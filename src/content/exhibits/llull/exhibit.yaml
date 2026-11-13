@@ -36,3 +36,20 @@ credits:
     author: "Amélie Derome"
     source: "The author"
     licence: "All rights reserved"
+texture: quarta-figura
+card: quarta-figura-ink
+# Sticker and banner validated by the author at Checkpoint A (docs/features/llull/plates.md, 2026-11-13).
+sticker: Aligned since 1308
+banner:
+  - Ask anything. Get the one true answer.
+  - 9 letters. 84 columns. 1,680 chambers. Zero chance.
+  - Zero hallucinations, by definition
+  - Reasoning model, hand-cut from paper
+  - Chain of thought in 20 chambers
+  - Trained on nine divine dignities
+  - Pitched to five popes. Closed the round in 1312
+  - Funded on paper, 1312
+  - Founder pivoted from troubadour to logician
+  - Forked by Leibniz in 1666
+  - Descartes left a one-star review, 1637
+  - Agreement as a service

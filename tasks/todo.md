@@ -2,7 +2,7 @@
 
 > Plan: [plan.md](./plan.md). Spec: [SPEC.md](../SPEC.md). Verification for every task: `npm run test`, `npm run check`, `npm run build`, plus the browser check named. Journal entry at the end of each session.
 
-> Status 2026-11-13: Tasks 1–5 done; Checkpoints A and B passed (Orbit chosen, prototype v7); Llull open on the branch only for the PR preview (draft PR amderom/cabinet-of-ai#15, reseal before merging). Next: Checkpoint C on her phone, then Task 6.
+> Status 2026-11-13: Tasks 1–5 done; Checkpoints A and B passed (Orbit chosen, prototype v7); Llull open on the branch only for the PR preview (draft PR amderom/cabinet-of-ai#15, reseal before merging). Checkpoint C passed and Tasks 6–8 done the same day; next: Checkpoint D on the preview.
 
 ## Phase 1: Content first
 
@@ -38,19 +38,19 @@
   - Files: `src/demos/llull/Demo.astro`, `Machine.tsx`, `machine.css`
 
 ### Checkpoint C
-- [ ] "Is it fun?" on her phone; final look adjustments agreed
+- [x] "Is it fun?" on her phone; final look adjustments agreed ("yes", plus two fixes: the glow cut across "How does the Art work?", the wheel's pointer)
 
 ## Phase 3: The page
 
-- [ ] **Task 6: Shared plates (asked first)**
+- [x] **Task 6: Shared plates (asked first)**
   - Acceptance: the author agrees; plates move to `src/components/plates/` with each exhibit passing its own plates; Lagado identical before and after.
   - Verify: screenshots of Lagado's hero at 375 and 1280px before and after; plates-layout tests pass; drag and open still work.
   - Files: `src/components/plates/*`, `src/demos/lagado/Hero.astro`, `Plates.tsx`, `plates.css`, `plates-layout.ts`
-- [ ] **Task 7: Llull's images, prepared and credited**
+- [x] **Task 7: Llull's images, prepared and credited** (volvelle + drawing; essay engravings moved to Task 9)
   - Acceptance: the volvelle (1517, scan n39) as ink on transparent (card, texture, plate I); her drawing as ink on transparent (plate II); 1–3 essay engravings (Breviculum miniature, other 1517 figures, as she picks); every one credited in `exhibit.yaml`.
   - Verify: the build guard passes; an uncredited file stops it (tried once, reverted).
   - Files: `src/content/exhibits/llull/images/*`, `exhibit.yaml`, `docs/features/llull/engravings.md`
-- [ ] **Task 8: Llull's hero, banner, card and texture**
+- [x] **Task 8: Llull's hero, banner, card and texture**
   - Acceptance: sticker, title, three plates, tabs, machine, banner; `year: "1308"`, `card`, `texture`; the home card's engraving grows into the pink texture.
   - Verify: Edge at 375, 390, 1280 and 1440px; the page change pairs `exhibit-art-llull`; Lagado and home unchanged.
   - Files: `src/demos/llull/Hero.astro`, `exhibit.yaml`
