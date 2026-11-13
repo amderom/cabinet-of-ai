@@ -36,6 +36,14 @@ credits:
     author: "Amélie Derome"
     source: "The author"
     licence: "All rights reserved"
+  # Llull's own words in the machine's answers and reasons (src/demos/llull/questions.ts): short
+  # quotations, credited (the author's decision, 2026-11-13; SPEC.md). Checked word for word by script.
+  - id: dambergs-translation
+    asset: "Ramon Llull, Ars generalis ultima (1305–1308), English translation, quoted in the answers"
+    author: "Yanis Dambergs (translator)"
+    source: "lullianarts.net"
+    url: "https://lullianarts.narpan.net/Ars-Magna/contents2.html"
+    licence: "© 2003 Yanis Dambergs, short quotations"
 texture: quarta-figura
 card: quarta-figura-ink
 # Sticker and banner validated by the author at Checkpoint A (docs/features/llull/plates.md, 2026-11-13).
