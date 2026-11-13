@@ -271,6 +271,10 @@
 /* Long-form reading (essays, making-of): Inter Tight body, Instrument Serif titles. */
 @layer components {
   .prose-cabinet {
+    /* Contain the margin items (figures, pulled quotes float beside the text on desktop): the
+       text block grows to hold the last one, so none can spill into what follows (2026-11-13:
+       Llull's Descartes quote ran over "Follow the series"). */
+    display: flow-root;
     max-width: 62ch;
     font-size: var(--text-body);
     line-height: 1.65;
