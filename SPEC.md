@@ -1,54 +1,54 @@
-# Spec: Phase 1.2 part 3 — LinkedIn link previews, part 2 (preview images)
+# Spec: Phase 1.3 — The cabinet, as the homepage
 
-> Source: [STARTUP.md → Phase 1.2, Part 3](./STARTUP.md#phase-12--the-lagado-machine) and [ADR 004](./docs/adr/004-research-and-link-previews.md) (link previews in two steps).
-> Decision filter: [docs/project.md → Project compass](./docs/project.md#project-compass) ("Play first, read second", "Old ideas, 2026 craft", "Every part is shareable").
-> Branch: `feature/phase-1-2-previews`. Replaces the Phase 1.2 part 2 spec (kept in git history).
+> Source: [STARTUP.md → Phase 1.3](./STARTUP.md#phase-13--the-cabinet-as-the-homepage).
+> Decision filter: [docs/project.md → Project compass](./docs/project.md#project-compass) ("Play first, read second", "Old ideas, 2026 craft", "Phone first") and [Design references](./docs/project.md#design-references) ("Vintage is content, never look"; "The homepage looks like an actual cabinet").
+> Branch: `feature/phase-1-3-cabinet`. Replaces the Phase 1.2 part 3 spec (kept in git history). **Reaching the end of this phase reaches the MVP.**
 
 ## Objective
 
-When the author posts a Cabinet of AI link on LinkedIn (or anyone shares one in a message), the card shows **an image that makes people want to tap**, instead of a text-only card. This is the last step before the first Lagado post.
+Replace the placeholder home page (a plain list of exhibits) with the entrance to the collection: **a cabinet the visitor opens**, with one drawer per exhibit. Lagado's drawer opens onto its demo; Llull's and Hesse's are visibly there but sealed, to tease the series.
 
-**Users:** LinkedIn readers scrolling a feed, mostly on phones: the image is a thumbnail a few centimetres wide, seen for about a second. The author designs it with the agent and approves it.
+**Users:** visitors arriving on the home page from LinkedIn or a shared link, mostly on phones; desktop gets the same thing, larger. The author reviews at each checkpoint.
 
-**What exists already (Phase 1.1):** every page has its title, description and address for LinkedIn. `BaseLayout` already accepts an optional `image` and writes the image tags (`og:image`, its size and alt text, `twitter:card`) only when one is passed. So this part is mostly **design**, with a small amount of wiring.
+**What a visitor can do at the end:** land on `/`, see the closed cabinet, open it with one gesture (tap or click), see the drawers, pull Lagado's to enter `/exhibits/lagado/`, and see that more drawers are coming.
 
-**What's being made:**
-- **One image for Lagado**, shared by its four parts (demo, essay, original, making-of). LinkedIn's text line under the image already says which part the link goes to (ADR 004).
-- **One image for the site**, used by the home page.
-- Sealed exhibits (Llull, Hesse) get none: they have no pages.
+**Scope check:** one capability (the homepage cabinet) with one review loop. One spec, no capability map.
 
-**Scope check:** one capability (preview images), one review loop. One spec, no capability map.
+## The tension to resolve first
 
-## The image (design brief)
+Two agreed rules pull in different directions:
+- "The homepage looks like an actual cabinet (a piece of furniture)", in the same engraving language as the exhibits.
+- "Vintage is content, never look": no wood, brass, bevels, fake 3D or skeuomorphic materials; anything the visitor touches looks like a 2026 product.
 
-- **Size:** 1200 × 627 px (LinkedIn's recommended size), PNG or JPG, under 1 MB. The important things stay in the middle: LinkedIn and messaging apps crop the edges differently, and on a phone the card is small.
-- **Readable as a thumbnail:** at most a few words, large. Nothing that only works at full size.
-- **The site's 2026 look** (Project compass, principle 2): near-black background and the exhibit's accent colour. The old world shows up through its content (a real engraving, Swift's words, the machine's sentences), never through a pastiche "old" design.
-- **Not again:** the first mockups ("exhibit name + glow on near-black") didn't work (ADR 004). Each direction below carries a real object, not just a title.
+**Resolution proposed:** the cabinet is **recognisably a cabinet in shape and gesture** (doors that open, drawers that pull) but **built like the Lagado machine**: flat, made of light and lines, near-black, the exhibit accents as colour. The past comes in through **content**: a real public-domain engraving of a cabinet of curiosities, the exhibits' names and dates, the drawers' labels. This is decided at Checkpoint A, from a clickable prototype, not from this text.
 
-**Directions to compare (Checkpoint A), shown as real 1200 × 627 images, on a phone-sized mock LinkedIn card:**
+## Directions to compare (Checkpoint A)
 
-1. **The machine speaks** (Play first). The Signal machine look (line field, glowing thread) with one of its own absurd sentences picked large in the accent colour, e.g. *Doleful Comets monetize Celestial Musick softly*, and "The Lagado Engine" small. Made entirely from the site's own material, so no licence questions. *Recommended.*
-2. **The engraving.** Grandville's word machine (1838), large, with a short line in the site's type. Instantly reads as "a historical object". Public domain with Gallica's non-commercial reuse terms, which fit a portfolio but should be named.
-3. **Swift.** The author's ink drawing of Swift with the exhibit's title. Strongest personality, but the drawing was given for the Lagado hero only, so it's used here only if the author says yes (AGENTS.md).
+Shown as a clickable prototype the author can open on her phone (a private Claude artifact, address `claude.ai/artifact/<id>`), with a switch between directions. Each opens and pulls a drawer for real.
 
-The site image follows the chosen direction for Lagado, with the site's name and a one-line tagline. The home page will become the cabinet in Phase 1.3; the site image is **redone then** if the cabinet gives a better picture (a note goes into Phase 1.3's spec, not this one).
+1. **Line cabinet** (closest to Lagado's "Signal" look). The cabinet drawn in thin cream lines on black, like a technical drawing that glows. Tap: the two doors swing open flat (no perspective); inside, three drawers as long thin rectangles, each with a mono label (number, title, date) and an edge in its accent colour. Lagado's glows orange; sealed ones are dim, with a line across them.
+2. **Monolith** (a single product-launch object, after grail-app.com). A solid near-black shape with hairline seams, the Lagado orange leaking from the gaps. Tap: the panels slide apart and the drawers appear as luminous strips.
+3. **Engraving inside.** The closed cabinet is a plain modern shape; opening it reveals a **real engraving of a cabinet of curiosities** (candidate: the frontispiece of Ole Worm's *Museum Wormianum*, 1655, public domain, licence to verify) as the interior, with the drawers as modern tabs floating over it.
 
-## How the images are made
+Any direction can borrow the engraving as a faint texture, as on the exhibit pages.
 
-- **Designed as a small HTML page and turned into a picture** with the project's browser tool (playwright-cli), using the site's own fonts and colours. The finished picture is committed; nothing is generated when the site is built, and **no new dependency** (as ADR 004 decided).
-- The design source is kept in `design/previews/` so an image can be remade later (e.g. for Llull) with the same layout.
-- **Every image is credited** like the rest of the site (ADR 005): declared in `exhibit.yaml → credits` (author: the author, or the engraving's source if one is used), and named in the exhibit's `preview` field. The site image is declared in `src/lib/site.ts`.
+## Behaviour (whatever the look)
 
-## Wiring
-
-- `exhibit.yaml` gets an optional `preview: <credit id>`. The exhibit layout passes it to `BaseLayout` on all four parts. The build stops if `preview` names an image that isn't credited, or that isn't 1200 × 627.
-- The home page passes the site image. The 404 page passes none (it has no address of its own).
-- The image is served at a stable address on the site (absolute URL from Astro's `site` setting), so LinkedIn can fetch it.
+- **Closed on arrival, open in one gesture.** The whole cabinet is the target (tap anywhere on it); a small mono hint ("Open") for clarity.
+- **Drawers come from the content collection** (never a hard-coded list): one per exhibit, in `order`. Open exhibits link to their demo page; sealed ones show "Sealed" and do nothing, apart from a small shake on tap.
+- **Pulling Lagado's drawer** slides it out, then the page changes to `/exhibits/lagado/` with the existing view transition (the exhibit title morphs from the drawer into the page title).
+- **Coming back** (browser back, or "← Cabinet of AI"): the cabinet is already open for the rest of the visit, so nobody has to open it twice (remembered for the browser tab only).
+- **Works without JavaScript and with reduced motion:** drawers are ordinary links in the page; with JavaScript off it shows open; with reduced motion it opens instantly, without movement.
+- **Sound:** silent by default, as everywhere. If the visitor has turned sound on (the existing toggle, remembered across pages), opening and pulling play a short sound. The STARTUP plan's "enter with sound / in silence" choice at the first gesture was replaced in Phase 1.2 by the small toggle; this spec keeps the toggle (see Open Questions).
+- **Below the cabinet:** one line about the project, the LinkedIn link, and a small site-level credits spot for the cabinet's own assets (engraving, sounds, the site preview image).
+- **Speed on a mid-range phone:** the cabinet is visible before any script runs; animations move only position, rotation and opacity; no lag when opening.
 
 ## Tech Stack
 
-See [docs/project.md → Tech Stack](./docs/project.md#tech-stack). Nothing new.
+See [docs/project.md → Tech Stack](./docs/project.md#tech-stack). For this phase:
+- **GSAP 3.15** (already approved) for the opening and drawer sequences, loaded on the home page only; if CSS alone does the job smoothly, GSAP is not added (decided in the plan, after the prototype).
+- The cabinet is drawn in HTML/CSS (and SVG if needed), no images for the furniture itself; no 3D.
+- The drawers are ordinary links rendered by Astro; a small script adds the animation. (docs/project.md says "React island"; a React island isn't needed for this, which keeps the page lighter. Recorded in the ADR.)
 
 ## Commands
 
@@ -65,63 +65,63 @@ Check:     npm run check
 Expected changes:
 
 ```
-design/previews/                      HTML design sources + the options shown at Checkpoint A
-src/content/exhibits/lagado/images/   the Lagado preview image
-src/content/exhibits/lagado/exhibit.yaml  preview credit + `preview` field
-src/content.config.ts                 optional `preview` field
-src/lib/preview.ts (+ test)           pure check: credited, right size; builds the `image` prop
-src/lib/site.ts                       site preview image
-src/layouts/ExhibitLayout.astro       passes the preview on every part
-src/pages/index.astro                 passes the site preview
-docs/adr/007-…md                      how preview images are made and declared
+src/cabinet/Cabinet.astro          the cabinet and its drawers (links from the collection)
+src/cabinet/cabinet.ts             opening / pulling / remembering (small script)
+src/cabinet/drawers.ts (+ test)    pure: drawers from exhibits (order, open/sealed, label text)
+src/cabinet/images/                the engraving, if one is used, with its credit
+src/pages/index.astro              the home page: cabinet, line about the project, LinkedIn, credits
+src/lib/site.ts                    site-level credits (cabinet assets)
+docs/adr/008-…md                   the cabinet: look, script instead of island, credits
+docs/project.md                    Domain map: cabinet as script, not island (with the author's yes)
 ```
 
 ## Code Style
 
-As before: TypeScript strict, pure logic apart from Astro components, Vitest tests.
+As before: TypeScript strict, pure logic apart from drawing, Vitest tests.
 
 ```ts
-// src/lib/preview.ts
-export const PREVIEW_SIZE = { width: 1200, height: 627 } as const;
+// src/cabinet/drawers.ts
+export interface Drawer { slug: string; title: string; label: string; accent: string; href?: string } // no href = sealed
 
-/** Returns the image tags' data for an exhibit, or throws a build error naming the fix. */
-export function previewFor(slug: string, previewId: string | undefined, credits: Credit[]): PreviewImage | undefined
+/** One drawer per exhibit, in cabinet order; only open exhibits get a link. */
+export function drawersFrom(exhibits: ExhibitLike[]): Drawer[]
 ```
 
 ## Testing Strategy
 
-- **Unit (Vitest):** `preview.ts`: no `preview` → no image; an unknown id or an uncredited image → a build error naming the exhibit and the id; wrong size → a build error.
-- **Build output:** every Lagado page and the home page contain `og:image` (absolute URL), its width, height and alt text, and `twitter:card`; the 404 and sealed exhibits have no image tags.
-- **Browser (playwright-cli, 390×844):** the image opens at its address on the local build and on the PR preview; it looks right on a mock LinkedIn card at phone width.
-- **On production (after merge):** LinkedIn's **Post Inspector** shows the card with its image for the four Lagado links and the home page. Done in the author's signed-in browser (she signs in to LinkedIn herself).
+- **Unit (Vitest):** `drawers.ts`: order, open vs sealed, sealed drawers have no link, labels; the "already opened" memory works when the browser refuses storage.
+- **Browser (playwright-cli, Edge, 390×844, 375×667, 1280×800):** open by tap and by keyboard; pull Lagado → lands on `/exhibits/lagado/`; back → cabinet already open; sealed drawers don't navigate; JavaScript off → open, links work; reduced motion → no movement; no sideways scroll; no request leaves the site; no console errors.
+- **Speed (local build, phone profile):** home LCP < 2.5 s, CLS < 0.1, opening responds in under 200 ms.
+- **Author checks:** Checkpoints A–C on her phone, and the final preview.
 
 ## Boundaries
 
-- **Always:** show options as real images before choosing; check them at phone size; credit every image; append to `docs/features/lagado/journal.md` and `docs/features/cabinet/journal.md`.
-- **Ask first:** using the author's Swift drawing in the preview; using any image not already credited on the site; adding a dependency.
-- **Never:** an image with an unclear licence; generating images at build time; images for sealed exhibits; starting the cabinet (Phase 1.3).
+- **Always:** show directions as a clickable prototype before building; keep every touchable thing looking like a 2026 product; credit every engraving and sound; test on phone width first; journal each session in `docs/features/cabinet/journal.md`.
+- **Ask first:** adding GSAP (approved, but confirm once the prototype shows it's needed); any new image or sound; changing `docs/project.md` (Domain map); changing the site preview image.
+- **Never:** wood, brass, bevels, fake 3D or skeuomorphic textures; a hard-coded exhibit list; anything needed to reach Lagado that fails without JavaScript; Llull or Hesse pages; deleting STARTUP.md without the author's confirmation.
 
-## The work, in order
+## The work, in order (each step gated by the author)
 
-1. **Checkpoint A — direction:** the three directions as real images on a phone-sized mock card; the author picks (or mixes).
-2. **Checkpoint B — final images:** Lagado and site images refined in the chosen direction, author approves.
-3. **Wiring and checks:** `preview` field, tests, build output check, ADR 007, README.
-4. **PR and Post Inspector:** preview link for her phone; after merge, Post Inspector on production. Then the first Lagado post can go out.
+1. **Checkpoint A — direction:** clickable prototype with the three directions; the author picks or mixes.
+2. **Checkpoint B — the cabinet on the site:** built into the home page with real drawers from the content; checked on her phone.
+3. **Checkpoint C — sound and details:** opening/pulling sounds (if sound is on), credits spot, the line under the cabinet; optional new site preview image.
+4. **Checks, ADR 008, PR, merge on her word.** Then the MVP is reached: reminder to delete STARTUP.md (with her confirmation).
 
 ## Success Criteria
 
-1. The author approves the Lagado image and the site image as they appear on a phone-sized LinkedIn card.
-2. Both images are 1200 × 627, under 1 MB, credited, and readable as a thumbnail.
-3. All four Lagado pages and the home page carry the image tags with an absolute URL; the 404 and sealed exhibits carry none.
-4. Unit tests, `npm run check` and `npm run build` pass; the build stops on an uncredited or wrongly sized preview.
-5. After merge, LinkedIn's Post Inspector shows the full card (image, title, description) for the four Lagado links and the home page.
-6. ADR 007 written; journals and README current.
+1. On a mid-range phone, the home page shows the closed cabinet; one tap opens it smoothly; pulling Lagado's drawer lands on the Lagado demo.
+2. Llull and Hesse appear as sealed drawers, from the content collection.
+3. The author calls it bold and good-looking on her phone, and nothing in it looks vintage.
+4. Works with JavaScript off and with reduced motion; the cabinet stays open when coming back during a visit.
+5. Silent by default; sounds only with the toggle on; every asset credited on the home page.
+6. Home LCP < 2.5 s, CLS < 0.1; no sideways scroll, no external requests, no console errors; tests, `npm run check` and `npm run build` pass.
+7. ADR 008 written, journal current; PR approved on her phone and merged; MVP declared.
 
 ## Open Questions
 
-1. ~~Direction~~: Swift drawing (C), chosen by the author on 2026-11-13.
-2. ~~Swift drawing~~: yes, by choosing C.
-3. ~~Site image~~: made now (Swift plate and two sealed plates); redo in Phase 1.3 if needed.
-4. **Post Inspector:** it needs a LinkedIn sign-in. Will you sign in yourself in the browser pane so I can run the checks there, or would you rather run it yourself from a short list?
+1. **Direction:** line cabinet, monolith, or engraving inside? (Checkpoint A.)
+2. **Sound choice at the first gesture:** STARTUP.md asked for an "enter with sound / in silence" choice when the cabinet opens. Phase 1.2 replaced it with a small toggle. Keep the toggle only (recommended: one less step before playing), or ask at the cabinet?
+3. **Engraving:** use *Museum Wormianum* (1655) or another public-domain cabinet of curiosities, if its licence checks out?
+4. **Site preview image:** redo it from the cabinet at the end, or keep the current one?
 
-Spec approved by the operator on 2026-11-13.
+Spec approved by the operator on 2026-11-13. Open questions 2–4 default to the recommendations until she says otherwise (toggle only; engraving if its licence checks out; site image decided at the end).
