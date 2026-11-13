@@ -1,8 +1,197 @@
-# Placeholder text. Sealed: no public pages yet.
+# Opened by the author ("Open", 2026-11-13).
 title: Llull's Ars Magna
-tagline: Placeholder tagline.
+tagline: Ask anything. Get the one true answer.
+# The demo page's link-preview description (LinkedIn warns under 100 characters). Approved 2026-11-13.
+description: "Ask anything. Get the one true answer. Ramon Llull’s paper question machine of 1308, rebuilt so you can play with it."
 accent: "#FF2D55"
-status: sealed
+status: open
 order: 2
-# Placeholder: check against a source when the exhibit is specified.
-year: "c. 1305"
+# Ars generalis ultima, written 1305-1308; Ars brevis, Pisa 1308 (SEP, "Ramon Llull"). Chosen by the author.
+year: "1308"
+# Every image is declared once here and placed elsewhere by its id (ADR 005).
+# Sources and licences: docs/features/llull/engravings.md. Prepared with docs/features/llull/prepare-images.cjs.
+credits:
+  # The fourth figure (the three wheels), black ink on white, for the background texture.
+  - id: quarta-figura
+    on: [demo, essay, original, making-of]
+    file: ./images/quarta-figura.png
+    alt: "Llull's fourth figure: three concentric paper wheels, each ringed with the letters B to K."
+    asset: "Quarta figura, Ars magna generalis et ultima (Lyon, 1517), woodcut, colour removed"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n39/mode/1up"
+    licence: "Public domain"
+  # The same figure as black ink on a transparent ground: the home card and plate I.
+  - id: quarta-figura-ink
+    on: [demo]
+    file: ./images/quarta-figura-ink.png
+    alt: "Llull's fourth figure: three concentric paper wheels, each ringed with the letters B to K."
+    asset: "Quarta figura, Ars magna generalis et ultima (Lyon, 1517), ink on a transparent ground"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n39/mode/1up"
+    licence: "Public domain"
+  # The author's drawing as ink on a transparent ground: plate II.
+  - id: llull-portrait
+    on: [demo]
+    file: ./images/llull-portrait-ink.png
+    alt: "Ink drawing of Ramon Llull in a fur-trimmed hat, with a long beard, a banderole unfurling from his mouth."
+    asset: "Ramon Llull, ink drawing"
+    author: "Amélie Derome"
+    source: "The author"
+    licence: "All rights reserved"
+  # Llull's own words in the machine's answers and reasons (src/demos/llull/questions.ts): short
+  # quotations, credited (the author's decision, 2026-11-13; SPEC.md). Checked word for word by script.
+  - id: dambergs-translation
+    on: [demo]
+    asset: "Ramon Llull, Ars generalis ultima (1305–1308), English translation, quoted in the answers"
+    author: "Yanis Dambergs (translator)"
+    source: "lullianarts.net"
+    url: "https://lullianarts.narpan.net/Ars-Magna/contents2.html"
+    licence: "© 2003 Yanis Dambergs, short quotations"
+  # Essay engravings, chosen by the author (2026-11-13). Cropped to the figure, in black and white;
+  # prepared with docs/features/llull/prepare-essay-images.cjs.
+  - id: breviculum
+    on: [essay]
+    file: ./images/breviculum.jpg
+    alt: "Medieval miniature: Llull, in a brown habit, points from a ladder of being toward a tower of falsity stormed by figures on ropes; scholars sit in a column down the left."
+    asset: "Llull and the ladder of being, Breviculum ex artibus Raimundi Lulli electum (c. 1321–1336), Cod. St. Peter perg. 92, in black and white (modern numerals of the reproduction removed)"
+    author: "Thomas Le Myésier"
+    source: "Badische Landesbibliothek Karlsruhe, via Wikimedia Commons"
+    url: "https://commons.wikimedia.org/wiki/File:Ars_Magna_de_Ramon_Llull.jpg"
+    licence: "Public domain"
+  - id: prima-figura
+    on: [essay]
+    file: ./images/prima-figura.jpg
+    alt: "Llull's first figure: the nine letters B to K around a circle, each joined to every other by straight lines, A at the centre."
+    asset: "Prima figura, Ars magna generalis et ultima (Lyon, 1517), woodcut, colour removed"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n33/mode/1up"
+    licence: "Public domain"
+  - id: secunda-figura
+    on: [essay]
+    file: ./images/secunda-figura.jpg
+    alt: "Llull's second figure: a large T at the centre of three coloured triangles inside a lettered circle, with a reader's handwritten notes around it."
+    asset: "Secunda figura, Ars magna generalis et ultima (Lyon, 1517), woodcut, colour removed, with a reader's notes"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n35/mode/1up"
+    licence: "Public domain"
+  - id: tertia-figura
+    on: [essay]
+    file: ./images/tertia-figura.jpg
+    alt: "Llull's third figure: a stepped table of every pair of letters, from BC to IK, thirty-six chambers."
+    asset: "Tertia figura, Ars magna generalis et ultima (Lyon, 1517), woodcut"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n38/mode/1up"
+    licence: "Public domain"
+  # The essay's sources, as the author listed them in her draft (sources/essay-draft.md); shown
+  # under "Sources" in the essay page's credits (her decision, 2026-11-13).
+  - id: source-zhao
+    on: [essay]
+    cited: true
+    author: "Zhao et al."
+    asset: "The Ramon Llull’s Thinking Machine for Automated Ideation"
+    year: "2025"
+    source: "arXiv"
+    url: "https://arxiv.org/abs/2508.19200v3"
+  - id: source-jensen
+    on: [essay]
+    cited: true
+    author: "Jensen"
+    asset: "Ramon Llull’s Ars Magna"
+    source: "Aalborg University"
+    url: "https://vbn.aau.dk/en/publications/ramon-llulls-ars-magna-2"
+  - id: source-sierra
+    on: [essay]
+    cited: true
+    author: "Sierra"
+    asset: "From the Ars Magna to Agreement Computing"
+    year: "2015"
+    source: "IOS Press"
+    url: "https://ebooks.iospress.nl/pdf/doi/10.3233/978-1-61499-578-4-3"
+  - id: source-iiia
+    on: [essay]
+    cited: true
+    asset: "IIIA-CSIC preface on Leibniz and “Calculemus!”"
+    source: "IIIA-CSIC"
+    url: "https://www.iiia.csic.es/~sierra/wp-content/uploads/2019/02/Llull.pdf"
+  - id: source-descartes
+    on: [essay]
+    cited: true
+    author: "Descartes, as cited in"
+    asset: "Il sogno del lullista"
+    source: "Lexicon Philosophicum"
+    url: "https://lexicon.cnr.it/ojs/index.php/LP/article/download/848/741/4847"
+  # The Latin texts behind "The original" page (original.mdx), translated into English by Claude (2026-11-13).
+  - id: petitio-celestine
+    on: [original, making-of]
+    asset: "Ramon Llull, Petitio Raymundi pro conversione infidelium ad Coelestinum V (Naples, 1294), in G. Golubovich, Biblioteca bio-bibliografica della Terra Santa, vol. I (Quaracchi, 1906), pp. 373–375; translated into English by Claude"
+    author: "Ramon Llull"
+    source: "University of Toronto, via the Internet Archive"
+    url: "https://archive.org/details/bibliotecabiobib01colluoft/page/373/mode/1up"
+    licence: "Public domain"
+  - id: ars-brevis-1617
+    on: [original, making-of]
+    asset: "Ramon Llull, Ars brevis (Pisa, 1308), ch. XLVI and closing lines, in Raymundi Lullii opera (Strasbourg, Zetzner, 1617), p. 42; translated into English by Claude"
+    author: "Ramon Llull"
+    source: "BIU Santé (Paris), via the Internet Archive"
+    url: "https://archive.org/details/BIUSante_pharma_res011289/page/n66/mode/1up"
+    licence: "Licence Ouverte / Etalab"
+  # Sounds (src/demos/llull/sounds/): each cut to one hit, faded and levelled to Lagado's sounds;
+  # saved as .m4a with a .wav fallback. Licences read on each source (Kenney's licence file;
+  # Freesound's licence box), 2026-11-13. Chosen by the author by ear (Checkpoint E).
+  - id: sound-reason
+    on: [demo]
+    sound: reason
+    asset: "Soft click (click_002, trimmed), from Interface Sounds"
+    author: "Kenney (kenney.nl)"
+    source: "OpenGameArt"
+    url: "https://opengameart.org/content/interface-sounds"
+    licence: "CC0"
+  - id: sound-verdict
+    on: [demo]
+    sound: verdict
+    asset: "Singing bowl strike (trimmed, faded)"
+    author: "inoshirodesign"
+    source: "Freesound"
+    url: "https://freesound.org/people/inoshirodesign/sounds/271370/"
+    licence: "CC0"
+  # The facts and page numbers of plate II ("The Pitch to the Pope"), cited there as "Peers".
+  - id: peers-biography
+    on: [demo]
+    asset: "E. Allison Peers, Ramon Lull: A Biography (London, SPCK, 1929), source of plate II"
+    author: "E. Allison Peers"
+    source: "Internet Archive"
+    url: "https://archive.org/details/ramonlullbiograp0000eall"
+    licence: "Public domain"
+  # The link-preview image (1200 × 627), made from design/previews/previews.html (ADR 007), same
+  # layout as Lagado's; uses her drawing of Llull.
+  - id: llull-preview
+    on: [demo, essay, original, making-of]
+    file: ./images/preview.png
+    alt: "Llull’s Ars Magna. Ask anything. Get the one true answer. Beside it, an ink drawing of Ramon Llull on a cream plate."
+    asset: "Link-preview image, with the ink drawing of Ramon Llull"
+    author: "Amélie Derome"
+    source: "The author"
+    licence: "All rights reserved"
+texture: quarta-figura
+preview: llull-preview
+card: quarta-figura-ink
+# Sticker and banner validated by the author at Checkpoint A (docs/features/llull/plates.md, 2026-11-13).
+sticker: Aligned since 1308
+banner:
+  - Ask anything. Get the one true answer.
+  - 9 letters. 84 columns. 1,680 chambers. Zero chance.
+  - Zero hallucinations, by definition
+  - Reasoning model, hand-cut from paper
+  - Chain of thought in 20 chambers
+  - Trained on nine divine dignities
+  - Pitched to five popes. Closed the round in 1312
+  - Funded on paper, 1312
+  - Founder pivoted from troubadour to logician
+  - Forked by Leibniz in 1666
+  - Descartes left a one-star review, 1637
+  - Agreement as a service

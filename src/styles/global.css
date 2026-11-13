@@ -103,6 +103,9 @@
     height: 160vh;
     overflow: hidden;
     pointer-events: none;
+    /* Fade the frame's bottom so a large glow never ends in a straight cut (Llull before its
+       texture, 2026-11-13: the edge sliced through "How does the Art work?" on desktop). */
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
   }
   .glow-calm {
     position: absolute;
@@ -428,6 +431,13 @@
     /* Lift each scan's paper to white, then print it on the plate colour. */
     filter: grayscale(1) brightness(1.18) contrast(1.35);
     mix-blend-mode: multiply;
+  }
+  /* A one-line note under a section title on an original page (where the passage comes from). */
+  .prose-cabinet .original-intro {
+    margin-block: 0.4em 1.4em;
+    font-size: var(--text-small);
+    font-style: italic;
+    color: var(--color-muted);
   }
   .prose-cabinet figcaption {
     margin-top: 0.8em;

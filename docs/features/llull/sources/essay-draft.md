@@ -1,0 +1,36 @@
+# Essay draft — as sent by the author, 2026-11-13
+
+> The author's own text, kept word for word. The essay page is built from it; any change is hers.
+> Changed with her agreement (2026-11-13): "Around 1305" → "Between 1305 and 1308" (the dates of the *Ars generalis ultima*).
+
+Turn and Turn Again: Llull’s Great Art
+
+Between 1305 and 1308, Ramon Llull, a Majorcan ex-courtier turned lay missionary, finished the Ars generalis ultima, his “Ultimate General Art”: a method for answering any question by turning paper wheels. His aim was a proof of Christianity so mechanical that no Muslim or Jew could decently refuse it. Computer scientists now claim him as an ancestor, and a 2025 paper by Xinran Zhao and colleagues calls his Art “a medieval framework for generating knowledge through symbolic recombination.”
+
+Alphabet Soup
+
+Nine letters, B to K, each stand for a divine attribute: Goodness, Greatness, Eternity, Power, Wisdom, Will, Virtue, Truth, Glory. (A is God, who is above the paperwork.) Link every letter to every other on a circle and you get thirty-six pairs, each one a sentence: goodness is great, greatness is good, power is wise. All are true, naturally, since all the attributes are God’s. Add more wheels for questions (whether? what? why?) and subjects, from angels to elements, and you have a system that is closed, finite and entirely hand-written. Thessa Jensen sees in it “one of the basic philosophical approaches to formalisation of thought, language, and knowledge.”
+
+Chance Is Not Invited
+
+Compare another famous knowledge machine: in Gulliver’s Travels (1726), Swift’s Academy of Lagado builds a frame of word-covered blocks, turned by handles, to produce “a complete body of all arts and sciences” by sheer chance. The professors simply copy down whatever sounds like a sentence. Llull’s machine leaves nothing to chance. Every combination is meant to be read, tested against definitions and, if sound, kept. One engine hopes for knowledge by luck, the other by rule.
+
+Prompt Engineering, Majorca Style
+
+To use the Art, you choose a question and a subject, turn the wheels, read off the combination, and check it. Prompt, parameters, generation, filter: the pipeline is oddly familiar. Zhao and colleagues took the metaphor literally. Their “Llull machine” has three wheels (Theme, Domain, Method), and a language model writes up each combination as a research idea. Leibniz had made a similar move in 1666, replacing Llull’s letters with numbers and dreaming of settling disputes with a single word: “Calculemus!”
+
+One True Thing
+
+Lagado dreams of every possible book, but Llull wants a funnel: generate, discard the false, keep the true. Carles Sierra, of the Spanish AI research institute IIIA-CSIC, reads the Art as a seed of “agreement computing”: an alphabet meant to build “a consistent vision of the world that everybody should agree upon.” So “saying everything” already means “saying one thing.” Polysemy is not a feature here but a problem to be solved.
+
+Fluent in Everything
+
+Descartes was unimpressed. In the Discours de la méthode (1637), he says the art of Lull serves “à parler sans jugement de celles qu’on ignore” (to speak, without judgment, of what one does not know). Four centuries before the “stochastic parrot”, the charge is already on file: fluency is not understanding. The temptation to say everything is not a Silicon Valley invention. It is older than printing, and it began with a man who wanted everyone to agree.
+
+Sources:
+
+- Zhao et al., [The Ramon Llull’s Thinking Machine for Automated Ideation](https://arxiv.org/abs/2508.19200v3) (2025)
+- Jensen, [Ramon Llull’s Ars Magna](https://vbn.aau.dk/en/publications/ramon-llulls-ars-magna-2)
+- Sierra, [From the Ars Magna to Agreement Computing](https://ebooks.iospress.nl/pdf/doi/10.3233/978-1-61499-578-4-3) (2015)
+- [IIIA-CSIC preface on Leibniz and “Calculemus!”](https://www.iiia.csic.es/~sierra/wp-content/uploads/2019/02/Llull.pdf)
+- Descartes, as cited in [Il sogno del lullista](https://lexicon.cnr.it/ojs/index.php/LP/article/download/848/741/4847)

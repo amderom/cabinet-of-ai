@@ -18,7 +18,8 @@ interface Props {
 
 const { exhibit, entry } = Astro.props;
 const { Content } = await render(entry);
-const source = creditFor(exhibit.data.credits, entry.data.credit, exhibit.id);
+const ids = Array.isArray(entry.data.credit) ? entry.data.credit : [entry.data.credit];
+const sources = ids.map((id) => creditFor(exhibit.data.credits, id, exhibit.id));
 ---
 
 <ExhibitLayout exhibit={exhibit} part="original" title={entry.data.title} description={entry.data.description}>
@@ -26,9 +27,15 @@ const source = creditFor(exhibit.data.credits, entry.data.credit, exhibit.id);
     <h2>{entry.data.title}</h2>
     <div class="label mb-8 text-muted">{entry.data.lead}</div>
     <Content />
-    <p class="label mt-[var(--space-object)] border-t border-line pt-4 leading-relaxed text-muted">
-      Source: {source.asset} · {source.author} ·{" "}
-      {source.url ? <a href={source.url}>{source.source}</a> : source.source} · {source.licence}
-    </p>
+    <div class="mt-[var(--space-object)] border-t border-line pt-4">
+      {
+        sources.map((source) => (
+          <p class="label leading-relaxed text-muted">
+            Source: {source.asset} · {source.author} ·{" "}
+            {source.url ? <a href={source.url}>{source.source}</a> : source.source} · {source.licence}
+          </p>
+        ))
+      }
+    </div>
   </article>
 </ExhibitLayout>

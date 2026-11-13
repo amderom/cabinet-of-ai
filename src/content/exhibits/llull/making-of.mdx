@@ -1,0 +1,83 @@
+---
+title: Making Llull's Art
+description: "How Ramon Llull’s question machine was rebuilt with an AI coding agent: the quotes, the research, and a second exhibit that went faster."
+---
+
+import Scene from "../../../components/making-of/Scene.astro";
+import Line from "../../../components/making-of/Line.astro";
+import Point from "../../../components/making-of/Point.astro";
+import Numbers from "../../../demos/llull/making-of/Numbers.astro";
+import PaperTrail from "../../../demos/llull/making-of/PaperTrail.astro";
+
+{/* DRAFT (2026-11-13): written by the agent from the journal, in the author's voice; to be validated by her word by word (docs/features/llull/making-of-draft.md). */}
+
+Llull wrote that his Art had three friends: subtlety of intellect, reason, and good intention. For this second exhibit, I had a fourth: the same AI coding agent that rebuilt [the Lagado Engine](/exhibits/lagado/making-of/), working with the same method and the same rules. It took about three hours, on the evening of 13 November 2026.
+
+The machine was new, though, and so were the difficulties. Here are three of them, told once more as conversations which never quite happened in these words.
+
+<Numbers />
+
+<Scene label="1 · The quotes">
+  <Fragment slot="title">It <em>paraphrased.</em> I wanted the exact words.</Fragment>
+  <Line who="me">Where does this answer come from?</Line>
+  <Line who="agent">Llull, Ars generalis ultima.</Line>
+  <Line who="me">Which part? Whose translation?</Line>
+  <Line who="agent">Part 11. My own reading of it.</Line>
+  <Line who="me">Then it isn’t Llull. Quote him word for word, and credit the translator.</Line>
+  <Line who="agent">Done. Peers, page 321.</Line>
+  <Line who="me">Page 322. Check again.</Line>
+  <Point slot="point">A quotation is a small contract: these exact words, by this person, found in this place, in this translation. The agent wrote fluently and attributed generously, which, as Descartes said of Llull’s Art, is a way of speaking without judgment of what one does not know. So the rule became a habit: every line given to Llull is his, in Yanis Dambergs’ translation, credited, and checked by a script against the source; every page number is opened, not remembered; and when the agent reads Llull its own way, the page says so.</Point>
+</Scene>
+
+<Scene label="2 · The research">
+  <Fragment slot="title">Swift I knew. Llull, <em>I had to ask.</em></Fragment>
+  <Line who="me">I know Gulliver inside out. Llull, much less. Find me an English translation of the Art.</Line>
+  <Line who="agent">None we may quote freely. The Latin is free: a printing from 1617.</Line>
+  <Line who="me">Then find out what happened to his pitch to the popes.</Line>
+  <Line who="agent">Five popes, twenty-seven years. He asked for three colleges and got five.</Line>
+  <Line who="me">Did the Pope really say yes?</Line>
+  <Line who="agent">A council decreed it in 1312. <a href="https://archive.org/details/ramonlullbiograp0000eall/page/360/mode/1up">Here’s the page.</a></Line>
+  <Line who="me">Okay, I checked. It’s fine. Now find me the pitch itself, in his words.</Line>
+  <Line who="agent">Naples, 1294, printed in full in 1906. <a href="https://archive.org/details/bibliotecabiobib01colluoft/page/373/mode/1up">Here’s the scan.</a></Line>
+  <Line who="me">Checked. It’s fine.</Line>
+  <Point slot="point">With Swift, I was the specialist and the agent the assistant. With Llull, I sent the agent to the library with a reader’s questions: is there a translation? What did the popes say? Did any of it work? It came back with editions from 1517, 1617 and 1906, a biography from 1929, page numbers, and a translation of the Latin. My part: ask for the page, open it, and check. When an answer sounded too neat (“three colleges, got five”), the page said less, so the verdict became “Yes, on paper.” Outsourcing research does not outsource doubt.</Point>
+</Scene>
+
+<Scene label="3 · The second time">
+  <Fragment slot="title">The second exhibit was <em>easier.</em> That was the point.</Fragment>
+  <Line who="me">Same plates as Lagado?</Line>
+  <Line who="agent">Shared between the two. Lagado: zero pixels changed.</Line>
+  <Line who="me">And the credits, page by page, for both.</Line>
+  <Line who="agent">Done, and written down for the next exhibit.</Line>
+  <Point slot="point">A second exhibit is where a method proves itself. The rules learnt on Lagado (vintage is content, never look; ask before changing; check everything on a phone) were already written down, so the agent followed them instead of discovering them again: seven prototypes instead of twenty-eight. What stayed hard was not the code but the content, which is to say, what Llull actually said.</Point>
+</Scene>
+
+<Scene label="Interlude" stack>
+  <Fragment slot="title">The paper trail</Fragment>
+  <PaperTrail />
+</Scene>
+
+<Scene label="Credits" stack>
+  <Fragment slot="title">Who made what</Fragment>
+  <div class="mo-credits">
+    <div>
+      <h3>Amélie</h3>
+      <ul>
+        <li>The essay, and notes on how the Art works</li>
+        <li>The engravings found, and the ink drawing of Llull</li>
+        <li>The nine questions picked, and their verdicts edited</li>
+        <li>Every choice of look and word, checked on her phone</li>
+      </ul>
+    </div>
+    <div>
+      <h3>The agent</h3>
+      <ul>
+        <li>All the code, and its tests</li>
+        <li>The research in the old editions, and the translations from the Latin</li>
+        <li>First drafts of the reasons, the plates and the banner, edited and approved by Amélie</li>
+        <li>Options to choose from, and a journal of every step</li>
+      </ul>
+    </div>
+  </div>
+  <Point>Llull hoped his Art would leave nothing to chance. Rebuilt with a machine that writes by probability, it needed the opposite of chance: a reader checking every line.</Point>
+</Scene>

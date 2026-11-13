@@ -1,0 +1,116 @@
+---
+// Llull's hero: the three shared plates (src/components/plates/) with Llull's pictures and texts,
+// validated by the author at Checkpoint A (docs/features/llull/plates.md, 2026-11-13).
+// Pictures: the 1517 fourth figure and the author's drawing, as ink on a transparent ground
+// (credited in exhibit.yaml; prepared with docs/features/llull/prepare-images.cjs).
+import { getImage } from "astro:assets";
+import Plates, { type Plate } from "../../components/plates/Plates";
+import figureInk from "../../content/exhibits/llull/images/quarta-figura-ink.png";
+import llullInk from "../../content/exhibits/llull/images/llull-portrait-ink.png";
+
+// Small for the cards, large for the opened plate (fetched only when a plate is opened).
+const [figure, llull, figureBig, llullBig] = await Promise.all([
+  getImage({ src: figureInk, format: "avif", width: 440, quality: 60 }),
+  getImage({ src: llullInk, format: "avif", width: 440, quality: 60 }),
+  getImage({ src: figureInk, format: "webp", width: 720, quality: 80 }),
+  getImage({ src: llullInk, format: "webp", width: 720, quality: 80 }),
+]);
+
+const plates: Plate[] = [
+  {
+    kind: "Specimen",
+    num: "I",
+    caption: "The Figure",
+    label: "Pl. I",
+    tilt: -7,
+    face: { image: { src: figure.src, width: 853, height: 900 } },
+    open: [
+      {
+        image: {
+          src: figureBig.src,
+          width: 853,
+          height: 900,
+          alt: "Llull's fourth figure: three concentric paper wheels, each ringed with the letters B to K.",
+        },
+      },
+      { title: "The Fourth Figure" },
+      {
+        note: "A paper machine from 1308 that answers questions by turning three wheels of letters. Ramon Llull built it to prove the truths of his faith so plainly that no one could refuse them. Pick a question: its letters line up, the Art reasons through its chambers, and the verdict lands.",
+      },
+      { note: "Ramon Llull, *Ars generalis ultima* (1305–1308). Figure from the Lyon edition of 1517." },
+    ],
+  },
+  {
+    kind: "Portrait",
+    num: "II",
+    caption: "The Pitch",
+    label: "Pl. II",
+    tilt: -1,
+    face: { image: { src: llull.src, width: 855, height: 900 } },
+    open: [
+      {
+        image: {
+          src: llullBig.src,
+          width: 855,
+          height: 900,
+          alt: "Ink drawing of Ramon Llull in a fur-trimmed hat, with a long beard, a banderole unfurling from his mouth.",
+        },
+      },
+      { title: "The Pitch to the Pope" },
+      {
+        note: "For twenty-seven years, Llull pitched the same idea to every pope he could reach: schools where missionaries would learn Arabic and the other languages of the East, and argue with his Art.",
+      },
+      {
+        timeline: [
+          { when: "1285", who: "Honorius IV.", text: "Believes in him and backs the teaching of Arabic in Paris. Dies in 1287.", source: "Peers, pp. 192–3, 224" },
+          { when: "1288", who: "Nicholas IV.", text: "The first Franciscan pope. Busy with a crusade, then the fall of Acre.", source: "Peers, pp. 224–5, 233" },
+          { when: "1294", who: "Celestine V.", text: "A hermit. Resigns after five months.", source: "Peers, pp. 250–3" },
+          { when: "1295", who: "Boniface VIII.", text: "Llull follows him to Rome. Small hope: there is a war on.", source: "Peers, p. 255" },
+          {
+            when: "1305",
+            who: "Clement V.",
+            text: "Llull follows him to Lyon. “The Holy Father and the cardinals alike had little care or concern for it.”",
+            source: "*Vita coetanea*, vi, quoted by Peers, p. 322, note; our translation",
+          },
+          {
+            when: "1312",
+            who: "Under Clement V,",
+            text: "a council decrees Arabic and Hebrew to be taught in five universities. On paper, at least.",
+            source: "Peers, p. 360; *New Catholic Encyclopedia*, “Vienne, Council of”",
+          },
+        ],
+      },
+      { note: "Portrait of Llull: ink drawing by Amélie Derome." },
+    ],
+  },
+  {
+    kind: "Figures",
+    num: "III",
+    caption: "Spec sheet",
+    label: "Pl. III",
+    tilt: 6,
+    face: { table: [["Letters", "9"], ["Columns", "84"], ["Chambers", "1,680"], ["Chance", "0"]] },
+    open: [
+      { title: "Spec sheet", pill: "Aligned since 1308" },
+      {
+        specs: [
+          ["Product", "The Art (*Ars generalis ultima*)"],
+          ["Release", "Pisa, 1308 (begun in Lyon, 1305)"],
+          ["Founder", "Ramon Llull (c. 1232–1316), ex-courtier, ex-troubadour"],
+          ["Wheels", "3, of which 2 rotate"],
+          ["Chambers", "1,680 (84 × 20)"],
+          ["Chance", "0"],
+          ["Human in the loop", "Yes, and God too"],
+          ["Roadmap", "Three colleges of languages. Status: pitching (see Pl. II)"],
+        ],
+      },
+    ],
+  },
+];
+---
+
+<!-- The pill and the timeline's years in a darker pink, readable on the cream paper. -->
+<div class="llull-plates" style="--plates-pill: #c4113d; display: contents">
+  <Plates client:load plates={plates} year="1308" />
+</div>
+<noscript><style>.pl-plate { opacity: 1 !important; }</style></noscript>
