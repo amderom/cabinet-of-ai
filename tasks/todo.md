@@ -2,35 +2,37 @@
 
 > Plan: [plan.md](./plan.md). Spec: [SPEC.md](../SPEC.md). Verification for every task: `npm run test`, `npm run check`, `npm run build`, plus the browser check named. Journal entry at the end of each session.
 
+> Status 2026-11-13: Tasks 1–5 done; Checkpoints A and B passed (Orbit chosen, prototype v7); Llull open on the branch only for the PR preview (draft PR amderom/cabinet-of-ai#15, reseal before merging). Next: Checkpoint C on her phone, then Task 6.
+
 ## Phase 1: Content first
 
-- [ ] **Task 1: The nine questions, written out**
+- [x] **Task 1: The nine questions, written out**
   - Acceptance: `docs/features/llull/questions.md` gives for each question its letters and column, 2–3 short reasons (Llull's text, or his definitions for the start-up ones), the verdict, the source line (Dambergs credited); R1 uses Llull's own chambers of column BCD. Every quote matches the Dambergs text (checked by script).
   - Verify: script comparison against the saved Dambergs pages; read by the author.
   - Files: `docs/features/llull/questions.md`
-- [ ] **Task 2: Plate texts, sticker, banner lines**
+- [x] **Task 2: Plate texts, sticker, banner lines**
   - Acceptance: plate I label and opened text (the Art for a stranger); plate II "The pitch to the Pope" (five popes from Peers 1929, page references, one line translated by us); plate III spec sheet (every figure sourced); 3 sticker options; ~12 banner lines. Same document.
   - Verify: facts checked against `source-texts.md` sources; read by the author.
   - Files: `docs/features/llull/questions.md` (or `plates.md`)
 
 ### Checkpoint A
-- [ ] The author validates every word (questions, verdicts, plates, sticker, banner)
+- [x] The author validates every word (questions, verdicts, plates, sticker, banner)
 
 ## Phase 2: The machine
 
-- [ ] **Task 3: The rules, tests first**
+- [x] **Task 3: The rules, tests first**
   - Acceptance: `art.ts` (alphabet with D = Eternity; 84 columns BCD … HIK; the 20 chambers of a column in Llull's order; reading a chamber, T as the switch) and `questions.ts` (the nine, with letters and column); a test ties them to `questions.md`.
   - Verify: tests seen failing, then passing; full suite green.
   - Files: `src/demos/llull/art.ts`, `art.test.ts`, `questions.ts`, `questions.test.ts`
-- [ ] **Task 4: Two or three looks, as a clickable prototype**
+- [x] **Task 4: Two or three looks, as a clickable prototype**
   - Acceptance: private artifact with 2–3 directions of the same play-through (question → letters → rings turn → chambers → verdict), 2026 look, Llull's pink, phone first; checked at 390 and 1280px.
   - Verify: playwright-cli screenshots; no console errors.
   - Files: none in the repo (artifact)
 
 ### Checkpoint B
-- [ ] The author picks a direction
+- [x] The author picks a direction
 
-- [ ] **Task 5: The machine on the site, rough but playable**
+- [x] **Task 5: The machine on the site, rough but playable**
   - Acceptance: `Machine.tsx` island plays all nine questions, keep and share; reduced motion respected; a way for the author to see it on the PR preview without opening Llull on production (asked).
   - Verify: playwright-cli at 375, 390 and 1280px: every question plays to its verdict, no sideways scroll, no console errors.
   - Files: `src/demos/llull/Demo.astro`, `Machine.tsx`, `machine.css`

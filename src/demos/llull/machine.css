@@ -32,7 +32,7 @@
 @media (min-width: 900px) { .llull-wheel canvas { width: min(100%, 540px, 58vh); } }
 
 .llull-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
-.llull-ask, .llull-other { min-height: 48px; padding: 0 22px; border-radius: 999px; cursor: pointer; font: inherit; }
+.llull-ask, .llull-other { min-height: 44px; padding: 0 18px; border-radius: 999px; cursor: pointer; font: inherit; font-size: 14px; }
 .llull-ask { border: 0; background: var(--color-accent); color: #fff; font-weight: 600; box-shadow: 0 0 32px color-mix(in srgb, var(--color-accent) 45%, transparent); }
 .llull-ask:disabled { opacity: 0.5; cursor: default; box-shadow: none; }
 .llull-other { border: 1px solid var(--rule); background: none; color: inherit; }

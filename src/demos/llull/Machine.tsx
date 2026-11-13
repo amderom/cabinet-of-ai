@@ -305,14 +305,6 @@ export default function Machine() {
             </span>
             <span className="llull-q">{q.question}</span>
           </div>
-          <div className="llull-wheel" onClick={skip} title={busy ? "Tap to skip" : undefined}>
-            <canvas ref={canvasRef} aria-hidden="true" />
-            <p className="sr-only">
-              Llull's nine letters, B to K, on a circle.{" "}
-              {phase !== "idle" &&
-                `This question is read as ${q.letters.map((l) => `${l.letter}, ${shortMeaning(l.as)}`).join("; ")}.`}
-            </p>
-          </div>
           <div className="llull-buttons">
             <button type="button" className="llull-ask" onClick={ask} disabled={busy}>
               {phase === "idle" ? "Ask the Art" : "Ask again"}
@@ -320,6 +312,14 @@ export default function Machine() {
             <button type="button" className="llull-other" onClick={another}>
               Another question
             </button>
+          </div>
+          <div className="llull-wheel" onClick={skip} title={busy ? "Tap to skip" : undefined}>
+            <canvas ref={canvasRef} aria-hidden="true" />
+            <p className="sr-only">
+              Llull's nine letters, B to K, on a circle.{" "}
+              {phase !== "idle" &&
+                `This question is read as ${q.letters.map((l) => `${l.letter}, ${shortMeaning(l.as)}`).join("; ")}.`}
+            </p>
           </div>
         </div>
 
