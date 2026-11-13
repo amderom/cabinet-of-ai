@@ -111,3 +111,5 @@ Candidates shown (all from the 1617 *Ars brevis*, BIU Santé, Etalab): A the ope
 Her decision: Claude's translation throughout; Peers (only extracts and paraphrase, pp. 252–254) not used on the page.
 
 **Image on The original** (her request, "the one we didn't use"): the fourth figure (`quarta-figura`, black on white), placed after Llull's "new method that God gave me" in the pitch. Edge at 375 and 1280px: loads, no sideways scroll, no errors.
+
+**Task 10 approved:** "Yeah good" (English as drafted, image kept).
