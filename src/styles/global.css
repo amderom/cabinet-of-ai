@@ -545,3 +545,18 @@
     grid-row: 3;
   }
 }
+
+/*
+ * Home page → exhibit: the card's engraving grows into the exhibit's background engraving
+ * (src/cabinet/Vitrine.astro and BaseLayout's texture share a name). Slower than the default
+ * quarter second so the growth reads; here, not in the cabinet's CSS, because the home page's
+ * styles are gone once the new page is in place.
+ */
+::view-transition-group(*.exhibit-art) {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+::view-transition-old(*.exhibit-art),
+::view-transition-new(*.exhibit-art) {
+  animation-duration: 0.6s;
+}

@@ -5,15 +5,15 @@
 
 export interface ExhibitLike {
   id: string;
-  data: { title: string; accent: string; status: "open" | "sealed"; order: number; year?: string };
+  data: { title: string; tagline: string; accent: string; status: "open" | "sealed"; order: number; year?: string };
 }
 
 export interface Specimen {
   slug: string;
   title: string;
-  /** "01 · 1726": the plate's number in the cabinet, then the year of the idea if known. */
-  label: string;
-  number: string;
+  /** The exhibit's tagline: the card's subtitle. */
+  tagline: string;
+  /** Year of the idea, if known ("1726", "c. 1305"). */
   year?: string;
   /** The exhibit's own colour, as #RRGGBB and as "r g b" (for rgb(var(--c) / alpha) in CSS). */
   accent: string;
@@ -28,20 +28,18 @@ export function hexToRgb(hex: string): string {
   return `${(n >> 16) & 255} ${(n >> 8) & 255} ${n & 255}`;
 }
 
-/** One plate per exhibit, in cabinet order; only open exhibits get a link. */
+/** One card per exhibit, in cabinet order; only open exhibits get a link. */
 export function specimensFrom(exhibits: ExhibitLike[]): Specimen[] {
   return [...exhibits]
     .sort((a, b) => a.data.order - b.data.order)
-    .map((exhibit, i) => {
-      const number = String(i + 1).padStart(2, "0");
-      const { title, accent, status, year } = exhibit.data;
+    .map((exhibit) => {
+      const { title, tagline, accent, status, year } = exhibit.data;
       const sealed = status === "sealed";
       return {
         slug: exhibit.id,
         title,
-        number,
+        tagline,
         year,
-        label: year ? `${number} · ${year}` : number,
         accent,
         rgb: hexToRgb(accent),
         sealed,
@@ -50,7 +48,10 @@ export function specimensFrom(exhibits: ExhibitLike[]): Specimen[] {
     });
 }
 
-/** Where each plate floats in the case: left in % of the case's width, top in px, tilt in degrees. */
+/**
+ * Where each card floats in the case. Everything is a fraction of the case's width, so the
+ * layout keeps its shape on any screen: left and top of the card, and its tilt in degrees.
+ */
 export interface Slot {
   left: number;
   top: number;
@@ -59,49 +60,48 @@ export interface Slot {
 
 export const MAX_PLATES = 6;
 
-// Hand-placed so plates overlap a little, like objects laid in a case, without hiding each
-// other's titles (the title sits at the bottom of each plate). Phone first: the case is the
-// width of the column; heights in px.
+/** Card size as a fraction of the case's width: tall cards, 5 wide by 7 high. */
+export const PLATE = { width: 0.47, height: 0.47 * 1.4 } as const;
+
+// Hand-placed so cards overlap a little, like objects laid in a case, without hiding each
+// other's titles (earlier cards sit on top; titles are at the bottom of each card).
 const LAYOUTS: Record<number, Slot[]> = {
-  1: [{ left: 26, top: 40, tilt: -3 }],
+  1: [{ left: 0.26, top: 0.04, tilt: -3 }],
   2: [
-    { left: 2, top: 30, tilt: -5 },
-    { left: 51, top: 150, tilt: 4 },
+    { left: 0.02, top: 0.04, tilt: -5 },
+    { left: 0.51, top: 0.4, tilt: 4 },
   ],
   3: [
-    { left: 2, top: 30, tilt: -5 },
-    { left: 52, top: 160, tilt: 5 },
-    { left: 0, top: 330, tilt: -2 },
+    { left: 0.02, top: 0.04, tilt: -5 },
+    { left: 0.52, top: 0.42, tilt: 5 },
+    { left: 0.01, top: 0.86, tilt: -2 },
   ],
   4: [
-    { left: 2, top: 24, tilt: -5 },
-    { left: 51, top: 130, tilt: 5 },
-    { left: 6, top: 290, tilt: -2 },
-    { left: 51, top: 400, tilt: 3 },
+    { left: 0.02, top: 0.04, tilt: -5 },
+    { left: 0.51, top: 0.42, tilt: 5 },
+    { left: 0.01, top: 0.86, tilt: -2 },
+    { left: 0.51, top: 1.24, tilt: 3 },
   ],
   5: [
-    { left: 2, top: 24, tilt: -5 },
-    { left: 51, top: 120, tilt: 5 },
-    { left: 4, top: 280, tilt: -2 },
-    { left: 51, top: 380, tilt: 3 },
-    { left: 18, top: 540, tilt: -4 },
+    { left: 0.02, top: 0.04, tilt: -5 },
+    { left: 0.51, top: 0.42, tilt: 5 },
+    { left: 0.01, top: 0.86, tilt: -2 },
+    { left: 0.51, top: 1.24, tilt: 3 },
+    { left: 0.02, top: 1.68, tilt: -4 },
   ],
   6: [
-    { left: 2, top: 24, tilt: -5 },
-    { left: 51, top: 120, tilt: 5 },
-    { left: 4, top: 280, tilt: -2 },
-    { left: 51, top: 380, tilt: 3 },
-    { left: 2, top: 540, tilt: -4 },
-    { left: 51, top: 640, tilt: 4 },
+    { left: 0.02, top: 0.04, tilt: -5 },
+    { left: 0.51, top: 0.42, tilt: 5 },
+    { left: 0.01, top: 0.86, tilt: -2 },
+    { left: 0.51, top: 1.24, tilt: 3 },
+    { left: 0.02, top: 1.68, tilt: -4 },
+    { left: 0.51, top: 2.06, tilt: 4 },
   ],
 };
 
-/** Plate size: 47% of the case's width, 226px tall (168 × 226 on a 358px phone column). */
-export const PLATE = { width: 47, height: 226 } as const;
-
 export function slotsFor(count: number) {
   if (count > MAX_PLATES) {
-    throw new Error(`The vitrine holds at most ${MAX_PLATES} plates for now (${count} exhibits); it needs a new layout.`);
+    throw new Error(`The vitrine holds at most ${MAX_PLATES} cards for now (${count} exhibits); it needs a new layout.`);
   }
   const slots = LAYOUTS[count] ?? [];
   const lowest = Math.max(0, ...slots.map((s) => s.top));
@@ -109,7 +109,7 @@ export function slotsFor(count: number) {
     slots,
     plateWidth: PLATE.width,
     plateHeight: PLATE.height,
-    // Room under the lowest plate for the chosen plate's caption and button.
-    caseHeight: count === 0 ? 0 : lowest + PLATE.height + 24,
+    /** Height of the case as a fraction of its width (room for the drift and the tilt below). */
+    caseHeight: count === 0 ? 0 : lowest + PLATE.height + 0.06,
   };
 }

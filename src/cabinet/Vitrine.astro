@@ -1,9 +1,11 @@
 ---
 /**
- * The home page's vitrine: the exhibits float as plates in a glass case marked only by four
- * corner marks. Each plate carries its own exhibit's engraving and colour; sealed plates show
- * a static pattern. Plain links first (works without JavaScript); vitrine.ts adds choosing.
- * Chosen with the author on 2026-11-13 ("A · Specimens", prototype round 2). See SPEC.md.
+ * The home page's vitrine: one tall card per exhibit, floating, read from the content
+ * collection. Each card is the "master" of the plates inside its exhibit (same cream paper,
+ * black ink, mono labels): its engraving, its title and its tagline as subtitle.
+ * One tap on an open card goes to the exhibit; its engraving grows into the exhibit page's
+ * background engraving (shared view-transition name), and its title into the page title.
+ * Chosen and refined with the author on 2026-11-13. See SPEC.md.
  */
 import { getCollection } from "astro:content";
 import { getImage } from "astro:assets";
@@ -12,57 +14,59 @@ import { slotsFor, specimensFrom } from "./specimens";
 import "./vitrine.css";
 
 const exhibits = await getCollection("exhibits");
-const specimens = specimensFrom(exhibits);
-const { slots, caseHeight } = slotsFor(specimens.length);
+const cards = specimensFrom(exhibits);
+const { slots, caseHeight } = slotsFor(cards.length);
 
-// Each open plate shows its exhibit's engraving (the one used as its page texture), small and light.
-const art = new Map<string, string>();
+// An open card shows its exhibit's engraving: the one its pages use as background texture.
+const art = new Map<string, { src: string; alt: string }>();
 for (const exhibit of exhibits) {
   const id = exhibit.data.texture;
   if (!id || exhibit.data.status !== "open") continue;
-  const file = creditFor(exhibit.data.credits, id, exhibit.id).file;
-  if (file) art.set(exhibit.id, (await getImage({ src: file, format: "avif", width: 360, quality: 50 })).src);
+  const credit = creditFor(exhibit.data.credits, id, exhibit.id);
+  if (credit.file) {
+    const image = await getImage({ src: credit.file, format: "webp", width: 480, quality: 70 });
+    art.set(exhibit.id, { src: image.src, alt: credit.alt ?? "" });
+  }
 }
 ---
 
-<div class="vitrine" data-vitrine style={`--case-h: ${caseHeight}px`}>
-  <span class="vt-corner vt-c1" aria-hidden="true"></span>
-  <span class="vt-corner vt-c2" aria-hidden="true"></span>
-  <span class="vt-corner vt-c3" aria-hidden="true"></span>
-  <span class="vt-corner vt-c4" aria-hidden="true"></span>
+<div class="vitrine" data-vitrine style={`--case-h: ${caseHeight}`}>
   {
-    specimens.map((s, i) => {
+    cards.map((c, i) => {
       const slot = slots[i];
-      const style = `--c: ${s.rgb}; --left: ${slot.left}%; --top: ${slot.top}px; --tilt: ${slot.tilt}deg; --i: ${i}`;
+      const style = `--c: ${c.rgb}; --left: ${slot.left}; --top: ${slot.top}; --tilt: ${slot.tilt}deg; --i: ${i}`;
+      const picture = art.get(c.slug);
       const inner = (
         <>
-          {art.has(s.slug) ? (
-            <span class="vt-art" aria-hidden="true">
-              <img src={art.get(s.slug)} alt="" decoding="async" />
-              <span class="vt-tint" />
-            </span>
-          ) : (
-            <span class="vt-art vt-static" aria-hidden="true" />
-          )}
-          {s.sealed && <span class="vt-tag label">Sealed</span>}
+          <span class="vt-top label">
+            <span>Exhibit</span>
+            <span>{c.year}</span>
+          </span>
+          <span class="vt-pic">
+            {picture ? (
+              <img src={picture.src} alt="" decoding="async" style={`view-transition-name: exhibit-art-${c.slug}; view-transition-class: exhibit-art`} />
+            ) : (
+              <span class="vt-stamp label">Sealed</span>
+            )}
+          </span>
           <span class="vt-cap">
-            <span class="vt-k label">{s.label}</span>
-            <span class="vt-t" transition:name={`exhibit-title-${s.slug}`}>{s.title}</span>
+            <span class="vt-t" transition:name={`exhibit-title-${c.slug}`}>{c.title}</span>
+            {!c.sealed && <span class="vt-sub">{c.tagline}</span>}
+            <span class="vt-status label" data-status>{c.sealed ? "Sealed" : "Enter →"}</span>
           </span>
         </>
       );
-      return s.href ? (
-        <a class="vt-plate" href={s.href} style={style} data-accent={s.accent} data-year={s.year ?? ""}>
+      return c.href ? (
+        <a class="vt-card" href={c.href} style={style} data-accent={c.accent}>
           {inner}
         </a>
       ) : (
-        <div class="vt-plate vt-sealed" style={style} data-accent={s.accent} data-year={s.year ?? ""} aria-label={`${s.title}, sealed`}>
+        <div class="vt-card vt-sealed" style={style} data-accent={c.accent} role="group" aria-label={`${c.title}: sealed, opening later in the series`}>
           {inner}
         </div>
       );
     })
   }
-  <div class="vt-detail" data-detail aria-live="polite"></div>
 </div>
 
 <script>

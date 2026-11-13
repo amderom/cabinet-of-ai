@@ -17,13 +17,15 @@ interface Props {
   image?: { src: string; alt: string; width: number; height: number };
   /** URL of the exhibit's engraving texture, drawn as faint neon lines behind the top of the page. */
   texture?: string;
+  /** Shared name for the page change from the home page: the exhibit card's engraving grows into this texture. */
+  textureName?: string;
   /** Reading pages: the glow stays at the top instead of following the text. */
   calm?: boolean;
   /** False for pages without a fixed address of their own (the 404 page). */
   canonical?: boolean;
 }
 
-const { title, description, accent, type = "website", image, canonical = true, calm = false, texture } = Astro.props;
+const { title, description, accent, type = "website", image, canonical = true, calm = false, texture, textureName } = Astro.props;
 const site = Astro.site ?? Astro.url;
 const url = absoluteUrl(Astro.url.pathname, site);
 ---
@@ -74,7 +76,7 @@ const url = absoluteUrl(Astro.url.pathname, site);
     {
       texture && (
         <div class="texture-frame" aria-hidden="true">
-          <div class:list={["texture", { "texture-calm": calm }]}>
+          <div class:list={["texture", { "texture-calm": calm }]} style={textureName ? `view-transition-name: ${textureName}; view-transition-class: exhibit-art` : undefined}>
             <img src={texture} alt="" decoding="async" fetchpriority="high" />
             <span class="texture-tint" />
           </div>

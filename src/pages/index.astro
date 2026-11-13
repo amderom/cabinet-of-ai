@@ -31,12 +31,10 @@ const preview = previewImage({ file: sitePreview, alt: SITE_PREVIEW_ALT }, "site
       <p class="mt-5 max-w-[30ch] text-base leading-snug text-cream/85">
         Old ideas of thinking machines, rebuilt so you can play with them.
       </p>
-      <p class="label mt-6 hidden text-muted lg:block">Tap a plate to bring it forward.</p>
-    </section>
+          </section>
 
     <section class="home-case px-4" aria-label="The exhibits">
       <Vitrine />
-      <p class="label mt-6 text-muted lg:hidden">Tap a plate to bring it forward.</p>
     </section>
   </main>
 
@@ -58,10 +56,17 @@ const preview = previewImage({ file: sitePreview, alt: SITE_PREVIEW_ALT }, "site
 </BaseLayout>
 
 <style>
-  /* The home page belongs to no exhibit: its glow's deep tone follows the current accent
-     (cream at rest, the chosen plate's colour), instead of the exhibits' fixed dark orange. */
+  /* The home page belongs to no exhibit: no glow at rest (near-black and grain); hovering a
+     card lights it in that exhibit's colour (vitrine.ts). Its deep tone follows that colour too,
+     instead of the exhibits' fixed dark orange. */
   :global(body) {
     --glow-deep: color-mix(in oklab, var(--color-accent) 22%, #070605);
+  }
+  :global(.glow) {
+    transition: opacity 0.6s;
+  }
+  :global(body:not([data-lit]) .glow) {
+    opacity: 0;
   }
   .home {
     display: grid;
@@ -69,16 +74,12 @@ const preview = previewImage({ file: sitePreview, alt: SITE_PREVIEW_ALT }, "site
     padding-top: 12svh;
   }
   @media (min-width: 1024px) {
-    /* On a large screen the cream glow at rest turns into a grey haze: keep it faint. */
-    :global(.glow) {
-      opacity: 0.22;
-    }
     .home {
       grid-template-columns: 1fr 1fr;
       align-items: center;
       max-width: 1232px;
       margin-inline: auto;
-      padding-top: 10svh;
+      padding-top: 8svh;
     }
   }
 </style>
