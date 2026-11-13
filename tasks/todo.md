@@ -56,11 +56,11 @@
   - Files: `src/demos/llull/Hero.astro`, `exhibit.yaml`
 
 ### Checkpoint D
-- [ ] The author approves the demo page
+- [x] The author approves the demo page ("perf"; follow-the-Art scroll on phones, spec sheet trimmed, short card captions, "decrees", Peers and Dambergs credited)
 
 ## Phase 4: The reading parts
 
-- [ ] **Task 9: The essay page**
+- [x] **Task 9: The essay page** (Breviculum, Prima, Tertia, Secunda; `essay.test.ts` locks her words)
   - Acceptance: `essay.mdx` identical to `sources/essay-draft.md` (checked by test or script), engravings placed, her source list at the end, description for the link preview.
   - Verify: Edge at 375 and 1280px; words identical.
   - Files: `src/content/exhibits/llull/essay.mdx`

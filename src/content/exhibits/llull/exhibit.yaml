@@ -44,6 +44,47 @@ credits:
     source: "lullianarts.net"
     url: "https://lullianarts.narpan.net/Ars-Magna/contents2.html"
     licence: "© 2003 Yanis Dambergs, short quotations"
+  # Essay engravings, chosen by the author (2026-11-13). Cropped to the figure, kept in colour;
+  # prepared with docs/features/llull/prepare-essay-images.cjs.
+  - id: breviculum
+    file: ./images/breviculum.jpg
+    alt: "Medieval miniature: Llull, in a brown habit, points from a ladder of being toward a tower of falsity stormed by figures on ropes; scholars sit in a column down the left."
+    asset: "Llull and the ladder of being, Breviculum ex artibus Raimundi Lulli electum (c. 1321–1336), Cod. St. Peter perg. 92 (modern numerals of the reproduction removed)"
+    author: "Thomas Le Myésier"
+    source: "Badische Landesbibliothek Karlsruhe, via Wikimedia Commons"
+    url: "https://commons.wikimedia.org/wiki/File:Ars_Magna_de_Ramon_Llull.jpg"
+    licence: "Public domain"
+  - id: prima-figura
+    file: ./images/prima-figura.jpg
+    alt: "Llull's first figure: the nine letters B to K around a circle, each joined to every other by straight lines, A at the centre."
+    asset: "Prima figura, Ars magna generalis et ultima (Lyon, 1517), hand-coloured woodcut"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n33/mode/1up"
+    licence: "Public domain"
+  - id: secunda-figura
+    file: ./images/secunda-figura.jpg
+    alt: "Llull's second figure: a large T at the centre of three coloured triangles inside a lettered circle, with a reader's handwritten notes around it."
+    asset: "Secunda figura, Ars magna generalis et ultima (Lyon, 1517), hand-coloured woodcut, with a reader's notes"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n35/mode/1up"
+    licence: "Public domain"
+  - id: tertia-figura
+    file: ./images/tertia-figura.jpg
+    alt: "Llull's third figure: a stepped table of every pair of letters, from BC to IK, thirty-six chambers."
+    asset: "Tertia figura, Ars magna generalis et ultima (Lyon, 1517), woodcut"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n38/mode/1up"
+    licence: "Public domain"
+  # The facts and page numbers of plate II ("The Pitch to the Pope"), cited there as "Peers".
+  - id: peers-biography
+    asset: "E. Allison Peers, Ramon Lull: A Biography (London, SPCK, 1929), source of plate II"
+    author: "E. Allison Peers"
+    source: "Internet Archive"
+    url: "https://archive.org/details/ramonlullbiograp0000eall"
+    licence: "Public domain"
 texture: quarta-figura
 card: quarta-figura-ink
 # Sticker and banner validated by the author at Checkpoint A (docs/features/llull/plates.md, 2026-11-13).

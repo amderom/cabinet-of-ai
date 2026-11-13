@@ -23,7 +23,7 @@
   > - **1294 · Celestine V.** A hermit. Resigns after five months. *(pp. 250–3)*
   > - **1295 · Boniface VIII.** Llull follows him to Rome. Small hope: there is a war on. *(p. 255)*
   > - **1305 · Clement V.** Llull follows him to Lyon. "The Holy Father and the cardinals alike had little care or concern for it." *(Vita coetanea, vi, quoted by Peers, p. 322, note; our translation)*
-  > - **1312 · Under Clement V,** a council orders Arabic and Hebrew to be taught in five universities. On paper, at least. *(Peers, p. 360; New Catholic Encyclopedia, "Vienne, Council of")*
+  > - **1312 · Under Clement V,** a council decrees Arabic and Hebrew to be taught in five universities. On paper, at least. *(Peers, p. 360; New Catholic Encyclopedia, "Vienne, Council of")*
   >
   > Portrait of Llull: ink drawing by the author.
 - **Translated line:** "De la qual cosa axi lo sant Pare com los cardinals hagueren poca cura ne ansia" (*Vita coetanea*, vi, as given by Peers, p. 322, note). Literally: "Of which thing, the Holy Father as well as the cardinals had little care or concern." Draft for the plate: "The Holy Father and the cardinals alike had little care or concern for it."
@@ -92,3 +92,5 @@ The author: "I love all the rest." Sticker: **Aligned since 1308**. Banner: **al
 
 
 **Spec sheet trimmed (2026-11-13, Checkpoint D):** the author removed First version, Figures, Columns and Questions supported, and replaced "False answers: 0, by definition" with "Human in the loop: Yes, and God too". Then Alphabet removed too; the card's small table unchanged.
+
+**Checkpoint D (2026-11-13):** cards captioned "The Figure" and "The Pitch" (full titles inside the opened plates); "decrees" in plate II's last line; Peers credited in the credits list, the plate unchanged.
