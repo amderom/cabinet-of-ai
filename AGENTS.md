@@ -158,6 +158,7 @@ The making-of is part of the portfolio ("Show the making" in the Project compass
 ### Assets and credits
 - Engravings and images come from free-to-use, public-domain collections (e.g. Rijksmuseum, The Met Open Access). Sounds and 3D models must be CC0 or similarly free.
 - Record the source, author (if known) and licence of every third-party asset in the exhibit's metadata (`credits`), and display credits on the site.
+- Credits are per page (ADR 009): every credit says which pages use it (`on: [demo, essay, original, making-of]`, required), and each page lists only its own. An essay's references are credits too (`cited: true`, optional `year`), shown under "Sources" in that page's credits; an essay never carries its own sources section. Apply this to every new exhibit.
 - If a licence is unclear, do not use the asset — ask the operator.
 
 ### Design and visual references
