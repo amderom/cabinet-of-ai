@@ -87,7 +87,7 @@ Exception to the 6-month rule: Astro 7 (released 2026-06-22), approved by the op
 ## Architecture
 
 ### Overview
-A static Astro site. Pages are plain HTML by default; interactive parts (each exhibit's demo, the cabinet, the sound controls) are React islands that load only on the pages that use them. Exhibits are content entries (MDX + metadata), so adding an exhibit means adding a content entry and its own demo component, without touching the rest of the site.
+A static Astro site. Pages are plain HTML by default; interactive parts (each exhibit's demo, the sound controls) are React islands; the homepage cabinet is plain HTML with a small script (ADR 008) that load only on the pages that use them. Exhibits are content entries (MDX + metadata), so adding an exhibit means adding a content entry and its own demo component, without touching the rest of the site.
 
 ### Domain Map
 
@@ -97,7 +97,7 @@ A static Astro site. Pages are plain HTML by default; interactive parts (each ex
 | Pages & routing | Home, exhibit demo page, essay page, making-of page | `src/pages/` |
 | Layouts & UI | Shared layout, typography, tokens, navigation, calls to action, link previews (Open Graph) | `src/layouts/`, `src/components/`, `src/styles/` |
 | Demos | One self-contained React island per exhibit, including its parody framing | `src/demos/<slug>/` |
-| Cabinet | Homepage cabinet: illustrated 2D cabinet, animated with GSAP (no 3D) | `src/cabinet/` |
+| Cabinet | Homepage vitrine: one card per exhibit, plain links rendered by Astro with a small script (hover glow, sealed cards); CSS and view transitions, no GSAP, no 3D (ADR 008) | `src/cabinet/` |
 | Sound | Sound preference (with sound / in silence), persistent mute toggle, sound-effect playback. The preference is kept in memory and `localStorage` only — never in cookies | `src/sound/` |
 | Credits | Source, author and licence of every third-party asset, shown on each exhibit and in a site-level credits spot for cabinet assets | exhibit metadata (`credits`), `src/components/` |
 | Static assets | Images, sounds, link-preview images | `public/` |
@@ -199,7 +199,7 @@ Files created at runtime by agent-skills (not by the vibe-project skill):
 - **Vintage is content, never look** (agreed 2026-11-11, replacing "vintage appears only in objects, labels and inscriptions", which left a loophole). The past lives only in the words, texts and quotations, and in real public-domain engravings shown as images. Everything the visitor can see or touch as interface (the machines, frames, blocks, buttons, icons, controls, panels) is designed as a 2026 product: flat, sleek, techy, crisp modern icons. Never imitate old materials or old software: no wood, brass, parchment, bevels, fake 3D, drop-shadow "depth", or illustrative skeuomorphic icons. When in doubt, ask: would this look at home in a 2026 product launch? If not, it doesn't ship. No period typeface: the site's own three typefaces are used everywhere (the author's choice, 2026-11-11).
 - **Curio direction (chosen 2026-11-10):** elegant *and* playful. Near-black, a slowly drifting glow made from the exhibit's colour, fine film grain, a giant modern display serif (Instrument Serif) with italics, Inter Tight for reading, tiny mono labels (IBM Plex Mono). Playful touches: floating engraving plates the visitor can drag (they never cover text or buttons), a scrolling serif banner, rotated parody stickers ("In beta since 1726"). All neutrals in one warm cream family. Rejected: a classic "rounded cards, grey text" look (felt web 2.0).
 - One accent colour per exhibit, inspired by the object, pushed to a saturated, modern colour (neon on near-black). The contrast is the point: vintage content, unmistakably 2026 presentation.
-- The homepage looks like an actual cabinet (a piece of furniture). No exhibit is the entry point.
+- The homepage is a cabinet of curiosities as a metaphor, not furniture: one tall card per exhibit floats under the title, the "master" version of the plates inside that exhibit. It belongs to no single exhibit: no page glow at rest; hovering a card with a mouse lights a soft glow in that card's colour. No exhibit is the entry point (agreed 2026-11-13, ADR 008).
 - **Engravings are the common thread of the whole site** (agreed 2026-11-10). They appear everywhere, in three forms: on the exhibit plates (the real object, readable), as a soft neon texture in the background tinted with the exhibit's colour (atmosphere, never competing with text, fainter on reading pages), and in the cabinet on the homepage. All come from free-to-use, public-domain collections, with source and licence recorded.
 - Motion: light CSS animations, page transitions, GSAP sequences. No 3D for now.
 - Sound: optional enhancement, never required to understand anything.

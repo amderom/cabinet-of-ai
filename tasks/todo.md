@@ -22,9 +22,9 @@
 - [x] The author approves (Checkpoint C)
 **Dependencies:** T3 · **Estimated scope:** M
 
-## T5: Checks and docs
+## T5: Checks and docs ✅
 - [x] LCP < 2.5 s, CLS < 0.1, opening < 200 ms; Edge at 390/375/1280: no sideways scroll, no external requests, no console errors
-- [ ] ADR 008; docs/project.md Domain map (with her yes); README; journal
+- [x] ADR 008; docs/project.md Domain map (with her yes); README; journal
 **Dependencies:** T4 · **Estimated scope:** S
 
 ## T6: Ship and MVP

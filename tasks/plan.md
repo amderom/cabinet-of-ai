@@ -28,7 +28,7 @@ Design the cabinet with the author through a clickable prototype, then build it 
 - [x] T4: Sounds, credits spot, line under the cabinet; engraving if used → Checkpoint C
 
 ### Phase 4: Ship
-- [ ] T5: Speed and browser checks, ADR 008, docs, journal
+- [x] T5: Speed and browser checks, ADR 008, docs, journal
 - [ ] T6: PR, phone check, merge on her word; MVP; reminder to delete STARTUP.md
 
 ## Risks and Mitigations

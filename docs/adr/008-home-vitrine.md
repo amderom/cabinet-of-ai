@@ -32,4 +32,4 @@ STARTUP.md and docs/project.md describe the homepage as "an illustrated cabinet 
 
 - Each new exhibit needs a `year` and, ideally, a `card` image (ink on a transparent ground) for its home card; its pages' texture becomes the end of the home page's page change.
 - More than six exhibits need a new layout for the case.
-- docs/project.md still describes the homepage as furniture animated with GSAP and the cabinet as a React island; it is updated once the operator agrees to the new wording.
+- docs/project.md (Design references, Domain map, Architecture overview) updated with the operator's agreement, 2026-11-13.
