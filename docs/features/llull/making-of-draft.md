@@ -7,7 +7,7 @@
 
 ## Intro
 
-Llull wrote that his Art had three friends: subtlety of intellect, reason, and good intention. For this second exhibit, I had a fourth: the same AI coding agent that rebuilt [the Lagado Engine](/exhibits/lagado/making-of/), working with the same method and the same rules. ⚠ It took one day, 13 November 2026.
+Llull wrote that his Art had three friends: subtlety of intellect, reason, and good intention. For this second exhibit, I had a fourth: the same AI coding agent that rebuilt [the Lagado Engine](/exhibits/lagado/making-of/), working with the same method and the same rules. It took about three hours, on the evening of 13 November 2026 (to update when finished).
 
 The machine was new, though, and so were the difficulties. Here are three of them, told once more as conversations which never quite happened in these words.
 
@@ -15,7 +15,7 @@ The machine was new, though, and so were the difficulties. Here are three of the
 
 | Figure | Line | Note |
 |---|---|---|
-| ⚠ 1 | day, from spec to the last page | 13 November 2026 |
+| 3 | hours, from the first word to this page | 13 Nov 2026, 19:32–22:33; Lagado took 10 |
 | 7 | prototypes before it felt right | Lagado needed 28 |
 | 9 | questions for the Art | 6 of Llull's, 3 from 2026 |
 | 23 | quotations checked word for word | against Dambergs' translation, by script |

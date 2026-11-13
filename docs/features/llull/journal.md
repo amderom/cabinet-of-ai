@@ -123,3 +123,5 @@ Her brief: an intro not repeating Lagado's, the same number of points: (1) the c
 **Paper trail: Peers removed** (her word: "Peers isn't Latin"). Three stops, all Latin (1517, 1617, 1906); Peers's credit back to the demo only.
 
 **Making-of, scene 2 rewritten** (her note: unclear, mixing how the Art works and the machine): now only what she asked the agent to research (a translation; the popes; the pitch itself) and her feedback (did the Pope really say yes? → "on paper").
+
+**Hours, not days** (her rule): the making-of counts hours, like Lagado's: about 3 (19:32, her first message about Llull, to 22:33, the last commit), to update when the exhibit is finished.
