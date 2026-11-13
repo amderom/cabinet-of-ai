@@ -109,3 +109,5 @@ Candidates shown (all from the 1617 *Ars brevis*, BIU Santé, Etalab): A the ope
 **The original, simplified** (her decision): no Latin on the page, too much; the lead says "Translated from the Latin into English by Claude", and each section links to its scanned Latin pages (Golubovich 1906, pp. 373–375; Strasbourg 1617, p. 42). `Latin.astro` removed; `original-latin.md` kept as the record the translation was made from; the test now checks the Claude credit and the two links. Edge at 375 and 1280px: no sideways scroll, no errors. 128 tests, build OK.
 
 Her decision: Claude's translation throughout; Peers (only extracts and paraphrase, pp. 252–254) not used on the page.
+
+**Image on The original** (her request, "the one we didn't use"): the fourth figure (`quarta-figura`, black on white), placed after Llull's "new method that God gave me" in the pitch. Edge at 375 and 1280px: loads, no sideways scroll, no errors.
