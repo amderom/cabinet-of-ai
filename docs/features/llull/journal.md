@@ -139,3 +139,5 @@ Three moments get a sound, as in Lagado: the wheels turn (tap Ask), each reason 
 ## 2026-11-13 — Task 12: the link-preview image
 
 Same layout as Lagado's (direction C, ADR 007): "Cabinet of AI · Exhibit 02", "Llull's Ars *Magna*" (Magna in Llull's pink), the line "Ask anything. Get the one true answer." (banner line 1, validated at Checkpoint A, now also the tagline), her drawing of Llull on a tilted cream plate. Section `#llull` in `design/previews/previews.html`, captured at 1200 × 627 with playwright-cli in Edge (`design/previews/out/llull.png`), credited (`llull-preview`, on every part) and named in `preview`. Draft demo description for LinkedIn: "Ask anything. Get the one true answer. Ramon Llull's paper question machine of 1308, rebuilt so you can play with it." (to approve). The build's preview check passed (size, alt); all four Llull pages carry og:image, its alt, a description and summary_large_image. Not yet: Post Inspector on the real link (Llull is not on the live site).
+
+**Task 12 approved** ("Yes"): image, tagline and description.

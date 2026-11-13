@@ -2,7 +2,7 @@
 # Must be set back to "sealed" before this branch is merged, unless the author says to open it (see the PR checklist).
 title: Llull's Ars Magna
 tagline: Ask anything. Get the one true answer.
-# The demo page's link-preview description (LinkedIn warns under 100 characters). Draft, 2026-11-13: to approve.
+# The demo page's link-preview description (LinkedIn warns under 100 characters). Approved 2026-11-13.
 description: "Ask anything. Get the one true answer. Ramon Llull’s paper question machine of 1308, rebuilt so you can play with it."
 accent: "#FF2D55"
 status: open

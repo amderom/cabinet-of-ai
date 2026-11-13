@@ -78,7 +78,7 @@
 
 ## Phase 5: Finish
 
-- [ ] **Task 12: Link-preview image** (her drawing, 1200 × 627, `design/previews/previews.html`)
+- [x] **Task 12: Link-preview image** (her drawing, 1200 × 627, `design/previews/previews.html`; approved with tagline and description)
 - [x] **Task 13: Making-of** (three scenes, numbers in hours, the paper trail; validated by her)
 - [ ] **Task 14: Speed, browser sweep, README, ADR if needed**
 - [ ] **Task 15: Draft PR, Llull still sealed; open and merge on her word**
