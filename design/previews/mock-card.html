@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- A plain feed-card mock at phone width, to judge preview images at the size people see them. -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Preview card mock</title>
+<style>
+  body { margin: 0; background: #f3f2ef; font: 14px/1.35 -apple-system, system-ui, sans-serif; color: #1d1d1d; }
+  .post { background: #fff; margin: 0 0 8px; padding: 12px 0 0; }
+  .who { display: flex; gap: 8px; padding: 0 16px 8px; align-items: center; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: #c9c3bb; }
+  .name { font-weight: 600; } .meta { color: #666; font-size: 12px; }
+  .text { padding: 0 16px 10px; }
+  .card img { display: block; width: 100%; aspect-ratio: 1200 / 627; }
+  .card .cap { background: #eef3f8; padding: 8px 16px 10px; }
+  .card .t { font-weight: 600; } .card .d { color: #666; font-size: 12px; }
+</style>
+</head>
+<body>
+  <div class="post">
+    <div class="who"><div class="avatar"></div><div><div class="name">The author</div><div class="meta">Researcher · 1h</div></div></div>
+    <p class="text">A machine that writes books, imagined in 1726. I rebuilt it. Go turn its cranks.</p>
+    <div class="card"><img src="out/lagado.png" alt="" /><div class="cap"><div class="t">The Lagado Engine · Cabinet of AI</div><div class="d">cabinet-of-ai-gx8a.vercel.app</div></div></div>
+  </div>
+  <div class="post">
+    <div class="who"><div class="avatar"></div><div><div class="name">The author</div><div class="meta">Researcher · 1h</div></div></div>
+    <p class="text">A cabinet of curiosities for the ideas behind AI.</p>
+    <div class="card"><img src="out/site.png" alt="" /><div class="cap"><div class="t">Cabinet of AI</div><div class="d">cabinet-of-ai-gx8a.vercel.app</div></div></div>
+  </div>
+</body>
+</html>

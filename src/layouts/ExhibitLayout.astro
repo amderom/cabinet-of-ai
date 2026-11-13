@@ -16,6 +16,7 @@ import { getImage } from "astro:assets";
 import { getEntry } from "astro:content";
 import { creditFor } from "../lib/credits";
 import { pageTitle } from "../lib/seo";
+import { previewImage } from "../lib/preview";
 
 interface Props {
   exhibit: CollectionEntry<"exhibits">;
@@ -34,6 +35,11 @@ const textureCredit = exhibit.data.texture ? creditFor(exhibit.data.credits, exh
 const texture = textureCredit?.file
   ? (await getImage({ src: textureCredit.file, format: "avif", width: 480, quality: 45 })).src
   : undefined;
+// The link-preview image, shared by every part of the exhibit (ADR 007).
+const preview = previewImage(
+  exhibit.data.preview ? creditFor(exhibit.data.credits, exhibit.data.preview, exhibit.id) : undefined,
+  exhibit.id,
+);
 const partName = { demo: "Demo", essay: "Essay", "making-of": "Making-of", original: "The original" }[part];
 // Only exhibits with an original text get its tab.
 const hasOriginal = Boolean(await getEntry("originals", exhibit.id));
@@ -49,6 +55,7 @@ const titleEnd = words.at(-1);
   accent={exhibit.data.accent}
   type={part === "essay" ? "article" : "website"}
   calm={!isDemo}
+  image={preview}
   texture={texture}>
   <div class="exhibit-stage">
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">

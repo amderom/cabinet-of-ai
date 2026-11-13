@@ -5,6 +5,12 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { sortByOrder } from "../lib/exhibits";
+import { previewImage } from "../lib/preview";
+import { SITE_PREVIEW_ALT } from "../lib/site";
+// The site's link-preview image (the author's drawing of Swift, all rights reserved; ADR 007).
+import sitePreview from "../assets/site-preview.png";
+
+const preview = previewImage({ file: sitePreview, alt: SITE_PREVIEW_ALT }, "site");
 
 const exhibits = sortByOrder(await getCollection("exhibits"));
 ---
@@ -12,6 +18,7 @@ const exhibits = sortByOrder(await getCollection("exhibits"));
 <BaseLayout
   title="Cabinet of AI"
   description="A cabinet of curiosities of the historical prefigurations of artificial intelligence."
+  image={preview}
 >
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
     <span class="text-cream">Cabinet of AI</span>

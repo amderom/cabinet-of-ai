@@ -68,7 +68,17 @@ credits:
     source: "Freesound"
     url: "https://freesound.org/people/I.fekry/sounds/470710/"
     licence: "CC0"
+  # The link-preview image (1200 × 627), made from design/previews/previews.html (ADR 007).
+  # Chosen by the author on 2026-11-13; uses her drawing of Swift with her agreement.
+  - id: lagado-preview
+    file: ./images/preview.png
+    alt: "The Lagado Engine. Write any book. No genius. No study. Just turn the cranks. Beside it, an ink drawing of Jonathan Swift on a cream plate."
+    asset: "Link-preview image, with the ink drawing of Jonathan Swift"
+    author: "Amélie Derome"
+    source: "The author"
+    licence: "All rights reserved"
 texture: the-engine
+preview: lagado-preview
 hero: swift-portrait
 sticker: In beta since 1726
 # Parody banner under the machine (chosen by the operator from machine-content.md, 2026-11-11).
