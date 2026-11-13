@@ -46,7 +46,6 @@
   | Product | The Art (*Ars generalis ultima*) |
   | Release | Pisa, 1308 (begun in Lyon, 1305) |
   | Founder | Ramon Llull (c. 1232–1316), ex-courtier, ex-troubadour |
-  | Alphabet | 9 letters, B to K, 6 meanings each |
   | Wheels | 3, of which 2 rotate |
   | Chambers | 1,680 (84 × 20) |
   | Chance | 0 |
@@ -92,4 +91,4 @@ Each fact-based line is sourced above: 7–8 (Peers, p. 360), 9 (Peers, pp. 11�
 The author: "I love all the rest." Sticker: **Aligned since 1308**. Banner: **all twelve lines**. Plate texts as drafted, with "decrees" for the Council of Vienne. Checked again at the author's request: the decree is certain (canon 24; Peers p. 360; New Catholic Encyclopedia); Peers's "Rome" is the decree's "wherever the Roman curia resides", which was Avignon at the time; whether the chairs were really set up is not certain (one source says the Arabic chairs never were). So the plate says "decrees" and "the papal court". Simplified at her request ("no one will understand he asked for three colleges and got five"): verdict "Yes, on paper. It took five of them and twenty-seven years."; plate II's last line and banner line 8 ("Funded on paper, 1312") rewritten to match.
 
 
-**Spec sheet trimmed (2026-11-13, Checkpoint D):** the author removed First version, Figures, Columns and Questions supported, and replaced "False answers: 0, by definition" with "Human in the loop: Yes, and God too".
+**Spec sheet trimmed (2026-11-13, Checkpoint D):** the author removed First version, Figures, Columns and Questions supported, and replaced "False answers: 0, by definition" with "Human in the loop: Yes, and God too". Then Alphabet removed too; the card's small table unchanged.
