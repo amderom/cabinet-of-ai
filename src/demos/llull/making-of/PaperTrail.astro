@@ -1,0 +1,496 @@
+---
+/**
+ * "The paper trail": the making-of's interlude (the author's idea, 2026-11-13). Four old books the
+ * agent read, as stops on a timeline (1517, 1617, 1906, 1929). Each shows a crop of the real scan;
+ * tap the Latin (or Catalan) phrase by phrase and each piece flips into Claude's English. Once all
+ * are turned, the card says what that book gave the exhibit. Crops from the credited scans
+ * (exhibit.yaml); translations as on the site. Without JavaScript, every phrase shows both sides.
+ * Place it inside a <Scene stack>.
+ */
+import { Image } from "astro:assets";
+import scan1517 from "./scan-1517.jpg";
+import scan1617 from "./scan-1617.jpg";
+import scan1906 from "./scan-1906.jpg";
+
+interface Book {
+  year: string;
+  where: string;
+  what: string;
+  lang: "la" | "ca";
+  scan?: { src: ImageMetadata; alt: string };
+  quote?: string;
+  phrases: [string, string][];
+  note: string;
+  gave: string;
+  href: string;
+  link: string;
+}
+
+const BOOKS: Book[] = [
+  {
+    year: "1517",
+    where: "Lyon",
+    what: "Ars generalis ultima, the fourth figure",
+    lang: "la",
+    scan: { src: scan1517, alt: "QVARTA FIGVRA, in capitals, from the 1517 Lyon edition" },
+    phrases: [
+      ["Quarta", "Fourth"],
+      ["figura", "figure"],
+    ],
+    note: "Two words, and a paper machine under them: three wheels, two of them turning.",
+    gave: "The wheels on plate I, on the home card and in the pink background.",
+    href: "/exhibits/llull/",
+    link: "See the plates",
+  },
+  {
+    year: "1617",
+    where: "Strasbourg",
+    what: "Ars brevis (1308), its last chapter",
+    lang: "la",
+    scan: { src: scan1617, alt: "Three lines of Latin from the 1617 Strasbourg printing of the Ars brevis" },
+    phrases: [
+      ["Vnde sciendum est", "Know, then,"],
+      ["quod hæc ars", "that this Art"],
+      ["tres amicos habet,", "has three friends:"],
+      ["videlicet subtilitatem intellectus,", "subtlety of intellect,"],
+      ["& rationem,", "reason,"],
+      ["& bonam intentionem:", "and good intention."],
+      ["sine istis quidem tribus", "Without these three,"],
+      ["hanc artem nullus addiscere potest.", "no one can learn it."],
+    ],
+    note: "The long s looks like an f: “sciendum” is printed “ſciendum”.",
+    gave: "How to teach the Art, on The original.",
+    href: "/exhibits/llull/original/",
+    link: "Read it",
+  },
+  {
+    year: "1906",
+    where: "Quaracchi",
+    what: "Llull’s pitch to Pope Celestine V (Naples, 1294)",
+    lang: "la",
+    scan: { src: scan1906, alt: "A line of Latin from Golubovich’s 1906 printing of Llull’s petition" },
+    phrases: [
+      ["Multas alias rationes", "many other reasons"],
+      ["possem dicere,", "I could give"],
+      ["sed timeo", "but I fear"],
+      ["nimium loqui,", "to say too much;"],
+      ["et si nimium loquor,", "and if I say too much,"],
+    ],
+    note: "Latin puts the reasons first. English needs the “I” first.",
+    gave: "The pitch to the Pope, on The original.",
+    href: "/exhibits/llull/original/",
+    link: "Read it",
+  },
+  {
+    year: "1929",
+    where: "London",
+    what: "E. Allison Peers, Ramon Lull: A Biography, p. 322, note",
+    lang: "ca",
+    quote: "De la qual cosa axi lo sant Pare com los cardinals hagueren poca cura ne ansia.",
+    phrases: [
+      ["axi lo sant Pare com los cardinals", "The Holy Father and the cardinals alike"],
+      ["hagueren poca cura ne ansia", "had little care or concern"],
+      ["De la qual cosa", "for it."],
+    ],
+    note: "Not Latin: Catalan, from Llull’s early Life, quoted in a footnote. Page 322, not 321.",
+    gave: "Plate II, The Pitch to the Pope: five popes, from Peers’s pages.",
+    href: "/exhibits/llull/",
+    link: "See the plates",
+  },
+];
+const langName = { la: "Latin", ca: "Catalan" };
+---
+
+<div class="mo-trail">
+  <ol class="t-years" aria-label="Four old books">
+    {
+      BOOKS.map((b, i) => (
+        <li>
+          <button type="button" class="t-year" data-go={i} aria-label={`${b.year}, ${b.where}`}>
+            <span>{b.year}</span>
+          </button>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="t-books">
+    {
+      BOOKS.map((b, i) => (
+        <section class="t-book" data-i={i} aria-label={`${b.year}, ${b.where}: ${b.what}`}>
+          <p class="t-kicker">
+            {b.where} · {b.year}
+          </p>
+          <p class="t-what">{b.what}</p>
+          {b.scan ? (
+            <div class="t-scan">
+              <Image src={b.scan.src} alt={b.scan.alt} widths={[360, 720, 900]} sizes="(min-width: 760px) 640px, 90vw" />
+            </div>
+          ) : (
+            <p class="t-quote" lang={b.lang}>
+              {b.quote}
+            </p>
+          )}
+          <p class="t-hint">
+            Tap the {langName[b.lang]} to translate · <span class="t-count">0 / {b.phrases.length}</span>
+          </p>
+          <div class="t-phrases">
+            {b.phrases.map(([from, to]) => (
+              <button type="button" class="t-chip" aria-pressed="false">
+                <span class="t-from" lang={b.lang}>
+                  {from}
+                </span>
+                <span class="t-to">{to}</span>
+              </button>
+            ))}
+          </div>
+          <div class="t-done">
+            <p class="t-note">{b.note}</p>
+            <p class="t-gave">
+              <span>On the site</span> {b.gave} <a href={b.href}>{b.link} →</a>
+            </p>
+          </div>
+          <div class="t-foot">
+            <button type="button" class="t-all">
+              Translate it all
+            </button>
+            {i + 1 < BOOKS.length ? (
+              <button type="button" class="t-next" data-go={i + 1}>
+                Next book: {BOOKS[i + 1].year} →
+              </button>
+            ) : (
+              <button type="button" class="t-next" data-go={0}>
+                Back to 1517
+              </button>
+            )}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+  <p class="t-credit">Translations by Claude, from the scans credited below.</p>
+</div>
+
+<style>
+  .mo-trail {
+    display: grid;
+    gap: 16px;
+  }
+  /* The timeline of years. */
+  .t-years {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .t-years::before {
+    content: "";
+    position: absolute;
+    left: 12.5%;
+    right: 12.5%;
+    top: 50%;
+    border-top: 1px dashed var(--color-line);
+  }
+  .t-years li {
+    display: grid;
+    justify-items: center;
+  }
+  .t-year {
+    position: relative;
+    min-width: 64px;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: var(--color-ink, #0b0806);
+    color: var(--color-muted);
+    font: 500 13px var(--font-mono);
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition:
+      color 0.2s,
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+  .t-year.is-current {
+    border-color: var(--color-accent);
+    color: var(--color-cream);
+    box-shadow: 0 0 22px color-mix(in oklab, var(--color-accent) 45%, transparent);
+  }
+  .t-year.is-done::after {
+    content: "✓";
+    position: absolute;
+    top: -6px;
+    right: -4px;
+    font-size: 11px;
+    color: var(--color-accent);
+  }
+
+  /* A book: a cream card. */
+  .t-book {
+    display: grid;
+    gap: 12px;
+    padding: 16px 18px 18px;
+    border-radius: 18px;
+    background: var(--color-cream);
+    color: #140d07;
+    box-shadow:
+      0 18px 40px -16px rgb(0 0 0 / 0.8),
+      0 0 30px color-mix(in oklab, var(--color-accent) 15%, transparent);
+  }
+  .t-kicker {
+    margin: 0;
+    font: 500 10px var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #6b5d4c;
+  }
+  .t-what {
+    margin: -6px 0 0;
+    font: italic 400 22px/1.15 var(--font-display);
+  }
+  .t-scan {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .t-scan img {
+    display: block;
+    width: 100%;
+    height: auto;
+    mix-blend-mode: multiply;
+    filter: contrast(1.15);
+  }
+  .t-quote {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #fff;
+    font: italic 400 20px/1.3 var(--font-display);
+  }
+  .t-hint {
+    margin: 0;
+    font: 500 10px var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6b5d4c;
+  }
+  .t-count {
+    color: var(--color-accent);
+  }
+
+  /* The phrases: tap one and it flips from the old language to English. */
+  .t-phrases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .t-chip {
+    display: inline-grid;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+    perspective: 600px;
+  }
+  .t-from,
+  .t-to {
+    grid-area: 1 / 1;
+    display: grid;
+    place-items: center;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 16px;
+    line-height: 1.2;
+    backface-visibility: hidden;
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .t-from {
+    border: 1px solid #140d07;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 18px;
+    color: #140d07;
+  }
+  .t-to {
+    background: var(--color-accent);
+    color: #fff;
+    font-weight: 600;
+    transform: rotateX(180deg);
+  }
+  .t-chip[aria-pressed="true"] .t-from {
+    transform: rotateX(-180deg);
+  }
+  .t-chip[aria-pressed="true"] .t-to {
+    transform: rotateX(0deg);
+  }
+  .t-chip:focus-visible,
+  .t-year:focus-visible,
+  .t-all:focus-visible,
+  .t-next:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .t-done {
+    display: grid;
+    gap: 6px;
+    padding-top: 10px;
+    border-top: 1px solid rgb(20 13 7 / 0.15);
+  }
+  .t-note,
+  .t-gave {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: 1.45;
+    color: #3b2f22;
+  }
+  .t-gave span {
+    display: block;
+    font: 500 10px var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .t-gave a {
+    color: #140d07;
+    font-weight: 600;
+  }
+  .t-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .t-all,
+  .t-next {
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    font: 600 14px var(--font-sans);
+    cursor: pointer;
+  }
+  .t-all {
+    border: 1px solid rgb(20 13 7 / 0.3);
+    background: transparent;
+    color: #140d07;
+  }
+  .t-next {
+    border: 0;
+    background: #140d07;
+    color: var(--color-cream);
+  }
+  .t-credit {
+    margin: 0;
+    font-size: 13px;
+    color: var(--color-muted);
+  }
+
+  /* Without the script, every phrase shows both sides and every book is listed. */
+  .mo-trail:not(.is-on) .t-years,
+  .mo-trail:not(.is-on) .t-hint,
+  .mo-trail:not(.is-on) .t-foot {
+    display: none;
+  }
+  .mo-trail:not(.is-on) .t-books {
+    display: grid;
+    gap: 14px;
+  }
+  .mo-trail:not(.is-on) .t-to {
+    transform: none;
+  }
+  .mo-trail:not(.is-on) .t-chip {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .mo-trail:not(.is-on) .t-from,
+  .mo-trail:not(.is-on) .t-to {
+    grid-area: auto;
+  }
+  .mo-trail.is-on .t-book {
+    display: none;
+  }
+  .mo-trail.is-on .t-book.is-current {
+    display: grid;
+    animation: t-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .mo-trail.is-on .t-done {
+    display: none;
+  }
+  .mo-trail.is-on .is-translated .t-done {
+    display: grid;
+    animation: t-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .is-translated .t-all {
+    visibility: hidden;
+  }
+  @keyframes t-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .t-from,
+    .t-to {
+      transition: none;
+    }
+    .mo-trail.is-on .t-book.is-current,
+    .mo-trail.is-on .is-translated .t-done {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function setUp(trail: HTMLElement) {
+    const books = [...trail.querySelectorAll<HTMLElement>(".t-book")];
+    const years = [...trail.querySelectorAll<HTMLButtonElement>(".t-year")];
+    const go = (i: number, focus = false) => {
+      books.forEach((b, k) => b.classList.toggle("is-current", k === i));
+      years.forEach((y, k) => {
+        y.classList.toggle("is-current", k === i);
+        y.setAttribute("aria-current", String(k === i));
+      });
+      if (focus) books[i].querySelector<HTMLButtonElement>(".t-chip")?.focus({ preventScroll: true });
+    };
+    const update = (book: HTMLElement) => {
+      const chips = [...book.querySelectorAll<HTMLButtonElement>(".t-chip")];
+      const n = chips.filter((c) => c.getAttribute("aria-pressed") === "true").length;
+      book.querySelector<HTMLElement>(".t-count")!.textContent = `${n} / ${chips.length}`;
+      const done = n === chips.length;
+      book.classList.toggle("is-translated", done);
+      years[Number(book.dataset.i)].classList.toggle("is-done", done);
+    };
+    trail.classList.add("is-on");
+    books.forEach((book) => {
+      book.querySelectorAll<HTMLButtonElement>(".t-chip").forEach((chip) =>
+        chip.addEventListener("click", () => {
+          chip.setAttribute("aria-pressed", String(chip.getAttribute("aria-pressed") !== "true"));
+          update(book);
+        }),
+      );
+      book.querySelector<HTMLButtonElement>(".t-all")!.addEventListener("click", () => {
+        book.querySelectorAll<HTMLButtonElement>(".t-chip").forEach((c) => c.setAttribute("aria-pressed", "true"));
+        update(book);
+      });
+    });
+    trail.querySelectorAll<HTMLButtonElement>("[data-go]").forEach((b) =>
+      b.addEventListener("click", () => go(Number(b.dataset.go), b.classList.contains("t-next"))),
+    );
+    go(0);
+  }
+
+  // Runs on first load and after every page change (view transitions).
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLElement>(".mo-trail").forEach((trail) => {
+      if (trail.dataset.ready) return;
+      trail.dataset.ready = "true";
+      setUp(trail);
+    });
+  });
+</script>

@@ -61,7 +61,9 @@ The machine was new, though, and so were the difficulties. Here are three of the
 
 **Point:** A second exhibit is where a method proves itself. The rules learnt on Lagado (vintage is content, never look; ask before changing; check everything on a phone) were already written down, so the agent followed them instead of discovering them again: seven prototypes instead of twenty-eight. What stayed hard was not the code but the content, which is to say, what Llull actually said.
 
-## Interlude (to choose: see the three ideas below)
+## Interlude: The paper trail (her idea)
+
+Four stops on a timeline (1517 Lyon, 1617 Strasbourg, 1906 Quaracchi, 1929 London). Each shows a crop of the real scan; tap the Latin (Catalan for Peers's footnote) phrase by phrase and each piece flips into Claude's English; once all are turned, a note and what the book gave the site, with a link. Notes: "Two words, and a paper machine under them: three wheels, two of them turning." / "The long s looks like an f: “sciendum” is printed “ſciendum”." / "Latin puts the reasons first. English needs the “I” first." / "Not Latin: Catalan, from Llull’s early Life, quoted in a footnote. Page 322, not 321." Credit line: "Translations by Claude, from the scans credited below."
 
 ## Who made what
 
