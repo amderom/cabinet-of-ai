@@ -18,6 +18,8 @@ const exhibits = defineCollection({
       accent: z.string().regex(/^#[0-9A-Fa-f]{6}$/, "accent must be a #RRGGBB colour"),
       status: z.enum(["open", "sealed"]),
       order: z.number().int(),
+      /** Year of the idea, shown on its plate on the home page (e.g. "1726", "c. 1305"). */
+      year: z.string().optional(),
       // Every third-party (or author-provided) asset, declared once. Images are
       // placed elsewhere by their id (figures, texture, hero). See ADR 005.
       credits: z

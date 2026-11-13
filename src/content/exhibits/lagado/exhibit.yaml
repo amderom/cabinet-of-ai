@@ -5,6 +5,8 @@ description: "Write any book. No genius. No study. Just turn the cranks. Swiftâ€
 accent: "#FF5F1F"
 status: open
 order: 1
+# Gulliver's Travels, first edition (Benjamin Motte, London, 1726).
+year: "1726"
 # Every image is declared once here and placed elsewhere by its id (ADR 005).
 # Sources and licences: docs/features/lagado/engravings.md
 credits:

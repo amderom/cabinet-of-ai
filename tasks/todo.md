@@ -2,18 +2,18 @@
 
 > Plan: [plan.md](./plan.md). Spec: [SPEC.md](../SPEC.md).
 
-## T1: Clickable prototype, three directions
-- [ ] Line cabinet, monolith, engraving inside: each opens on tap and pulls a drawer; sealed drawers shake
-- [ ] Works at 375px and on desktop; published as a private artifact; the author picks (Checkpoint A)
+## T1: Clickable prototype ✅
+- [x] Round 1 (line, monolith, engraving inside) rejected; round 2 (specimens, timeline, signal) published
+- [x] The author picks: Specimens (Checkpoint A)
 **Estimated scope:** S
 
-## T2: Drawers from content
-- [ ] `src/cabinet/drawers.ts`: one drawer per exhibit in order; only open ones linked; labels (unit-tested)
+## T2: Specimens from content ✅
+- [x] `src/cabinet/specimens.ts`: one plate per exhibit in order; only open ones linked; labels; places in the case for 1–6 plates (unit-tested)
 **Dependencies:** T1 · **Estimated scope:** S
 
-## T3: Cabinet on the home page
-- [ ] Chosen direction built in Astro + a small script; drawers are links; JS off → open; reduced motion → no movement
-- [ ] Pull Lagado → `/exhibits/lagado/` with the title morph; back → already open (tab memory)
+## T3: The vitrine on the home page
+- [ ] Built in Astro + a small script; plates are links; JS off → Lagado still a link; reduced motion → no movement
+- [ ] Choose → forward + glow in its colour; enter → `/exhibits/lagado/` with the title morph; sealed → no navigation
 - [ ] The author checks it on her phone (Checkpoint B)
 **Dependencies:** T2 · **Estimated scope:** M
 

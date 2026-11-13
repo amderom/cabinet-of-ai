@@ -59,6 +59,9 @@
 
   body {
     @apply bg-ink text-cream font-sans antialiased;
+    /* Re-read here so an exhibit's --accent (set on body) reaches hand-written CSS such as the
+       glow; resolved on :root alone, it was always the default orange. */
+    --color-accent: var(--accent, #ff5f1f);
   }
 }
 
@@ -79,7 +82,7 @@
     background: radial-gradient(
       circle,
       var(--color-accent) 0%,
-      color-mix(in oklab, var(--color-accent) 55%, #3a0d00) 32%,
+      color-mix(in oklab, var(--color-accent) 55%, var(--glow-deep, #3a0d00)) 32%,
       transparent 64%
     );
     filter: blur(48px);

@@ -1,0 +1,153 @@
+/* The home page's vitrine. Only position, rotation, scale and opacity animate (smooth on phones). */
+.vitrine {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: var(--case-h);
+  margin-inline: auto;
+}
+
+.vt-corner {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  color: rgb(244 236 223 / 0.35);
+  pointer-events: none;
+}
+.vt-corner::before,
+.vt-corner::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.vt-corner::before { left: 7px; top: 0; width: 1px; height: 15px; }
+.vt-corner::after { top: 7px; left: 0; height: 1px; width: 15px; }
+.vt-c1 { left: -4px; top: -4px; }
+.vt-c2 { right: -4px; top: -4px; }
+.vt-c3 { left: -4px; bottom: -4px; }
+.vt-c4 { right: -4px; bottom: -4px; }
+
+.vt-plate {
+  position: absolute;
+  left: var(--left);
+  top: var(--top);
+  width: 47%;
+  height: 226px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0f0d0b;
+  color: var(--color-cream);
+  text-decoration: none;
+  box-shadow:
+    0 0 0 1px rgb(var(--c) / 0.4),
+    0 20px 60px rgb(0 0 0 / 0.6),
+    0 0 50px rgb(var(--c) / 0.14);
+  rotate: var(--tilt);
+  z-index: calc(10 - var(--i));
+  transform: var(--to, none);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s, box-shadow 0.5s, filter 0.5s;
+  animation: vt-drift calc(8s + var(--i) * 1.3s) ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -2.1s);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.vt-plate:focus-visible { outline: 2px solid rgb(var(--c)); outline-offset: 4px; }
+@keyframes vt-drift {
+  from { translate: 0 -8px; }
+  to { translate: 0 10px; }
+}
+
+.vt-art { position: absolute; inset: 0; }
+.vt-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) invert(1) contrast(1.6);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+}
+.vt-tint { position: absolute; inset: 0; background: rgb(var(--c)); mix-blend-mode: multiply; }
+.vt-static {
+  background:
+    repeating-radial-gradient(circle at 50% 44%, rgb(var(--c) / 0.55) 0 1px, transparent 1.5px 9px),
+    radial-gradient(circle at 50% 44%, rgb(var(--c) / 0.18), transparent 65%);
+}
+
+.vt-cap {
+  position: absolute;
+  inset: auto 0 0;
+  display: grid;
+  gap: 5px;
+  padding: 14px 14px 13px;
+  background: linear-gradient(180deg, transparent, rgb(7 6 5 / 0.92) 35%);
+}
+.vt-k { color: rgb(var(--c)); }
+.vt-t { font-family: var(--font-display); font-size: 23px; line-height: 1; }
+.vt-sealed .vt-t { color: var(--color-muted); }
+.vt-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: rgb(var(--c));
+  border: 1px solid rgb(var(--c) / 0.5);
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: rgb(7 6 5 / 0.6);
+}
+
+/* One plate chosen: it comes forward, the others step back. */
+.vitrine.vt-focus .vt-plate { opacity: 0.18; filter: blur(3px); }
+.vitrine.vt-focus .vt-plate.vt-chosen {
+  opacity: 1;
+  filter: none;
+  z-index: 20;
+  animation-play-state: paused;
+  box-shadow:
+    0 0 0 1px rgb(var(--c) / 0.85),
+    0 30px 80px rgb(0 0 0 / 0.7),
+    0 0 90px rgb(var(--c) / 0.35);
+}
+
+.vt-detail {
+  position: absolute;
+  inset: auto 0 6px;
+  z-index: 21;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+  opacity: 0;
+  translate: 0 10px;
+  transition: opacity 0.4s 0.2s, translate 0.4s 0.2s;
+  pointer-events: none;
+}
+.vitrine.vt-focus .vt-detail { opacity: 1; translate: 0 0; pointer-events: auto; }
+.vt-enter {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: rgb(var(--c));
+  color: var(--color-ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+.vt-later {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+.vt-shake { animation: vt-shake 0.42s !important; }
+@keyframes vt-shake {
+  20%, 60% { translate: -5px 0; }
+  40%, 80% { translate: 5px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vt-plate { animation: none; transition: none; }
+  .vt-detail { transition: none; }
+}

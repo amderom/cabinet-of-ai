@@ -11,17 +11,18 @@ Design the cabinet with the author through a clickable prototype, then build it 
 
 - **Prototype first** (private Claude artifact with a direction switch), nothing built into the site before the author picks.
 - **Links first, motion second:** Astro renders the cabinet and drawers as HTML links (works with JavaScript off); a small script opens the doors and pulls drawers. No React island (ADR 008, docs/project.md Domain map with her yes).
-- **GSAP only if needed:** CSS transitions first; GSAP 3.15 (approved) only if the chosen sequence can't stay smooth without it.
+- **No GSAP:** CSS transitions are enough (prototype).
+- **Exhibit-neutral:** the page glow is cream until a plate is chosen; every plate uses only its own exhibit's colour and engraving.
 - **Reuse:** drawers from the exhibits collection; sound from `src/sound/`; credits pattern from ADR 005; view transition title morph from Phase 0.
 
 ## Task List
 
 ### Phase 1: Direction (gated)
-- [ ] T1: Clickable prototype, three directions → Checkpoint A
+- [x] T1: Clickable prototype → Checkpoint A (round 2: Specimens chosen)
 
 ### Phase 2: Build (gated)
-- [ ] T2: Drawers from content (pure, tested)
-- [ ] T3: Cabinet on the home page, links first, then motion; open-for-the-visit memory → Checkpoint B
+- [ ] T2: Specimens from content and their places in the case (pure, tested)
+- [ ] T3: The vitrine on the home page, links first, then choosing → Checkpoint B
 
 ### Phase 3: Details (gated)
 - [ ] T4: Sounds, credits spot, line under the cabinet; engraving if used → Checkpoint C

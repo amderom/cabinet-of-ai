@@ -1,75 +1,84 @@
 ---
-// Home placeholder: lists every exhibit from the content collection, in
-// cabinet order. Open exhibits link to their page; sealed ones don't.
-// The real cabinet design comes in Phase 1.1.
-import { getCollection } from "astro:content";
+// The home page: the cabinet of curiosities as a vitrine of specimens, one floating plate per
+// exhibit, read from the content collection (Phase 1.3, "Specimens"; see SPEC.md and
+// src/cabinet/). The glow is cream here: the home page belongs to no single exhibit.
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { sortByOrder } from "../lib/exhibits";
+import Vitrine from "../cabinet/Vitrine.astro";
 import { previewImage } from "../lib/preview";
-import { SITE_PREVIEW_ALT } from "../lib/site";
+import { AUTHOR_NAME, LINKEDIN_URL, SITE_PREVIEW_ALT } from "../lib/site";
 // The site's link-preview image (the author's drawing of Swift, all rights reserved; ADR 007).
 import sitePreview from "../assets/site-preview.png";
 
 const preview = previewImage({ file: sitePreview, alt: SITE_PREVIEW_ALT }, "site");
-
-const exhibits = sortByOrder(await getCollection("exhibits"));
 ---
 
 <BaseLayout
   title="Cabinet of AI"
   description="A cabinet of curiosities of the historical prefigurations of artificial intelligence: old ideas of thinking machines, rebuilt so you can play with them."
+  accent="#F4ECDF"
   image={preview}
 >
   <header class="label flex items-center justify-between px-4 py-1.5 text-muted">
     <span class="text-cream">Cabinet of AI</span>
-    <span>Placeholder</span>
+    <span>A cabinet of curiosities</span>
   </header>
 
-  <main>
-    <section class="px-4 pt-[18svh] pb-10">
-      <h1 class="font-display text-[clamp(64px,20vw,200px)] leading-[0.85] tracking-[-0.03em]">
-        Cabinet of <em>AI</em>
+  <main class="home">
+    <section class="home-title px-4">
+      <h1 class="font-display text-[clamp(64px,19vw,200px)] leading-[0.85] tracking-[-0.03em]">
+        Cabinet <em>of AI</em>
       </h1>
       <p class="mt-5 max-w-[30ch] text-base leading-snug text-cream/85">
         Old ideas of thinking machines, rebuilt so you can play with them.
       </p>
+      <p class="label mt-6 hidden text-muted lg:block">Tap a plate to bring it forward.</p>
     </section>
 
-    <ul class="border-t border-line">
-      {
-        exhibits.map((exhibit, i) => {
-          const number = String(i + 1).padStart(3, "0");
-          const open = exhibit.data.status === "open";
-          const row = "flex items-baseline gap-3.5 border-b border-line px-4 py-4";
-          return (
-            <li style={`--accent: ${exhibit.data.accent}`}>
-              {open ? (
-                <a href={`/exhibits/${exhibit.id}/`} class={`${row} transition-colors hover:text-accent`}>
-                  <span class="label">{number}</span>
-                  <span class="flex-1">
-                    <span
-                      transition:name={`exhibit-title-${exhibit.id}`}
-                      class="block font-display text-[40px] leading-none"
-                    >
-                      {exhibit.data.title}
-                    </span>
-                    <span class="mt-2 block text-sm text-cream/70">{exhibit.data.tagline}</span>
-                  </span>
-                  <span class="label rounded-full border border-accent bg-accent px-2.5 py-1 text-ink">
-                    Open
-                  </span>
-                </a>
-              ) : (
-                <div class={`${row} text-muted opacity-55`}>
-                  <span class="label">{number}</span>
-                  <span class="flex-1 font-display text-[40px] leading-none">{exhibit.data.title}</span>
-                  <span class="label rounded-full border border-current px-2.5 py-1">Sealed</span>
-                </div>
-              )}
-            </li>
-          );
-        })
-      }
-    </ul>
+    <section class="home-case px-4" aria-label="The exhibits">
+      <Vitrine />
+      <p class="label mt-6 text-muted lg:hidden">Tap a plate to bring it forward.</p>
+    </section>
   </main>
+
+  <footer class="mt-[var(--space-section)] border-t border-line px-4 py-6 text-sm text-cream/70">
+    <p class="max-w-[46ch] leading-snug">
+      Each exhibit rebuilds an early idea of a thinking machine as something you can play with, alongside an essay and
+      a making-of. By {AUTHOR_NAME}.
+    </p>
+    <p class="mt-4">
+      <a class="text-cream underline decoration-line underline-offset-4 hover:decoration-cream" href={LINKEDIN_URL}>
+        Follow the series on LinkedIn ↗
+      </a>
+    </p>
+    <p class="label mt-6 text-muted">
+      Credits: link-preview image after an ink drawing of Jonathan Swift by {AUTHOR_NAME}, all rights reserved. Each
+      exhibit lists its own sources.
+    </p>
+  </footer>
 </BaseLayout>
+
+<style>
+  /* The home page belongs to no exhibit: its glow's deep tone follows the current accent
+     (cream at rest, the chosen plate's colour), instead of the exhibits' fixed dark orange. */
+  :global(body) {
+    --glow-deep: color-mix(in oklab, var(--color-accent) 22%, #070605);
+  }
+  .home {
+    display: grid;
+    gap: 40px;
+    padding-top: 12svh;
+  }
+  @media (min-width: 1024px) {
+    /* On a large screen the cream glow at rest turns into a grey haze: keep it faint. */
+    :global(.glow) {
+      opacity: 0.22;
+    }
+    .home {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 1232px;
+      margin-inline: auto;
+      padding-top: 10svh;
+    }
+  }
+</style>
