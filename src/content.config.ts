@@ -95,7 +95,8 @@ const originals = defineCollection({
     description: z.string(),
     /** One line under the title: where the passage comes from (shown as a small label). */
     lead: z.string(),
-    credit: z.string(),
+    /** Credit id(s) of the text(s) shown: one, or several when the page gathers passages from different editions. */
+    credit: z.union([z.string(), z.array(z.string()).min(1)]),
   }),
 });
 

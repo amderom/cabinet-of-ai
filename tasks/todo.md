@@ -64,7 +64,7 @@
   - Acceptance: `essay.mdx` identical to `sources/essay-draft.md` (checked by test or script), engravings placed, her source list at the end, description for the link preview.
   - Verify: Edge at 375 and 1280px; words identical.
   - Files: `src/content/exhibits/llull/essay.mdx`
-- [ ] **Task 10: The original**
+- [~] **Task 10: The original** (built: petition to Celestine V + Ars brevis ch. XLVI; English draft awaiting the author)
   - Acceptance: a short Latin passage (*Ars brevis*, 1617, or the 1517 *Ars generalis ultima*) chosen with her, translated together, Latin source and our translation credited; fourth tab appears.
   - Verify: a test keeps the page text identical to the validated translation.
   - Files: `src/content/exhibits/llull/original.mdx`, `exhibit.yaml`

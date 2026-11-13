@@ -1,0 +1,17 @@
+---
+/**
+ * The original-language text beside a translation (first use: Llull's Latin on his
+ * "The original" page). Quiet italic serif, so the translation reads first.
+ */
+interface Props {
+  /** BCP 47 language of the text, e.g. "la" for Latin. */
+  lang?: string;
+  label?: string;
+}
+const { lang = "la", label = "Latin, as printed" } = Astro.props;
+---
+
+<aside class="original-text" lang={lang}>
+  <p class="label original-text-label not-italic">{label}</p>
+  <slot />
+</aside>
