@@ -103,6 +103,9 @@
     height: 160vh;
     overflow: hidden;
     pointer-events: none;
+    /* Fade the frame's bottom so a large glow never ends in a straight cut (Llull before its
+       texture, 2026-11-13: the edge sliced through "How does the Art work?" on desktop). */
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
   }
   .glow-calm {
     position: absolute;

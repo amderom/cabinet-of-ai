@@ -313,7 +313,7 @@ export default function Machine() {
               Another question
             </button>
           </div>
-          <div className="llull-wheel" onClick={skip} title={busy ? "Tap to skip" : undefined}>
+          <div className={busy ? "llull-wheel is-busy" : "llull-wheel"} onClick={skip} title={busy ? "Tap to skip" : undefined}>
             <canvas ref={canvasRef} aria-hidden="true" />
             <p className="sr-only">
               Llull's nine letters, B to K, on a circle.{" "}

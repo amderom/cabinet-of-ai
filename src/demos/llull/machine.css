@@ -27,7 +27,9 @@
 .llull-q { font-family: var(--font-sans); font-weight: 500; font-size: 21px; line-height: 1.25; text-wrap: balance; }
 
 /* The wheel: left edge of its ink lined up with the text (the island measures and pulls it) */
-.llull-wheel { display: grid; justify-items: start; cursor: pointer; }
+.llull-wheel { display: grid; justify-items: start; }
+/* A pointer only while a tap does something (skips the animation); otherwise the wheel is a picture. */
+.llull-wheel.is-busy { cursor: pointer; }
 .llull-wheel canvas { display: block; width: min(100%, 300px); aspect-ratio: 1; }
 @media (min-width: 900px) { .llull-wheel canvas { width: min(100%, 540px, 58vh); } }
 
