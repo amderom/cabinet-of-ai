@@ -140,3 +140,7 @@ The operator: "Perf, delete the keeper tag but then do everything else, don't wa
 ## 2026-11-13 — Credits per page (ADR 009)
 
 At the operator's request during the Llull essay review: each exhibit page now credits only what it shows (`on:` tag on every credit, required), and an essay's references live in the credits under "Sources" (`cited: true`), not in the essay. Shipped on its own branch so Lagado gets it before Llull opens: Lagado's demo now lists 7 credits, essay 4, original 4, making-of 2 (the Engine texture and the link-preview image on every page). Rule added to AGENTS.md for every future exhibit.
+
+## 2026-11-13 — Site share image with Llull open
+
+Llull opened, so the site's link-preview image (ADR 007) now shows Swift and Llull open, Hesse's plate still sealed (the author's yes). Same section in `design/previews/previews.html`, fan spread so both drawings show; captured at 1200 × 627; alt text and the home page's credit line now name both drawings. 1200 × 627 check passed at build.

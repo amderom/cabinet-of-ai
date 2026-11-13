@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  The final link-preview images (Phase 1.2 part 3). Lagado: direction C, chosen by the author on 2026-11-13. Llull: the same layout (2026-11-13).
+  The final link-preview images (Phase 1.2 part 3). Lagado: direction C, chosen by the author on 2026-11-13. Llull: the same layout (2026-11-13). Site: Llull shown open once it opened (2026-11-13).
   Each .card is exactly 1200 × 627 and is captured on its own with playwright-cli.
   Fonts come from Astro's font cache: run `npm run dev` or `npm run build` once first.
 -->
@@ -50,18 +50,19 @@
   #llull .line { font-family: var(--sans); font-size: 32px; line-height: 1.3; }
   #llull .label b { color: var(--accent); }
 
-  /* Site: the cabinet's plates, Lagado open, the next two sealed */
+  /* Site: the cabinet's plates: Lagado open in front, Llull open behind it, Hesse sealed */
   #site .glow { position: absolute; right: -40px; top: 10px; width: 760px; height: 620px; background: radial-gradient(closest-side, rgb(255 95 31 / 0.22), transparent); }
   #site .text { position: absolute; left: 64px; width: 600px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
   #site .title { font-family: var(--serif); font-size: 104px; line-height: 0.92; }
   #site .title i { color: var(--accent); }
   #site .line { font-family: var(--sans); font-size: 32px; line-height: 1.3; }
-  #site .p { position: absolute; top: 50%; width: 300px; height: 400px; translate: 0 -50%; border-radius: 16px; overflow: hidden; box-shadow: 0 30px 80px rgb(0 0 0 / 0.65); }
+  #site .p { position: absolute; top: 50%; width: 280px; height: 380px; translate: 0 -50%; border-radius: 16px; overflow: hidden; box-shadow: 0 30px 80px rgb(0 0 0 / 0.65); }
   #site .sealed { background: #14110e; border: 1px solid var(--c); display: grid; place-items: center; }
-  #site .s1 { right: 70px; rotate: 9deg; --c: #00e0ff; }
-  #site .s2 { right: 160px; rotate: 1deg; --c: #ff2d55; }
-  #site .open { right: 250px; rotate: -6deg; background: var(--plate); display: grid; place-items: center; }
-  #site .open img { height: 360px; mix-blend-mode: multiply; }
+  #site .s1 { right: 36px; rotate: 10deg; --c: #00e0ff; }
+  #site .s2 { right: 165px; rotate: 3deg; background: var(--plate); display: grid; place-items: center; box-shadow: 0 30px 80px rgb(0 0 0 / 0.65), 0 0 0 2px #ff2d55; }
+  #site .s2 img { width: 240px; margin-left: 30px; mix-blend-mode: multiply; }
+  #site .open { right: 330px; rotate: -6deg; background: var(--plate); display: grid; place-items: center; }
+  #site .open img { height: 340px; mix-blend-mode: multiply; }
 </style>
 </head>
 <body>
@@ -89,7 +90,7 @@
 <section class="card" id="site">
   <div class="glow"></div>
   <div class="p sealed s1"></div>
-  <div class="p sealed s2"></div>
+  <div class="p s2"><img src="../../src/content/exhibits/llull/images/llull-portrait-ink.png" alt="" /></div>
   <div class="p open"><img src="../../src/demos/lagado/plates/swift-ink.png" alt="" /></div>
   <div class="text">
     <p class="label">A cabinet of curiosities</p>
