@@ -56,6 +56,11 @@ export default function Machine() {
   const redrawRef = useRef<() => void>(() => {});
   const timers = useRef<number[]>([]);
   const reduce = useRef(false);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+  // Phone only (stacked layout): the page follows the Art (wheel, then answer, then each reason)
+  // until the visitor scrolls by hand. Asked by the author, 2026-11-13.
+  const following = useRef(false);
 
   useEffect(() => {
     setQuestions(order(Math.random));
@@ -227,6 +232,39 @@ export default function Machine() {
   const later = (ms: number, fn: () => void) => timers.current.push(window.setTimeout(fn, ms));
   useEffect(() => clearTimers, []);
 
+  useEffect(() => {
+    const stop = () => (following.current = false);
+    const opts = { passive: true } as const;
+    addEventListener("touchstart", stop, opts);
+    addEventListener("wheel", stop, opts);
+    addEventListener("keydown", stop);
+    return () => {
+      removeEventListener("touchstart", stop);
+      removeEventListener("wheel", stop);
+      removeEventListener("keydown", stop);
+    };
+  }, []);
+
+  const stacked = () => matchMedia("(max-width: 899px)").matches;
+  const behavior = (): ScrollBehavior => (reduce.current ? "auto" : "smooth");
+  /** Bring the question to the top, so the whole wheel shows under it. */
+  const showWheel = () => {
+    const el = leftRef.current;
+    if (!el || !stacked()) return;
+    following.current = true;
+    scrollTo({ top: el.getBoundingClientRect().top + scrollY - 16, behavior: behavior() });
+  };
+  /** Scroll just enough to show the answer's newest part (after React has drawn it). */
+  const follow = () =>
+    requestAnimationFrame(() => {
+      const box = rightRef.current;
+      if (!box || !following.current || !stacked()) return;
+      const last = [...box.querySelectorAll(".llull-answer, .llull-reason")].pop();
+      if (!last) return;
+      const bottom = last.getBoundingClientRect().bottom + 16;
+      if (bottom > innerHeight) scrollBy({ top: bottom - innerHeight, behavior: behavior() });
+    });
+
   const setWheel = (lit: string[], meaning: Record<string, string>, triStart: number) => {
     Object.assign(drawState.current, { lit, focus: [], meaning, triStart });
     redrawRef.current();
@@ -241,16 +279,22 @@ export default function Machine() {
       setWheel([...q.column], meaning, -1e9);
       setShown(q.reasons.length);
       setPhase("done");
+      showWheel();
       return;
     }
     setWheel([...q.column], meaning, performance.now());
     setPhase("wheel");
-    later(ANSWER_AT, () => setPhase("answer"));
+    showWheel();
+    later(ANSWER_AT, () => {
+      setPhase("answer");
+      follow();
+    });
     q.reasons.forEach((r, i) => {
       later(ANSWER_AT + WHY_AFTER + i * REASON_MS, () => {
         setPhase("why");
         setShown(i + 1);
         drawState.current.focus = [...r.letters];
+        follow();
       });
     });
     later(ANSWER_AT + WHY_AFTER + q.reasons.length * REASON_MS, () => {
@@ -298,7 +342,7 @@ export default function Machine() {
   return (
     <div className="llull">
       <div className="llull-stage">
-        <div className="llull-left">
+        <div className="llull-left" ref={leftRef}>
           <div className="llull-question">
             <span className={q.kind === "startup" ? "llull-who llull-2026" : "llull-who"}>
               {q.kind === "startup" ? "Asked in 2026" : "Asked by Llull, 1308"}
@@ -323,7 +367,7 @@ export default function Machine() {
           </div>
         </div>
 
-        <div className="llull-right" aria-live="polite">
+        <div className="llull-right" ref={rightRef} aria-live="polite">
           {phase !== "idle" && (
             <div className={answered ? "llull-answer is-on" : "llull-answer"}>
               <span className="llull-says">The Art answers</span>
