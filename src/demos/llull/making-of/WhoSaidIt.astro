@@ -1,0 +1,278 @@
+---
+/**
+ * "Llull or the agent?": the making-of's interlude (chosen 2026-11-13, in place of Lagado's
+ * rejection pile). A line on a cream card; tap "Llull" or "The agent", see who really wrote it and
+ * where it comes from, then the next card; a score at the end. Every line is real: Llull's from the
+ * texts used on the site, the agent's from its drafts (docs/features/llull/journal.md).
+ * Without JavaScript, every answer shows. Place it inside a <Scene stack>.
+ */
+interface Item {
+  line: string;
+  who: "llull" | "agent";
+  why: string;
+}
+
+const ITEMS: Item[] = [
+  {
+    line: "But there is evil in the world as we know by experience.",
+    who: "llull",
+    why: "Ars generalis ultima, Part 5, on “Is the world eternal?”. In Yanis Dambergs’ translation.",
+  },
+  {
+    line: "Peers, page 321.",
+    who: "agent",
+    why: "A page number from memory. The note is on page 322: every page number is now opened, not remembered.",
+  },
+  {
+    line: "This Art has three friends: subtlety of intellect, reason, and good intention.",
+    who: "llull",
+    why: "Ars brevis, Pisa, 1308, its last chapter. On “The original”.",
+  },
+  {
+    line: "The answer is in chamber CKTG.",
+    who: "agent",
+    why: "That chamber can’t exist in that column: Llull’s table never mixes letters from another column. Caught by a script.",
+  },
+  {
+    line: "I could give many other reasons, but I fear to say too much.",
+    who: "llull",
+    why: "His pitch to Pope Celestine V, Naples, 1294. On “The original”.",
+  },
+  {
+    line: "He asked for three colleges and got five.",
+    who: "agent",
+    why: "Too neat. A council decreed chairs of languages in 1312; nobody knows if they ever opened. Now: “Yes, on paper.”",
+  },
+];
+const name = { llull: "Llull", agent: "The agent" };
+---
+
+<div class="mo-quiz" aria-label="Llull or the agent? Guess who wrote each line.">
+  <ol class="q-list">
+    {
+      ITEMS.map((item, i) => (
+        <li class="q-card" data-who={item.who}>
+          <span class="q-n">
+            {i + 1} / {ITEMS.length}
+          </span>
+          <p class="q-line">“{item.line}”</p>
+          <div class="q-buttons" hidden>
+            <button type="button" data-guess="llull">Llull</button>
+            <button type="button" data-guess="agent">The agent</button>
+          </div>
+          <div class="q-answer">
+            <p class="q-who">
+              <span class="q-mark" aria-hidden="true" />
+              {name[item.who]}
+            </p>
+            <p class="q-why">{item.why}</p>
+            <button type="button" class="q-next" hidden>
+              {i + 1 < ITEMS.length ? "Next line" : "See my score"}
+            </button>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <div class="q-end" hidden>
+    <p class="q-score" aria-live="polite" />
+    <button type="button" class="q-again">Play again</button>
+  </div>
+</div>
+
+<style>
+  .mo-quiz {
+    display: grid;
+    gap: 14px;
+  }
+  .q-list {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .q-card {
+    display: grid;
+    gap: 14px;
+    padding: 16px 18px 18px;
+    border-radius: 18px;
+    background: var(--color-cream);
+    color: #140d07;
+    box-shadow:
+      0 18px 40px -16px rgb(0 0 0 / 0.8),
+      0 0 30px color-mix(in oklab, var(--color-accent) 15%, transparent);
+  }
+  .q-n {
+    font: 500 10px var(--font-mono);
+    letter-spacing: 0.14em;
+    color: #6b5d4c;
+  }
+  .q-line {
+    margin: 0;
+    font: italic 400 var(--text-quote)/1.12 var(--font-display);
+  }
+  .q-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .q-buttons button,
+  .q-next,
+  .q-again {
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    font: 600 14px var(--font-sans);
+    cursor: pointer;
+  }
+  .q-buttons button {
+    border: 1px solid #140d07;
+    background: transparent;
+    color: #140d07;
+  }
+  .q-buttons button:hover {
+    background: #140d07;
+    color: var(--color-cream);
+  }
+  .q-answer {
+    display: grid;
+    gap: 6px;
+  }
+  .q-who {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font: 600 12px var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .q-why {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: 1.45;
+    color: #3b2f22;
+  }
+  .q-next {
+    justify-self: start;
+    margin-top: 6px;
+    border: 0;
+    background: var(--color-accent);
+    color: #fff;
+  }
+  .q-end {
+    display: grid;
+    justify-items: start;
+    gap: 12px;
+  }
+  .q-score {
+    margin: 0;
+    font: italic 400 var(--text-quote)/1.1 var(--font-display);
+  }
+  .q-again {
+    border: 1px solid var(--color-line);
+    background: transparent;
+    color: var(--color-cream);
+  }
+  .q-buttons button:focus-visible,
+  .q-next:focus-visible,
+  .q-again:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  /* Played one card at a time once the script runs; without it, every card and answer shows. */
+  .mo-quiz.is-on .q-card {
+    display: none;
+  }
+  .mo-quiz.is-on .q-card.is-current {
+    display: grid;
+    animation: q-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .mo-quiz.is-on .q-answer {
+    display: none;
+  }
+  .mo-quiz.is-on .is-answered .q-answer {
+    display: grid;
+  }
+  .is-answered .q-buttons {
+    display: none;
+  }
+  .q-mark::before {
+    content: "";
+  }
+  .is-right .q-mark::before {
+    content: "✓ Right ·";
+  }
+  .is-wrong .q-mark::before {
+    content: "✗ Wrong ·";
+  }
+  @keyframes q-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mo-quiz.is-on .q-card.is-current {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function setUp(quiz: HTMLElement) {
+    const cards = [...quiz.querySelectorAll<HTMLElement>(".q-card")];
+    const end = quiz.querySelector<HTMLElement>(".q-end")!;
+    const score = quiz.querySelector<HTMLElement>(".q-score")!;
+    let at = 0;
+    let right = 0;
+    const show = (i: number) => {
+      cards.forEach((c, k) => c.classList.toggle("is-current", k === i));
+      cards[i]?.querySelector<HTMLButtonElement>("[data-guess]")?.focus({ preventScroll: true });
+    };
+    quiz.classList.add("is-on");
+    cards.forEach((card, i) => {
+      card.querySelector<HTMLElement>(".q-buttons")!.hidden = false;
+      const next = card.querySelector<HTMLButtonElement>(".q-next")!;
+      next.hidden = false;
+      card.querySelectorAll<HTMLButtonElement>("[data-guess]").forEach((b) =>
+        b.addEventListener("click", () => {
+          const ok = b.dataset.guess === card.dataset.who;
+          if (ok) right++;
+          card.classList.add("is-answered", ok ? "is-right" : "is-wrong");
+          next.focus({ preventScroll: true });
+        }),
+      );
+      next.addEventListener("click", () => {
+        if (i + 1 < cards.length) {
+          at = i + 1;
+          show(at);
+        } else {
+          cards.forEach((c) => c.classList.remove("is-current"));
+          score.textContent = `You spotted ${right} of ${cards.length}.`;
+          end.hidden = false;
+        }
+      });
+    });
+    quiz.querySelector<HTMLButtonElement>(".q-again")!.addEventListener("click", () => {
+      right = 0;
+      at = 0;
+      cards.forEach((c) => c.classList.remove("is-answered", "is-right", "is-wrong"));
+      end.hidden = true;
+      show(0);
+    });
+    show(0);
+  }
+
+  // Runs on first load and after every page change (view transitions).
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLElement>(".mo-quiz").forEach((quiz) => {
+      if (quiz.dataset.ready) return;
+      quiz.dataset.ready = "true";
+      setUp(quiz);
+    });
+  });
+</script>
