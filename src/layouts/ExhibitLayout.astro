@@ -23,7 +23,7 @@ interface Props {
   part: ExhibitTab;
   /** Title of this part's text (essay, making-of); the demo uses the exhibit title. */
   title?: string;
-  /** Link-preview description; the demo uses the exhibit tagline. */
+  /** Link-preview description; the demo uses the exhibit description, else its tagline. */
   description?: string;
 }
 
@@ -51,7 +51,7 @@ const titleEnd = words.at(-1);
 
 <BaseLayout
   title={isDemo ? pageTitle(exhibit.data.title) : pageTitle(title ?? exhibit.data.title, partName)}
-  description={description ?? exhibit.data.tagline}
+  description={description ?? exhibit.data.description ?? exhibit.data.tagline}
   accent={exhibit.data.accent}
   type={part === "essay" ? "article" : "website"}
   calm={!isDemo}

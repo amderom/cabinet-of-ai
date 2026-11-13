@@ -49,6 +49,8 @@ const exhibits = defineCollection({
       texture: z.string().optional(),
       /** Id of the credited image that greets visitors on the landing page (shown from Part 2). */
       hero: z.string().optional(),
+      /** Link-preview description of the demo page (defaults to the tagline). LinkedIn warns under 100 characters. */
+      description: z.string().optional(),
       /** Id of the credited 1200 × 627 image LinkedIn shows for every part of the exhibit (ADR 007). */
       preview: z.string().optional(),
       /** Small tilted label above the title on the demo page, e.g. "In beta since 1726". */
