@@ -6,7 +6,7 @@ A cabinet of curiosities of the historical prefigurations of artificial intellig
 
 ## Current state
 
-**Current phase:** Phase 1.2 part 2 built (the Lagado machine), in review on PR amderom/cabinet-of-ai#7; next: Phase 1.2 part 3 (link preview images), then Phase 1.3
+**Current phase:** Phase 1.2 part 3 (link preview images) built on `feature/phase-1-2-previews`, not yet merged; next: Phase 1.3 (the cabinet)
 **Target MVP:** end of Phase 1.3 (cabinet homepage + complete Lagado exhibit)
 
 What works today: a dark home page listing the exhibits from content (Lagado open; Llull and Hesse sealed). Lagado has four parts with their own links: the demo, a word machine to crank by rows and columns on a phone (or a 6 × 6 square on desktop) with a folio to keep, edit and share lines, three draggable plates under the title and a scrolling parody banner; the author's essay with a prominent link to the published article; "The original", Swift's passage word for word from the 1801 edition on Wikisource; and the making-of, told as three short scenes with a few numbers and a rejection pile. Sound is optional and off by default: one small toggle by the machine, with three CC0 sounds; the sound library is only downloaded once sound is on. Engravings are the common thread: each exhibit declares its images, sounds and texts once with their credits (the build refuses anything uncredited). Every page shares one type and spacing scale. Decisions so far: [docs/adr/](./docs/adr/). Build journals: [cabinet](./docs/features/cabinet/journal.md), [Lagado](./docs/features/lagado/journal.md).

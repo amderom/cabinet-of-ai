@@ -9,7 +9,7 @@ import { missingParts, openExhibits, withOriginal, type ExhibitPart } from "./ex
 /**
  * Stops the build if an exhibit's images or sounds break the credits rule: a file in
  * its images/ folder or its demo's sounds/ folder with no credit, a duplicate id, an
- * empty licence, or a texture/hero pointing to an unknown id. See ADR 005.
+ * empty licence, or a texture/hero/preview pointing to an unknown id. See ADR 005.
  */
 // Every file in any exhibit's images/ folder and any demo's sounds/ folder (paths only; nothing is loaded).
 const imageFiles = Object.keys(import.meta.glob("/src/content/exhibits/*/images/*"));
@@ -18,8 +18,8 @@ const soundFiles = Object.keys(import.meta.glob("/src/demos/*/sounds/*"));
 export function checkExhibitAssets(exhibits: CollectionEntry<"exhibits">[]) {
   const lines: string[] = [];
   for (const exhibit of exhibits) {
-    const { credits, texture, hero } = exhibit.data;
-    const referenced = [texture, hero].filter((id): id is string => Boolean(id));
+    const { credits, texture, hero, preview } = exhibit.data;
+    const referenced = [texture, hero, preview].filter((id): id is string => Boolean(id));
     const problems = creditProblems(credits, referenced);
 
     const prefix = `/src/content/exhibits/${exhibit.id}/images/`;
