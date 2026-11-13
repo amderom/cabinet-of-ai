@@ -145,3 +145,7 @@ Same layout as Lagado's (direction C, ADR 007): "Cabinet of AI · Exhibit 02", "
 ## 2026-11-13 — Task 14: speed, sweep, README, ADR
 
 **Speed** (Edge, local build, 390 × 844, network throttled to 1.6 Mbps with 150 ms latency, CPU 4× slower, cache off; LCP and CLS from the browser's own counters): Lagado demo 1.22 s / 0, 332 KB (for comparison, same method); Llull demo 1.11 s / 0, 286 KB; essay 0.84 s / 0.001; original 0.78 s / 0.001; making-of 1.00 s / 0.002; home 0.72 s / 0. All under the 2.5 s target; nothing to fix. (A lighter method than Lagado's Chrome trace, so the figures are lower than the 2.07 s recorded then; the comparison between the two exhibits is what counts.) **Sweep**: 10 pages (home, About, Lagado's four, Llull's four) at 375, 390, 1280 and 1440px: no sideways scroll, no console errors, no failed request, no broken image; all 10 internal links answer. README updated (Llull on its branch; journals; `on:` for credits). ADR 010: shared exhibit pieces (plates shared, numbers copied).
+
+## 2026-11-13 — Task 15: opened
+
+The author: "Open". `status: open` made permanent (the temporary comment removed), the making-of's hours finalised (19:32, her first message about Llull, to 22:51, the opening commit: about three hours; Lagado took ten), README updated, PR made ready and merged.
