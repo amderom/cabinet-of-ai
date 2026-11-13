@@ -38,7 +38,7 @@ const research = (await getEntry("exhibits", "lagado"))?.data.research;
     <figure class="about-plate">
       <span class="about-plate-top"><span>Portrait</span><span>2026</span></span>
       <img src={portrait.src} alt={`${AUTHOR_NAME}, smiling over her shoulder against an old studded wooden door.`} width="560" height="717" />
-      <figcaption><i>{AUTHOR_NAME}</i><b>Keeper</b></figcaption>
+      <figcaption><i>{AUTHOR_NAME}</i></figcaption>
     </figure>
 
     <article class="about-text prose-cabinet">
@@ -120,11 +120,6 @@ const research = (await getEntry("exhibits", "lagado"))?.data.research;
     font-family: var(--font-display);
     font-size: 24px;
     line-height: 1;
-  }
-  .about-plate figcaption b {
-    font: 400 9px var(--font-mono);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
   }
   @media (min-width: 1024px) {
     .about {

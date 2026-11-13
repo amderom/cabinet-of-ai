@@ -76,3 +76,5 @@ docs/project.md                    Routes: add /about/
 2. ~~Photo~~: hers, given 2026-11-13, for this page only.
 3. Talks: add titles and years, or keep them as a list of places?
 4. Any other link (GitHub for the open-source side)?
+
+The author approved the page on 2026-11-13 ("Perf"), asking only to remove the "Keeper" label under her photo.
