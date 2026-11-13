@@ -37,18 +37,20 @@ The machine was new, though, and so were the difficulties. Here are three of the
 
 **Point:** A quotation is a small contract: these exact words, by this person, found in this place, in this translation. The agent wrote fluently and attributed generously, which, as Descartes said of Llull's Art, is a way of speaking without judgment of what one does not know. So the rule became a habit: every line given to Llull is his, in Yanis Dambergs' translation, credited, and checked by a script against the source; every page number is opened, not remembered; and when the agent reads Llull its own way, the page says so.
 
-## 2 · The research
+## 2 · The research (rewritten at her request: what she asked the agent to research, and her feedback)
 
 **Title:** Swift I knew. Llull, *I had to ask.*
 
-- **me:** I know Gulliver inside out. Llull, much less. How does the Art really work?
-- **agent:** Three ideas for the machine: a volvelle, a funnel, a chatbot.
-- **me:** None of them is faithful to Llull.
-- **agent:** Reading the *Ars generalis ultima*… Eighty-four columns of twenty chambers. Only one question goes through them.
-- **me:** Why only one?
-- **agent:** The others point to a paragraph elsewhere in the book. And here is a pitch he wrote to a pope, printed in 1906.
+- **me:** I know Gulliver inside out. Llull, much less. Find me an English translation of the Art.
+- **agent:** None we may quote freely. The Latin is free: a printing from 1617.
+- **me:** Then find out what happened to his pitch to the popes.
+- **agent:** Five popes, twenty-seven years. He asked for three colleges and got five.
+- **me:** Did the Pope really say yes?
+- **agent:** Checking again… A council decreed it in 1312. Whether the chairs ever opened, nobody knows.
+- **me:** Then say "on paper". And find me the pitch itself, in his words.
+- **agent:** Naples, 1294. Printed in full in 1906.
 
-**Point:** With Swift, I was the specialist and the agent the assistant. With Llull, the roles moved: the agent read a Lyon edition of 1517, a Strasbourg Latin printing of 1617, an Italian bibliography of 1906 and a biography of 1929, and came back with page numbers and a translation of the Latin. My part became asking the questions a reader would ask (why only one? did the Pope really say yes?) and checking that the answers held. Outsourcing research does not outsource doubt.
+**Point:** With Swift, I was the specialist and the agent the assistant. With Llull, I sent the agent to the library with a reader's questions: is there a translation? What did the popes say? Did any of it work? It came back with editions from 1517, 1617 and 1906, a biography from 1929, page numbers, and a translation of the Latin. My part was to doubt the answers that sounded too neat: "three colleges, got five" was what a source said, not what history can prove, so the verdict became "Yes, on paper." Outsourcing research does not outsource doubt.
 
 ## 3 · The second time
 
