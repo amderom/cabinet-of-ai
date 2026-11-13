@@ -34,12 +34,14 @@
   to { translate: 0 2cqw; }
 }
 
-/* The card's own light, in its colour, coming from behind it. Brighter on hover. */
+/* The card's own light, in its colour, coming from behind it. The card hides the middle of
+   the halo, so the light sits where the card ends: visible at rest (phones have no hover),
+   brighter on hover. Only its opacity changes. */
 .vt-halo {
   position: absolute;
-  inset: -30%;
-  background: radial-gradient(closest-side, rgb(var(--c) / 0.55), rgb(var(--c) / 0.12) 55%, transparent);
-  opacity: 0.35;
+  inset: -34% -40%;
+  background: radial-gradient(closest-side, rgb(var(--c) / 0.75) 52%, rgb(var(--c) / 0.32) 70%, rgb(var(--c) / 0.08) 86%, transparent);
+  opacity: 0.55;
   transition: opacity 0.45s;
   pointer-events: none;
 }
