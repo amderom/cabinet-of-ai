@@ -7,3 +7,32 @@ status: open
 order: 2
 # Ars generalis ultima, written 1305-1308; Ars brevis, Pisa 1308 (SEP, "Ramon Llull"). Chosen by the author.
 year: "1308"
+# Every image is declared once here and placed elsewhere by its id (ADR 005).
+# Sources and licences: docs/features/llull/engravings.md. Prepared with docs/features/llull/prepare-images.cjs.
+credits:
+  # The fourth figure (the three wheels), black ink on white, for the background texture.
+  - id: quarta-figura
+    file: ./images/quarta-figura.png
+    alt: "Llull's fourth figure: three concentric paper wheels, each ringed with the letters B to K."
+    asset: "Quarta figura, Ars magna generalis et ultima (Lyon, 1517), woodcut, colour removed"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n39/mode/1up"
+    licence: "Public domain"
+  # The same figure as black ink on a transparent ground: the home card and plate I.
+  - id: quarta-figura-ink
+    file: ./images/quarta-figura-ink.png
+    alt: "Llull's fourth figure: three concentric paper wheels, each ringed with the letters B to K."
+    asset: "Quarta figura, Ars magna generalis et ultima (Lyon, 1517), ink on a transparent ground"
+    author: "Ramon Llull"
+    source: "Getty Research Institute, via the Internet Archive"
+    url: "https://archive.org/details/illuminatisacrep00llul/page/n39/mode/1up"
+    licence: "Public domain"
+  # The author's drawing as ink on a transparent ground: plate II.
+  - id: llull-portrait
+    file: ./images/llull-portrait-ink.png
+    alt: "Ink drawing of Ramon Llull in a fur-trimmed hat, with a long beard, a banderole unfurling from his mouth."
+    asset: "Ramon Llull, ink drawing"
+    author: "Amélie Derome"
+    source: "The author"
+    licence: "All rights reserved"

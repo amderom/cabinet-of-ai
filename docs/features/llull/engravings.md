@@ -25,3 +25,7 @@
 | — | The *Tabula* (columns of letter combinations) | n47 onward | Possible plate or texture |
 
 Downloads: `https://archive.org/download/illuminatisacrep00llul/page/n<N>_w1600.jpg` (about 2096 × 2947).
+
+## Prepared for the site (2026-11-13)
+
+From A-7 (scan n39, 2096 × 2947): the three wheels cropped (centre 1121, 1467; 1720px square, padded to the texture's 640:675), outside the outer ring cleared, colour fills dropped (a pixel counts as ink only if all three channels are dark), as `quarta-figura.png` (black on white, texture) and `quarta-figura-ink.png` (ink #111 on transparent, card and plate I). From the author's drawing: the photo's uneven light flattened (paper brightness per 80px cell), the pencil construction lines below the coat cropped off, as `llull-portrait-ink.png` (plate II). Recipe: `prepare-images.cjs` (sharp).
