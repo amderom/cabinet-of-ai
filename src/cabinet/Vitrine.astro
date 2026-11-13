@@ -5,7 +5,7 @@
  * black ink, mono labels): its year, its engraving, its title, and a round button in its colour.
  * One tap on an open card goes to the exhibit; its engraving grows into the exhibit page's
  * background engraving (shared view-transition name), and its title into the page title.
- * Each card has its own halo in its colour, brighter on hover.
+ * Hovering a card with a mouse lights a soft glow in its colour, centred behind it (vitrine.ts).
  * Chosen and refined with the author on 2026-11-13. See SPEC.md.
  */
 import { getCollection } from "astro:content";
@@ -28,6 +28,8 @@ for (const exhibit of exhibits) {
 }
 ---
 
+<!-- The hover glow lives on the screen itself (fixed), so it fades out with no edge. -->
+<span class="vt-glow" data-glow aria-hidden="true"></span>
 <div class="vitrine" data-vitrine style={`--case-h: ${caseHeight}`}>
   {
     cards.map((c, i) => {
@@ -67,7 +69,6 @@ for (const exhibit of exhibits) {
       );
       return (
         <div class="vt-slot" style={style}>
-          <span class="vt-halo" aria-hidden="true"></span>
           {c.href ? (
             <a class="vt-card" href={c.href} aria-label={`${c.title}, ${c.year ?? ""}: enter the exhibit`}>
               {inner}
