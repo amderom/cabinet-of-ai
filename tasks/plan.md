@@ -29,7 +29,7 @@ Design one preview image for Lagado and one for the site with the author, then w
 ### Checkpoint: tests, check and build pass; tags present in the built pages
 
 ### Phase 3: Ship
-- [ ] T5: PR, phone check, merge on her word, Post Inspector on production
+- [x] T5: PR, phone check, merge on her word, Post Inspector on production
 
 ## Risks and Mitigations
 
