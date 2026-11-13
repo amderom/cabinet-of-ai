@@ -1,12 +1,13 @@
 ---
 // Lagado's hero: three plates under the title (Specimen, Portrait, Figures), fanned like a
 // hand of cards, draggable inside their own area, tap to open. Chosen with the author on
-// 2026-11-11 from a clickable prototype ("Split" plates).
+// 2026-11-11 from a clickable prototype ("Split" plates). The plates themselves are shared
+// with every exhibit (src/components/plates/); this file gives Lagado's pictures and texts.
 // The two pictures are the credited originals (the Engine diagram; the author's drawing of
 // Swift) turned into ink on a transparent ground, prepared once as files (plates/*-ink.png)
 // so they arrive ready, with nothing to compute in the visitor's browser.
 import { getImage } from "astro:assets";
-import Plates from "./Plates";
+import Plates, { type Plate } from "../../components/plates/Plates";
 import engineInk from "./plates/engine-ink.png";
 import swiftInk from "./plates/swift-ink.png";
 
@@ -18,10 +19,74 @@ const [engine, swift, engineBig, swiftBig] = await Promise.all([
   getImage({ src: engineInk, format: "webp", width: 720, quality: 80 }),
   getImage({ src: swiftInk, format: "webp", width: 720, quality: 80 }),
 ]);
+
+const plates: Plate[] = [
+  {
+    kind: "Specimen",
+    num: "I",
+    caption: "The Engine",
+    label: "Pl. I",
+    tilt: -7,
+    face: { image: { src: engine.src, width: 853, height: 900 } },
+    open: [
+      {
+        image: {
+          src: engineBig.src,
+          width: 853,
+          height: 900,
+          alt: "The Lagado engine: a square frame of word-blocks with handles all around.",
+        },
+      },
+      { title: "The Engine" },
+      {
+        note: "A satirical machine from 1726 that writes books by shuffling words at random, three centuries before AI wrote its first sentence. Jonathan Swift dreamt it up to mock the scientists of his day. Turn the handles, read the lines, keep what makes sense.",
+      },
+      { note: "Jonathan Swift, *Gulliver's Travels* (1726)" },
+    ],
+  },
+  {
+    kind: "Portrait",
+    num: "II",
+    caption: "The Pitch",
+    label: "Pl. II",
+    tilt: -1,
+    face: { image: { src: swift.src, width: 675, height: 900 } },
+    open: [
+      {
+        image: {
+          src: swiftBig.src,
+          width: 675,
+          height: 900,
+          alt: "Portrait of Jonathan Swift, after an ink drawing by Amélie Derome.",
+        },
+      },
+      { quote: "…the most ignorant person… might write books… without the least assistance from genius or study." },
+      { note: "The professor of Lagado, in *Gulliver's Travels*. Portrait: Amélie Derome." },
+    ],
+  },
+  {
+    kind: "Figures",
+    num: "III",
+    caption: "Spec sheet",
+    label: "Pl. III",
+    tilt: 6,
+    face: { table: [["Frame", "20 ft"], ["Handles", "40"], ["Pupils", "40"], ["Genius", "0"]] },
+    open: [
+      { title: "Spec sheet", pill: "In beta since 1726" },
+      {
+        specs: [
+          ["Frame", "20 ft square"],
+          ["Controls", "40 iron handles"],
+          ["Team", "36 readers, 4 scribes"],
+          ["Uptime", "6 hours a day"],
+          ["Output", "Broken sentences, in large folio"],
+          ["Roadmap", "500 more frames, if the publick would raise a fund"],
+        ],
+      },
+    ],
+  },
+];
 ---
 
-<Plates
-  client:load
-  images={{ engine: engine.src, swift: swift.src, engineBig: engineBig.src, swiftBig: swiftBig.src }}
-/>
-<noscript><style>.lp-plate { opacity: 1 !important; }</style></noscript>
+<Plates client:load plates={plates} year="1726" />
+<noscript><style>.pl-plate { opacity: 1 !important; }</style></noscript>
