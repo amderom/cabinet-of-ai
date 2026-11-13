@@ -11,6 +11,7 @@ year: "1726"
 # Sources and licences: docs/features/lagado/engravings.md
 credits:
   - id: swift-portrait
+    on: [demo]
     file: ./images/swift-portrait.jpg
     alt: "Ink drawing of Jonathan Swift in a long curled wig and clerical bands, half his face in deep shadow."
     asset: "Jonathan Swift, ink drawing"
@@ -18,6 +19,7 @@ credits:
     source: "The author"
     licence: "All rights reserved"
   - id: the-engine
+    on: [demo, essay, original, making-of]
     file: ./images/the-engine.png
     alt: "Diagram of the Lagado engine: a square frame of word-blocks with crank handles all around its edges."
     asset: "The Engine, from Gulliver's Travels, Part III"
@@ -25,6 +27,7 @@ credits:
     url: "https://commons.wikimedia.org/wiki/File:The_Engine_(Gulliver).png"
     licence: "Public domain"
   - id: grandville-scholar
+    on: [essay]
     file: ./images/grandville-scholar.jpg
     alt: "Engraving of a stern, balding scholar holding open a huge book covered in scribbled words, dated 1838."
     asset: "A professor and his book, Voyages de Gulliver (1838)"
@@ -33,6 +36,7 @@ credits:
     url: "https://gallica.bnf.fr/ark:/12148/btv1b86002890/f77.item"
     licence: "Public domain, non-commercial reuse (Gallica terms)"
   - id: grandville-word-machine
+    on: [essay, original]
     file: ./images/grandville-word-machine.webp
     alt: "Engraving of a machine: word-blocks reading RIEN and GLOIRE turn on rods driven by spiked wheels, gears and a crank."
     asset: "The word machine, Voyages de Gulliver (1838)"
@@ -43,6 +47,7 @@ credits:
   # The Engine as black ink on a transparent ground (prepared from the-engine.png), for the
   # home page card: no white backdrop shows while it grows into the page's texture.
   - id: engine-ink
+    on: [demo]
     file: ./images/engine-ink.png
     alt: "Diagram of the Lagado engine: a square frame of word-blocks with crank handles all around its edges."
     asset: "The Engine, from Gulliver's Travels, Part III (ink on a transparent ground)"
@@ -51,6 +56,7 @@ credits:
     licence: "Public domain"
   # The text on the "The original" page (original.mdx). Edition read on Wikisource, 2026-11-11.
   - id: swift-text
+    on: [original]
     asset: "Gulliver’s Travels, Part III, Chapter 5, in The Works of the Rev. Jonathan Swift, Vol. 6, ed. John Nichols (1801)"
     author: "Jonathan Swift"
     source: "Wikisource"
@@ -61,6 +67,7 @@ credits:
   # Licences read on each source page (OpenGameArt's licence field and the pack's licence file;
   # Freesound's licence box), 2026-11-11. Chosen by the author by ear (Checkpoint E).
   - id: sound-crank
+    on: [demo]
     sound: crank
     asset: "One die clicking (die-throw-1, trimmed and softened), from Casino Audio"
     author: "Kenney (kenney.nl)"
@@ -68,6 +75,7 @@ credits:
     url: "https://opengameart.org/content/54-casino-sound-effects-cards-dice-chips"
     licence: "CC0"
   - id: sound-shake
+    on: [demo]
     sound: shake
     asset: "Dice shaken in a cup (dice-shake-1, trimmed and softened), from Casino Audio"
     author: "Kenney (kenney.nl)"
@@ -75,6 +83,7 @@ credits:
     url: "https://opengameart.org/content/54-casino-sound-effects-cards-dice-chips"
     licence: "CC0"
   - id: sound-keep
+    on: [demo]
     sound: keep
     asset: "Traditional stamp (trimmed and softened)"
     author: "I.fekry"
@@ -84,6 +93,7 @@ credits:
   # The link-preview image (1200 × 627), made from design/previews/previews.html (ADR 007).
   # Chosen by the author on 2026-11-13; uses her drawing of Swift with her agreement.
   - id: lagado-preview
+    on: [demo, essay, original, making-of]
     file: ./images/preview.png
     alt: "The Lagado Engine. Write any book. No genius. No study. Just turn the cranks. Beside it, an ink drawing of Jonathan Swift on a cream plate."
     asset: "Link-preview image, with the ink drawing of Jonathan Swift"

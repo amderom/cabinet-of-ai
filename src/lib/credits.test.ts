@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { creditFor, creditProblems, uncreditedFiles, uncreditedSounds } from "./credits";
+import { creditFor, creditProblems, creditsFor, uncreditedFiles, uncreditedSounds } from "./credits";
 
 const credits = [
   { id: "the-engine", licence: "Public domain" },
@@ -54,6 +54,35 @@ describe("creditProblems", () => {
 
   it("reports an empty licence", () => {
     expect(creditProblems([{ id: "x", licence: " " }], [])).toEqual(['credit "x" has no licence']);
+  });
+
+  it("does not ask a cited source (a text the essay refers to) for a licence", () => {
+    expect(creditProblems([{ id: "zhao", cited: true }], [])).toEqual([]);
+  });
+
+  it("still asks every asset for a licence", () => {
+    expect(creditProblems([{ id: "x" }], [])).toEqual(['credit "x" has no licence']);
+  });
+});
+
+describe("creditsFor", () => {
+  const all = [
+    { id: "texture", licence: "PD", on: ["demo", "essay", "making-of"] },
+    { id: "plate", licence: "PD", on: ["demo"] },
+    { id: "zhao", cited: true, on: ["essay"] },
+    { id: "figure", licence: "PD", on: ["essay"] },
+  ];
+
+  it("keeps only what the page uses, assets and sources apart, in their order", () => {
+    const essay = creditsFor(all, "essay");
+    expect(essay.assets.map((c) => c.id)).toEqual(["texture", "figure"]);
+    expect(essay.sources.map((c) => c.id)).toEqual(["zhao"]);
+  });
+
+  it("gives the demo page none of the essay's", () => {
+    const demo = creditsFor(all, "demo");
+    expect(demo.assets.map((c) => c.id)).toEqual(["texture", "plate"]);
+    expect(demo.sources).toEqual([]);
   });
 });
 
