@@ -1,7 +1,7 @@
 ---
 /**
- * "The paper trail": the making-of's interlude (the author's idea, 2026-11-13). Four old books the
- * agent read, as stops on a timeline (1517, 1617, 1906, 1929). Each shows a crop of the real scan;
+ * "The paper trail": the making-of's interlude (the author's idea, 2026-11-13). Three old books the
+ * agent read, as stops on a timeline (1517, 1617, 1906; Peers 1929 removed at her word: not Latin). Each shows a crop of the real scan;
  * tap the Latin (or Catalan) phrase by phrase and each piece flips into Claude's English. Once all
  * are turned, the card says what that book gave the exhibit. Crops from the credited scans
  * (exhibit.yaml); translations as on the site. Without JavaScript, every phrase shows both sides.
@@ -81,28 +81,12 @@ const BOOKS: Book[] = [
     href: "/exhibits/llull/original/",
     link: "Read it",
   },
-  {
-    year: "1929",
-    where: "London",
-    what: "E. Allison Peers, Ramon Lull: A Biography, p. 322, note",
-    lang: "ca",
-    quote: "De la qual cosa axi lo sant Pare com los cardinals hagueren poca cura ne ansia.",
-    phrases: [
-      ["axi lo sant Pare com los cardinals", "The Holy Father and the cardinals alike"],
-      ["hagueren poca cura ne ansia", "had little care or concern"],
-      ["De la qual cosa", "for it."],
-    ],
-    note: "Not Latin: Catalan, from Llull’s early Life, quoted in a footnote. Page 322, not 321.",
-    gave: "Plate II, The Pitch to the Pope: five popes, from Peers’s pages.",
-    href: "/exhibits/llull/",
-    link: "See the plates",
-  },
 ];
 const langName = { la: "Latin", ca: "Catalan" };
 ---
 
 <div class="mo-trail">
-  <ol class="t-years" aria-label="Four old books">
+  <ol class="t-years" aria-label="Three old books">
     {
       BOOKS.map((b, i) => (
         <li>
@@ -180,7 +164,7 @@ const langName = { la: "Latin", ca: "Catalan" };
   .t-years {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -188,8 +172,8 @@ const langName = { la: "Latin", ca: "Catalan" };
   .t-years::before {
     content: "";
     position: absolute;
-    left: 12.5%;
-    right: 12.5%;
+    left: 16.6%;
+    right: 16.6%;
     top: 50%;
     border-top: 1px dashed var(--color-line);
   }

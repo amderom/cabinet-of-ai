@@ -63,7 +63,7 @@ The machine was new, though, and so were the difficulties. Here are three of the
 
 ## Interlude: The paper trail (her idea)
 
-Four stops on a timeline (1517 Lyon, 1617 Strasbourg, 1906 Quaracchi, 1929 London). Each shows a crop of the real scan; tap the Latin (Catalan for Peers's footnote) phrase by phrase and each piece flips into Claude's English; once all are turned, a note and what the book gave the site, with a link. Notes: "Two words, and a paper machine under them: three wheels, two of them turning." / "The long s looks like an f: “sciendum” is printed “ſciendum”." / "Latin puts the reasons first. English needs the “I” first." / "Not Latin: Catalan, from Llull’s early Life, quoted in a footnote. Page 322, not 321." Credit line: "Translations by Claude, from the scans credited below."
+Three stops on a timeline (1517 Lyon, 1617 Strasbourg, 1906 Quaracchi; the 1929 Peers stop removed at her word: Peers is not Latin). Each shows a crop of the real scan; tap the Latin (Catalan for Peers's footnote) phrase by phrase and each piece flips into Claude's English; once all are turned, a note and what the book gave the site, with a link. Notes: "Two words, and a paper machine under them: three wheels, two of them turning." / "The long s looks like an f: “sciendum” is printed “ſciendum”." / "Latin puts the reasons first. English needs the “I” first." / "Not Latin: Catalan, from Llull’s early Life, quoted in a footnote. Page 322, not 321." Credit line: "Translations by Claude, from the scans credited below."
 
 ## Who made what
 

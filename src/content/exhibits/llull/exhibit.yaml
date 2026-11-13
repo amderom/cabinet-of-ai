@@ -141,7 +141,7 @@ credits:
     licence: "Licence Ouverte / Etalab"
   # The facts and page numbers of plate II ("The Pitch to the Pope"), cited there as "Peers".
   - id: peers-biography
-    on: [demo, making-of]
+    on: [demo]
     asset: "E. Allison Peers, Ramon Lull: A Biography (London, SPCK, 1929), source of plate II"
     author: "E. Allison Peers"
     source: "Internet Archive"
