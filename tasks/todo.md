@@ -27,7 +27,7 @@
 - [x] ADR 008; docs/project.md Domain map (with her yes); README; journal
 **Dependencies:** T4 · **Estimated scope:** S
 
-## T6: Ship and MVP
-- [ ] PR preview checked on her phone; merge on her word; production checked
+## T6: Ship and MVP ✅
+- [x] PR preview checked on her phone; merge on her word; production checked
 - [ ] MVP declared; ask before deleting STARTUP.md
 **Dependencies:** T5 · **Estimated scope:** S
