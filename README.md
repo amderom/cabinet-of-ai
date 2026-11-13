@@ -6,12 +6,11 @@ A cabinet of curiosities of the historical prefigurations of artificial intellig
 
 ## Current state
 
-**Current phase:** Phase 1.3 (the home page as a vitrine of exhibit cards) built on draft PR amderom/cabinet-of-ai#12, in review; merging it reaches the MVP
+**Current phase:** MVP reached (Phase 1.3 merged on 2026-11-13); next: an About page, then the Llull exhibit
 **Target MVP:** end of Phase 1.3 (cabinet homepage + complete Lagado exhibit)
 
 What works today: the home page shows one tall card per exhibit, floating, read from the content (Lagado open; Llull and Hesse sealed). One tap on Lagado's card goes to the exhibit, its engraving growing into the page's background engraving; a mouse hovering a card lights a soft glow in its colour. Lagado has four parts with their own links: the demo, a word machine to crank by rows and columns on a phone (or a 6 × 6 square on desktop) with a folio to keep, edit and share lines, three draggable plates under the title and a scrolling parody banner; the author's essay with a prominent link to the published article; "The original", Swift's passage word for word from the 1801 edition on Wikisource; and the making-of. Sound is optional and off by default. Engravings are the common thread: each exhibit declares its images, sounds and texts once with their credits (the build refuses anything uncredited). Link previews show a designed image on LinkedIn. Decisions so far: [docs/adr/](./docs/adr/). Build journals: [cabinet](./docs/features/cabinet/journal.md), [Lagado](./docs/features/lagado/journal.md).
 
-> Full startup plan: see [STARTUP.md](./STARTUP.md)
 > Project compass, stack and architecture: see [docs/project.md](./docs/project.md)
 > Parked ideas: see [IDEAS.md](./IDEAS.md)
 
@@ -77,7 +76,6 @@ Logic inside demos (combinatorics, rules) is unit-tested with Vitest; pages and 
 ```
 cabinet-of-ai/
 ├── README.md
-├── STARTUP.md          ← temporary, deleted after MVP
 ├── IDEAS.md
 ├── AGENTS.md
 ├── CLAUDE.md

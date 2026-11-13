@@ -29,7 +29,7 @@ Design the cabinet with the author through a clickable prototype, then build it 
 
 ### Phase 4: Ship
 - [x] T5: Speed and browser checks, ADR 008, docs, journal
-- [ ] T6: PR, phone check, merge on her word; MVP; reminder to delete STARTUP.md
+- [x] T6: PR, phone check, merge on her word; MVP; reminder to delete STARTUP.md
 
 ## Risks and Mitigations
 
