@@ -1,8 +1,9 @@
-# Placeholder text. Sealed: no public pages yet.
+# TEMPORARY, BRANCH ONLY: "open" so the author can try the machine on the PR preview.
+# Must be set back to "sealed" before this branch is merged, unless the author says to open it (see the PR checklist).
 title: Llull's Ars Magna
 tagline: Placeholder tagline.
 accent: "#FF2D55"
-status: sealed
+status: open
 order: 2
-# Placeholder: check against a source when the exhibit is specified.
-year: "c. 1305"
+# Ars generalis ultima, written 1305-1308; Ars brevis, Pisa 1308 (SEP, "Ramon Llull"). Chosen by the author.
+year: "1308"

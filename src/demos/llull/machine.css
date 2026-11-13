@@ -1,0 +1,74 @@
+/* Llull's Art, "Orbit" look (chosen by the author, prototype v7, 2026-11-13). Uses the site's
+   tokens and scale (global.css): --color-accent (Llull's pink), --color-cream, --color-muted, fonts. */
+
+.llull {
+  --wheel-display: var(--font-display);
+  --wheel-mono: var(--font-mono);
+  --wheel-accent: var(--color-accent);
+  --rule: rgb(244 236 223 / 0.14);
+  color: var(--color-cream);
+}
+
+.llull-stage { display: grid; gap: 22px; }
+@media (min-width: 900px) {
+  .llull-stage { grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 56px; align-items: start; }
+  .llull-left { position: sticky; top: 24px; }
+  .llull-right { padding-top: 40px; }
+}
+.llull-left, .llull-right { display: grid; gap: 16px; min-width: 0; align-content: start; }
+
+/* The question: plain sans, so it never looks like the answer */
+.llull-question { display: grid; gap: 6px; }
+.llull-who, .llull-says, .llull-n {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.llull-who { color: var(--color-muted); }
+.llull-2026, .llull-says, .llull-n { color: var(--color-accent); }
+.llull-q { font-family: var(--font-sans); font-weight: 500; font-size: 21px; line-height: 1.25; text-wrap: balance; }
+
+/* The wheel: left edge of its ink lined up with the text (the island measures and pulls it) */
+.llull-wheel { display: grid; justify-items: start; cursor: pointer; }
+.llull-wheel canvas { display: block; width: min(100%, 300px); aspect-ratio: 1; }
+@media (min-width: 900px) { .llull-wheel canvas { width: min(100%, 540px, 58vh); } }
+
+.llull-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+.llull-ask, .llull-other { min-height: 48px; padding: 0 22px; border-radius: 999px; cursor: pointer; font: inherit; }
+.llull-ask { border: 0; background: var(--color-accent); color: #fff; font-weight: 600; box-shadow: 0 0 32px color-mix(in srgb, var(--color-accent) 45%, transparent); }
+.llull-ask:disabled { opacity: 0.5; cursor: default; box-shadow: none; }
+.llull-other { border: 1px solid var(--rule); background: none; color: inherit; }
+.llull-other:hover { border-color: var(--color-cream); }
+
+/* The answer, first */
+.llull-answer { display: grid; gap: 10px; opacity: 0; transform: translateY(6px); transition: opacity 0.45s, transform 0.45s; }
+.llull-answer.is-on { opacity: 1; transform: none; }
+.llull-verdict { font-family: var(--font-display); font-size: 44px; line-height: 1; text-wrap: balance; }
+@media (min-width: 900px) { .llull-verdict { font-size: 46px; } }
+.llull-source { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.05em; color: var(--color-muted); }
+.llull-share { display: flex; align-items: center; gap: 12px; }
+.llull-icon { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--rule); border-radius: 50%; background: none; color: inherit; cursor: pointer; }
+.llull-icon:hover { border-color: var(--color-cream); }
+.llull-icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.llull-toast { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); }
+
+/* Why */
+.llull-why { display: grid; gap: 16px; padding-top: 8px; }
+.llull-why h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: var(--text-quote); }
+.llull-reason { display: grid; gap: 4px; padding-left: 14px; border-left: 2px solid var(--color-accent); animation: llull-in 0.4s both; }
+.llull-plain { font-size: 17px; }
+.llull-words { font-family: var(--font-display); font-style: italic; font-size: 17px; color: var(--color-muted); }
+@keyframes llull-in { from { opacity: 0; transform: translateY(6px); } }
+
+/* How does the Art work? Its own band, well apart from the answer */
+.llull-how { margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--rule); display: grid; gap: 22px; }
+@media (min-width: 900px) { .llull-how { margin-top: 112px; } }
+.llull-how-intro { margin: 0; font-size: var(--text-small); color: var(--color-muted); }
+.llull-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 18px; }
+@media (min-width: 900px) { .llull-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; } }
+.llull-steps li { display: grid; gap: 4px; align-content: start; }
+.llull-steps b { font-weight: 600; font-size: var(--text-small); }
+.llull-steps li > span:last-child { font-size: 14px; color: rgb(244 236 223 / 0.72); }
+.llull-how-note { margin: 0; font-size: 13px; color: var(--color-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .llull-answer, .llull-reason { transition: none; animation: none; }
+}
