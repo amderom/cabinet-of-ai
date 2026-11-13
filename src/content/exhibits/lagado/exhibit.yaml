@@ -1,5 +1,7 @@
 title: The Lagado Engine
 tagline: Write any book. No genius. No study. Just turn the cranks.
+# The demo page's link-preview description (LinkedIn warns under 100 characters). Approved 2026-11-13.
+description: "Write any book. No genius. No study. Just turn the cranks. Swift’s word machine of 1726, rebuilt so you can play with it."
 accent: "#FF5F1F"
 status: open
 order: 1
