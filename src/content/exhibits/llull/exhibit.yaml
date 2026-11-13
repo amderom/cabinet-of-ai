@@ -1,7 +1,9 @@
 # TEMPORARY, BRANCH ONLY: "open" so the author can try the machine on the PR preview.
 # Must be set back to "sealed" before this branch is merged, unless the author says to open it (see the PR checklist).
 title: Llull's Ars Magna
-tagline: Placeholder tagline.
+tagline: Ask anything. Get the one true answer.
+# The demo page's link-preview description (LinkedIn warns under 100 characters). Draft, 2026-11-13: to approve.
+description: "Ask anything. Get the one true answer. Ramon Llull’s paper question machine of 1308, rebuilt so you can play with it."
 accent: "#FF2D55"
 status: open
 order: 2
@@ -166,7 +168,18 @@ credits:
     source: "Internet Archive"
     url: "https://archive.org/details/ramonlullbiograp0000eall"
     licence: "Public domain"
+  # The link-preview image (1200 × 627), made from design/previews/previews.html (ADR 007), same
+  # layout as Lagado's; uses her drawing of Llull.
+  - id: llull-preview
+    on: [demo, essay, original, making-of]
+    file: ./images/preview.png
+    alt: "Llull’s Ars Magna. Ask anything. Get the one true answer. Beside it, an ink drawing of Ramon Llull on a cream plate."
+    asset: "Link-preview image, with the ink drawing of Ramon Llull"
+    author: "Amélie Derome"
+    source: "The author"
+    licence: "All rights reserved"
 texture: quarta-figura
+preview: llull-preview
 card: quarta-figura-ink
 # Sticker and banner validated by the author at Checkpoint A (docs/features/llull/plates.md, 2026-11-13).
 sticker: Aligned since 1308
