@@ -18,21 +18,19 @@ Replace the placeholder home page (a plain list of exhibits) with the entrance t
 
 Round 1 (a literal cabinet: line drawing, monolith, engraving inside) was rejected: "very literal", "unfinished and unpolished", "doesn't match the vibe of the website, which is glow, engraving texture", and its Lagado-orange details "won't work for other exhibits". She wants it sleek and techie; it doesn't have to be a literal cabinet. Round 2 prototype: https://claude.ai/artifact/Gfk2Xj13NuZGfMskCgeYp6, direction **A · Specimens** chosen.
 
-**The cabinet is a vitrine of specimens** (a cabinet of curiosities as a metaphor, not furniture):
-- Under the big "Cabinet *of AI*" title, the exhibits **float as plates** in a glass case marked only by four small "+" corner marks (after DeepBook). Each plate drifts slowly and tilts a little.
-- **Every plate is the exhibit's own:** its engraving (the exhibit's `texture` image, inverted to light lines and tinted with its accent), its number and year, its title. **Sealed plates** show a static pattern in their own colour and a "Sealed" tag.
-- **Exhibit-neutral:** nothing site-level uses one exhibit's colour or motifs. The page glow is **cream** until a plate is chosen, then takes that exhibit's colour.
+**As built after Checkpoint B (four rounds on her phone and computer; details in ADR 008):**
+- Under the big "Cabinet *of AI*" title, **one tall card per exhibit** floats in an invisible case. Cards are the **"master" plates**: cream paper, black ink, mono labels, like the plates inside an exhibit; "Exhibit" and the year, the exhibit's engraving, its title, and a round button in its colour (arrow when open, lock when sealed). No numerals, no description, no corner marks.
+- **Exhibit-neutral:** no page glow at rest or on phones; a mouse hovering a card shows one very diffuse glow in that card's colour, centred behind it.
 
 ## Behaviour
 
-- **First tap brings a plate forward**: it moves to the middle, grows, stops drifting; the others blur and fade; the glow takes its colour; under it, the year and status, and for open exhibits an **"Enter the exhibit →"** button. Tapping the chosen plate again also enters. Tapping outside puts it back.
-- **Sealed plates** come forward too (so they can be seen), with "Opening later in the series" instead of a button; tapping again gives a small shake.
-- **Entering** goes to `/exhibits/<slug>/` with the existing view transition (the title morphs into the page title).
-- **Plates come from the content collection** (never a hard-coded list), in `order`; their places in the case are computed for any number of exhibits (tested up to six; beyond that, a later design question).
-- **Without JavaScript:** open plates are plain links straight to the exhibit; sealed plates are plain text. **Reduced motion:** no drifting, no movement when choosing.
-- **Sound:** silent by default; with the existing sound toggle on, choosing a plate plays a short sound (Checkpoint C).
-- **Below the case:** one line about the project, the LinkedIn link, and a small site-level credits spot (the site preview image; any sound).
-- **Speed on a mid-range phone:** the plates are plain HTML and CSS, visible before any script runs; animations move only position, rotation, scale and opacity; the small script only handles choosing.
+- **One tap on an open card enters** `/exhibits/<slug>/`: the card's engraving grows into the exhibit's background engraving (0.6s) while the title moves into the page title.
+- **Sealed cards** are not links: a tap shakes the card and shows "Opening later in the series" for two seconds.
+- **Cards come from the content collection** (never a hard-coded list), in `order`; their places in the case are computed for up to six exhibits.
+- **Without JavaScript:** open cards are plain links. **Reduced motion:** no drifting.
+- **Sound:** none on the home page (decided 2026-11-13: sound is off unless turned on inside an exhibit, and a tap leaves the page at once).
+- **Below the case:** one line about the project, the LinkedIn link, and a short credits line (the site preview image).
+- **Speed on a mid-range phone:** plain HTML and CSS, visible before any script runs; only position, rotation, scale and opacity animate.
 
 ## Tech Stack
 
@@ -95,7 +93,7 @@ export function specimensFrom(exhibits: ExhibitLike[]): Specimen[]
 1. **Checkpoint A — direction:** clickable prototype with the three directions; the author picks or mixes.
 1b. **Checkpoint A, round 2:** non-literal directions; Specimens chosen.
 2. **Checkpoint B — the cabinet on the site:** built into the home page with real plates from the content; checked on her phone.
-3. **Checkpoint C — sound and details:** opening/pulling sounds (if sound is on), credits spot, the line under the cabinet; optional new site preview image.
+3. **Checkpoint C — details:** credits line and the line under the case (done); no sound (see Behaviour); site preview image kept for now.
 4. **Checks, ADR 008, PR, merge on her word.** Then the MVP is reached: reminder to delete STARTUP.md (with her confirmation).
 
 ## Success Criteria
@@ -104,7 +102,7 @@ export function specimensFrom(exhibits: ExhibitLike[]): Specimen[]
 2. Llull and Hesse appear as sealed plates, from the content collection; nothing site-level uses one exhibit's colour.
 3. The author calls it bold and good-looking on her phone, and nothing in it looks vintage.
 4. Works with JavaScript off and with reduced motion; the cabinet stays open when coming back during a visit.
-5. Silent by default; sounds only with the toggle on; every asset credited on the home page.
+5. Silent; every asset credited (the home page's credits line; each exhibit lists its own).
 6. Home LCP < 2.5 s, CLS < 0.1; no sideways scroll, no external requests, no console errors; tests, `npm run check` and `npm run build` pass.
 7. ADR 008 written, journal current; PR approved on her phone and merged; MVP declared.
 
@@ -113,6 +111,6 @@ export function specimensFrom(exhibits: ExhibitLike[]): Specimen[]
 1. ~~Direction~~: Specimens (round 2, 2026-11-13).
 2. **Sound choice at the first gesture:** STARTUP.md asked for an "enter with sound / in silence" choice when the cabinet opens. Phase 1.2 replaced it with a small toggle. Keep the toggle only (recommended: one less step before playing), or ask at the cabinet?
 3. ~~Engraving of a cabinet~~: not needed; each plate carries its exhibit's own engraving. Llull's and Hesse's images come with their exhibits.
-4. **Site preview image:** redo it from the cabinet at the end, or keep the current one?
+4. **Site preview image:** kept for now (the Swift plate and two sealed plates already match the cards); can be redone later.
 
 Spec approved by the operator on 2026-11-13. Open questions 2–4 default to the recommendations until she says otherwise (toggle only; engraving if its licence checks out; site image decided at the end).

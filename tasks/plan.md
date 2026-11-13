@@ -21,11 +21,11 @@ Design the cabinet with the author through a clickable prototype, then build it 
 - [x] T1: Clickable prototype → Checkpoint A (round 2: Specimens chosen)
 
 ### Phase 2: Build (gated)
-- [ ] T2: Specimens from content and their places in the case (pure, tested)
-- [ ] T3: The vitrine on the home page, links first, then choosing → Checkpoint B
+- [x] T2: Specimens from content and their places in the case (pure, tested)
+- [x] T3: The vitrine on the home page, links first, then choosing → Checkpoint B
 
 ### Phase 3: Details (gated)
-- [ ] T4: Sounds, credits spot, line under the cabinet; engraving if used → Checkpoint C
+- [x] T4: Sounds, credits spot, line under the cabinet; engraving if used → Checkpoint C
 
 ### Phase 4: Ship
 - [ ] T5: Speed and browser checks, ADR 008, docs, journal
