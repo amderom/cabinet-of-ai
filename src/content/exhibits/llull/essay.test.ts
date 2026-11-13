@@ -8,7 +8,7 @@ const words = (s: string) =>
     .replace(/^---[\s\S]*?---/, "")
     .split("\n")
     .map((l) => l.replace(/^#+\s*/, "").replace(/\*([^*\n]+)\*/g, "$1").trim())
-    .filter((l) => l && !l.startsWith("import ") && !l.startsWith("<Figure") && !l.startsWith(">"));
+    .filter((l) => l && !l.startsWith("import ") && !l.startsWith("<Figure") && !l.startsWith("<PullQuote") && !l.startsWith(">"));
 
 describe("Llull's essay page", () => {
   it("has the author's words exactly, as in her draft (her title is the page title)", () => {
