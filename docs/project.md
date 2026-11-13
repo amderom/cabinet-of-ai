@@ -107,6 +107,7 @@ A static Astro site. Pages are plain HTML by default; interactive parts (each ex
 | URL | Content |
 |---|---|
 | `/` | The cabinet (homepage) |
+| `/about/` | About the project: who keeps the cabinet and why (black and white; the author's photo, credited) |
 | `/exhibits/<slug>/` | Demo + parody |
 | `/exhibits/<slug>/essay/` | Essay |
 | `/exhibits/<slug>/making-of/` | Making-of |
