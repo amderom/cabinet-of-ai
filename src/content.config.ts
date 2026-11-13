@@ -47,6 +47,8 @@ const exhibits = defineCollection({
         )
         .default([]),
       research: researchSchema.optional(),
+      /** Id of the credited image on the exhibit's card on the home page: black ink on a transparent ground (defaults to the texture). */
+      card: z.string().optional(),
       /** Id of the credited image used as the background texture. */
       texture: z.string().optional(),
       /** Id of the credited image that greets visitors on the landing page (shown from Part 2). */

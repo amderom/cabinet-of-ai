@@ -56,17 +56,10 @@ const preview = previewImage({ file: sitePreview, alt: SITE_PREVIEW_ALT }, "site
 </BaseLayout>
 
 <style>
-  /* The home page belongs to no exhibit: no glow at rest (near-black and grain); hovering a
-     card lights it in that exhibit's colour (vitrine.ts). Its deep tone follows that colour too,
-     instead of the exhibits' fixed dark orange. */
-  :global(body) {
-    --glow-deep: color-mix(in oklab, var(--color-accent) 22%, #070605);
-  }
-  :global(.glow) {
-    transition: opacity 0.6s;
-  }
-  :global(body:not([data-lit]) .glow) {
-    opacity: 0;
+  /* The home page belongs to no exhibit: no page glow (near-black and grain); each card
+     brings its own light, in its own colour (src/cabinet/vitrine.css). */
+  :global(.glow-frame) {
+    display: none;
   }
   .home {
     display: grid;

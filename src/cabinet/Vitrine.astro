@@ -2,9 +2,10 @@
 /**
  * The home page's vitrine: one tall card per exhibit, floating, read from the content
  * collection. Each card is the "master" of the plates inside its exhibit (same cream paper,
- * black ink, mono labels): its engraving, its title and its tagline as subtitle.
+ * black ink, mono labels): its year, its engraving, its title, and a round button in its colour.
  * One tap on an open card goes to the exhibit; its engraving grows into the exhibit page's
  * background engraving (shared view-transition name), and its title into the page title.
+ * Each card has its own halo in its colour, brighter on hover.
  * Chosen and refined with the author on 2026-11-13. See SPEC.md.
  */
 import { getCollection } from "astro:content";
@@ -17,16 +18,13 @@ const exhibits = await getCollection("exhibits");
 const cards = specimensFrom(exhibits);
 const { slots, caseHeight } = slotsFor(cards.length);
 
-// An open card shows its exhibit's engraving: the one its pages use as background texture.
-const art = new Map<string, { src: string; alt: string }>();
+// An open card shows its exhibit's card image (ink on a transparent ground), else its texture.
+const art = new Map<string, string>();
 for (const exhibit of exhibits) {
-  const id = exhibit.data.texture;
+  const id = exhibit.data.card ?? exhibit.data.texture;
   if (!id || exhibit.data.status !== "open") continue;
-  const credit = creditFor(exhibit.data.credits, id, exhibit.id);
-  if (credit.file) {
-    const image = await getImage({ src: credit.file, format: "webp", width: 480, quality: 70 });
-    art.set(exhibit.id, { src: image.src, alt: credit.alt ?? "" });
-  }
+  const file = creditFor(exhibit.data.credits, id, exhibit.id).file;
+  if (file) art.set(exhibit.id, (await getImage({ src: file, format: "avif", width: 440, quality: 55 })).src);
 }
 ---
 
@@ -44,25 +42,41 @@ for (const exhibit of exhibits) {
           </span>
           <span class="vt-pic">
             {picture ? (
-              <img src={picture.src} alt="" decoding="async" style={`view-transition-name: exhibit-art-${c.slug}; view-transition-class: exhibit-art`} />
+              <img src={picture} alt="" decoding="async" style={`view-transition-name: exhibit-art-${c.slug}; view-transition-class: exhibit-art`} />
             ) : (
               <span class="vt-stamp label">Sealed</span>
             )}
           </span>
-          <span class="vt-cap">
+          <span class="vt-foot">
             <span class="vt-t" transition:name={`exhibit-title-${c.slug}`}>{c.title}</span>
-            {!c.sealed && <span class="vt-sub">{c.tagline}</span>}
-            <span class="vt-status label" data-status>{c.sealed ? "Sealed" : "Enter →"}</span>
+            <span class="vt-go" aria-hidden="true">
+              {c.sealed ? (
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="11" width="14" height="9" rx="2" />
+                  <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              )}
+            </span>
           </span>
+          <span class="vt-note label" data-note aria-live="polite"></span>
         </>
       );
-      return c.href ? (
-        <a class="vt-card" href={c.href} style={style} data-accent={c.accent}>
-          {inner}
-        </a>
-      ) : (
-        <div class="vt-card vt-sealed" style={style} data-accent={c.accent} role="group" aria-label={`${c.title}: sealed, opening later in the series`}>
-          {inner}
+      return (
+        <div class="vt-slot" style={style}>
+          <span class="vt-halo" aria-hidden="true"></span>
+          {c.href ? (
+            <a class="vt-card" href={c.href} aria-label={`${c.title}, ${c.year ?? ""}: enter the exhibit`}>
+              {inner}
+            </a>
+          ) : (
+            <div class="vt-card vt-sealed" role="group" aria-label={`${c.title}: sealed, opening later in the series`}>
+              {inner}
+            </div>
+          )}
         </div>
       );
     })

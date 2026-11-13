@@ -560,3 +560,8 @@
 ::view-transition-new(*.exhibit-art) {
   animation-duration: 0.6s;
 }
+/* The texture is drawn with screen blending on the page; keep that while it grows in, so its
+   black ground never shows as a dark box. (The card's image is ink on a transparent ground.) */
+::view-transition-new(*.exhibit-art) {
+  mix-blend-mode: screen;
+}
