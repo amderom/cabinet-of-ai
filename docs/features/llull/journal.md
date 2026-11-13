@@ -125,3 +125,5 @@ Her brief: an intro not repeating Lagado's, the same number of points: (1) the c
 **Making-of, scene 2 rewritten** (her note: unclear, mixing how the Art works and the machine): now only what she asked the agent to research (a translation; the popes; the pitch itself) and her feedback (did the Pope really say yes? → "on paper").
 
 **Hours, not days** (her rule): the making-of counts hours, like Lagado's: about 3 (19:32, her first message about Llull, to 22:33, the last commit), to update when the exhibit is finished.
+
+**Scene 2, the checking** (her note: not "then say on paper", but the agent giving a link and her saying "okay, I checked, it's fine"): the agent now hands her Peers p. 360 and the 1906 scan, linked; she checks.

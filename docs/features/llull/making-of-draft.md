@@ -46,11 +46,12 @@ The machine was new, though, and so were the difficulties. Here are three of the
 - **me:** Then find out what happened to his pitch to the popes.
 - **agent:** Five popes, twenty-seven years. He asked for three colleges and got five.
 - **me:** Did the Pope really say yes?
-- **agent:** Checking again… A council decreed it in 1312. Whether the chairs ever opened, nobody knows.
-- **me:** Then say "on paper". And find me the pitch itself, in his words.
-- **agent:** Naples, 1294. Printed in full in 1906.
+- **agent:** A council decreed it in 1312. [Here's the page.](https://archive.org/details/ramonlullbiograp0000eall/page/360/mode/1up)
+- **me:** Okay, I checked. It's fine. Now find me the pitch itself, in his words.
+- **agent:** Naples, 1294, printed in full in 1906. [Here's the scan.](https://archive.org/details/bibliotecabiobib01colluoft/page/373/mode/1up)
+- **me:** Checked. It's fine.
 
-**Point:** With Swift, I was the specialist and the agent the assistant. With Llull, I sent the agent to the library with a reader's questions: is there a translation? What did the popes say? Did any of it work? It came back with editions from 1517, 1617 and 1906, a biography from 1929, page numbers, and a translation of the Latin. My part was to doubt the answers that sounded too neat: "three colleges, got five" was what a source said, not what history can prove, so the verdict became "Yes, on paper." Outsourcing research does not outsource doubt.
+**Point:** With Swift, I was the specialist and the agent the assistant. With Llull, I sent the agent to the library with a reader's questions: is there a translation? What did the popes say? Did any of it work? It came back with editions from 1517, 1617 and 1906, a biography from 1929, page numbers, and a translation of the Latin. My part: ask for the page, open it, and check. When an answer sounded too neat ("three colleges, got five"), the page said less, so the verdict became "Yes, on paper." Outsourcing research does not outsource doubt.
 
 ## 3 · The second time
 
