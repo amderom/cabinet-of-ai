@@ -160,7 +160,6 @@ Each demo is self-contained: it never imports another demo.
 ```
 cabinet-of-ai/
 ├── README.md
-├── STARTUP.md                  (temporary — removed after MVP)
 ├── IDEAS.md
 ├── AGENTS.md
 ├── CLAUDE.md

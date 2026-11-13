@@ -29,5 +29,5 @@
 
 ## T6: Ship and MVP ✅
 - [x] PR preview checked on her phone; merge on her word; production checked
-- [ ] MVP declared; ask before deleting STARTUP.md
+- [x] MVP declared; STARTUP.md deleted with the operator's confirmation
 **Dependencies:** T5 · **Estimated scope:** S

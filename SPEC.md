@@ -1,6 +1,6 @@
 # Spec: Phase 1.3 — The cabinet, as the homepage
 
-> Source: [STARTUP.md → Phase 1.3](./STARTUP.md#phase-13--the-cabinet-as-the-homepage).
+> Source: STARTUP.md → Phase 1.3 (deleted after the MVP; see git history).
 > Decision filter: [docs/project.md → Project compass](./docs/project.md#project-compass) ("Play first, read second", "Old ideas, 2026 craft", "Phone first") and [Design references](./docs/project.md#design-references) ("Vintage is content, never look"; "The homepage looks like an actual cabinet").
 > Branch: `feature/phase-1-3-cabinet`. Replaces the Phase 1.2 part 3 spec (kept in git history). **Reaching the end of this phase reaches the MVP.**
 

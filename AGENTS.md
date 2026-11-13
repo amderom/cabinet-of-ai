@@ -35,8 +35,9 @@ Read these for project context (in this order):
    any `/spec` or architecture decision. Every new feature should align with
    it; if alignment isn't clear, or a request falls out of scope, stop and
    clarify before specifying.
-2. **STARTUP.md** — **Temporary bootstrap document.** Contains the plan
-   from Phase 0 to MVP. Will be deleted once MVP is reached.
+2. ~~STARTUP.md~~ — the bootstrap plan from Phase 0 to MVP. **Deleted on
+   2026-11-13, MVP reached** (history in git). New work is feature-scoped:
+   see "Bootstrap vs post-MVP" below.
 3. **docs/project.md** (rest of the file) — Tech Stack, architecture,
    deployment workflow, constraints. **Source of truth for technical matters.**
 4. **README.md** — Current state, local setup, deployment workflow summary.
@@ -52,7 +53,6 @@ Read these for project context (in this order):
 ```
 cabinet-of-ai/
 ├── README.md                   Current state, setup
-├── STARTUP.md                  Bootstrap plan (TEMPORARY — delete after MVP)
 ├── IDEAS.md                    Parking lot for future ideas (English)
 ├── AGENTS.md                   This file
 ├── CLAUDE.md                   One-liner: @AGENTS.md (Claude Code compatibility)
