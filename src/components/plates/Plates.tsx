@@ -103,6 +103,8 @@ export default function Plates({ plates, year }: Props) {
   const areaRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const fingerRef = useRef<HTMLSpanElement>(null);
+  const rippleRef = useRef<HTMLSpanElement>(null);
   const [open, setOpen] = useState<number | null>(null);
   const [ready, setReady] = useState(false);
 
@@ -182,9 +184,81 @@ export default function Plates({ plates, year }: Props) {
         c.removeEventListener("pointercancel", cancel);
       };
     });
+    // The ghost finger (chosen by the author from a prototype, 2026-11-13: visitors didn't see the
+    // plates could be dragged and tapped). Once per visit, just after the deal, a faint finger
+    // presses the front plate, drags it a little, lets it go back, then taps it. Any touch on the page stops it;
+    // nothing with reduced motion. The plate's resting place is never changed.
+    const finger = fingerRef.current;
+    const ripple = rippleRef.current;
+    const front = cards[cards.length - 1];
+    const KEY = "cabinet-plates-demo";
+    const seen = () => {
+      try {
+        return sessionStorage.getItem(KEY) === "1";
+      } catch {
+        return false;
+      }
+    };
+    let demoOn = false;
+    let stopped = false;
+    const show = (c: HTMLButtonElement, x: number, y: number) => {
+      c.style.setProperty("--x", `${x}px`);
+      c.style.setProperty("--y", `${y}px`);
+    };
+    const stopDemo = () => {
+      stopped = true;
+      if (!demoOn) return;
+      demoOn = false;
+      finger?.getAnimations().forEach((a) => a.cancel());
+      if (finger) finger.style.opacity = "0";
+      front.classList.remove("pl-ease");
+      show(front, Number(front.dataset.x), Number(front.dataset.y));
+    };
+    const to = (x: number, y: number, scale: number, opacity: number, ms: number) =>
+      finger!.animate([{}, { transform: `translate(${x}px, ${y}px) scale(${scale})`, opacity }], { duration: ms, fill: "forwards", easing: "cubic-bezier(.3,.7,.3,1)" }).finished.then(() => !stopped);
+    const runDemo = async () => {
+      if (!finger || !ripple || stopped || seen() || front.dataset.moved) return;
+      try {
+        sessionStorage.setItem(KEY, "1");
+      } catch {
+        /* the demo simply plays again on the next page */
+      }
+      demoOn = true;
+      const sx = Number(front.dataset.x);
+      const sy = Number(front.dataset.y);
+      const cx = sx + front.offsetWidth * 0.5;
+      const cy = sy + front.offsetHeight * 0.45;
+      finger.style.transform = `translate(${cx + 40}px, ${cy + 60}px) scale(1.1)`;
+      front.style.zIndex = String(++top);
+      if (!(await to(cx, cy, 1.1, 0.95, 260))) return;
+      if (!(await to(cx, cy, 0.85, 0.95, 120))) return;
+      front.classList.add("pl-ease");
+      show(front, sx - 70, sy + 26);
+      if (!(await to(cx - 70, cy + 26, 0.85, 0.95, 450))) return;
+      show(front, sx, sy);
+      if (!(await to(cx - 70, cy + 26, 1.1, 0.6, 160))) return;
+      if (!(await to(cx, cy, 1.05, 0.95, 320))) return;
+      if (!(await to(cx, cy, 0.85, 0.95, 110))) return;
+      ripple.style.setProperty("--rx", `${cx}px`);
+      ripple.style.setProperty("--ry", `${cy}px`);
+      ripple.classList.remove("is-on");
+      void ripple.offsetWidth;
+      ripple.classList.add("is-on");
+      await to(cx, cy, 1.1, 0, 380);
+      front.classList.remove("pl-ease");
+      demoOn = false;
+    };
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const demoTimer = reduce ? 0 : window.setTimeout(runDemo, 250 + (cards.length - 1) * 140 + 650 + 800);
+    const onTouch = () => stopDemo();
+    window.addEventListener("pointerdown", onTouch, true);
+
     return () => {
       observer.disconnect();
       cleanups.forEach((f) => f());
+      window.clearTimeout(demoTimer);
+      window.removeEventListener("pointerdown", onTouch, true);
+      stopDemo();
     };
   }, [plates]);
 
@@ -240,6 +314,8 @@ export default function Plates({ plates, year }: Props) {
             </span>
           </button>
         ))}
+        <span ref={fingerRef} className="pl-finger" aria-hidden="true" />
+        <span ref={rippleRef} className="pl-ripple" aria-hidden="true" />
       </div>
       <p className="pl-hint">Drag the plates · tap to read</p>
 
