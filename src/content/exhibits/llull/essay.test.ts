@@ -2,12 +2,12 @@ import { describe, expect, it } from "vitest";
 import draft from "../../../../docs/features/llull/sources/essay-draft.md?raw";
 import page from "./essay.mdx?raw";
 
-/** The words only: no front matter, imports, figures, heading marks, blank lines. */
+/** The words only: no front matter, imports, figures, heading marks, italics marks, blank lines. */
 const words = (s: string) =>
   s
     .replace(/^---[\s\S]*?---/, "")
     .split("\n")
-    .map((l) => l.replace(/^#+\s*/, "").trim())
+    .map((l) => l.replace(/^#+\s*/, "").replace(/\*([^*\n]+)\*/g, "$1").trim())
     .filter((l) => l && !l.startsWith("import ") && !l.startsWith("<Figure") && !l.startsWith(">"));
 
 describe("Llull's essay page", () => {
