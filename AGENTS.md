@@ -130,6 +130,38 @@ When the user says `merge the PR` or `review and merge`:
 
 After merge, return to `main` and update it before starting a new task.
 
+### Code shape (non-negotiable)
+
+**One home per behaviour.** This applies to every change above a typo or a
+single line, with or without agent-skills, by one agent or several.
+- **Look before writing.** Search for the function, component, rule or recipe
+  that already does this. Extend it; do not write a sibling.
+- **A decision is written once.** When two places need the same decision (does
+  it apply, how many, in what order, what happens on failure), one function
+  makes it and both call it. A surface, provider or variant only declares what
+  differs for it, as data. Limits come from the registry, configuration or
+  contract that owns them, never from a literal.
+- **Shared piece first.** When work is split between agents, the shared
+  function or contract is written and agreed before the parallel slices start;
+  the slices plug into it.
+- **Shape check before "done".** A reader that did not write the code (a fresh
+  sub-agent, or yourself re-reading the whole diff when you work alone) answers
+  four questions with file and line: What is copied? What is a special case
+  keyed on a name? What breaks elsewhere if one place changes? How many places
+  must the next variant touch, and, when the project documents how to extend
+  that area, does the documentation say the same? Regroup what the answers
+  show, then state the result in one or two lines of the final report.
+- **Do not overshoot.** Similar-looking lines are not a duplicate; a duplicated
+  decision is. Never abstract for a single use or a guessed future. Do not
+  refactor code outside the change on your own.
+- **Always tell the owner what you saw next door.** A defect, a copy or a patch
+  noticed outside the change is never dropped silently: the final report names
+  it in plain words (what, where, what it risks, how big the fix is) and
+  proposes it as its own piece of work. If the change cannot be done properly
+  without fixing it, stop and say so before going on.
+- **Keep the documentation true.** When a change alters how an area is
+  extended, update the project documentation that explains it.
+
 ### STARTUP.md lifecycle (important)
 - STARTUP.md is **temporary** — it guides the bootstrap from Phase 0 to MVP
 - Once MVP is reached, **STARTUP.md should be deleted**
